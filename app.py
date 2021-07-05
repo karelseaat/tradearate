@@ -5,7 +5,7 @@ from flask_jwt_extended import create_access_token, create_refresh_token, jwt_re
 from oauthlib.oauth2 import WebApplicationClient
 import requests
 import datetime
-# from models import User, Message
+from models import User, Trade, App
 from config import make_session, GOOGLE_DISCOVERY_URL, GOOGLE_CLIENT_ID, GOOGLE_CLIENT_SECRET, SECRET_KEY
 from logging.handlers import RotatingFileHandler
 from google.oauth2 import id_token

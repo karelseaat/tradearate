@@ -10,14 +10,10 @@ GOOGLE_CLIENT_SECRET = "_uB_CVhw1Ax3q9vlqrs6oiXm"
 SECRET_KEY = "blaat123"
 GOOGLE_DISCOVERY_URL = ("https://accounts.google.com/.well-known/openid-configuration")
 
-# PREAMBLE = 'mysql+pymysql://'
-# CONNECTIONURI = 'newuser:sinterklaashaas@localhost/crateObottles'
-
-# PREAMBLE = 'sqlite:///'
-# CONNECTIONURI = "example.sqlite"
+CONNECTIONURI = "sqlite:///treetareet.sqlite"
 
 def make_session():
-    engine = create_engine('sqlite:///treetareet.sqlite', echo=False)
+    engine = create_engine(CONNECTIONURI, echo=False)
     dbsession = scoped_session(sessionmaker(bind=engine))
     Base.metadata.create_all(engine)
     return dbsession()
