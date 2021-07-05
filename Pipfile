@@ -12,6 +12,7 @@ google-auth = "*"
 sqlalchemy = "*"
 sqlalchemy-utils = "*"
 faker = "*"
+psutil = "*"
 
 [dev-packages]
 

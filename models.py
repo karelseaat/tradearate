@@ -28,39 +28,45 @@ class User(DictSerializableMixin):
     __tablename__ = 'users'
     id = Column(Integer, primary_key=True)
     nickname = Column(String(64), nullable=False)
-    trades = relationship('Trade', back_populates="user")
-    initiatortrades = relationship('Trade', back_populates="initiator")
-    joinertrades = relationship('Trade', back_populates="joiner")
+    reviews = relationship('Review', back_populates="user")
+    sub = Column(String(32), unique=True, nullable=False)
 
 class Trade(DictSerializableMixin):
     __tablename__ = 'trades'
     id = Column(Integer, primary_key=True)
 
-    initiator = relationship('User', back_populates="initiatortrades")
-    joiner = relationship('User', back_populates="joinertrades")
-
     initiator_id = Column(ForeignKey('users.id'), index=True)
     joiner_id = Column(ForeignKey('users.id'), index=True)
 
-    initiatorapp = relationship('App', back_populates="initiatortrades")
-    joinerapp = relationship('App', back_populates="joinertrades")
+    initiator = relationship('User', backref='initiatortrades', foreign_keys='Trade.initiator_id')
+    joiner = relationship('User', backref='joinertrades', foreign_keys='Trade.joiner_id')
 
     initiatorapp_id = Column(ForeignKey('apps.id'), index=True)
     joinerapp_id = Column(ForeignKey('apps.id'), index=True)
 
+    initiatorapp = relationship('App', backref='initiatortrades', foreign_keys='Trade.initiatorapp_id')
+    joinerapp = relationship('App', backref='joinertrades', foreign_keys='Trade.joinerapp_id')
+
     initiated = Column(Date, default=datetime.datetime.utcnow)
-    accepted = Column(Date, default=datetime.datetime.utcnow)
-    success = Column(Date, default=datetime.datetime.utcnow)
-    failure = Column(Date, default=datetime.datetime.utcnow)
+    accepted = Column(Date, nullable=True)
+    success = Column(Date, nullable=True)
+    failure = Column(Date, nullable=True)
 
 class App(DictSerializableMixin):
     __tablename__ = 'apps'
     id = Column(Integer, primary_key=True)
     name = Column(String(64), nullable=False)
     appidstring = Column(String(64), nullable=False)
-    initiatortrades = relationship('Trade', back_populates="initiatorapp")
-    joinertrades = relationship('Trade', back_populates="joinerapp")
+    reviews = relationship('Review', back_populates="app")
 
-class Reviews(DictSerializableMixin):
+
+class Review(DictSerializableMixin):
     __tablename__ = 'reviews'
     id = Column(Integer, primary_key=True)
+    app_id = Column(ForeignKey('apps.id'), index=True)
+    app = relationship('App', back_populates="reviews")
+    reviewtext = Column(String(64), nullable=True)
+    reviewrating = Column(Integer)
+
+    user_id = Column(ForeignKey('users.id'), index=True)
+    user = relationship('User', back_populates="reviews")

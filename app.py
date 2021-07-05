@@ -10,6 +10,7 @@ from config import make_session, GOOGLE_DISCOVERY_URL, GOOGLE_CLIENT_ID, GOOGLE_
 from logging.handlers import RotatingFileHandler
 from google.oauth2 import id_token
 from google.auth.transport import requests as googlerequest
+import psutil
 
 
 
@@ -22,9 +23,65 @@ app.config["JWT_SECRET_KEY"] = SECRET_KEY
 jwt = JWTManager(app)
 client = WebApplicationClient(GOOGLE_CLIENT_ID)
 
+def get_google_provider_cfg():
+    return requests.get(GOOGLE_DISCOVERY_URL).json()
+
 @app.route("/")
 def test():
     return "LOL !"
+
+#welke info hebben we nodig
+# 1 all uitstaande trades
+# 2 check de trade(s) die uitstaan waarin jij actief bent
+# 3 een enkele trade op basis van zn ID
+
+@app.route("/alltrades")
+@jwt_required()
+def allactivetrades():
+    data = {'message': 'no data', 'stats-cpu':psutil.cpu_percent(), 'stats-mem':psutil.virtual_memory()[2]}
+
+    try:
+        activetrades = app.session.query(Trade).all()
+        data['message'] = [i.as_dict() for i in activetrades]
+    except Exception as e:
+        app.session.rollback()
+        data['message'] = str(e)
+    app.session.close()
+
+    return jsonify(data)
+
+@app.route("/yourtrades")
+@jwt_required()
+def youractivetrades():
+    userid = get_jwt_identity()
+    data = {'message': 'no data', 'stats-cpu':psutil.cpu_percent(), 'stats-mem':psutil.virtual_memory()[2]}
+    try:
+        auser = app.session.query(User).filter(User.sub == str(userid)).first()
+        data['message']['initiations'] = [i.as_dict() for i in auser.initiatortrades]
+        data['message']['joinings'] = [i.as_dict() for i in auser.joinertrades]
+    except Exception as e:
+        app.session.rollback()
+        data['message'] = str(e)
+
+    app.session.close()
+    return jsonify(data)
+
+@app.route("/atrade")
+@jwt_required()
+def onetrade():
+    userid = get_jwt_identity()
+    data = {'message': 'no data', 'stats-cpu':psutil.cpu_percent(), 'stats-mem':psutil.virtual_memory()[2]}
+
+    if 'tradeid' in request.args:
+        tradeid = request.args.get('tradeid')
+        try:
+            data['message'] = app.session.query(Trade).filter(Trade.id == tradeid).first()
+        except Exception as e:
+            app.session.rollback()
+            data['message'] = str(e)
+
+        app.session.close()
+    return jsonify(data)
 
 @app.route("/customlogin", methods = ['POST'])
 def customlogin():
