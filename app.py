@@ -1,4 +1,4 @@
-from flask import Flask, jsonify, redirect, request, url_for
+from flask import Flask, jsonify, redirect, request, url_for, render_template
 
 from flask_jwt_extended import JWTManager
 from flask_jwt_extended import create_access_token, create_refresh_token, jwt_required ,get_jwt_identity
@@ -14,7 +14,10 @@ import psutil
 
 
 
-app = Flask(__name__)
+app = Flask(__name__,
+            static_url_path='/assets',
+            static_folder = "assets",
+            template_folder = "dist")
 app.session = make_session()
 app.secret_key = SECRET_KEY
 app.config["JWT_SECRET_KEY"] = SECRET_KEY
@@ -28,7 +31,17 @@ def get_google_provider_cfg():
 
 @app.route("/")
 def test():
-    return "LOL !"
+    return render_template('index.html.jinja')
+
+@app.route("/A")
+def nogiets():
+    return render_template('notindexa.html.jinja')
+
+@app.route("/B")
+def nogietsB():
+    return render_template('notindexb.html.jinja')
+
+
 
 #welke info hebben we nodig
 # 1 all uitstaande trades
