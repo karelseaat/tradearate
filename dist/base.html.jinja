@@ -12,27 +12,15 @@
       <title>Contact Us</title>
 
       <link rel="stylesheet" href="assets/css/cirrus.min.css" />
+      <link rel="stylesheet" href="assets/css/custom.css" />
 
 
-      <link
-          href="https://fonts.googleapis.com/css?family=Nunito+Sans:200,300,400,600,700"
-          rel="stylesheet"
-      />
-      <link
-          href="https://fonts.googleapis.com/css?family=Montserrat:400,700"
-          rel="stylesheet"
-      />
-      <link
-          href="https://fonts.googleapis.com/css?family=Oswald"
-          rel="stylesheet"
-      />
+      <link href="https://fonts.googleapis.com/css?family=Nunito+Sans:200,300,400,600,700" rel="stylesheet"/>
+      <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet"/>
+      <link href="https://fonts.googleapis.com/css?family=Oswald" rel="stylesheet"/>
 
-      <link
-          rel="stylesheet"
-          href="https://use.fontawesome.com/releases/v5.8.1/css/all.css"
-          integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf"
-          crossorigin="anonymous"
-      />
+      <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css"
+          integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous"/>
 
       <style>
           body {
@@ -97,9 +85,87 @@
   </head>
   {% endblock %}
 
+    <body>
+    {% block menu %}
+    <div class="header header-fixed unselectable header-animated">
+      <div class="header-brand">
+        <div class="nav-item no-hover">
+          <a>
+            <h6 class="title">Logo</h6>
+          </a>
+        </div>
+        <div class="nav-item nav-btn" id="header-btn">
+          <span></span>
+          <span></span>
+          <span></span>
+        </div>
+      </div>
+      <div class="header-nav" id="header-menu">
+        <div class="nav-left">
+          <div class="nav-item">
+            <a href="#">All trades</a>
+          </div>
+          <div class="nav-item">
+            <a href="#">Contact</a>
+          </div>
+          <!-- <div class="nav-item has-sub toggle-hover" id="dropdown">
+                            <a class="nav-dropdown-link">More</a>
+                            <ul class="dropdown-menu dropdown-animated" role="menu">
+                                <li role="menu-item"><a href="#">Our Story</a></li>
+                                <li role="menu-item"><a href="#">Our Mission</a></li>
+                                <li role="menu-item"><a href="#">The Team</a></li>
+                            </ul>
+                        </div> -->
+        </div>
 
+        <div class="nav-right">
+          <!-- <div class="form-group">
+                            <input type="search" class="form-group-input" placeholder="Search">
+                            <button class="form-group-btn">Go</button>
+                        </div> -->
+        </div>
+      </div>
+    </div>{% endblock %}
     {% block content %}{% endblock %}
 
+    <footer>
+      <div class="content">
+        <div class="divider"></div>
+        <!--<li class="no-bullets footer-list-title">Docs</li>-->
+        <div class="row">
+          <div class="col-3">
+            <ul class="no-bullets">
+              Aap
+              <ul>
+              </ul>
+            </ul>
+          </div>
+          <div class="col-3">
+            <ul class="no-bullets">
+Noot
+              <ul>
+              </ul>
+            </ul>
+          </div>
+          <div class="col-3">
+            <ul class="no-bullets">
+            Mies
+              <ul>
+              </ul>
+            </ul>
+          </div>
+          <div class="col-3">
+            <ul class="no-bullets">
+    Teun
+            </ul>
+          </div>
+        </div>
+      </div>
+      <p class="subtitle">The source code is licensed <a href="http://opensource.org/licenses/mit-license.php">MIT</a>. The website content is licensed <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a>.</p>
+      <p>Made with <i class="fa fa-heart pulse" aria-hidden="true"></i> by <a href="http://stanleylim.me" target="_blank">Stanley Lim</a>
+      </p>
+    </footer>
+  </body>
 
 {% block scripts %}
 <script src="https://cdn.jsdelivr.net/npm/umbrellajs"></script>

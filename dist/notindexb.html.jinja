@@ -3,72 +3,49 @@
 {% extends "base.html.jinja" %}
 
 {% block content %}
-    <body>
+<section class="padtop" id="additional">
+  <div class="content">
 
-        <div class="hero fullscreen">
-            <div class="row p-0">
-                <div class="col-6 p-0 level">
-                    <div class="u-text-left w-100">
-                        <div class="content">
-                            <h4>socialmediawebsite.com</h4>
-                            <h6 class="font-alt">We do not steal your data. 👌</h6>
 
-                            <div class="divider"></div>
-
-                            <div class="form-section">
-                                <label>Email</label>
-                                <div class="input-control">
-                                    <input class="input-contains-icon" id="email" name="email" placeholder="Email" type="text" value="">
-                                    <span class="icon">
-                                        <i class="far fa-wrapper fa-envelope-open small"></i>
-                                    </span>
-                                </div>
-                            </div>
-
-                            <div class="form-section">
-                                <label>Password</label>
-                                <div class="input-control">
-                                    <input class="input-contains-icon" id="password" name="password" placeholder="Password" type="password" value="">
-                                    <span class="icon">
-                                        <i class="fas fa-wrapper fa-key small"></i>
-                                    </span>
-                                </div>
-                            </div>
-
-                            <div class="form-ext-control form-ext-checkbox">
-                                <input id="check1" class="form-ext-input" type="checkbox">
-                                <label class="form-ext-label" for="check1">Remember Me</label>
-
-                                <div class="u-pull-right">
-                                    <a href="#">Forgot Password</a>
-                                </div>
-                            </div>
-
-                            <div class="form-section u-text-right">
-                                <div class="m-1 u-inline-block">
-                                    <button class="btn-info">
-                                        Login
-                                    </button>
-                                </div>
-                                <div class="m-1 u-inline-block">
-                                    <button class="btn-light">
-                                        Cancel
-                                    </button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-6 p-0">
-                    <div class="h-100" style="background: url(./login.jpg); background-size: cover; background-position: center; box-shadow: inset 5px 0px 9px 1px #00000017; min-height: 300px;">
-                    </div>
-                </div>
+    <div class="r">
+      <h6 class="font-alt">Menu Lists</h6>
+      <div class="row">
+        <div class="frame col-6">
+          <div class="frame__header">
+            <div class="tile level">
+              <div class="tile__icon">
+                <figure class="avatar"><img src="https://crunchbase-production-res.cloudinary.com/image/upload/c_thumb,h_256,w_256,f_auto,g_faces,z_0.7,q_auto:eco/v1398292826/a1tq244sp7uqhb5a0utg.png"></figure>
+              </div>
+              <div class="tile__container">
+                <p class="tile__title m-0">Richard Hendricks.</p>
+                <p class="tile__subtitle m-0">Founder and CEO of Pied Piper.</p>
+              </div>
             </div>
+          </div>
+          <div class="frame__body">
+            <ul class="menu">
+              <li class="divider"></li>
+              <li class="menu-item selected">
+                <div class="menu-addon right" id="menu-list-addon"><span class="icon"><i class="fa-wrapper fas fa-ellipsis-h small" aria-hidden="true"></i></span></div><a href="#">News Feed</a>
+              </li>
+              <li class="menu-item"><a href="#">Messenger</a></li>
+              <p class="menu-title uppercase">Shortcuts</p>
+              <li class="menu-item"><a href="#">Some App</a></li>
+            </ul>
+          </div>
         </div>
+      </div>
+    </div>
+    <button class="btn-primary">Approve</button>
+    <button class="btn-primary">Delete</button>
 
-        <!-- <script async src="../../../res/js/test.js"></script> -->
+    <div class="space"></div>
 
-        <!-- <script src="https://use.fontawesome.com/a696b91557.js"></script> -->
+    </div>
+  </div>
+</section>
+<!-- <script async src="../../../res/js/test.js"></script> -->
 
-    </body>
-    {% endblock %}
+<!-- <script src="https://use.fontawesome.com/a696b91557.js"></script> -->
+
+{% endblock %}
