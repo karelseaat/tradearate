@@ -41,6 +41,10 @@ def nogiets():
 def nogietsB():
     return render_template('notindexb.html.jinja')
 
+@app.route("/C")
+def nogietsC():
+    return render_template('indexX.html.jinja')
+
 
 
 #welke info hebben we nodig

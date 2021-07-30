@@ -5,3 +5,14 @@ footer {
     text-align: center;
     margin-top: 5rem;
 }
+
+.lolzor {
+  background-color: #fff;
+}
+
+table.beest tr td {
+  height: 80px;
+  width: 160px;
+  text-align: center;
+  vertical-align: middle;
+}
