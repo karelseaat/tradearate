@@ -5,14 +5,11 @@ name = "pypi"
 
 [packages]
 flask = "*"
-flask-jwt-extended = "*"
-oauthlib = "*"
-requests = "*"
-google-auth = "*"
 sqlalchemy = "*"
 sqlalchemy-utils = "*"
-faker = "*"
+authlib = "*"
 psutil = "*"
+requests = "*"
 
 [dev-packages]
 
