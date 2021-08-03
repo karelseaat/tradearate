@@ -1,19 +1,17 @@
 from flask import Flask, jsonify, redirect, request, url_for, render_template, session
 from authlib.integrations.flask_client import OAuth
-
+from config import make_session
 from models import User, Trade, App
 import psutil
-
-
-
 
 app = Flask(__name__,
             static_url_path='/assets',
             static_folder = "assets",
-            template_folder = "dist"
-        )
+            template_folder = "dist",
+            )
 
 app.secret_key = 'random secret'
+app.session = make_session()
 
 oauth = OAuth(app)
 google = oauth.register(
@@ -49,21 +47,55 @@ def authorize():
     session['user'] = user_info
     return redirect('/')
 
-@app.route("/")
+@app.route("/add")
 def test():
     return render_template('index.html.jinja')
 
-@app.route("/A")
-def nogiets():
-    return render_template('notindexa.html.jinja')
+@app.route("/processadd", methods = ['POST'])
+def nogietsZ():
+    return redirect('/')
 
-@app.route("/B")
+@app.route("/")
+def nogiets():
+    data = {'message': 'no data', 'stats-cpu':psutil.cpu_percent(), 'stats-mem':psutil.virtual_memory()[2]}
+    try:
+        activetrades = app.session.query(Trade).all()
+        data['message'] = activetrades
+        # data['message'] = [i._asdict() for i in activetrades]
+    except Exception as e:
+        app.session.rollback()
+        data['message'] = str(e)
+
+    for dat in activetrades:
+        print(dat.canjoin())
+
+
+    content = render_template('notindexa.html.jinja', data=data)
+
+    app.session.close()
+
+    return content
+
+@app.route("/show")
 def nogietsB():
+    data = {'message': 'no data', 'stats-cpu':psutil.cpu_percent(), 'stats-mem':psutil.virtual_memory()[2]}
+    try:
+        activetrades = app.session.query(Trade).get(1)
+        data['message'] = activetrades
+    except Exception as e:
+        app.session.rollback()
+        data['message'] = str(e)
+
+    print(data)
     return render_template('notindexb.html.jinja')
 
-@app.route("/C")
+@app.route("/join")
 def nogietsC():
     return render_template('indexX.html.jinja')
+
+@app.route("/processjoin", methods = ['POST'])
+def nogietsW():
+    return redirect('/')
 
 
 

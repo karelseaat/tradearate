@@ -29,7 +29,7 @@ class User(DictSerializableMixin):
     id = Column(Integer, primary_key=True)
     nickname = Column(String(64), nullable=False)
     reviews = relationship('Review', back_populates="user")
-    sub = Column(String(32), unique=True, nullable=False)
+    googleid = Column(Integer, nullable=False)
 
 class Trade(DictSerializableMixin):
     __tablename__ = 'trades'
@@ -51,6 +51,23 @@ class Trade(DictSerializableMixin):
     accepted = Column(Date, nullable=True)
     success = Column(Date, nullable=True)
     failure = Column(Date, nullable=True)
+
+    def status(self):
+        if self.failure:
+            return "failure"
+        elif self.success:
+            return "success"
+        elif self.accepted:
+            return "accepted"
+        else:
+            return "initiated"
+
+    def age(self):
+        currDate = datetime.datetime.now()
+        return (currDate.date() - self.initiated).days
+
+    def canjoin(self):
+        return not (self.success or self.failure or self.accepted)
 
 class App(DictSerializableMixin):
     __tablename__ = 'apps'

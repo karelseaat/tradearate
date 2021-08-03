@@ -22,46 +22,17 @@
           </thead>
 
           <tbody>
+            {% for my_item in data['message'] %}
             <tr>
-              <td>Koekie</td>
-              <td>Aap</td>
-              <td>1 dag</td>
-              <td>Ongepaired</td>
-              <td><button class="btn-primary btn-small" onclick="window.location.href='/C';">Join</button></td>
-              <td><button class="btn-primary btn-small" onclick="window.location.href='/B';">Open</button></td>
+              <td>{{my_item.initiatorapp.name}}</td>
+              <td>{{my_item.initiator.nickname}}</td>
+              <td>{{my_item.age()}} days</td>
+              <td>{{my_item.status()}}</td>
+              <td><button class="btn-primary btn-small" disabled="" onclick="window.location.href='/show';">Join</button></td>
+              <td><button class="btn-primary btn-small" onclick="window.location.href='/show';">Open</button></td>
             </tr>
-            <tr>
-              <td>Alpy</td>
-              <td>Noot</td>
-              <td>3 uur</td>
-              <td>Gepaired</td>
-              <td><button class="btn-primary btn-small" onclick="window.location.href='/C';">Join</button></td>
-              <td><button class="btn-primary btn-small" onclick="window.location.href='/B';">Open</button></td>
-            </tr>
-            <tr>
-              <td>Tanky</td>
-              <td>Mies</td>
-              <td>2 dagen</td>
-              <td>Gepaired</td>
-              <td><button class="btn-primary btn-small" onclick="window.location.href='/C';">Join</button></td>
-              <td><button class="btn-primary btn-small" onclick="window.location.href='/B';">Open</button></td>
-            </tr>
-            <tr>
-              <td>Soundbord</td>
-              <td>Bob</td>
-              <td>1 week</td>
-              <td>Ongepaired</td>
-              <td><button class="btn-primary btn-small" onclick="window.location.href='/C';">Join</button></td>
-              <td><button class="btn-primary btn-small" onclick="window.location.href='/B';">Open</button></td>
-            </tr>
-            <tr>
-              <td>Lulzor</td>
-              <td>Fucking paard</td>
-              <td>3 dagen</td>
-              <td>Geaccepteerd</td>
-              <td><button class="btn-primary btn-small" onclick="window.location.href='/C';">Join</button></td>
-              <td><button class="btn-primary btn-small" onclick="window.location.href='/B';">Open</button></td>
-            </tr>
+            {% endfor %}
+
           </tbody>
         </table>
         <button onclick="window.location.href='/';" class="btn-primary">Add</button>

@@ -10,10 +10,10 @@ import random
 
 from config import make_session, CONNECTIONURI
 
-print(CONNECTIONURI)
+
 if CONNECTIONURI and 'sqlite:///' in CONNECTIONURI:
-    # print()
-    os.remove(CONNECTIONURI.split('/')[-1])
+    if os.path.exists(CONNECTIONURI.split('/')[-1]):
+        os.remove(CONNECTIONURI.split('/')[-1])
 
 session = make_session()
 
@@ -25,6 +25,7 @@ def random_trade(trade):
 def random_user(user):
     faker = Faker()
     user.nickname = faker.name()
+    user.googleid = faker.random_int(0, 100000)
     return user
 
 def random_app(app):

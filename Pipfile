@@ -10,6 +10,7 @@ sqlalchemy-utils = "*"
 authlib = "*"
 psutil = "*"
 requests = "*"
+faker = "*"
 
 [dev-packages]
 
