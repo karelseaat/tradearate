@@ -3,6 +3,7 @@ from authlib.integrations.flask_client import OAuth
 from config import make_session
 from models import User, Trade, App
 import psutil
+import requests, json
 
 app = Flask(__name__,
             static_url_path='/assets',
@@ -49,10 +50,21 @@ def authorize():
 
 @app.route("/add")
 def test():
+
+
+
     return render_template('index.html.jinja')
 
 @app.route("/processadd", methods = ['POST'])
 def nogietsZ():
+
+    r = requests.get('https://api.cleantalk.org/?method_name=ip_info&ip=' + request.remote_addr)
+    rawjson = r.text.encode('ascii', 'ignore').decode()
+    klont = json.loads(rawjson)['data'][request.remote_addr]['country_code']
+
+    if klont:
+        # zet hiet inde database het land van de reviewer in de review uit de db
+
     return redirect('/')
 
 @app.route("/")

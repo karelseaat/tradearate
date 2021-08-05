@@ -47,6 +47,9 @@ class Trade(DictSerializableMixin):
     initiatorapp = relationship('App', backref='initiatortrades', foreign_keys='Trade.initiatorapp_id')
     joinerapp = relationship('App', backref='joinertrades', foreign_keys='Trade.joinerapp_id')
 
+    initiatorlang = Column(String(4), default="unk")
+    joinerlang = Column(String(4), default="unk")
+
     initiated = Column(Date, default=datetime.datetime.utcnow)
     accepted = Column(Date, nullable=True)
     success = Column(Date, nullable=True)
