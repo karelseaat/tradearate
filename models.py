@@ -27,9 +27,12 @@ class DictSerializableMixin(Base):
 class User(DictSerializableMixin):
     __tablename__ = 'users'
     id = Column(Integer, primary_key=True)
-    nickname = Column(String(64), nullable=False)
+    nickname = Column(String(64))
     reviews = relationship('Review', back_populates="user")
     googleid = Column(Integer, nullable=False)
+
+    def __init__(self, googleid):
+        self.googleid = googleid
 
 class Trade(DictSerializableMixin):
     __tablename__ = 'trades'
@@ -55,6 +58,17 @@ class Trade(DictSerializableMixin):
     success = Column(Date, nullable=True)
     failure = Column(Date, nullable=True)
 
+
+    def __init__(self, initiator=None, initiatorapp=None, initiatorlang=None):
+        if initiator:
+            self.initiator = initiator
+
+        if initiatorapp:
+            self.initiatorapp = initiatorapp
+
+        if initiatorlang:
+            self.initiatorlang = initiatorlang
+
     def status(self):
         if self.failure:
             return "failure"
@@ -78,6 +92,10 @@ class App(DictSerializableMixin):
     name = Column(String(64), nullable=False)
     appidstring = Column(String(64), nullable=False)
     reviews = relationship('Review', back_populates="app")
+
+    def __init__(self, name, idstring):
+        self.name = name
+        self.appidstring = idstring
 
 
 class Review(DictSerializableMixin):

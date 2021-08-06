@@ -4,6 +4,7 @@ from config import make_session
 from models import User, Trade, App
 import psutil
 import requests, json
+import google_play_scraper
 
 app = Flask(__name__,
             static_url_path='/assets',
@@ -58,12 +59,30 @@ def test():
 @app.route("/processadd", methods = ['POST'])
 def nogietsZ():
 
-    r = requests.get('https://api.cleantalk.org/?method_name=ip_info&ip=' + request.remote_addr)
+    r = requests.get('https://api.cleantalk.org/?method_name=ip_info&ip=' + "213.208.216.6")
+    # r = requests.get('https://api.cleantalk.org/?method_name=ip_info&ip=' + request.remote_addr)
     rawjson = r.text.encode('ascii', 'ignore').decode()
-    klont = json.loads(rawjson)['data'][request.remote_addr]['country_code']
+    # klont = json.loads(rawjson)['data'][request.remote_addr]['country_code']
+    klont = json.loads(rawjson)['data']["213.208.216.6"]['country_code']
 
-    if klont:
-        # zet hiet inde database het land van de reviewer in de review uit de db
+    appid = request.form.get('appid')
+    appobj = None
+    try:
+        appobj = google_play_scraper.app(appid)
+        # print(appobj)
+    except Exception as e:
+        print(e)
+
+    print(klont, appobj)
+    if klont and appobj:
+
+        user = User(2352526455556666666)
+        appmodel = App(appobj['title'], appid)
+        trade = Trade(user, appmodel, klont.lower())
+
+        app.session.add(trade)
+        app.session.commit()
+        app.session.close()
 
     return redirect('/')
 
@@ -73,15 +92,14 @@ def nogiets():
     try:
         activetrades = app.session.query(Trade).all()
         data['message'] = activetrades
-        # data['message'] = [i._asdict() for i in activetrades]
+        # for dat in activetrades:
+        #     print(dat.canjoin())
     except Exception as e:
         app.session.rollback()
         data['message'] = str(e)
 
-    for dat in activetrades:
-        print(dat.canjoin())
 
-
+    print(data)
     content = render_template('notindexa.html.jinja', data=data)
 
     app.session.close()

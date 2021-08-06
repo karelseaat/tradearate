@@ -24,9 +24,9 @@ def random_trade(trade):
 
 def random_user(user):
     faker = Faker()
-    user.nickname = faker.name()
-    user.googleid = faker.random_int(0, 100000)
-    return user
+    initiateduser = user(faker.random_int(0, 100000))
+    initiateduser.nickname = faker.name()
+    return initiateduser
 
 def random_app(app):
     faker = Faker()
@@ -52,11 +52,11 @@ session = make_session()
 for _ in range(10):
     atrade = random_trade(Trade())
 
-    atrade.initiator = random_user(User())
-    atrade.joiner = random_user(User())
+    atrade.initiator = random_user(User)
+    atrade.joiner = random_user(User)
 
-    appa = App()
-    appb = App()
+    appa = App("test", "nogtest")
+    appb = App("niettest", "Klont")
 
     for _ in range(10):
 

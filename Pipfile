@@ -11,6 +11,7 @@ authlib = "*"
 psutil = "*"
 requests = "*"
 faker = "*"
+google-play-scraper = "*"
 
 [dev-packages]
 
