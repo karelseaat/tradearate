@@ -16,3 +16,13 @@ table.beest tr td {
   text-align: center;
   vertical-align: middle;
 }
+
+ul .menu-item p {
+  /* padding: 0; */
+  padding: .5em .55em;
+}
+
+.framepadding {
+  margin-right: 20px;
+  margin-bottom: 20px;
+}

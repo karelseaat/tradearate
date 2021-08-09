@@ -10,7 +10,7 @@
     <div class="r">
       <h6 class="font-alt">Menu Lists</h6>
       <div class="row">
-        <div class="frame col-6">
+        <div class="frame col-10 framepadding">
           <div class="frame__header">
             <div class="tile level">
               <div class="tile__icon">
@@ -29,8 +29,35 @@
                 <div class="menu-addon right" id="menu-list-addon"><span class="icon"><i class="fa-wrapper fas fa-ellipsis-h small" aria-hidden="true"></i></span></div><a href="#">News Feed</a>
               </li>
               <li class="menu-item"><a href="#">Messenger</a></li>
-              <p class="menu-title uppercase">Shortcuts</p>
+              <li class="menu-item"><p class="uppercase">Shortcuts</p></li>
               <li class="menu-item"><a href="#">Some App</a></li>
+              <li>{{ data.message.id }}</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="frame col-10 framepadding">
+          <div class="frame__header">
+            <div class="tile level">
+              <div class="tile__icon">
+                <figure class="avatar"><img src="https://crunchbase-production-res.cloudinary.com/image/upload/c_thumb,h_256,w_256,f_auto,g_faces,z_0.7,q_auto:eco/v1398292826/a1tq244sp7uqhb5a0utg.png"></figure>
+              </div>
+              <div class="tile__container">
+                <p class="tile__title m-0">Richard Hendricks.</p>
+                <p class="tile__subtitle m-0">Founder and CEO of Pied Piper.</p>
+              </div>
+            </div>
+          </div>
+          <div class="frame__body">
+            <ul class="menu">
+              <li class="divider"></li>
+              <li class="menu-item selected">
+                <div class="menu-addon right" id="menu-list-addon"><span class="icon"><i class="fa-wrapper fas fa-ellipsis-h small" aria-hidden="true"></i></span></div><a href="#">News Feed</a>
+              </li>
+              <li class="menu-item"><a href="#">Messenger</a></li>
+              <li class="menu-item"><p class="uppercase">Shortcuts</p></li>
+              <li class="menu-item"><a href="#">Some App</a></li>
+              <li>{{ data.message.id }}</li>
             </ul>
           </div>
         </div>

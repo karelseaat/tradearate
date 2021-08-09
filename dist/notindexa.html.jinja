@@ -28,14 +28,14 @@
               <td>{{my_item.initiator.nickname}}</td>
               <td>{{my_item.age()}} days</td>
               <td>{{my_item.status()}}</td>
-              <td><button class="btn-primary btn-small" disabled="" onclick="window.location.href='/show';">Join</button></td>
-              <td><button class="btn-primary btn-small" onclick="window.location.href='/show';">Open</button></td>
+              <td><button class="btn-primary btn-small"  {% if not my_item.canjoin() %} disabled {% endif%} onclick="window.location.href='/join?tradeid={{ my_item.id }}';">Join</button></td>
+              <td><button class="btn-primary btn-small" onclick="window.location.href='/show?tradeid={{ my_item.id }}';">Open</button></td>
             </tr>
             {% endfor %}
 
           </tbody>
         </table>
-        <button onclick="window.location.href='/';" class="btn-primary">Add</button>
+        <button onclick="window.location.href='/add';" class="btn-primary">Add</button>
       </div>
     </div>
   </div>

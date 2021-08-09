@@ -79,6 +79,9 @@ class Trade(DictSerializableMixin):
         else:
             return "initiated"
 
+    def set_accepted(self):
+        self.accepted = datetime.datetime.now().date()
+
     def age(self):
         currDate = datetime.datetime.now()
         return (currDate.date() - self.initiated).days

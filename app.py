@@ -52,28 +52,32 @@ def authorize():
 @app.route("/add")
 def test():
 
-
-
     return render_template('index.html.jinja')
+
+def get_country_by_ip(ip):
+    r = requests.get('https://api.cleantalk.org/?method_name=ip_info&ip=' + ip)
+    rawjson = r.text.encode('ascii', 'ignore').decode()
+    return json.loads(rawjson)['data'][ip]['country_code']
+
+def get_app_from_store(appid):
+    appobj = None
+    try:
+        appobj = google_play_scraper.app(appid)
+    except Exception as e:
+        print(e)
+
+    return appobj
 
 @app.route("/processadd", methods = ['POST'])
 def nogietsZ():
 
-    r = requests.get('https://api.cleantalk.org/?method_name=ip_info&ip=' + "213.208.216.6")
-    # r = requests.get('https://api.cleantalk.org/?method_name=ip_info&ip=' + request.remote_addr)
-    rawjson = r.text.encode('ascii', 'ignore').decode()
-    # klont = json.loads(rawjson)['data'][request.remote_addr]['country_code']
-    klont = json.loads(rawjson)['data']["213.208.216.6"]['country_code']
+
+# klont = get_country_by_ip(request.remote_addr)
+    klont = get_country_by_ip("213.208.216.6")
 
     appid = request.form.get('appid')
-    appobj = None
-    try:
-        appobj = google_play_scraper.app(appid)
-        # print(appobj)
-    except Exception as e:
-        print(e)
+    appobj = get_app_from_store(appid)
 
-    print(klont, appobj)
     if klont and appobj:
 
         user = User(2352526455556666666)
@@ -84,7 +88,9 @@ def nogietsZ():
         app.session.commit()
         app.session.close()
 
-    return redirect('/')
+        return redirect('/')
+    else:
+        redirect('/add')
 
 @app.route("/")
 def nogiets():
@@ -92,14 +98,12 @@ def nogiets():
     try:
         activetrades = app.session.query(Trade).all()
         data['message'] = activetrades
-        # for dat in activetrades:
-        #     print(dat.canjoin())
+
     except Exception as e:
         app.session.rollback()
         data['message'] = str(e)
 
 
-    print(data)
     content = render_template('notindexa.html.jinja', data=data)
 
     app.session.close()
@@ -109,23 +113,55 @@ def nogiets():
 @app.route("/show")
 def nogietsB():
     data = {'message': 'no data', 'stats-cpu':psutil.cpu_percent(), 'stats-mem':psutil.virtual_memory()[2]}
+    tradeid = request.args.get('tradeid')
+
+    # wat willen we zien in de join pagina
+    # creator: image van google, creator nickname, creator app name en plaatje, link to creator app in store, creator language
+    # acceptor image van google, acceptock nick, acceptor app name plaatje link to app in store, acceptor language
+
     try:
-        activetrades = app.session.query(Trade).get(1)
-        data['message'] = activetrades
+        thetrade = app.session.query(Trade).get(int(tradeid))
+        data['message'] = thetrade
     except Exception as e:
         app.session.rollback()
         data['message'] = str(e)
 
-    print(data)
-    return render_template('notindexb.html.jinja')
+
+    app.session.close()
+    return render_template('notindexb.html.jinja', data=data)
 
 @app.route("/join")
 def nogietsC():
-    return render_template('indexX.html.jinja')
+    tradeid = request.args.get('tradeid')
+
+    return render_template('indexX.html.jinja', tradeid=tradeid)
 
 @app.route("/processjoin", methods = ['POST'])
 def nogietsW():
-    return redirect('/')
+    klont = get_country_by_ip("213.208.216.6")
+
+    appid = request.form.get('appid')
+    tradeid = request.form.get('tradeid')
+    appobj = get_app_from_store(appid)
+
+    if klont and appobj:
+
+        user = User(39846723983375)
+        appmodel = App(appobj['title'], appid)
+        trade = app.session.query(Trade).get(int(tradeid))
+
+        trade.set_accepted()
+        trade.joiner = user
+        trade.joinerapp = appmodel
+        trade.joinerlang = klont.lower()
+
+        app.session.add(trade)
+        app.session.commit()
+        app.session.close()
+
+        return redirect('/')
+    else:
+        redirect('/join')
 
 
 
