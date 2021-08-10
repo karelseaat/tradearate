@@ -19,10 +19,24 @@ table.beest tr td {
 
 ul .menu-item p {
   /* padding: 0; */
-  padding: .5em .55em;
+  /* padding: .5em .55em; */
 }
 
 .framepadding {
   margin-right: 20px;
   margin-bottom: 20px;
+}
+
+ul .menu-item a {
+  display: contents;
+  float: left;
+}
+
+ul .menu-item p {
+  display: contents;
+  float: left;
+}
+
+ul .menu-item img {
+  float: right;
 }

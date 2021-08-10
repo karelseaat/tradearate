@@ -20,12 +20,16 @@ session = make_session()
 def random_trade(trade):
     faker = Faker()
 
+    if bool(faker.random_int(0, 1)):
+        trade.set_accepted()
+
     return trade
 
 def random_user(user):
     faker = Faker()
     initiateduser = user(faker.random_int(0, 100000))
-    initiateduser.nickname = faker.name()
+    initiateduser.fullname = faker.name()
+    initiateduser.picture = faker.name()
     return initiateduser
 
 def random_app(app):
@@ -57,6 +61,8 @@ for _ in range(10):
 
     appa = App("test", "nogtest")
     appb = App("niettest", "Klont")
+
+
 
     for _ in range(10):
 

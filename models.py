@@ -27,7 +27,8 @@ class DictSerializableMixin(Base):
 class User(DictSerializableMixin):
     __tablename__ = 'users'
     id = Column(Integer, primary_key=True)
-    nickname = Column(String(64))
+    fullname = Column(String(64))
+    picture = Column(String(256))
     reviews = relationship('Review', back_populates="user")
     googleid = Column(Integer, nullable=False)
 
@@ -95,10 +96,14 @@ class App(DictSerializableMixin):
     name = Column(String(64), nullable=False)
     appidstring = Column(String(64), nullable=False)
     reviews = relationship('Review', back_populates="app")
+    imageurl = Column(String(256))
 
     def __init__(self, name, idstring):
         self.name = name
         self.appidstring = idstring
+
+    def get_url(self):
+        return "https://play.google.com/store/apps/details?id=" + self.appidstring
 
 
 class Review(DictSerializableMixin):

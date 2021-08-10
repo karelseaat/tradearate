@@ -5,33 +5,24 @@
 {% block content %}
 <section class="padtop" id="additional">
   <div class="content">
-
-
     <div class="r">
       <h6 class="font-alt">Menu Lists</h6>
       <div class="row">
+
         <div class="frame col-10 framepadding">
           <div class="frame__header">
             <div class="tile level">
-              <div class="tile__icon">
-                <figure class="avatar"><img src="https://crunchbase-production-res.cloudinary.com/image/upload/c_thumb,h_256,w_256,f_auto,g_faces,z_0.7,q_auto:eco/v1398292826/a1tq244sp7uqhb5a0utg.png"></figure>
-              </div>
               <div class="tile__container">
-                <p class="tile__title m-0">Richard Hendricks.</p>
-                <p class="tile__subtitle m-0">Founder and CEO of Pied Piper.</p>
+                <p class="tile__title m-0">Trade Status</p>
               </div>
             </div>
           </div>
           <div class="frame__body">
             <ul class="menu">
-              <li class="divider"></li>
-              <li class="menu-item selected">
-                <div class="menu-addon right" id="menu-list-addon"><span class="icon"><i class="fa-wrapper fas fa-ellipsis-h small" aria-hidden="true"></i></span></div><a href="#">News Feed</a>
-              </li>
-              <li class="menu-item"><a href="#">Messenger</a></li>
-              <li class="menu-item"><p class="uppercase">Shortcuts</p></li>
-              <li class="menu-item"><a href="#">Some App</a></li>
-              <li>{{ data.message.id }}</li>
+              Info in the status: age of the trade (hoe lang die al bestaat), accepted = of die al 2 partijen heeft
+              als er accepted is dan is de accepted in de db een datum, in dat geval heb je altijd een x aantal dagn vanaf de accepted datum tot aan de deadline.
+              success of die gelukt is en bijde partijen een review hebben gedaan
+              failure of een van de 2 partijen niet binnne de tijd een review heeeft gedaan !
             </ul>
           </div>
         </div>
@@ -40,39 +31,53 @@
           <div class="frame__header">
             <div class="tile level">
               <div class="tile__icon">
-                <figure class="avatar"><img src="https://crunchbase-production-res.cloudinary.com/image/upload/c_thumb,h_256,w_256,f_auto,g_faces,z_0.7,q_auto:eco/v1398292826/a1tq244sp7uqhb5a0utg.png"></figure>
+                <figure class="avatar"><img src="{{ data.message.initiator.picture }}"></figure>
               </div>
               <div class="tile__container">
-                <p class="tile__title m-0">Richard Hendricks.</p>
-                <p class="tile__subtitle m-0">Founder and CEO of Pied Piper.</p>
+                <p class="tile__title m-0">{{ data.message.initiator.fullname }}</p>
               </div>
             </div>
           </div>
           <div class="frame__body">
             <ul class="menu">
               <li class="divider"></li>
-              <li class="menu-item selected">
-                <div class="menu-addon right" id="menu-list-addon"><span class="icon"><i class="fa-wrapper fas fa-ellipsis-h small" aria-hidden="true"></i></span></div><a href="#">News Feed</a>
+              <li class="menu-item"><p>App:</p><a href="{{ data.message.initiatorapp.get_url() }}">{{ data.message.initiatorapp.name }}</a><img src="{{ data.message.initiator.picture }}"></li>
+              <li class="menu-item">
+                <p>Lang:</p><p>{{ data.message.initiatorlang }}</p>
               </li>
-              <li class="menu-item"><a href="#">Messenger</a></li>
-              <li class="menu-item"><p class="uppercase">Shortcuts</p></li>
-              <li class="menu-item"><a href="#">Some App</a></li>
-              <li>{{ data.message.id }}</li>
             </ul>
           </div>
         </div>
+
+        <div class="frame col-10 framepadding">
+          <div class="frame__header">
+            <div class="tile level">
+              <div class="tile__icon">
+                <figure class="avatar"><img src="{{ data.message.joiner.picture }}"></figure>
+              </div>
+              <div class="tile__container">
+                <p class="tile__title m-0">{{ data.message.joiner.fullname }}</p>
+              </div>
+            </div>
+          </div>
+          <div class="frame__body">
+            <ul class="menu">
+              <li class="divider"></li>
+              <li class="menu-item"><p>App:</p><a href="{{ data.message.joinerapp.get_url() }}">{{ data.message.joinerapp.name }}</a><img src="{{ data.message.joiner.picture }}"></li>
+              <li class="menu-item">
+                <p>Lang:</p><p>{{ data.message.joinerlang }}</p>
+              </li>
+            </ul>
+          </div>
+        </div>
+
       </div>
     </div>
-    <button class="btn-primary">Approve</button>
-    <button class="btn-primary">Delete</button>
+    <button class="btn-primary btn-small"  {% if not data.message.canjoin() %} disabled {% endif%} onclick="window.location.href='/join?tradeid={{ data.message.id }}';">Join</button>
 
     <div class="space"></div>
-
-    </div>
+  </div>
   </div>
 </section>
-<!-- <script async src="../../../res/js/test.js"></script> -->
-
-<!-- <script src="https://use.fontawesome.com/a696b91557.js"></script> -->
 
 {% endblock %}

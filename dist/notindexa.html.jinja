@@ -16,7 +16,6 @@
               <th><abbr title="Title3">Start User</abbr></th>
               <th><abbr title="Title4">Age</abbr></th>
               <th><abbr title="Title5">Status</abbr></th>
-              <th><abbr title="Title5">Join</abbr></th>
               <th><abbr title="Title5">Open</abbr></th>
             </tr>
           </thead>
@@ -28,7 +27,7 @@
               <td>{{my_item.initiator.nickname}}</td>
               <td>{{my_item.age()}} days</td>
               <td>{{my_item.status()}}</td>
-              <td><button class="btn-primary btn-small"  {% if not my_item.canjoin() %} disabled {% endif%} onclick="window.location.href='/join?tradeid={{ my_item.id }}';">Join</button></td>
+
               <td><button class="btn-primary btn-small" onclick="window.location.href='/show?tradeid={{ my_item.id }}';">Open</button></td>
             </tr>
             {% endfor %}

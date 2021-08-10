@@ -43,9 +43,22 @@ def authorize():
     token = google.authorize_access_token()
     resp = google.get('userinfo')
     user_info = resp.json()
-    print(user_info)
-    # do something with the token and profile
-    # session['email'] = user_info['email']
+
+    user = None
+    try:
+        user = app.session.query(User).filter(User.googleid == user_info['id']).first()
+    except Exception as e:
+        app.session.rollback()
+        print(e)
+
+    if not user:
+        user = User(user_info['id'])
+        user.fullname = user_info['name']
+        user.picture = user_info['picture']
+        app.session.add(user)
+        app.session.commit()
+
+    app.session.close()
     session['user'] = user_info
     return redirect('/')
 
@@ -78,10 +91,13 @@ def nogietsZ():
     appid = request.form.get('appid')
     appobj = get_app_from_store(appid)
 
+    print(appobj)
+
     if klont and appobj:
 
         user = User(2352526455556666666)
         appmodel = App(appobj['title'], appid)
+        appmodel.imageurl = appobj['icon']
         trade = Trade(user, appmodel, klont.lower())
 
         app.session.add(trade)
@@ -126,9 +142,13 @@ def nogietsB():
         app.session.rollback()
         data['message'] = str(e)
 
+    print(data)
+
+    content =  render_template('notindexb.html.jinja', data=data)
 
     app.session.close()
-    return render_template('notindexb.html.jinja', data=data)
+
+    return content
 
 @app.route("/join")
 def nogietsC():
