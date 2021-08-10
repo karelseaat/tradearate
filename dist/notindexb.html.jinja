@@ -23,6 +23,10 @@
               als er accepted is dan is de accepted in de db een datum, in dat geval heb je altijd een x aantal dagn vanaf de accepted datum tot aan de deadline.
               success of die gelukt is en bijde partijen een review hebben gedaan
               failure of een van de 2 partijen niet binnne de tijd een review heeeft gedaan !
+              <li class="menu-item"> <p> day since item start: </p> <p>{{ data.message.age() }}</p> </li>
+              <li class="menu-item"> <p> Days since trade acception: </p>{{ data.message.accept_age() }} </li>
+              <li class="menu-item"> <p>Status: </p><p>{{ data.message.status() }} </p> </li>
+              <li class="menu-item"> <p>days left until reviews should be done: </p><p>{{ data.message.trade_days_left() }} </p> </li>
             </ul>
           </div>
         </div>

@@ -83,9 +83,18 @@ class Trade(DictSerializableMixin):
     def set_accepted(self):
         self.accepted = datetime.datetime.now().date()
 
+    def trade_days_left(self):
+        currDate = datetime.datetime.now() + datetime.timedelta(days=10)
+        return (currDate.date() - self.accepted).days
+
     def age(self):
         currDate = datetime.datetime.now()
         return (currDate.date() - self.initiated).days
+
+    def accept_age(self):
+        currDate = datetime.datetime.now()
+        return (currDate.date() - self.accepted).days
+
 
     def canjoin(self):
         return not (self.success or self.failure or self.accepted)
