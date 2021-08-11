@@ -19,10 +19,6 @@
           </div>
           <div class="frame__body">
             <ul class="menu">
-              Info in the status: age of the trade (hoe lang die al bestaat), accepted = of die al 2 partijen heeft
-              als er accepted is dan is de accepted in de db een datum, in dat geval heb je altijd een x aantal dagn vanaf de accepted datum tot aan de deadline.
-              success of die gelukt is en bijde partijen een review hebben gedaan
-              failure of een van de 2 partijen niet binnne de tijd een review heeeft gedaan !
               <li class="menu-item"> <p> day since item start: </p> <p>{{ data.message.age() }}</p> </li>
               <li class="menu-item"> <p> Days since trade acception: </p>{{ data.message.accept_age() }} </li>
               <li class="menu-item"> <p>Status: </p><p>{{ data.message.status() }} </p> </li>
@@ -78,7 +74,7 @@
       </div>
     </div>
     <button class="btn-primary btn-small"  {% if not data.message.canjoin() %} disabled {% endif%} onclick="window.location.href='/join?tradeid={{ data.message.id }}';">Join</button>
-
+    <button class="btn-primary btn-small"  {% if not data.canaccept %} disabled {% endif%} onclick="window.location.href='/accept?tradeid={{ data.message.id }}';">Accept</button>
     <div class="space"></div>
   </div>
   </div>

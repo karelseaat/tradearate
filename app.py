@@ -12,8 +12,11 @@ app = Flask(__name__,
             template_folder = "dist",
             )
 
+# deze voor de login : https://sodocumentation.net/flask/topic/9053/authorization-and-authentication
+
 app.secret_key = 'random secret'
 app.session = make_session()
+app.browsersession = {}
 
 oauth = OAuth(app)
 google = oauth.register(
@@ -58,9 +61,20 @@ def authorize():
         app.session.add(user)
         app.session.commit()
 
-    app.session.close()
-    session['user'] = user_info
+
+    app.browsersession['user'] = user_info
     return redirect('/')
+
+@app.route("/trades")
+def tradesbyuser():
+    data = {'message': [], 'stats-cpu':psutil.cpu_percent(), 'stats-mem':psutil.virtual_memory()[2]}
+    if app.browsersession and 'user' in app.browsersession and 'id' in app.browsersession['user']:
+        data['message'] = app.session.query(User).filter(User.googleid == app.browsersession['user']['id']).first()
+        print(data)
+
+    content =  render_template('userlisttrades.html.jinja', data=data)
+    app.session.close()
+    return content
 
 @app.route("/add")
 def test():
@@ -90,8 +104,6 @@ def nogietsZ():
 
     appid = request.form.get('appid')
     appobj = get_app_from_store(appid)
-
-    print(appobj)
 
     if klont and appobj:
 
@@ -131,23 +143,38 @@ def nogietsB():
     data = {'message': 'no data', 'stats-cpu':psutil.cpu_percent(), 'stats-mem':psutil.virtual_memory()[2]}
     tradeid = request.args.get('tradeid')
 
-    # wat willen we zien in de join pagina
-    # creator: image van google, creator nickname, creator app name en plaatje, link to creator app in store, creator language
-    # acceptor image van google, acceptock nick, acceptor app name plaatje link to app in store, acceptor language
-
     try:
         thetrade = app.session.query(Trade).get(int(tradeid))
         data['message'] = thetrade
+
+        if app.browsersession and 'user' in app.browsersession and 'id' in app.browsersession['user']:
+            data['canaccept'] = thetrade.can_accept(app.browsersession['user']['id'])
+        else:
+            data['canaccept'] = False
+
     except Exception as e:
         app.session.rollback()
         data['message'] = str(e)
 
-    print(data)
-
     content =  render_template('notindexb.html.jinja', data=data)
-
     app.session.close()
+    return content
 
+@app.route("/accept")
+def accept():
+    tradeid = request.args.get('tradeid')
+
+    try:
+        thetrade = app.session.query(Trade).get(int(tradeid))
+        if app.browsersession and 'user' in app.browsersession and 'id' in app.browsersession['user'] and thetrade.can_accept(app.browsersession['user']['id']):
+            thetrade.accept_user(app.browsersession['user']['id'])
+        app.session.commit()
+    except Exception as e:
+        app.session.rollback()
+        data['message'] = str(e)
+
+    content = redirect('/show?tradeid=' + tradeid)
+    app.session.close()
     return content
 
 @app.route("/join")

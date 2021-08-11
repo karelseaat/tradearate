@@ -55,6 +55,8 @@ class Trade(DictSerializableMixin):
     joinerlang = Column(String(4), default="unk")
 
     initiated = Column(Date, default=datetime.datetime.utcnow)
+    initiator_accepted = Column(Boolean, default=False)
+    joiner_accepted = Column(Boolean, default=False)
     accepted = Column(Date, nullable=True)
     success = Column(Date, nullable=True)
     failure = Column(Date, nullable=True)
@@ -84,20 +86,35 @@ class Trade(DictSerializableMixin):
         self.accepted = datetime.datetime.now().date()
 
     def trade_days_left(self):
-        currDate = datetime.datetime.now() + datetime.timedelta(days=10)
-        return (currDate.date() - self.accepted).days
+        if self.accepted:
+            currDate = datetime.datetime.now() + datetime.timedelta(days=10)
+            return (currDate.date() - self.accepted).days
+        return 0
 
     def age(self):
         currDate = datetime.datetime.now()
         return (currDate.date() - self.initiated).days
 
     def accept_age(self):
-        currDate = datetime.datetime.now()
-        return (currDate.date() - self.accepted).days
-
+        if self.accepted:
+            currDate = datetime.datetime.now()
+            return (currDate.date() - self.accepted).days
+        return 0
 
     def canjoin(self):
         return not (self.success or self.failure or self.accepted)
+
+    def can_accept(self, usergoogleid):
+        return (self.initiator.googleid == usergoogleid or self.joiner.googleid == usergoogleid) and not self.accepted
+
+    def accept_user(self, usergoogleid):
+        if self.initiator.googleid == usergoogleid:
+            self.initiator_accepted = True
+        elif self.joiner.googleid == usergoogleid:
+            self.joiner_accepted = True
+
+        if self.initiator_accepted and self.joiner_accepted:
+            self.accepted = True
 
 class App(DictSerializableMixin):
     __tablename__ = 'apps'
