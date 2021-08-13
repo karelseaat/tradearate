@@ -30,10 +30,22 @@ class User(DictSerializableMixin):
     fullname = Column(String(64))
     picture = Column(String(256))
     reviews = relationship('Review', back_populates="user")
-    googleid = Column(Integer, nullable=False)
+    googleid = Column(String(256), nullable=False)
 
     def __init__(self, googleid):
         self.googleid = googleid
+
+    def is_active(self):
+        return True
+
+    def get_id(self):
+        return self.googleid
+
+    def is_authenticated(self):
+        return True
+
+    def is_anonymous(self):
+        return False
 
 class Trade(DictSerializableMixin):
     __tablename__ = 'trades'
@@ -82,8 +94,8 @@ class Trade(DictSerializableMixin):
         else:
             return "initiated"
 
-    def set_accepted(self):
-        self.accepted = datetime.datetime.now().date()
+    # def set_accepted(self):
+    #     self.accepted = datetime.datetime.now().date()
 
     def trade_days_left(self):
         if self.accepted:
@@ -101,11 +113,20 @@ class Trade(DictSerializableMixin):
             return (currDate.date() - self.accepted).days
         return 0
 
-    def canjoin(self):
-        return not (self.success or self.failure or self.accepted)
+    def can_join(self, usergoogleid):
+        return self.initiator.googleid is not usergoogleid and self.joiner.googleid is not usergoogleid
+
+    def can_reject(self, usergoogleid):
+        return (self.joiner and self.joiner.googleid is usergoogleid and self.joiner_accepted) or (self.initiator and self.initiator.googleid is usergoogleid and self.initiator_accepted) and not self.accepted
+
+    def can_delete(self, usergoogleid):
+        return (self.initiator and self.initiator.googleid == usergoogleid) and not self.accepted
 
     def can_accept(self, usergoogleid):
-        return (self.initiator.googleid == usergoogleid or self.joiner.googleid == usergoogleid) and not self.accepted
+        return ((self.initiator and self.initiator.googleid == usergoogleid) or (self.joiner and self.joiner.googleid == usergoogleid)) and (self.joiner and self.initiator) and not self.accepted
+
+    def can_leave(self, usergoogleid):
+        return (self.joiner and self.joiner.googleid == usergoogleid) and not self.accepted
 
     def accept_user(self, usergoogleid):
         if self.initiator.googleid == usergoogleid:
@@ -114,7 +135,7 @@ class Trade(DictSerializableMixin):
             self.joiner_accepted = True
 
         if self.initiator_accepted and self.joiner_accepted:
-            self.accepted = True
+            self.accepted = datetime.datetime.now().date()
 
 class App(DictSerializableMixin):
     __tablename__ = 'apps'

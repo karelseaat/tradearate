@@ -12,6 +12,7 @@ psutil = "*"
 requests = "*"
 faker = "*"
 google-play-scraper = "*"
+flask-login = "*"
 
 [dev-packages]
 

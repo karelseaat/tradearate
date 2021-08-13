@@ -39,6 +39,7 @@
             </div>
           </div>
           <div class="frame__body">
+            {% if data.message.initiatorapp %}
             <ul class="menu">
               <li class="divider"></li>
               <li class="menu-item"><p>App:</p><a href="{{ data.message.initiatorapp.get_url() }}">{{ data.message.initiatorapp.name }}</a><img src="{{ data.message.initiator.picture }}"></li>
@@ -46,6 +47,7 @@
                 <p>Lang:</p><p>{{ data.message.initiatorlang }}</p>
               </li>
             </ul>
+            {% endif %}
           </div>
         </div>
 
@@ -61,6 +63,7 @@
             </div>
           </div>
           <div class="frame__body">
+            {% if data.message.joinerapp %}
             <ul class="menu">
               <li class="divider"></li>
               <li class="menu-item"><p>App:</p><a href="{{ data.message.joinerapp.get_url() }}">{{ data.message.joinerapp.name }}</a><img src="{{ data.message.joiner.picture }}"></li>
@@ -68,13 +71,17 @@
                 <p>Lang:</p><p>{{ data.message.joinerlang }}</p>
               </li>
             </ul>
+            {% endif %}
           </div>
         </div>
 
       </div>
     </div>
-    <button class="btn-primary btn-small"  {% if not data.message.canjoin() %} disabled {% endif%} onclick="window.location.href='/join?tradeid={{ data.message.id }}';">Join</button>
+    <button class="btn-primary btn-small"  {% if not data.canjoin %} disabled {% endif%} onclick="window.location.href='/join?tradeid={{ data.message.id }}';">Join</button>
     <button class="btn-primary btn-small"  {% if not data.canaccept %} disabled {% endif%} onclick="window.location.href='/accept?tradeid={{ data.message.id }}';">Accept</button>
+    <button class="btn-primary btn-small"  {% if not data.canreject %} disabled {% endif%} >Reject</button>
+    <button class="btn-primary btn-small"  {% if not data.candelete %} disabled {% endif%} onclick="window.location.href='/delete?tradeid={{ data.message.id }}';">Delete</button>
+    <button class="btn-primary btn-small"  {% if not data.canleave %} disabled {% endif%} >Leave</button>
     <div class="space"></div>
   </div>
   </div>

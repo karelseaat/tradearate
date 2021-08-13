@@ -13,7 +13,7 @@ GOOGLE_DISCOVERY_URL = ("https://accounts.google.com/.well-known/openid-configur
 CONNECTIONURI = "sqlite:///treetareet.sqlite"
 
 def make_session():
-    engine = create_engine(CONNECTIONURI, echo=False)
+    engine = create_engine(CONNECTIONURI, echo=False, connect_args={'check_same_thread': False})
     dbsession = scoped_session(sessionmaker(bind=engine))
     Base.metadata.create_all(engine)
     return dbsession()

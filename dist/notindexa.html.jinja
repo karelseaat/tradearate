@@ -23,10 +23,10 @@
           <tbody>
             {% for my_item in data['message'] %}
             <tr>
-              <td>{{my_item.initiatorapp.name}}</td>
-              <td>{{my_item.initiator.nickname}}</td>
-              <td>{{my_item.age()}} days</td>
-              <td>{{my_item.status()}}</td>
+              <td>{{ my_item.initiatorapp.name }}</td>
+              <td>{{ my_item.initiator.fullname }}</td>
+              <td>{{ my_item.age() }} days</td>
+              <td>{{ my_item.status() }}</td>
 
               <td><button class="btn-primary btn-small" onclick="window.location.href='/show?tradeid={{ my_item.id }}';">Open</button></td>
             </tr>
