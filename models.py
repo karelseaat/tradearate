@@ -114,7 +114,9 @@ class Trade(DictSerializableMixin):
         return 0
 
     def can_join(self, usergoogleid):
-        return self.initiator.googleid is not usergoogleid and self.joiner.googleid is not usergoogleid
+        return not self.joiner or self.joiner.googleid is not usergoogleid
+        # dit is de juiste manier om te bepalen of je kunt joinen maar die genruiken we niet vanwege test doeleinden
+        # return self.initiator.googleid is not usergoogleid and self.joiner.googleid is not usergoogleid
 
     def can_reject(self, usergoogleid):
         return (self.joiner and self.joiner.googleid is usergoogleid and self.joiner_accepted) or (self.initiator and self.initiator.googleid is usergoogleid and self.initiator_accepted) and not self.accepted
