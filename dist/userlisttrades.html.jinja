@@ -9,6 +9,35 @@
     <div class="w-90" style="position: relative">
       <div class="row">
 
+        <div class="frame fullwidth">
+          <div class="frame__body">
+            <div class="tile level">
+              <div class="tile__icon">
+                <figure class="avatar"><img src="{{ data['message'].picture }}"></figure>
+              </div>
+              <div class="tile__container">
+                <p class="tile__title m-0">{{ data['message'].fullname }}</p>
+              </div>
+            </div>
+          </div>
+          <div class="frame__body">
+
+            <ul class="menu">
+              <li class="divider"></li>
+              <li class="menu-item"><p>Nr of started trades:</p>12</li>
+              <li class="menu-item"><p>Nr of joined trades:</p>22</li>
+              <li class="menu-item">
+                <p>Lang:</p><p>{{ data['language'] }}</p>
+              </li>
+            </ul>
+
+          </div>
+        </div>
+
+      </div>
+
+      <div class="row">
+
         <div class="frame__header">
           <div class="tile level">
             <div class="tile__container">
@@ -34,7 +63,7 @@
             {% for my_item in data['message'].initiatortrades %}
             <tr>
               <td>{{my_item.initiatorapp.name}}</td>
-              <td>{{my_item.initiator.nickname}}</td>
+              <td>{{my_item.initiator.fullname}}</td>
               <td>{{my_item.age()}} days</td>
               <td>{{my_item.status()}}</td>
 
@@ -69,7 +98,7 @@
             {% for my_item in data['message'].joinertrades %}
             <tr>
               <td>{{my_item.initiatorapp.name}}</td>
-              <td>{{my_item.initiator.nickname}}</td>
+              <td>{{my_item.initiator.fullname}}</td>
               <td>{{my_item.age()}} days</td>
               <td>{{my_item.status()}}</td>
 

@@ -34,7 +34,7 @@
                 <figure class="avatar"><img src="{{ data.message.initiator.picture }}"></figure>
               </div>
               <div class="tile__container">
-                <p class="tile__title m-0">{{ data.message.initiator.fullname }}</p>
+                <a href="./usertrades?userid={{ data.message.initiator.id }}"><p class="tile__title m-0">{{ data.message.initiator.fullname }}</p></a>
               </div>
             </div>
           </div>
@@ -58,7 +58,7 @@
                 <figure class="avatar"><img src="{{ data.message.joiner.picture }}"></figure>
               </div>
               <div class="tile__container">
-                <p class="tile__title m-0">{{ data.message.joiner.fullname }}</p>
+                <a href="./usertrades?userid={{ data.message.joiner.id }}"><p class="tile__title m-0">{{ data.message.joiner.fullname }}</p></a>
               </div>
             </div>
           </div>

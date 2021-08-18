@@ -24,7 +24,7 @@
             {% for my_item in data['message'] %}
             <tr>
               <td>{{ my_item.initiatorapp.name }}</td>
-              <td>{{ my_item.initiator.fullname }}</td>
+              <td><a href="./usertrades?userid={{ my_item.initiator.id }}">{{ my_item.initiator.fullname }}</a></td>
               <td>{{ my_item.age() }} days</td>
               <td>{{ my_item.status() }}</td>
 

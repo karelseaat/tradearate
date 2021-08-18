@@ -6,19 +6,37 @@ import psutil
 import requests, json
 import google_play_scraper
 from flask_login import (UserMixin, login_required, login_user, logout_user, current_user, LoginManager)
-
-#todo:
-#checkout of een app al 1000 reviews heeft zo jah dan kun je bij ons niet traden !
-#bij een join een check doen of de joiner de initiator app kan downloaden en de initiator de joiner app kan downloaden, kijkenn of de apps op de store staan onder de country code van elkaar
-# ff de main page css fixen
-# bezig met de your tades pagina
-# bezig met de trades wan welke user dan ook pagina !
-# de intro pagina waarin we uitleggen op welke site je bent en wat dit doet !
-# maak het zo dat als je niet ingelogd bent je eerst naar de google login wordt gestuurd.
-#er moet een functie komen die voor iedere pagina wordt aangeroepen en alle data laad die altijd nodig is:
+# todo:
+# checkout of een app al 1000 reviews heeft zo jah dan kun je bij ons niet traden ! (done)
+# bij een join een check doen of de joiner de initiator app kan downloaden en de initiator de joiner app kan downloaden, kijkenn of de apps op de store staan onder de country code van elkaar (ik denk done)
+# ff de main page css fixen (pause tot nietuwe css framework ?)
+# bezig met de your tades pagina (done)
+# bezig met de trades wan welke user dan ook pagina ! (done)
+# de intro pagina waarin we uitleggen op welke site je bent en wat dit doet ! (done)
+# maak het zo dat als je niet ingelogd bent je eerst naar de google login wordt gestuurd. (done)
+# er moet een functie komen die voor iedere pagina wordt aangeroepen en alle data laad die altijd nodig is: (todo)
 # pagenaam, ingelogd of niet, logo, etc
-#kan ik een functie aanroepen aan het einde van iedere call om de sessie te sluiten ?
+# kan ik een functie aanroepen aan het einde van iedere call om de sessie te sluiten ? (done)
+# ff checken of we een ding als memcahce of reddis nodig hebben voor het cachen van languages store calls, etc ? (todo)
+# weghalen van menu als je niet bent ingelogd. (todo)
+# invullen van footer met wat nuttige info (todo)
+# ik heb een page nodig met de user info van de user zelf. (todo)
+# Voor de user trades en your trade de teller van joiend trades en initiated trades instellen (todo)
+# wil ik voor extra user information deze info uit de db halen(in dat geval db van user uitbrijden) of wil ik het van google halen ? of wil ik het zo maken dat de user zelf info kan invullen !? (todo)
+# Het score deel moet ook nog gemaakt worden, so lets do that !
+# er moet een crontab script worden gemaakt dat de volgende doengen doet:
+# - kijken of er van alle apps wat een trade op staat de grbruikers als een rating hebben gegeven !
+# - ophalen van alle ratings voor een app en deze in de ratings zetten die aan een app hangen
 
+#gezien de licentie geen commerciele werken toestaat moet het css framework volgens mij verandert worden !
+# het logo moet er natuurlijk nog in !
+# de knoppen voor: Join, Accept, Reject, Delete, Leave moeten niet gdisabled worden maar gewoon verdwijnen
+# De knoppen moeten ook nog even goed worden getest(als in staan ze er wanneer dat nodig is en dus test de progressie van state van de trade !)
+# er moet nog een robot checker in gezien er anders robots op de site komen wat nogal kut is, we willen niet dat iemand onze site inzet en wat eigen marketing om groter te worden dan ons terwijk ons dat cpu kost en dan onze concurent zijn !
+# er moet een mailer komen naar het email address van initiator en van joiner om de veranderde staat van een treet aan te geven, als bijde accept een seintje dat het aan is als er gejoined word ook ff en als een treet gelukt is !
+# de links naar de gebruiker moeten naam en plaatje innemen !
+
+# ok we gaan deze doen: https://github.com/creativetimofficial/material-dashboard
 
 app = Flask(__name__,
             static_url_path='/assets',
@@ -32,6 +50,9 @@ login_manager.setup_app(app)
 app.secret_key = 'random secret'
 app.session = make_session()
 app.browsersession = {}
+
+
+
 
 oauth = OAuth(app)
 google = oauth.register(
@@ -47,6 +68,9 @@ google = oauth.register(
     # This is only needed if using openId to fetch user info
     client_kwargs={'scope': 'openid email profile'},
 )
+
+
+# jinja_env.add_extension(MarkdownExtension)
 
 @app.errorhandler(401)
 def unauthorized(e):
@@ -98,8 +122,25 @@ def authorize():
 @login_required
 def tradesbyuser():
     data = {'message': [], 'stats-cpu':psutil.cpu_percent(), 'stats-mem':psutil.virtual_memory()[2]}
-    if app.browsersession and 'user' in app.browsersession and 'id' in app.browsersession['user']:
-        data['message'] = app.session.query(User).filter(User.googleid == app.browsersession['user']['id']).first()
+    klont = get_country_by_ip("213.208.216.6").lower()
+
+    data['message'] = current_user
+    data['language'] = klont
+
+    return render_template('userlisttrades.html.jinja', data=data)
+
+@app.route("/usertrades")
+@login_required
+def usertrades():
+    data = {'message': [], 'stats-cpu':psutil.cpu_percent(), 'stats-mem':psutil.virtual_memory()[2]}
+    userid = request.args.get('userid')
+
+    klont = get_country_by_ip("213.208.216.6").lower()
+    userobj = app.session.query(User).filter(User.id==userid).first()
+    print(userobj, "--")
+
+    data['message'] = userobj
+    data['language'] = klont
 
     return render_template('userlisttrades.html.jinja', data=data)
 

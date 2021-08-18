@@ -10,6 +10,10 @@ footer {
   background-color: #fff;
 }
 
+.fullwidth {
+  width: 100%;
+}
+
 table.beest tr td {
   height: 80px;
   width: 160px;
