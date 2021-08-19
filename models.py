@@ -29,6 +29,8 @@ class User(DictSerializableMixin):
     id = Column(Integer, primary_key=True)
     fullname = Column(String(64))
     picture = Column(String(256))
+    email = Column(String(256))
+    locale = Column(String(3))
     reviews = relationship('Review', back_populates="user")
     googleid = Column(String(256), nullable=False)
 

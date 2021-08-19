@@ -24,8 +24,8 @@ def random_trade(trade):
     trade.initiator_accepted = bool(faker.random_int(0, 1))
     trade.joiner_accepted = bool(faker.random_int(0, 1))
 
-    if bool(faker.random_int(0, 1)):
-        trade.set_accepted()
+    # if bool(faker.random_int(0, 1)):
+    #     trade.set_accepted()
 
     return trade
 

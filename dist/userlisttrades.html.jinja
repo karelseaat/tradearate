@@ -24,10 +24,10 @@
 
             <ul class="menu">
               <li class="divider"></li>
-              <li class="menu-item"><p>Nr of started trades:</p>12</li>
-              <li class="menu-item"><p>Nr of joined trades:</p>22</li>
+              <li class="menu-item"><p>Nr of started trades: {{ data['message'].initiatortrades|length }}</p></li>
+              <li class="menu-item"><p>Nr of joined trades: {{ data['message'].joinertrades|length }}</p></li>
               <li class="menu-item">
-                <p>Lang:</p><p>{{ data['language'] }}</p>
+                <p>Lang:</p><p>{{ data['message'].locale }}</p>
               </li>
             </ul>
 

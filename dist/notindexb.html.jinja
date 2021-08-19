@@ -42,7 +42,7 @@
             {% if data.message.initiatorapp %}
             <ul class="menu">
               <li class="divider"></li>
-              <li class="menu-item"><p>App:</p><a href="{{ data.message.initiatorapp.get_url() }}">{{ data.message.initiatorapp.name }}</a><img src="{{ data.message.initiator.picture }}"></li>
+              <li class="menu-item"><p>App:</p><a href="{{ data.message.initiatorapp.get_url() }}">{{ data.message.initiatorapp.name }}</a><img width="64" src="{{ data.message.initiatorapp.imageurl }}"></li>
               <li class="menu-item">
                 <p>Lang:</p><p>{{ data.message.initiatorlang }}</p>
               </li>
@@ -66,7 +66,7 @@
             {% if data.message.joinerapp %}
             <ul class="menu">
               <li class="divider"></li>
-              <li class="menu-item"><p>App:</p><a href="{{ data.message.joinerapp.get_url() }}">{{ data.message.joinerapp.name }}</a><img src="{{ data.message.joiner.picture }}"></li>
+              <li class="menu-item"><p>App:</p><a href="{{ data.message.joinerapp.get_url() }}">{{ data.message.joinerapp.name }}</a><img width="64" src="{{ data.message.joinerapp.imageurl }}"></li>
               <li class="menu-item">
                 <p>Lang:</p><p>{{ data.message.joinerlang }}</p>
               </li>

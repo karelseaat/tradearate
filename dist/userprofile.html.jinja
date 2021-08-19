@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+
+{% extends "base.html.jinja" %}
+
+{% block content %}
+
+<div class="hero fullscreen">
+  <div class="hero-body u-center">
+    <div class="w-90" style="position: relative">
+      <div class="row">
+
+        <div class="frame fullwidth">
+          <div class="frame__body">
+            <div class="tile level">
+              <div class="tile__icon">
+                <figure class="avatar"><img src="{{ data['user'].picture }}"></figure>
+              </div>
+              <div class="tile__container">
+                <p class="tile__title m-0">{{ data['user'].fullname }}</p>
+              </div>
+            </div>
+          </div>
+          <div class="frame__body">
+
+            <ul class="menu">
+              <li class="divider"></li>
+              <li class="menu-item"><p>Nr of started trades: {{ data['message'].initiatortrades|length }}</p></li>
+              <li class="menu-item"><p>Nr of joined trades: {{ data['message'].joinertrades|length }}</p></li>
+              <li class="menu-item">
+                <p>Lang: {{ data['user'].language }}</p>
+              </li>
+              <li class="menu-item">
+                <p>Email: {{ data['user'].email }}</p>
+              </li>
+            </ul>
+
+          </div>
+        </div>
+
+      </div>
+
+
+    </div>
+  </div>
+</div>
+
+<script src="https://use.fontawesome.com/a696b91557.js"></script>
+
+{% endblock %}

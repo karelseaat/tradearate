@@ -1,16 +1,21 @@
 <div class="header header-fixed unselectable header-animated">
+
   <div class="header-brand">
     <div class="nav-item no-hover">
       <a>
         <h6 class="title">Logo</h6>
       </a>
     </div>
+
     <div class="nav-item nav-btn" id="header-btn">
       <span></span>
       <span></span>
       <span></span>
     </div>
+
+
   </div>
+  {% if data['logged-in'] %}
   <div class="header-nav" id="header-menu">
     <div class="nav-left">
       <div class="nav-item">
@@ -21,6 +26,12 @@
       </div>
     </div>
     <div class="nav-right">
+      <div class="nav-item no-hover">
+        <a href="/userprofile">
+          <h6 class="title">User profile</h6>
+        </a>
+      </div>
     </div>
   </div>
+  {% endif %}
 </div>
