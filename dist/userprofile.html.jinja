@@ -26,8 +26,13 @@
               <li class="divider"></li>
               <li class="menu-item"><p>Nr of started trades: {{ data['message'].initiatortrades|length }}</p></li>
               <li class="menu-item"><p>Nr of joined trades: {{ data['message'].joinertrades|length }}</p></li>
+              <li class="divider"></li>
+              <li class="menu-item"><p>Nr of failed trades {{ data['message'].all_trade_fails()|length }}</p></li>
+              <li class="menu-item"><p>Nr of successfull trades: {{ data['message'].all_trade_successes()|length }}</p></li>
+              <li class="menu-item"><p>Nr of pending trades: {{ data['message'].all_pending()|length }}</p></li>
+              <li class="divider"></li>
               <li class="menu-item">
-                <p>Lang: {{ data['user'].language }}</p>
+                <p>Lang:</p><p>{{ data['message'].locale }}</p>
               </li>
               <li class="menu-item">
                 <p>Email: {{ data['user'].email }}</p>

@@ -19,8 +19,8 @@
           </div>
           <div class="frame__body">
             <ul class="menu">
-              <li class="menu-item"> <p> day since item start: </p> <p>{{ data.message.age() }}</p> </li>
-              <li class="menu-item"> <p> Days since trade acception: </p>{{ data.message.accept_age() }} </li>
+              <li class="menu-item"> <p>Day since item start: </p> <p>{{ data.message.age() }}</p> </li>
+              <li class="menu-item"> <p>Days since trade acception: </p>{{ data.message.accept_age() }} </li>
               <li class="menu-item"> <p>Status: </p><p>{{ data.message.status() }} </p> </li>
               <li class="menu-item"> <p>days left until reviews should be done: </p><p>{{ data.message.trade_days_left() }} </p> </li>
             </ul>
@@ -29,17 +29,18 @@
 
         <div class="frame col-10 framepadding">
           <div class="frame__header">
+            <a href="./usertrades?userid={{ data.message.initiator.id }}">
             <div class="tile level">
               <div class="tile__icon">
                 <figure class="avatar"><img src="{{ data.message.initiator.picture }}"></figure>
               </div>
               <div class="tile__container">
-                <a href="./usertrades?userid={{ data.message.initiator.id }}"><p class="tile__title m-0">{{ data.message.initiator.fullname }}</p></a>
+                <p class="tile__title m-0">{{ data.message.initiator.fullname }}</p>
               </div>
             </div>
+            </a>
           </div>
           <div class="frame__body">
-            {% if data.message.initiatorapp %}
             <ul class="menu">
               <li class="divider"></li>
               <li class="menu-item"><p>App:</p><a href="{{ data.message.initiatorapp.get_url() }}">{{ data.message.initiatorapp.name }}</a><img width="64" src="{{ data.message.initiatorapp.imageurl }}"></li>
@@ -47,20 +48,23 @@
                 <p>Lang:</p><p>{{ data.message.initiatorlang }}</p>
               </li>
             </ul>
-            {% endif %}
           </div>
         </div>
 
         <div class="frame col-10 framepadding">
           <div class="frame__header">
+            {% if data.message.joiner %}
+            <a href="./usertrades?userid={{ data.message.joiner.id }}">
             <div class="tile level">
               <div class="tile__icon">
                 <figure class="avatar"><img src="{{ data.message.joiner.picture }}"></figure>
               </div>
               <div class="tile__container">
-                <a href="./usertrades?userid={{ data.message.joiner.id }}"><p class="tile__title m-0">{{ data.message.joiner.fullname }}</p></a>
+                <p class="tile__title m-0">{{ data.message.joiner.fullname }}</p>
               </div>
             </div>
+            </a>
+            {% endif %}
           </div>
           <div class="frame__body">
             {% if data.message.joinerapp %}
@@ -77,11 +81,11 @@
 
       </div>
     </div>
-    <button class="btn-primary btn-small"  {% if not data.canjoin %} disabled {% endif%} onclick="window.location.href='/join?tradeid={{ data.message.id }}';">Join</button>
-    <button class="btn-primary btn-small"  {% if not data.canaccept %} disabled {% endif%} onclick="window.location.href='/accept?tradeid={{ data.message.id }}';">Accept</button>
-    <button class="btn-primary btn-small"  {% if not data.canreject %} disabled {% endif%} >Reject</button>
-    <button class="btn-primary btn-small"  {% if not data.candelete %} disabled {% endif%} onclick="window.location.href='/delete?tradeid={{ data.message.id }}';">Delete</button>
-    <button class="btn-primary btn-small"  {% if not data.canleave %} disabled {% endif%} >Leave</button>
+    {% if data.canjoin %} <button class="btn-primary btn-small" onclick="window.location.href='/join?tradeid={{ data.message.id }}';">Join</button> {% endif%}
+    {% if data.canaccept %}<button class="btn-primary btn-small" onclick="window.location.href='/accept?tradeid={{ data.message.id }}';">Accept</button> {% endif%}
+    {% if data.canreject %}<button class="btn-primary btn-small" onclick="window.location.href='/reject?tradeid={{ data.message.id }}';"} >Reject</button> {% endif%}
+    {% if data.candelete %}<button class="btn-primary btn-small" onclick="window.location.href='/delete?tradeid={{ data.message.id }}';">Delete</button> {% endif%}
+    {% if data.canleave %}<button class="btn-primary btn-small" onclick="window.location.href='/leave?tradeid={{ data.message.id }}';">Leave</button> {% endif%}
     <div class="space"></div>
   </div>
   </div>

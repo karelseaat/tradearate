@@ -49,6 +49,15 @@ class User(DictSerializableMixin):
     def is_anonymous(self):
         return False
 
+    def all_trade_fails(self):
+        return [x for x in set(self.initiatortrades + self.joinertrades) if x.failure]
+
+    def all_trade_successes(self):
+        return [x for x in set(self.initiatortrades + self.joinertrades) if x.success]
+
+    def all_pending(self):
+        return [x for x in set(self.initiatortrades + self.joinertrades) if not x.success and not x.failure]
+
 class Trade(DictSerializableMixin):
     __tablename__ = 'trades'
     id = Column(Integer, primary_key=True)
@@ -79,10 +88,8 @@ class Trade(DictSerializableMixin):
     def __init__(self, initiator=None, initiatorapp=None, initiatorlang=None):
         if initiator:
             self.initiator = initiator
-
         if initiatorapp:
             self.initiatorapp = initiatorapp
-
         if initiatorlang:
             self.initiatorlang = initiatorlang
 
@@ -95,9 +102,6 @@ class Trade(DictSerializableMixin):
             return "accepted"
         else:
             return "initiated"
-
-    # def set_accepted(self):
-    #     self.accepted = datetime.datetime.now().date()
 
     def trade_days_left(self):
         if self.accepted:
@@ -116,21 +120,25 @@ class Trade(DictSerializableMixin):
         return 0
 
     def can_join(self, usergoogleid):
-        return not self.joiner or self.joiner.googleid is not usergoogleid
-        # dit is de juiste manier om te bepalen of je kunt joinen maar die genruiken we niet vanwege test doeleinden
-        # return self.initiator.googleid is not usergoogleid and self.joiner.googleid is not usergoogleid
+        return self.initiator.googleid is not usergoogleid and self.joiner.googleid is not usergoogleid and not self.joiner
 
     def can_reject(self, usergoogleid):
         return (self.joiner and self.joiner.googleid is usergoogleid and self.joiner_accepted) or (self.initiator and self.initiator.googleid is usergoogleid and self.initiator_accepted) and not self.accepted
 
+    def can_accept(self, usergoogleid):
+        return (self.joiner and self.initiator) and ((self.joiner.googleid is usergoogleid and not self.joiner_accepted) or (self.initiator.googleid is usergoogleid and not self.initiator_accepted and not self.accepted))
+
     def can_delete(self, usergoogleid):
         return (self.initiator and self.initiator.googleid == usergoogleid) and not self.accepted
 
-    def can_accept(self, usergoogleid):
-        return ((self.initiator and self.initiator.googleid == usergoogleid) or (self.joiner and self.joiner.googleid == usergoogleid)) and (self.joiner and self.initiator) and not self.accepted
-
     def can_leave(self, usergoogleid):
         return (self.joiner and self.joiner.googleid == usergoogleid) and not self.accepted
+
+    def reject_user(self, usergoogleid):
+        if self.initiator_accepted and self.initiator.googleid == usergoogleid:
+            self.initiator_accepted = False
+        if self.joiner_accepted and self.joiner.googleid == usergoogleid:
+            self.joiner_accepted = False
 
     def accept_user(self, usergoogleid):
         if self.initiator.googleid == usergoogleid:
