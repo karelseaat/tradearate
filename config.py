@@ -3,12 +3,18 @@ from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker, scoped_session
 from models import Base
 
-
-# Configuration
-GOOGLE_CLIENT_ID = "565487004572-na6f5e5cpqe77bjr69ne3gnuqdad9hmr.apps.googleusercontent.com"
-GOOGLE_CLIENT_SECRET = "_uB_CVhw1Ax3q9vlqrs6oiXm"
-SECRET_KEY = "blaat123"
-GOOGLE_DISCOVERY_URL = ("https://accounts.google.com/.well-known/openid-configuration")
+oauthconfig = {
+    'name':'google',
+    'client_id':'246793217963-ph4ft9vem6ocs45iathatof8914o88pa.apps.googleusercontent.com',
+    'client_secret':'pojrKKIOrDKdGsJA2ByejdN3',
+    'access_token_url':'https://accounts.google.com/o/oauth2/token',
+    'access_token_params':None,
+    'authorize_url':'https://accounts.google.com/o/oauth2/auth',
+    'authorize_param':None,
+    'api_base_url':'https://www.googleapis.com/oauth2/v1/',
+    'userinfo_endpoint':'https://openidconnect.googleapis.com/v1/userinfo',
+    'client_kwargs':{'scope': 'openid email profile'}
+}
 
 CONNECTIONURI = "sqlite:///treetareet.sqlite"
 
@@ -17,3 +23,9 @@ def make_session():
     dbsession = scoped_session(sessionmaker(bind=engine))
     Base.metadata.create_all(engine)
     return dbsession()
+
+
+# Wat komt hier in te staan:
+# alle google OAuth keys, oauth urls, names etc.
+# de app secret key
+# de reviews liemit die nu nog op 1000 staat in app.py

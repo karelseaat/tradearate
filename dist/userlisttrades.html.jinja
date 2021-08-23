@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 
-{% extends "base.html.jinja" %}
+{% extends "base.html" %}
 
 {% block content %}
 
@@ -8,7 +8,6 @@
   <div class="hero-body u-center">
     <div class="w-90" style="position: relative">
       <div class="row">
-
         <div class="frame fullwidth">
           <div class="frame__body">
             <div class="tile level">
@@ -21,7 +20,6 @@
             </div>
           </div>
           <div class="frame__body">
-
             <ul class="menu">
               <li class="divider"></li>
               <li class="menu-item"><p>Nr of started trades: {{ data['message'].initiatortrades|length }}</p></li>
@@ -35,14 +33,10 @@
                 <p>Lang:</p><p>{{ data['message'].locale }}</p>
               </li>
             </ul>
-
           </div>
         </div>
-
       </div>
-
       <div class="row">
-
         <div class="frame__header">
           <div class="tile level">
             <div class="tile__container">
@@ -50,10 +44,7 @@
             </div>
           </div>
         </div>
-
-
         <table class="table striped beest">
-
           <thead class="lolzor">
             <tr>
               <th><abbr title="Title2">Start app</abbr></th>
@@ -63,7 +54,6 @@
               <th><abbr title="Title5">Open</abbr></th>
             </tr>
           </thead>
-
           <tbody>
             {% for my_item in data['message'].initiatortrades %}
             <tr>
@@ -71,11 +61,9 @@
               <td>{{my_item.initiator.fullname}}</td>
               <td>{{my_item.age()}} days</td>
               <td>{{my_item.status()}}</td>
-
               <td><button class="btn-primary btn-small" onclick="window.location.href='/show?tradeid={{ my_item.id }}';">Open</button></td>
             </tr>
             {% endfor %}
-
           </tbody>
         </table>
       </div>
@@ -88,7 +76,6 @@
             </div>
           </div>
         <table class="table striped beest">
-
           <thead class="lolzor">
             <tr>
               <th><abbr title="Title2">Start app</abbr></th>
@@ -98,7 +85,6 @@
               <th><abbr title="Title5">Open</abbr></th>
             </tr>
           </thead>
-
           <tbody>
             {% for my_item in data['message'].joinertrades %}
             <tr>
@@ -106,18 +92,14 @@
               <td>{{my_item.initiator.fullname}}</td>
               <td>{{my_item.age()}} days</td>
               <td>{{my_item.status()}}</td>
-
               <td><button class="btn-primary btn-small" onclick="window.location.href='/show?tradeid={{ my_item.id }}';">Open</button></td>
             </tr>
             {% endfor %}
-
           </tbody>
         </table>
       </div>
     </div>
   </div>
 </div>
-
 <script src="https://use.fontawesome.com/a696b91557.js"></script>
-
 {% endblock %}

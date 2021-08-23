@@ -1,6 +1,6 @@
 from flask import Flask, jsonify, redirect, request, url_for, render_template, session
 from authlib.integrations.flask_client import OAuth
-from config import make_session
+from config import make_session, oauthconfig
 from models import User, Trade, App
 import psutil
 import requests, json
@@ -36,9 +36,10 @@ from flask_login import (UserMixin, login_required, login_user, logout_user, cur
 # we hebben het probleem dat de app onverkaarbaar en zonder fouten afsluit (done)
 
 # kijken waar we magic numbers hebben en deze in een config zetten ! (todo)
-# ok we gaan deze doen: https://github.com/creativetimofficial/material-dashboard (todo)
-# is geinstaleerdin dir: ~/flask-material-dashboard
+# ok we gaan deze doen: https://github.com/vikdiesel/admin-one-bulma-dashboard
 
+
+# dus het zou a handig zijn als gebruikers met elkaar kunnen comuniceren en b er is ruimte zat voor, doen ?
 # wellicht voor later, dat een gebruiker custom data bij zn account kan zetten (geen id wat)
 # de data in de db is niet heel byzonder en we hebben deze data nodig om alle data in de db te linken maar moet een gebruiker zn account niet kunnen verwijderen ?
 
@@ -66,19 +67,7 @@ app.session = make_session()
 app.browsersession = {}
 
 oauth = OAuth(app)
-google = oauth.register(
-    name='google',
-    client_id='246793217963-ph4ft9vem6ocs45iathatof8914o88pa.apps.googleusercontent.com',
-    client_secret='pojrKKIOrDKdGsJA2ByejdN3',
-    access_token_url='https://accounts.google.com/o/oauth2/token',
-    access_token_params=None,
-    authorize_url='https://accounts.google.com/o/oauth2/auth',
-    authorize_params=None,
-    api_base_url='https://www.googleapis.com/oauth2/v1/',
-    userinfo_endpoint='https://openidconnect.googleapis.com/v1/userinfo',
-    # This is only needed if using openId to fetch user info
-    client_kwargs={'scope': 'openid email profile'},
-)
+google = oauth.register(**oauthconfig)
 
 
 @app.errorhandler(401)
@@ -103,7 +92,7 @@ def before_request_func():
 def userprofile():
     app.data['message'] = current_user
 
-    return render_template('userprofile.html.jinja', data=app.data)
+    return render_template('profile.html', data=app.data)
 
 @app.route('/login')
 def login():
@@ -144,7 +133,7 @@ def authorize():
             app.session.commit()
             login_user(newuser)
 
-    return redirect('/overview')
+    return redirect('/overviewtrades')
 
 @app.route("/trades")
 @login_required
@@ -190,24 +179,43 @@ def nogietsZ():
 
         app.session.add(trade)
         app.session.commit()
-        return redirect('/overview')
+        return redirect('/overviewtrades')
     else:
         return redirect('/add')
+
+@app.route('/index')
+def someindex():
+    return render_template('index.html', data=app.data)
 
 @app.route('/')
 def mainpage():
     return render_template('mainpage.html.jinja', data=app.data)
 
-@app.route('/overview')
+@app.route('/overviewapps')
 @login_required
-def nogiets():
+def overviewapps():
+    try:
+        activetrades = app.session.query(App).all()
+        app.data['message'] = activetrades
+    except Exception as e:
+        app.session.rollback()
+        app.data['message'] = str(e)
+    return render_template('overviewapps.html', data=app.data)
+
+@app.route('/overviewreviews')
+def overviewreviews():
+    return render_template('mainpage.html.jinja', data=app.data)
+
+@app.route('/overviewtrades')
+@login_required
+def overviewtrades():
     try:
         activetrades = app.session.query(Trade).all()
         app.data['message'] = activetrades
     except Exception as e:
         app.session.rollback()
         app.data['message'] = str(e)
-    return render_template('overviewtrades.html.jinja', data=app.data)
+    return render_template('overview.html', data=app.data)
 
 @app.route("/show")
 @login_required
@@ -263,7 +271,7 @@ def deleteit():
     tradeid = request.args.get('tradeid')
     app.session.query(Trade).filter(Trade.id==tradeid).delete()
     app.session.commit()
-    return redirect('/overview')
+    return redirect('/overviewtrades')
 
 @app.route("/join")
 @login_required
@@ -288,7 +296,7 @@ def nogietsW():
             trade.joinerlang = current_user.locale
             app.session.add(trade)
             app.session.commit()
-            return redirect('/overview')
+            return redirect('/overviewtrades')
         else:
             print('some kind of error that the initiator cant review this app since country code !')
     else:
@@ -307,8 +315,8 @@ def leave():
         app.session.rollback()
         app.data['message'] = str(e)
 
-    return redirect('/overview')
+    return redirect('/overviewtrades')
 
-@app.teardown_appcontext
-def shutdown_session(exception=None):
-    app.session.close()
+# @app.teardown_appcontext
+# def shutdown_session(exception=None):
+#     app.session.close()

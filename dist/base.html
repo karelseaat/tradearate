@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en" class="has-aside-left has-aside-mobile-transition has-navbar-fixed-top has-aside-expanded">
+
+{% block head %}
+{% include "./partials/head.html" %}
+{% endblock %}
+
+<body>
+<div id="app">
+
+{% block topnavigation %}
+{% include "./partials/topnavigation.html" %}
+{% endblock %}
+
+{% block sidenavigation %}
+{% include "./partials/sidenavigation.html" %}
+{% endblock %}
+
+{% block pagetitle %}
+{% include "./partials/pagetitle.html" %}
+{% endblock %}
+
+{% block content %}{% endblock %}
+
+{% block footer %}
+{% include "./partials/footer.html" %}
+{% endblock %}
+
+{% block lowerjs %}
+{% include "./partials/lowerjs.html" %}
+{% endblock %}
+
+</body>
+</html>

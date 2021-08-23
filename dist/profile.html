@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+{% extends "base.html" %}
+{% block content %}
+
+
+  <section class="section is-main-section">
+    <div class="tile is-ancestor">
+      <div class="tile is-parent">
+        <div class="card tile is-child">
+          <header class="card-header">
+            <p class="card-header-title">
+              <span class="icon"><i class="mdi mdi-account default"></i></span>
+              Profile
+            </p>
+          </header>
+          <div class="card-content">
+            <div class="is-user-avatar image has-max-width is-aligned-center">
+              <img src="https://avatars.dicebear.com/v2/initials/john-doe.svg" alt="John Doe">
+            </div>
+            <hr>
+            <div class="field">
+              <label class="label">Name</label>
+              <div class="control is-clearfix">
+                <input type="text" readonly value="John Doe" class="input is-static">
+              </div>
+            </div>
+            <hr>
+            <div class="field">
+              <label class="label">E-mail</label>
+              <div class="control is-clearfix">
+                <input type="text" readonly value="user@example.com" class="input is-static">
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+{% endblock %}
