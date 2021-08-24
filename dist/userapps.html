@@ -21,41 +21,29 @@
               <thead>
               <tr>
                 <th></th>
-                <th>Start User</th>
-                <th></th>
-                <th>Start App</th>
-                <th>Status</th>
-                <th>time left</th>
-                <th>Created</th>
+                <th>Name</th>
+                <th>IdString</th>
+                <th>Review</th>
                 <th></th>
               </tr>
               </thead>
               <tbody>
 
-              {% for my_item in data['message'] %}
+              {% for my_item in data.message.all_apps() %}
               <tr>
                 <td class="is-image-cell">
                   <div class="image">
-                    <img src="{{ my_item.initiator.picture }}" class="is-rounded">
+                    <img src="{{ my_item.imageurl }}" class="is-rounded">
                   </div>
                 </td>
-                <td data-label="Name"><a href="./usertrades?userid={{ my_item.initiator.id }}">{{ my_item.initiator.fullname }}</a></td>
-                <td class="is-image-cell">
-                  <div class="image">
-                    <img src="{{ my_item.initiatorapp.imageurl }}" class="is-rounded">
-                  </div>
-                </td>
-                <td data-label="Company">{{ my_item.initiatorapp.name }}</td>
-                <td data-label="City">{{ my_item.status() }}</td>
-                <td data-label="Progress" class="is-progress-cell">
-                  <progress max="100" class="progress is-small is-primary" value="79">79</progress>
-                </td>
-                <td data-label="Created">
-                  <small class="has-text-grey is-abbr-like" title="Oct 25, 2020">{{ my_item.initiated }}</small>
+                <td data-label="Name">{{ my_item.name }}</td>
+                <td data-label="IdString">{{ my_item.appidstring }}</td>
+                <td data-label="Reviews">
+                  <p>reviews per app</p>
                 </td>
                 <td class="is-actions-cell">
                   <div class="buttons is-right">
-                    <button class="button is-small is-primary" type="button" onclick="window.location.href='/show?tradeid={{ my_item.id }}';">
+                    <button class="button is-small is-primary" type="button" onclick="window.location.href='/showapp?appid={{ my_item.id }}';">
                       <span class="icon"><i class="mdi mdi-eye"></i></span>
                     </button>
                 </td>
@@ -89,13 +77,5 @@
       </div>
     </div>
 
-    <div class="card tile is-child">
-      <button class="button is-medium is-primary" type="button" onclick="window.location.href='/add'">
-        <span>Add</span>
-        <span class="icon"><i class="mdi mdi-folder-plus"></i></span>
-      </button>
-    </div>
   </section>
-
-
 {% endblock %}

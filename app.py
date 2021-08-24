@@ -139,7 +139,26 @@ def authorize():
 @login_required
 def tradesbyuser():
     app.data['message'] = current_user
-    return render_template('userlisttrades.html.jinja', data=app.data)
+    return render_template('userlisttrades.html', data=app.data)
+
+@app.route("/apps")
+@login_required
+def appsbyuser():
+    app.data['message'] = current_user
+
+    return render_template('userapps.html', data=app.data)
+
+@app.route("/showapp")
+@login_required
+def oneapp():
+    appid = request.args.get('appid')
+    appobj = app.session.query(App).filter(App.id==appid).first()
+    app.data['message'] = appobj
+
+    print(appobj.all_users() )
+
+    return render_template('oneapp.html', data=app.data)
+
 
 @app.route("/usertrades")
 @login_required
@@ -170,6 +189,8 @@ def nogietsZ():
 
     appid = request.form.get('appid')
     appobj = get_app_from_store(appid, country=current_user.locale)
+
+    print(appobj, appid, current_user.locale)
 
     if appobj and int(appobj['reviews']) <= 1000 :
 
@@ -215,6 +236,7 @@ def overviewtrades():
     except Exception as e:
         app.session.rollback()
         app.data['message'] = str(e)
+
     return render_template('overview.html', data=app.data)
 
 @app.route("/show")

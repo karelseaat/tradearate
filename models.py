@@ -58,6 +58,9 @@ class User(DictSerializableMixin):
     def all_pending(self):
         return [x for x in set(self.initiatortrades + self.joinertrades) if not x.success and not x.failure]
 
+    def all_apps(self):
+        return [x.initiatorapp for x in self.initiatortrades] + [x.joinerapp for x in self.joinertrades]
+
 class Trade(DictSerializableMixin):
     __tablename__ = 'trades'
     id = Column(Integer, primary_key=True)
@@ -163,6 +166,15 @@ class App(DictSerializableMixin):
 
     def get_url(self):
         return "https://play.google.com/store/apps/details?id=" + self.appidstring
+
+    def all_trades(self):
+        return  self.initiatortrades + self.joinertrades
+
+    def all_users(self):
+        prelist = [x.initiator for x in self.all_trades()] + [x.joiner for x in self.all_trades()]
+
+        return [x for x in prelist if x]
+
 
 
 class Review(DictSerializableMixin):

@@ -3,92 +3,126 @@
 {% extends "base.html" %}
 
 {% block content %}
-<section class="padtop" id="additional">
-  <div class="content">
-    <div class="r">
-      <h6 class="font-alt">Menu Lists</h6>
-      <div class="row">
 
-        <div class="frame col-10 framepadding">
-          <div class="frame__header">
-            <div class="tile level">
-              <div class="tile__container">
-                <p class="tile__title m-0">Trade Status</p>
+
+
+  <section class="section is-main-section">
+    <div class="tile is-ancestor">
+      <div class="tile is-parent">
+        <div class="card tile is-child">
+          <header class="card-header">
+            <p class="card-header-title">
+              <span class="icon"><i class="mdi mdi-account default"></i></span>
+              Trade Status
+            </p>
+          </header>
+          <div class="card-content">
+            <div class="is-user-avatar image has-max-width is-aligned-center">
+              <img src="" alt="">
+            </div>
+            <hr>
+            <div class="field">
+              <label class="label">Day since start</label>
+              <div class="control is-clearfix">
+                <input type="text" readonly value="{{ data.message.age() }}" class="input is-static">
               </div>
             </div>
-          </div>
-          <div class="frame__body">
-            <ul class="menu">
-              <li class="menu-item"> <p>Day since item start: </p> <p>{{ data.message.age() }}</p> </li>
-              <li class="menu-item"> <p>Days since trade acception: </p>{{ data.message.accept_age() }} </li>
-              <li class="menu-item"> <p>Status: </p><p>{{ data.message.status() }} </p> </li>
-              <li class="menu-item"> <p>days left until reviews should be done: </p><p>{{ data.message.trade_days_left() }} </p> </li>
-            </ul>
-          </div>
-        </div>
-
-        <div class="frame col-10 framepadding">
-          <div class="frame__header">
-            <a href="./usertrades?userid={{ data.message.initiator.id }}">
-            <div class="tile level">
-              <div class="tile__icon">
-                <figure class="avatar"><img src="{{ data.message.initiator.picture }}"></figure>
-              </div>
-              <div class="tile__container">
-                <p class="tile__title m-0">{{ data.message.initiator.fullname }}</p>
+            <hr>
+            <div class="field">
+              <label class="label">Days since acceptation</label>
+              <div class="control is-clearfix">
+                <input type="text" readonly value="{{ data.message.accept_age() }}" class="input is-static">
               </div>
             </div>
-            </a>
-          </div>
-          <div class="frame__body">
-            <ul class="menu">
-              <li class="divider"></li>
-              <li class="menu-item"><p>App:</p><a href="{{ data.message.initiatorapp.get_url() }}">{{ data.message.initiatorapp.name }}</a><img width="64" src="{{ data.message.initiatorapp.imageurl }}"></li>
-              <li class="menu-item">
-                <p>Lang:</p><p>{{ data.message.initiatorlang }}</p>
-              </li>
-            </ul>
-          </div>
-        </div>
-
-        <div class="frame col-10 framepadding">
-          <div class="frame__header">
-            {% if data.message.joiner %}
-            <a href="./usertrades?userid={{ data.message.joiner.id }}">
-            <div class="tile level">
-              <div class="tile__icon">
-                <figure class="avatar"><img src="{{ data.message.joiner.picture }}"></figure>
-              </div>
-              <div class="tile__container">
-                <p class="tile__title m-0">{{ data.message.joiner.fullname }}</p>
+            <div class="field">
+              <label class="label">Status</label>
+              <div class="control is-clearfix">
+                <input type="text" readonly value="{{ data.message.status() }}" class="input is-static">
               </div>
             </div>
-            </a>
-            {% endif %}
-          </div>
-          <div class="frame__body">
-            {% if data.message.joinerapp %}
-            <ul class="menu">
-              <li class="divider"></li>
-              <li class="menu-item"><p>App:</p><a href="{{ data.message.joinerapp.get_url() }}">{{ data.message.joinerapp.name }}</a><img width="64" src="{{ data.message.joinerapp.imageurl }}"></li>
-              <li class="menu-item">
-                <p>Lang:</p><p>{{ data.message.joinerlang }}</p>
-              </li>
-            </ul>
-            {% endif %}
+            <div class="field">
+              <label class="label">Days left until reviews should be done</label>
+              <div class="control is-clearfix">
+                <input type="text" readonly value="{{ data.message.trade_days_left() }}" class="input is-static">
+              </div>
+              <label class="label">Initiator</label>
+              <div class="control is-clearfix">
+                <div class="is-user-avatar image has-max-width is-aligned-center">
+                  <img src="{{ data.message.initiator.picture }}" alt="{{ data.message.initiator.fullname }}">
+                </div>
+                <input type="text" readonly value="{{ data.message.initiator.fullname }}" class="input is-static">
+              </div>
+              <label class="label">Initiaor App</label>
+              <div class="control is-clearfix">
+                <div class="is-user-avatar image has-max-width is-aligned-center">
+                  <img src="{{ data.message.initiatorapp.imageurl }}" alt="{{ data.message.initiatorapp.name }}">
+                </div>
+                <input type="text" readonly value="{{ data.message.initiatorapp.name }}" class="input is-static">
+              </div>
+
+              <label class="label">Joiner</label>
+              <div class="control is-clearfix">
+                <div class="is-user-avatar image has-max-width is-aligned-center">
+                  <img src="{{ data.message.joiner.picture }}" alt="{{ data.message.joiner.fullname }}">
+                </div>
+                <input type="text" readonly value="{{ data.message.joiner.fullname }}" class="input is-static">
+              </div>
+              <label class="label">Joiner App</label>
+              <div class="control is-clearfix">
+                <div class="is-user-avatar image has-max-width is-aligned-center">
+                  <img src="{{ data.message.joinerapp.imageurl }}" alt="{{ data.message.joinerapp.name }}">
+                </div>
+                <input type="text" readonly value="{{ data.message.joinerapp.name }}" class="input is-static">
+              </div>
+
+            </div>
           </div>
         </div>
-
       </div>
     </div>
-    {% if data.canjoin %} <button class="btn-primary btn-small" onclick="window.location.href='/join?tradeid={{ data.message.id }}';">Join</button> {% endif%}
-    {% if data.canaccept %}<button class="btn-primary btn-small" onclick="window.location.href='/accept?tradeid={{ data.message.id }}';">Accept</button> {% endif%}
-    {% if data.canreject %}<button class="btn-primary btn-small" onclick="window.location.href='/reject?tradeid={{ data.message.id }}';"} >Reject</button> {% endif%}
-    {% if data.candelete %}<button class="btn-primary btn-small" onclick="window.location.href='/delete?tradeid={{ data.message.id }}';">Delete</button> {% endif%}
-    {% if data.canleave %}<button class="btn-primary btn-small" onclick="window.location.href='/leave?tradeid={{ data.message.id }}';">Leave</button> {% endif%}
-    <div class="space"></div>
-  </div>
-  </div>
-</section>
+  </section>
+
+  <section class="section is-main-section">
+    <div class="tile is-ancestor">
+      <div class="tile is-parent">
+        <div class="card tile is-child">
+          {% if data.candelete %}
+          <button class="button is-medium is-danger" type="button" onclick="window.location.href='/delete?tradeid={{ data.message.id }}'">
+            <span>Delete</span>
+            <span class="icon"><i class="mdi mdi-delete-forever" ></i></span>
+          </button>
+          {% endif%}
+
+          {% if data.canjoin %}
+          <button class="button is-medium is-primary" type="button" onclick="window.location.href='/join?tradeid={{ data.message.id }}'">
+            <span>Join</span>
+            <span class="icon"><i class="mdi mdi-location-enter"></i></span>
+          </button>
+          {% endif%}
+
+          {% if data.canleave %}
+          <button class="button is-medium is-primary" type="button" onclick="window.location.href='/leave?tradeid={{ data.message.id }}'">
+            <span>Leave</span>
+            <span class="icon"><i class="mdi mdi-location-exit"></i></span>
+          </button>
+          {% endif%}
+
+          {% if data.canaccept %}
+          <button class="button is-medium is-primary" type="button" onclick="window.location.href='/accept?tradeid={{ data.message.id }}'">
+            <span>Accept</span>
+            <span class="icon"><i class="mdi mdi-checkbox-marked-circle-outline"></i></span>
+          </button>
+          {% endif%}
+
+          {% if data.canreject %}
+          <button class="button is-medium is-primary" type="button" onclick="window.location.href='/reject?tradeid={{ data.message.id }}'">
+            <span>Reject</span>
+            <span class="icon"><i class="mdi mdi-checkbox-blank-circle-outline"></i></span>
+          </button>
+          {% endif%}
+        </div>
+      </div>
+    </div>
+  </section>
 
 {% endblock %}
