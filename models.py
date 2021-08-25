@@ -31,7 +31,7 @@ class User(DictSerializableMixin):
     picture = Column(String(256))
     email = Column(String(256))
     locale = Column(String(3))
-    reviews = relationship('Review', back_populates="user")
+    # reviews = relationship('Review', back_populates="user")
     googleid = Column(String(256), nullable=False)
 
     def __init__(self, googleid):
@@ -172,7 +172,6 @@ class App(DictSerializableMixin):
 
     def all_users(self):
         prelist = [x.initiator for x in self.all_trades()] + [x.joiner for x in self.all_trades()]
-
         return [x for x in prelist if x]
 
 
@@ -180,10 +179,12 @@ class App(DictSerializableMixin):
 class Review(DictSerializableMixin):
     __tablename__ = 'reviews'
     id = Column(Integer, primary_key=True)
+    google_id = Column(String(128), nullable=True)
+    reviewtime = Column(Date, nullable=True)
     app_id = Column(ForeignKey('apps.id'), index=True)
     app = relationship('App', back_populates="reviews")
-    reviewtext = Column(String(64), nullable=True)
+    locale = Column(String(3))
+    reviewtext = Column(String(4096), nullable=True)
     reviewrating = Column(Integer)
-
-    user_id = Column(ForeignKey('users.id'), index=True)
-    user = relationship('User', back_populates="reviews")
+    reviewappversion = Column(String(16), nullable=True)
+    username = Column(String(64), nullable=True)

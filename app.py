@@ -1,6 +1,6 @@
 from flask import Flask, jsonify, redirect, request, url_for, render_template, session
 from authlib.integrations.flask_client import OAuth
-from config import make_session, oauthconfig
+from config import make_session, oauthconfig, REVIEWLIMIT
 from models import User, Trade, App
 import psutil
 import requests, json
@@ -34,23 +34,22 @@ from flask_login import (UserMixin, login_required, login_user, logout_user, cur
 # de leave knop werkt nog niet ff hier mee bezig ! (done)
 # het logo moet er natuurlijk nog in ! (todo) (dit laat ik zitten tot we het nieuwe thema erin hebben !)
 # we hebben het probleem dat de app onverkaarbaar en zonder fouten afsluit (done)
+# kijken waar we magic numbers hebben en deze in een config zetten ! (done)
+# ok we gaan deze doen: https://github.com/vikdiesel/admin-one-bulma-dashboard (done)
+ #gezien de licentie geen commerciele werken toestaat moet het css framework volgens mij verandert worden ! (done)
 
-# kijken waar we magic numbers hebben en deze in een config zetten ! (todo)
-# ok we gaan deze doen: https://github.com/vikdiesel/admin-one-bulma-dashboard
-
-
-# dus het zou a handig zijn als gebruikers met elkaar kunnen comuniceren en b er is ruimte zat voor, doen ?
-# wellicht voor later, dat een gebruiker custom data bij zn account kan zetten (geen id wat)
-# de data in de db is niet heel byzonder en we hebben deze data nodig om alle data in de db te linken maar moet een gebruiker zn account niet kunnen verwijderen ?
-
-#gezien de licentie geen commerciele werken toestaat moet het css framework volgens mij verandert worden !
-# er moet nog een robot checker in gezien er anders robots op de site komen wat nogal kut is, we willen niet dat iemand onze site inzet en wat eigen marketing om groter te worden dan ons terwijk ons dat cpu kost en dan onze concurent zijn !
-# er moet een mailer komen naar het email address van initiator en van joiner om de veranderde staat van een treet aan te geven, als bijde accept een seintje dat het aan is als er gejoined word ook ff en als een treet gelukt is !
+# er moet nog een robot checker in gezien er anders robots op de site komen wat nogal kut is, we willen niet dat iemand onze site inzet en wat eigen marketing om groter te worden dan ons terwijk ons dat cpu kost en dan onze concurent zijn ! (todo)
 # er moet een crontab script worden gemaakt dat de volgende doengen doet: (todo)
 # - kijken of er van alle apps wat een trade op staat de grbruikers als een rating hebben gegeven !
 # - ophalen van alle ratings voor een app en deze in de ratings zetten die aan een app hangen
+
+# er moet een mailer komen naar het email address van initiator en van joiner om de veranderde staat van een treet aan te geven, als bijde accept een seintje dat het aan is als er gejoined word ook ff en als een treet gelukt is !
 # er moet een ansible dingen worden gemaakt dat de http server insteld voor dit project
 # er moet een ansible dingen komen om de crontab van dit project te maken ! (jatten van botely)
+
+# de data in de db is niet heel byzonder en we hebben deze data nodig om alle data in de db te linken maar moet een gebruiker zn account niet kunnen verwijderen ?
+# wellicht voor later, dat een gebruiker custom data bij zn account kan zetten (geen id wat)
+# dus het zou a handig zijn als gebruikers met elkaar kunnen comuniceren en b er is ruimte zat voor, doen ?
 
 app = Flask(
     __name__,
@@ -155,8 +154,6 @@ def oneapp():
     appobj = app.session.query(App).filter(App.id==appid).first()
     app.data['message'] = appobj
 
-    print(appobj.all_users() )
-
     return render_template('oneapp.html', data=app.data)
 
 
@@ -190,11 +187,11 @@ def nogietsZ():
     appid = request.form.get('appid')
     appobj = get_app_from_store(appid, country=current_user.locale)
 
-    print(appobj, appid, current_user.locale)
+    if appobj and int(appobj['reviews']) <= REVIEWLIMIT:
 
-    if appobj and int(appobj['reviews']) <= 1000 :
-
-        appmodel = App(appobj['title'], appid)
+        appmodel = app.session.query(App).filter(App.appidstring==appid).first()
+        if not appmodel:
+            appmodel = App(appobj['title'], appid)
         appmodel.imageurl = appobj['icon']
         trade = Trade(current_user, appmodel, current_user.locale)
 
@@ -307,7 +304,7 @@ def nogietsW():
     appid = request.form.get('appid')
     tradeid = request.form.get('tradeid')
     appobjjoiner = get_app_from_store(appid, country=current_user.locale)
-    if appobjjoiner and int(appobjjoiner['reviews']) <= 1000 :
+    if appobjjoiner and int(appobjjoiner['reviews']) <= REVIEWLIMIT:
         joinerappmodel = App(appobjjoiner['title'], appid)
         joinerappmodel.imageurl = appobjjoiner['icon']
         trade = app.session.query(Trade).get(int(tradeid))

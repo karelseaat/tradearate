@@ -3,6 +3,8 @@ from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker, scoped_session
 from models import Base
 
+REVIEWLIMIT = 1000
+
 oauthconfig = {
     'name':'google',
     'client_id':'246793217963-ph4ft9vem6ocs45iathatof8914o88pa.apps.googleusercontent.com',
@@ -23,6 +25,7 @@ def make_session():
     dbsession = scoped_session(sessionmaker(bind=engine))
     Base.metadata.create_all(engine)
     return dbsession()
+
 
 
 # Wat komt hier in te staan:
