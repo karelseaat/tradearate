@@ -96,6 +96,7 @@ class Trade(DictSerializableMixin):
         if initiatorlang:
             self.initiatorlang = initiatorlang
 
+
     def status(self):
         if self.failure:
             return "failure"
@@ -151,6 +152,14 @@ class Trade(DictSerializableMixin):
 
         if self.initiator_accepted and self.joiner_accepted:
             self.accepted = datetime.datetime.now().date()
+
+    def all_apps_in_trade(self):
+        allapps = [self.initiatorapp, self.joinerapp]
+        return [x for x in allapps if x]
+
+    def all_users_in_trade(self):
+        allusers = [self.initiator, self.joiner]
+        return [x for x in allusers if x]
 
 class App(DictSerializableMixin):
     __tablename__ = 'apps'
