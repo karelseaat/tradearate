@@ -80,9 +80,13 @@ class Trade(DictSerializableMixin):
     initiatorlang = Column(String(4), default="unk")
     joinerlang = Column(String(4), default="unk")
 
-    initiated = Column(Date, default=datetime.datetime.utcnow)
     initiator_accepted = Column(Boolean, default=False)
     joiner_accepted = Column(Boolean, default=False)
+
+    initiator_reviewed = Column(Boolean, default=False)
+    joiner_reviewed = Column(Boolean, default=False)
+
+    initiated = Column(Date, default=datetime.datetime.utcnow)
     accepted = Column(Date, nullable=True)
     success = Column(Date, nullable=True)
     failure = Column(Date, nullable=True)
@@ -166,6 +170,7 @@ class App(DictSerializableMixin):
     id = Column(Integer, primary_key=True)
     name = Column(String(64), nullable=False)
     appidstring = Column(String(64), nullable=False)
+    continuation_token = Column(String(512))
     reviews = relationship('Review', back_populates="app")
     imageurl = Column(String(256))
 

@@ -1,7 +1,5 @@
 #!/usr/bin/env python
 
-
-
 from config import make_session
 from models import User, Trade, App, Review
 import google_play_scraper
@@ -38,13 +36,13 @@ for trade in trades:
 
     if initiator in initiatorreviews:
         print("initiator has done review")
+        trade.initiator_reviewed = True
 
     if joiner in joinerreviews:
         print("joiner has done review")
+        trade.joiner_reviewed = True
 
-    # print(initiator, joiner)
-    # print(initiatorreviews)
-    # print(joinerreviews)
-
+    dbsession.add(trade)
+    dbsession.commit()
 
 dbsession.close()

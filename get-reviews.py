@@ -10,15 +10,29 @@ import google_play_scraper
 import pprint
 import time
 
+from google_play_scraper.features.reviews import _ContinuationToken
+
+def serialise_token(token):
+    if not token.token:
+        token.token = ""
+    return ",".join([token.token, token.lang, token.country, str(token.count)])
+
+def deserialise_token(serialised):
+    splitted = serialised.split(',')
+    return _ContinuationToken(splitted[0], splitted[1], splitted[2], None, int(splitted[3]), None)
+
 def feedreviews(app, langs, numofrespercall):
     count = numofrespercall
     resultcount = numofrespercall
-    continuation_token = None
+
+    if app.continuation_token:
+        continuation_token = deserialise_token(app.continuation_token)
+    else:
+        continuation_token = None
 
     for lang in langs:
         while resultcount == count:
             time.sleep(1)
-
             result, continuation_token = google_play_scraper.reviews(
                 app.appidstring,
                 lang=lang,
@@ -45,6 +59,11 @@ def feedreviews(app, langs, numofrespercall):
 
                     except Exception as e:
                         print(e)
+
+            if continuation_token.token:
+                app.continuation_token = serialise_token(continuation_token)
+                print(app.continuation_token)
+                dbsession.add(app)
             dbsession.commit()
 
 dbsession = make_session()
@@ -62,6 +81,6 @@ for value in allapps:
         allusers.append(auser)
 
     listoflangs = list(set([x.locale for x in set(allusers) if x.locale]))
-    feedreviews(value, listoflangs, 200)
+    feedreviews(value, listoflangs, 100)
 
 dbsession.close()

@@ -43,6 +43,10 @@ from flask_login import (UserMixin, login_required, login_user, logout_user, cur
 # - kijken of er van alle apps wat een trade op staat de grbruikers als een rating hebben gegeven !
 # - ophalen van alle ratings voor een app en deze in de ratings zetten die aan een app hangen
 
+# de reviews moeten nog op de page komen, er zijn al links voor maar op die paginas komt nog nix te staan
+# het script dat kijkt of de review gedaan is vanuit de database moet nog worden afgemaakt
+# het script dat de review gedownload moet niet alles bij de aftrap opnieuw downloaden maar moet op een gegeven moment enkel de laatste raviews doenloaden
+
 # er moet een mailer komen naar het email address van initiator en van joiner om de veranderde staat van een treet aan te geven, als bijde accept een seintje dat het aan is als er gejoined word ook ff en als een treet gelukt is !
 # er moet een ansible dingen worden gemaakt dat de http server insteld voor dit project
 # er moet een ansible dingen komen om de crontab van dit project te maken ! (jatten van botely)
