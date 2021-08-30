@@ -1,7 +1,7 @@
 from flask import Flask, jsonify, redirect, request, url_for, render_template, session
 from authlib.integrations.flask_client import OAuth
 from config import make_session, oauthconfig, REVIEWLIMIT
-from models import User, Trade, App
+from models import User, Trade, App, Review
 import psutil
 import requests, json
 import google_play_scraper
@@ -37,19 +37,20 @@ from flask_login import (UserMixin, login_required, login_user, logout_user, cur
 # kijken waar we magic numbers hebben en deze in een config zetten ! (done)
 # ok we gaan deze doen: https://github.com/vikdiesel/admin-one-bulma-dashboard (done)
  #gezien de licentie geen commerciele werken toestaat moet het css framework volgens mij verandert worden ! (done)
-
-# er moet nog een robot checker in gezien er anders robots op de site komen wat nogal kut is, we willen niet dat iemand onze site inzet en wat eigen marketing om groter te worden dan ons terwijk ons dat cpu kost en dan onze concurent zijn ! (todo)
-# er moet een crontab script worden gemaakt dat de volgende doengen doet: (todo)
+# het script dat kijkt of de review gedaan is vanuit de database moet nog worden afgemaakt (done)
+# het script dat de review gedownload moet niet alles bij de aftrap opnieuw downloaden maar moet op een gegeven moment enkel de laatste raviews doenloaden (done)
+# er moet een crontab script worden gemaakt dat de volgende doengen doet: (done)
 # - kijken of er van alle apps wat een trade op staat de grbruikers als een rating hebben gegeven !
 # - ophalen van alle ratings voor een app en deze in de ratings zetten die aan een app hangen
 
-# de reviews moeten nog op de page komen, er zijn al links voor maar op die paginas komt nog nix te staan
-# het script dat kijkt of de review gedaan is vanuit de database moet nog worden afgemaakt
-# het script dat de review gedownload moet niet alles bij de aftrap opnieuw downloaden maar moet op een gegeven moment enkel de laatste raviews doenloaden
+# Er moet nog een robot checker in gezien er anders robots op de site komen wat nogal kut is, we willen niet dat iemand onze site inzet en wat eigen marketing om groter te worden dan ons terwijk ons dat cpu kost en dan onze concurent zijn ! (todo)
+# De reviews moeten nog op de page komen, er zijn al links voor maar op die paginas komt nog nix te staan (todo)
 
+# belangrijk in de toekomst: https://brizzo.net/tips/hide-recaptcha-v3-badge/
 # er moet een mailer komen naar het email address van initiator en van joiner om de veranderde staat van een treet aan te geven, als bijde accept een seintje dat het aan is als er gejoined word ook ff en als een treet gelukt is !
 # er moet een ansible dingen worden gemaakt dat de http server insteld voor dit project
 # er moet een ansible dingen komen om de crontab van dit project te maken ! (jatten van botely)
+# er is voor niets aan messages nog een snackbar, ik geloof wel dat het in het thema zit en zelfs al in de html zit maar nog wel ff maken !
 
 # de data in de db is niet heel byzonder en we hebben deze data nodig om alle data in de db te linken maar moet een gebruiker zn account niet kunnen verwijderen ?
 # wellicht voor later, dat een gebruiker custom data bij zn account kan zetten (geen id wat)
@@ -77,6 +78,16 @@ google = oauth.register(**oauthconfig)
 def unauthorized(e):
     return redirect('/login')
 
+def is_human(captcha_response):
+    """ Validating recaptcha response from google server
+        Returns True captcha test passed for submitted form else returns False.
+    """
+    secret = "6Ld8rjMcAAAAAPDQI6igBibm24JIwHABlL5uw2RX"
+    payload = {'response':captcha_response, 'secret':secret}
+    response = requests.post("https://www.google.com/recaptcha/api/siteverify", payload)
+    response_text = json.loads(response.text)
+    print(response_text)
+    return response_text['success']
 
 @login_manager.user_loader
 def load_user(userid):
@@ -189,9 +200,12 @@ def get_app_from_store(appid, country='us'):
 def nogietsZ():
 
     appid = request.form.get('appid')
+    captcha_response = request.form['g-recaptcha-response']
     appobj = get_app_from_store(appid, country=current_user.locale)
 
-    if appobj and int(appobj['reviews']) <= REVIEWLIMIT:
+    # print(bool(appobj), int(appobj['reviews']) <= REVIEWLIMIT, is_human(captcha_response))
+
+    if appobj and int(appobj['reviews']) <= REVIEWLIMIT and is_human(captcha_response):
 
         appmodel = app.session.query(App).filter(App.appidstring==appid).first()
         if not appmodel:
@@ -224,9 +238,32 @@ def overviewapps():
         app.data['message'] = str(e)
     return render_template('overviewapps.html', data=app.data)
 
+@app.route('/showreview')
+def showreview():
+    reviewid = request.args.get('reviewid')
+    print(reviewid)
+    try:
+        review = app.session.query(Review).get(reviewid)
+
+        app.data['message'] = review
+    except Exception as e:
+        app.data['message'] = str(e)
+
+    return render_template('showreview.html', data=app.data)
+
 @app.route('/overviewreviews')
 def overviewreviews():
-    return render_template('mainpage.html.jinja', data=app.data)
+    try:
+        activereviews = app.session.query(Review).all()
+        for review in activereviews:
+            if review.app:
+                print(review.app.name)
+
+        app.data['message'] = activereviews
+    except Exception as e:
+        app.data['message'] = str(e)
+        print(e)
+    return render_template('overviewreviews.html', data=app.data)
 
 @app.route('/overviewtrades')
 @login_required
@@ -235,7 +272,6 @@ def overviewtrades():
         activetrades = app.session.query(Trade).all()
         app.data['message'] = activetrades
     except Exception as e:
-        app.session.rollback()
         app.data['message'] = str(e)
 
     return render_template('overview.html', data=app.data)
@@ -306,9 +342,13 @@ def nogietsC():
 @login_required
 def nogietsW():
     appid = request.form.get('appid')
+    captcha_response = request.form['g-recaptcha-response']
     tradeid = request.form.get('tradeid')
     appobjjoiner = get_app_from_store(appid, country=current_user.locale)
-    if appobjjoiner and int(appobjjoiner['reviews']) <= REVIEWLIMIT:
+
+    # print(bool(appobj), int(appobj['reviews']) <= REVIEWLIMIT, is_human(captcha_response))
+
+    if appobjjoiner and int(appobjjoiner['reviews']) <= REVIEWLIMIT and is_human(captcha_response):
         joinerappmodel = App(appobjjoiner['title'], appid)
         joinerappmodel.imageurl = appobjjoiner['icon']
         trade = app.session.query(Trade).get(int(tradeid))

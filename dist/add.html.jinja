@@ -4,10 +4,6 @@
 
 {% block content %}
 
-
-
-
-
   <section class="hero is-hero-bar">
     <div class="hero-body">
       <div class="level">
@@ -32,12 +28,7 @@
         </p>
       </header>
       <div class="card-content">
-        <form method="post" action="processadd">
-          <!-- <div class="field is-horizontal">
-            <div class="field-label is-normal">
-              <label class="label">From</label>
-            </div>
-          </div> -->
+        <form method="post" action="/processadd" id="demo-form">
 
 
           <hr>
@@ -64,9 +55,16 @@
               <div class="field">
                 <div class="field is-grouped">
                   <div class="control">
-                    <button type="submit" class="button is-primary">
-                      <span>Submit</span>
-                    </button>
+                    <!-- <button class="g-recaptcha button is-primary">
+                        Submit
+                   </button> -->
+                   <button class="g-recaptcha button is-primary"
+                    data-sitekey="6Ld8rjMcAAAAAFbplPzzBMF-iZsXfvmxUG5Q5cZB"
+                    data-callback='onSubmit'
+                    data-action='submit'>
+                    Submit
+                  </button>
+
                   </div>
                   <div class="control">
                     <button type="button" class="button is-primary is-outlined">
