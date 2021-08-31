@@ -13,6 +13,7 @@ requests = "*"
 faker = "*"
 google-play-scraper = "*"
 flask-login = "*"
+pylint = "*"
 
 [dev-packages]
 

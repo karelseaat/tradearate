@@ -1,60 +1,21 @@
-from flask import Flask, jsonify, redirect, request, url_for, render_template, session
+import json
+import requests
+from flask import Flask, redirect, request, url_for, render_template
 from authlib.integrations.flask_client import OAuth
+import psutil
+import google_play_scraper
+from flask_login import (
+    UserMixin,
+    login_required,
+    login_user,
+    logout_user,
+    current_user,
+    LoginManager
+)
 from config import make_session, oauthconfig, REVIEWLIMIT
 from models import User, Trade, App, Review
-import psutil
-import requests, json
-import google_play_scraper
-from flask_login import (UserMixin, login_required, login_user, logout_user, current_user, LoginManager)
-# todo:
-# checkout of een app al 1000 reviews heeft zo jah dan kun je bij ons niet traden ! (done)
-# bij een join een check doen of de joiner de initiator app kan downloaden en de initiator de joiner app kan downloaden, kijkenn of de apps op de store staan onder de country code van elkaar (ik denk done)
-# ff de main page css fixen (pause tot nietuwe css framework ?)
-# bezig met de your tades pagina (done)
-# bezig met de trades wan welke user dan ook pagina ! (done)
-# de intro pagina waarin we uitleggen op welke site je bent en wat dit doet ! (done)
-# maak het zo dat als je niet ingelogd bent je eerst naar de google login wordt gestuurd. (done)
-# kan ik een functie aanroepen aan het einde van iedere call om de sessie te sluiten ? (done)
-# er moet een functie komen die voor iedere pagina wordt aangeroepen en alle data laad die altijd nodig is: (done)
-# pagenaam, ingelogd of niet, logo, etc
-# ff checken of we een ding als memcahce of reddis nodig hebben voor het cachen van languages store calls, etc ? (done)
-# voor nu gewoon dickcache gebruiken met een een uur limiet voor development later wellicht een dag limiet !
-# weghalen van menu als je niet bent ingelogd. (done)
-# invullen van footer met wat nuttige info (done)
-# zoals: privacy license, About, mogelijk gemaakt door (link to out page, copyright 2021 sixdots, cookie statement1)
-# ik heb een page nodig met de user info van de user zelf. (done)
-# Voor de user trades en your trade de teller van joiend trades en initiated trades instellen (done)
-# wil ik voor extra user information deze info uit de db halen(in dat geval db van user uitbrijden) of wil ik het van google halen ? of wil ik het zo maken dat de user zelf info kan invullen !? (somewhat done)
-# Aanpassen van een gebruiker die inlogt als zijn gegevens van google verandert lijken te zijn ! (done)
-# Het score deel moet ook nog gemaakt worden, so lets do that ! (done)
-# de knoppen voor: Join, Accept, Reject, Delete, Leave moeten niet gdisabled worden maar gewoon verdwijnen (done)
-# De knoppen moeten ook nog even goed worden getest(als in staan ze er wanneer dat nodig is en dus test de progressie van state van de trade !) (done)
-# de links naar de gebruiker moeten naam en plaatje innemen ! (done)
-## even kijken of er nog meer dingen zijn onter te verdelen zijn in partials ! (todo) (heeft geen zin tot material design is toegepast !)
-# de leave knop werkt nog niet ff hier mee bezig ! (done)
-# het logo moet er natuurlijk nog in ! (todo) (dit laat ik zitten tot we het nieuwe thema erin hebben !)
-# we hebben het probleem dat de app onverkaarbaar en zonder fouten afsluit (done)
-# kijken waar we magic numbers hebben en deze in een config zetten ! (done)
-# ok we gaan deze doen: https://github.com/vikdiesel/admin-one-bulma-dashboard (done)
- #gezien de licentie geen commerciele werken toestaat moet het css framework volgens mij verandert worden ! (done)
-# het script dat kijkt of de review gedaan is vanuit de database moet nog worden afgemaakt (done)
-# het script dat de review gedownload moet niet alles bij de aftrap opnieuw downloaden maar moet op een gegeven moment enkel de laatste raviews doenloaden (done)
-# er moet een crontab script worden gemaakt dat de volgende doengen doet: (done)
-# - kijken of er van alle apps wat een trade op staat de grbruikers als een rating hebben gegeven !
-# - ophalen van alle ratings voor een app en deze in de ratings zetten die aan een app hangen
 
-# Er moet nog een robot checker in gezien er anders robots op de site komen wat nogal kut is, we willen niet dat iemand onze site inzet en wat eigen marketing om groter te worden dan ons terwijk ons dat cpu kost en dan onze concurent zijn ! (todo)
-# De reviews moeten nog op de page komen, er zijn al links voor maar op die paginas komt nog nix te staan (todo)
 
-# belangrijk in de toekomst: https://brizzo.net/tips/hide-recaptcha-v3-badge/
-# er moet een mailer komen naar het email address van initiator en van joiner om de veranderde staat van een treet aan te geven, als bijde accept een seintje dat het aan is als er gejoined word ook ff en als een treet gelukt is !
-# er moet een ansible dingen worden gemaakt dat de http server insteld voor dit project
-# er moet een ansible dingen komen om de crontab van dit project te maken ! (jatten van botely)
-# er is voor niets aan messages nog een snackbar, ik geloof wel dat het in het thema zit en zelfs al in de html zit maar nog wel ff maken !
-
-# de data in de db is niet heel byzonder en we hebben deze data nodig om alle data in de db te linken maar moet een gebruiker zn account niet kunnen verwijderen ?
-# wellicht voor later, dat een gebruiker custom data bij zn account kan zetten (geen id wat)
-# dus het zou a handig zijn als gebruikers met elkaar kunnen comuniceren en b er is ruimte zat voor, doen ?
 
 app = Flask(
     __name__,
@@ -71,11 +32,11 @@ app.session = make_session()
 app.browsersession = {}
 
 oauth = OAuth(app)
-google = oauth.register(**oauthconfig)
+oauth.register(**oauthconfig)
 
 
 @app.errorhandler(401)
-def unauthorized(e):
+def unauthorized(error):
     return redirect('/login')
 
 def is_human(captcha_response):
@@ -97,7 +58,7 @@ def load_user(userid):
 @app.before_request
 def before_request_func():
     app.data = {'message': [], 'logged-in': current_user.is_authenticated, 'stats-cpu':psutil.cpu_percent(), 'stats-mem':psutil.virtual_memory()[2]}
-    current_user
+
     if current_user.is_authenticated:
         app.data['user'] = {'fullname': current_user.fullname, 'language': current_user.locale, 'email': current_user.email, 'picture': current_user.picture}
 
@@ -122,9 +83,9 @@ def logout():
 
 @app.route('/authorize')
 def authorize():
-    google = oauth.create_client('google')
-    token = google.authorize_access_token()
-    resp = google.get('userinfo')
+    google_auth = oauth.create_client('google')
+    # token = google.authorize_access_token()
+    resp = google_auth.get('userinfo')
     user_info = resp.json()
 
     if user_info and 'id' in user_info and 'verified_email' in user_info:
@@ -151,20 +112,20 @@ def authorize():
 
 @app.route("/trades")
 @login_required
-def tradesbyuser():
+def trades():
     app.data['message'] = current_user
     return render_template('userlisttrades.html', data=app.data)
 
 @app.route("/apps")
 @login_required
-def appsbyuser():
+def apps():
     app.data['message'] = current_user
 
     return render_template('userapps.html', data=app.data)
 
 @app.route("/showapp")
 @login_required
-def oneapp():
+def showapp():
     appid = request.args.get('appid')
     appobj = app.session.query(App).filter(App.id==appid).first()
     app.data['message'] = appobj
@@ -184,20 +145,20 @@ def usertrades():
 
 @app.route("/add")
 @login_required
-def test():
+def add():
     return render_template('add.html.jinja', data=app.data)
 
 def get_app_from_store(appid, country='us'):
     appobj = None
     try:
         appobj = google_play_scraper.app(appid, country=country)
-    except Exception as e:
-        print(e)
+    except Exception as exception:
+        print(exception)
     return appobj
 
 @app.route("/processadd", methods = ['POST'])
 @login_required
-def nogietsZ():
+def processadd():
 
     appid = request.form.get('appid')
     captcha_response = request.form['g-recaptcha-response']
@@ -216,11 +177,11 @@ def nogietsZ():
         app.session.add(trade)
         app.session.commit()
         return redirect('/overviewtrades')
-    else:
-        return redirect('/add')
+
+    return redirect('/add')
 
 @app.route('/index')
-def someindex():
+def index():
     return render_template('index.html', data=app.data)
 
 @app.route('/')
@@ -233,9 +194,8 @@ def overviewapps():
     try:
         activetrades = app.session.query(App).all()
         app.data['message'] = activetrades
-    except Exception as e:
-        app.session.rollback()
-        app.data['message'] = str(e)
+    except Exception as exception:
+        app.data['message'] = str(exception)
     return render_template('overviewapps.html', data=app.data)
 
 @app.route('/showreview')
@@ -246,8 +206,8 @@ def showreview():
         review = app.session.query(Review).get(reviewid)
 
         app.data['message'] = review
-    except Exception as e:
-        app.data['message'] = str(e)
+    except Exception as exception:
+        app.data['message'] = str(exception)
 
     return render_template('showreview.html', data=app.data)
 
@@ -260,9 +220,8 @@ def overviewreviews():
                 print(review.app.name)
 
         app.data['message'] = activereviews
-    except Exception as e:
-        app.data['message'] = str(e)
-        print(e)
+    except Exception as exception:
+        app.data['message'] = str(exception)
     return render_template('overviewreviews.html', data=app.data)
 
 @app.route('/overviewtrades')
@@ -271,14 +230,14 @@ def overviewtrades():
     try:
         activetrades = app.session.query(Trade).all()
         app.data['message'] = activetrades
-    except Exception as e:
-        app.data['message'] = str(e)
+    except Exception as exception:
+        app.data['message'] = str(exception)
 
     return render_template('overview.html', data=app.data)
 
 @app.route("/show")
 @login_required
-def nogietsB():
+def show():
     tradeid = request.args.get('tradeid')
     googleid = current_user.googleid
 
@@ -290,10 +249,9 @@ def nogietsB():
         app.data['canreject'] = thetrade.can_reject(googleid)
         app.data['candelete'] = thetrade.can_delete(googleid)
         app.data['canleave'] = thetrade.can_leave(googleid)
-    except Exception as e:
-        app.session.rollback()
-        app.data['message'] = str(e)
-        print("error", e)
+    except Exception as exception:
+        app.data['message'] = str(exception)
+
     return render_template('showtrade.html.jinja', data=app.data)
 
 @app.route("/reject")
@@ -305,9 +263,9 @@ def reject():
         if thetrade.can_reject(current_user.googleid):
             thetrade.reject_user(current_user.googleid)
             app.session.commit()
-    except Exception as e:
+    except Exception as exception:
         app.session.rollback()
-        app.data['message'] = str(e)
+        app.data['message'] = str(exception)
     return redirect('/show?tradeid=' + tradeid)
 
 @app.route("/accept")
@@ -319,14 +277,14 @@ def accept():
         if thetrade.can_accept(current_user.googleid):
             thetrade.accept_user(current_user.googleid)
             app.session.commit()
-    except Exception as e:
+    except Exception as exception:
         app.session.rollback()
-        app.data['message'] = str(e)
+        app.data['message'] = str(exception)
     return redirect('/show?tradeid=' + tradeid)
 
 @app.route("/delete")
 @login_required
-def deleteit():
+def delete():
     tradeid = request.args.get('tradeid')
     app.session.query(Trade).filter(Trade.id==tradeid).delete()
     app.session.commit()
@@ -334,13 +292,13 @@ def deleteit():
 
 @app.route("/join")
 @login_required
-def nogietsC():
+def join():
     tradeid = request.args.get('tradeid')
     return render_template('join.html.jinja', tradeid=tradeid, data=app.data)
 
 @app.route("/processjoin", methods = ['POST'])
 @login_required
-def nogietsW():
+def processjoin():
     appid = request.form.get('appid')
     captcha_response = request.form['g-recaptcha-response']
     tradeid = request.form.get('tradeid')
@@ -360,26 +318,20 @@ def nogietsW():
             app.session.add(trade)
             app.session.commit()
             return redirect('/overviewtrades')
-        else:
-            print('some kind of error that the initiator cant review this app since country code !')
-    else:
-        return redirect('/join')
+
+
+    return redirect('/join')
 
 @app.route("/leave")
 @login_required
 def leave():
     tradeid = request.form.get('tradeid')
+    thetrade = app.session.query(Trade).get(int(tradeid))
     try:
-        thetrade = app.session.query(Trade).get(int(tradeid))
         if thetrade.can_leave(current_user.googleid):
             thetrade.joiner = None
             app.session.commit()
-    except Exception as e:
-        app.session.rollback()
-        app.data['message'] = str(e)
+    except Exception as exception:
+        app.data['message'] = str(exception)
 
     return redirect('/overviewtrades')
-
-# @app.teardown_appcontext
-# def shutdown_session(exception=None):
-#     app.session.close()

@@ -4,79 +4,73 @@
 
 {% block content %}
 
-  <section class="hero is-hero-bar">
-    <div class="hero-body">
-      <div class="level">
-        <div class="level-left">
-          <div class="level-item"><h1 class="title">
+<section class="hero is-hero-bar">
+  <div class="hero-body">
+    <div class="level">
+      <div class="level-left">
+        <div class="level-item">
+          <h1 class="title">
             Forms
-          </h1></div>
-        </div>
-        <div class="level-right" style="display: none;">
-          <div class="level-item"></div>
+          </h1>
         </div>
       </div>
+      <div class="level-right" style="display: none;">
+        <div class="level-item"></div>
+      </div>
     </div>
-  </section>
+  </div>
+</section>
 
-  <section class="section is-main-section">
-    <div class="card">
-      <header class="card-header">
-        <p class="card-header-title">
-          <span class="icon"><i class="mdi mdi-ballot"></i></span>
-          Forms
-        </p>
-      </header>
-      <div class="card-content">
-        <form method="post" action="/processadd" id="demo-form">
+<section class="section is-main-section">
+  <div class="card">
+    <header class="card-header">
+      <p class="card-header-title">
+        <span class="icon"><i class="mdi mdi-ballot"></i></span>
+        Forms
+      </p>
+    </header>
+    <div class="card-content">
+      <form method="post" action="/processadd" id="demo-form">
 
 
-          <hr>
-          <div class="field is-horizontal">
-            <div class="field-label is-normal">
-              <label class="label">The app id you want reviewed</label>
-            </div>
-            <div class="field-body">
-              <div class="field">
-                <div class="control">
-                  <input class="input" type="text" name="appid" placeholder="Enter your app name" >
-                </div>
-
+        <hr>
+        <div class="field is-horizontal">
+          <div class="field-label is-normal">
+            <label class="label">The app id you want reviewed</label>
+          </div>
+          <div class="field-body">
+            <div class="field">
+              <div class="control">
+                <input class="input" type="text" name="appid" placeholder="Enter your app name">
               </div>
             </div>
           </div>
-
-          <hr>
-          <div class="field is-horizontal">
-            <div class="field-label">
-              <!-- Left empty for spacing -->
-            </div>
-            <div class="field-body">
-              <div class="field">
-                <div class="field is-grouped">
-                  <div class="control">
-                    <!-- <button class="g-recaptcha button is-primary">
-                        Submit
-                   </button> -->
-                   <button class="g-recaptcha button is-primary"
-                    data-sitekey="6Ld8rjMcAAAAAFbplPzzBMF-iZsXfvmxUG5Q5cZB"
-                    data-callback='onSubmit'
-                    data-action='submit'>
+        </div>
+        <hr>
+        <div class="field is-horizontal">
+          <div class="field-label">
+            <!-- Left empty for spacing -->
+          </div>
+          <div class="field-body">
+            <div class="field">
+              <div class="field is-grouped">
+                <div class="control">
+                  <button class="g-recaptcha button is-primary" data-sitekey="6Ld8rjMcAAAAAFbplPzzBMF-iZsXfvmxUG5Q5cZB" data-callback='onSubmit' data-action='submit'>
                     Submit
                   </button>
-
-                  </div>
-                  <div class="control">
-                    <button type="button" class="button is-primary is-outlined">
-                      <span>Reset</span>
-                    </button>
-                  </div>
+                </div>
+                <div class="control">
+                  <button type="button" class="button is-primary is-outlined">
+                    <span>Reset</span>
+                  </button>
                 </div>
               </div>
             </div>
           </div>
-        </form>
-      </div>
+        </div>
+      </form>
     </div>
-  </section>
+  </div>
+</section>
+
 {% endblock %}

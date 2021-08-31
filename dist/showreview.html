@@ -4,69 +4,65 @@
 
 {% block content %}
 
-
-
-  <section class="section is-main-section">
-    <div class="tile is-ancestor">
-      <div class="tile is-parent">
-        <div class="card tile is-child">
-          <header class="card-header">
-            <p class="card-header-title">
-              <span class="icon"><i class="mdi mdi-account default"></i></span>
-              Review
-            </p>
-          </header>
-          <div class="card-content">
-            <div class="is-user-avatar image has-max-width is-aligned-center">
-              <img src="" alt="">
+<section class="section is-main-section">
+  <div class="tile is-ancestor">
+    <div class="tile is-parent">
+      <div class="card tile is-child">
+        <header class="card-header">
+          <p class="card-header-title">
+            <span class="icon"><i class="mdi mdi-account default"></i></span>
+            Review
+          </p>
+        </header>
+        <div class="card-content">
+          <div class="is-user-avatar image has-max-width is-aligned-center">
+            <img src="" alt="">
+          </div>
+          <hr>
+          <div class="field">
+            <label class="label">Review time</label>
+            <div class="control is-clearfix">
+              <input type="text" readonly value="{{ data.message.reviewtime }}" class="input is-static">
             </div>
-            <hr>
-            <div class="field">
-              <label class="label">Review time</label>
-              <div class="control is-clearfix">
-                <input type="text" readonly value="{{ data.message.reviewtime }}" class="input is-static">
-              </div>
+          </div>
+          <hr>
+          <div class="field">
+            <label class="label">App name</label>
+            <div class="control is-clearfix">
+              {% if data.message.app %}
+              <input type="text" readonly value="{{ data.message.app.name }}" class="input is-static">
+              {% endif %}
             </div>
-            <hr>
-            <div class="field">
-              <label class="label">App name</label>
-              <div class="control is-clearfix">
-                {% if data.message.app %}
-                <input type="text" readonly value="{{ data.message.app.name }}" class="input is-static">
-                {% endif %}
-              </div>
+          </div>
+          <div class="field">
+            <label class="label">Review text</label>
+            <div class="control is-clearfix">
+              <input type="text" readonly value="{{ data.message.reviewtext }}" class="input is-static">
             </div>
-            <div class="field">
-              <label class="label">Review text</label>
-              <div class="control is-clearfix">
-                <input type="text" readonly value="{{ data.message.reviewtext }}" class="input is-static">
-              </div>
+          </div>
+          <div class="field">
+            <label class="label">Review Score</label>
+            <div class="control is-clearfix">
+              <input type="text" readonly value="{{ data.message.reviewrating }}" class="input is-static">
             </div>
-            <div class="field">
-              <label class="label">Review Score</label>
-              <div class="control is-clearfix">
-                <input type="text" readonly value="{{ data.message.reviewrating }}" class="input is-static">
+            <label class="label">Reviewer name</label>
+            <div class="control is-clearfix">
+              <div class="is-user-avatar image has-max-width is-aligned-center">
+                <img src="{{ data.message }}" alt="{{ data.message.username }}">
               </div>
-              <label class="label">Reviewer name</label>
-              <div class="control is-clearfix">
-                <div class="is-user-avatar image has-max-width is-aligned-center">
-                  <img src="{{ data.message }}" alt="{{ data.message.username }}">
-                </div>
-                <input type="text" readonly value="{{ data.message }}" class="input is-static">
-              </div>
+              <input type="text" readonly value="{{ data.message }}" class="input is-static">
             </div>
           </div>
         </div>
       </div>
     </div>
-  </section>
-
-  <section class="section is-main-section">
-    <div class="tile is-ancestor">
-      <div class="tile is-parent">
-
-      </div>
+  </div>
+</section>
+<section class="section is-main-section">
+  <div class="tile is-ancestor">
+    <div class="tile is-parent">
     </div>
-  </section>
+  </div>
+</section>
 
 {% endblock %}

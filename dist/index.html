@@ -2,56 +2,53 @@
 {% extends "base.html" %}
 {% block content %}
 
-
-  <section class="section is-main-section">
-    <div class="tile is-ancestor">
-
-      {% include "./partials/card.html" %}
-      {% include "./partials/card.html" %}
-      {% include "./partials/card.html" %}
-
-    </div>
-    <div class="card">
-      <header class="card-header">
-        <p class="card-header-title">
-          <span class="icon"><i class="mdi mdi-finance"></i></span>
-          Performance
-        </p>
-        <a href="#" class="card-header-icon">
-          <span class="icon"><i class="mdi mdi-reload"></i></span>
-        </a>
-      </header>
-      <div class="card-content">
-        <div class="chart-area">
-          <div style="height: 100%;">
-            <div class="chartjs-size-monitor">
-              <div class="chartjs-size-monitor-expand">
-                <div></div>
-              </div>
-              <div class="chartjs-size-monitor-shrink">
-                <div></div>
-              </div>
+<section class="section is-main-section">
+  <div class="tile is-ancestor">
+    {% include "./partials/card.html" %}
+    {% include "./partials/card.html" %}
+    {% include "./partials/card.html" %}
+  </div>
+  <div class="card">
+    <header class="card-header">
+      <p class="card-header-title">
+        <span class="icon"><i class="mdi mdi-finance"></i></span>
+        Performance
+      </p>
+      <a href="#" class="card-header-icon">
+        <span class="icon"><i class="mdi mdi-reload"></i></span>
+      </a>
+    </header>
+    <div class="card-content">
+      <div class="chart-area">
+        <div style="height: 100%;">
+          <div class="chartjs-size-monitor">
+            <div class="chartjs-size-monitor-expand">
+              <div></div>
             </div>
-            <canvas id="big-line-chart" width="2992" height="1000" class="chartjs-render-monitor" style="display: block; height: 400px; width: 1197px;"></canvas>
+            <div class="chartjs-size-monitor-shrink">
+              <div></div>
+            </div>
           </div>
+          <canvas id="big-line-chart" width="2992" height="1000" class="chartjs-render-monitor" style="display: block; height: 400px; width: 1197px;"></canvas>
         </div>
       </div>
     </div>
-    <div class="card has-table has-mobile-sort-spaced">
-      <header class="card-header">
-        <p class="card-header-title">
-          <span class="icon"><i class="mdi mdi-account-multiple"></i></span>
-          Clients
-        </p>
-        <a href="#" class="card-header-icon">
-          <span class="icon"><i class="mdi mdi-reload"></i></span>
-        </a>
-      </header>
-      <div class="card-content">
-        <div class="b-table has-pagination">
-          <div class="table-wrapper has-mobile-cards">
-            <table class="table is-fullwidth is-striped is-hoverable is-sortable is-fullwidth">
-              <thead>
+  </div>
+  <div class="card has-table has-mobile-sort-spaced">
+    <header class="card-header">
+      <p class="card-header-title">
+        <span class="icon"><i class="mdi mdi-account-multiple"></i></span>
+        Clients
+      </p>
+      <a href="#" class="card-header-icon">
+        <span class="icon"><i class="mdi mdi-reload"></i></span>
+      </a>
+    </header>
+    <div class="card-content">
+      <div class="b-table has-pagination">
+        <div class="table-wrapper has-mobile-cards">
+          <table class="table is-fullwidth is-striped is-hoverable is-sortable is-fullwidth">
+            <thead>
               <tr>
                 <th></th>
                 <th>Name</th>
@@ -61,8 +58,8 @@
                 <th>Created</th>
                 <th></th>
               </tr>
-              </thead>
-              <tbody>
+            </thead>
+            <tbody>
               <tr>
                 <td class="is-image-cell">
                   <div class="image">
@@ -83,16 +80,15 @@
                     <button class="button is-small is-primary" type="button">
                       <span class="icon"><i class="mdi mdi-eye"></i></span>
                     </button>
-
                   </div>
                 </td>
               </tr>
-    
-              </tbody>
-            </table>
-          </div>
+            </tbody>
+          </table>
         </div>
       </div>
     </div>
-  </section>
+  </div>
+</section>
+
 {% endblock %}

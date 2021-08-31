@@ -19,7 +19,6 @@
               <th><abbr title="Title5">Open</abbr></th>
             </tr>
           </thead>
-
           <tbody>
             {% for my_item in data['message'] %}
             <tr>
@@ -27,11 +26,9 @@
               <td><a href="./usertrades?userid={{ my_item.initiator.id }}">{{ my_item.initiator.fullname }}</a></td>
               <td>{{ my_item.age() }} days</td>
               <td>{{ my_item.status() }}</td>
-
               <td><button class="btn-primary btn-small" onclick="window.location.href='/show?tradeid={{ my_item.id }}';">Open</button></td>
             </tr>
             {% endfor %}
-
           </tbody>
         </table>
         <button onclick="window.location.href='/add';" class="btn-primary">Add</button>
@@ -39,7 +36,6 @@
     </div>
   </div>
 </div>
-
 <script src="https://use.fontawesome.com/a696b91557.js"></script>
 
 {% endblock %}
