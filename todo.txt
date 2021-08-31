@@ -38,13 +38,22 @@
 # De reviews moeten nog op de page komen, er zijn al links voor maar op die paginas komt nog nix te staan (done)
 
 # testbaar maken van het systeen door anderen (done)
-# Linten van de code
+# Linten van de code (done)
+# Iconen voor het main menu moeten worden aangepast (done)
 
+#pagina namen in de code, zodat we ook in het menu de active page kunnen zetten !
+# de data structuur definitief maken: data, message , etxra, weetik veel
+# wellicht kunnen ook de links in een data structuur dat we de links slecht op een plek hoeven aan te passen !
+#bezig met de pagination !
+# er is voor niets aan messages nog een snackbar, ik geloof wel dat het in het thema zit en zelfs al in de html zit maar nog wel ff maken !
+
+
+# er moet worden besloten wat er op het dashboard komt te staan !
 # belangrijk in de toekomst: https://brizzo.net/tips/hide-recaptcha-v3-badge/
 # er moet een mailer komen naar het email address van initiator en van joiner om de veranderde staat van een treet aan te geven, als bijde accept een seintje dat het aan is als er gejoined word ook ff en als een treet gelukt is !
 # er moet een ansible dingen worden gemaakt dat de http server insteld voor dit project
 # er moet een ansible dingen komen om de crontab van dit project te maken ! (jatten van botely)
-# er is voor niets aan messages nog een snackbar, ik geloof wel dat het in het thema zit en zelfs al in de html zit maar nog wel ff maken !
+
 
 # de data in de db is niet heel byzonder en we hebben deze data nodig om alle data in de db te linken maar moet een gebruiker zn account niet kunnen verwijderen ?
 # wellicht voor later, dat een gebruiker custom data bij zn account kan zetten (geen id wat)

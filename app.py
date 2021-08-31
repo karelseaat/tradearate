@@ -16,7 +16,6 @@ from config import make_session, oauthconfig, REVIEWLIMIT
 from models import User, Trade, App, Review
 
 
-
 app = Flask(
     __name__,
     static_url_path='/assets',
@@ -66,8 +65,7 @@ def before_request_func():
 @login_required
 def userprofile():
     app.data['message'] = current_user
-
-    return render_template('profile.html', data=app.data)
+    return render_template('userprofile.html', data=app.data)
 
 @app.route('/login')
 def login():
@@ -114,13 +112,12 @@ def authorize():
 @login_required
 def trades():
     app.data['message'] = current_user
-    return render_template('userlisttrades.html', data=app.data)
+    return render_template('alltrades.html', data=app.data)
 
 @app.route("/apps")
 @login_required
 def apps():
     app.data['message'] = current_user
-
     return render_template('userapps.html', data=app.data)
 
 @app.route("/showapp")
@@ -129,24 +126,20 @@ def showapp():
     appid = request.args.get('appid')
     appobj = app.session.query(App).filter(App.id==appid).first()
     app.data['message'] = appobj
-
     return render_template('oneapp.html', data=app.data)
-
 
 @app.route("/usertrades")
 @login_required
 def usertrades():
     userid = request.args.get('userid')
     userobj = app.session.query(User).filter(User.id==userid).first()
-
     app.data['message'] = userobj
-
-    return render_template('userlisttrades.html.jinja', data=app.data)
+    return render_template('usertrades.html', data=app.data)
 
 @app.route("/add")
 @login_required
 def add():
-    return render_template('add.html.jinja', data=app.data)
+    return render_template('add.html', data=app.data)
 
 def get_app_from_store(appid, country='us'):
     appobj = None
@@ -159,25 +152,20 @@ def get_app_from_store(appid, country='us'):
 @app.route("/processadd", methods = ['POST'])
 @login_required
 def processadd():
-
     appid = request.form.get('appid')
     captcha_response = request.form['g-recaptcha-response']
     appobj = get_app_from_store(appid, country=current_user.locale)
-
     # print(bool(appobj), int(appobj['reviews']) <= REVIEWLIMIT, is_human(captcha_response))
 
     if appobj and int(appobj['reviews']) <= REVIEWLIMIT and is_human(captcha_response):
-
         appmodel = app.session.query(App).filter(App.appidstring==appid).first()
         if not appmodel:
             appmodel = App(appobj['title'], appid)
         appmodel.imageurl = appobj['icon']
         trade = Trade(current_user, appmodel, current_user.locale)
-
         app.session.add(trade)
         app.session.commit()
         return redirect('/overviewtrades')
-
     return redirect('/add')
 
 @app.route('/index')
@@ -186,7 +174,7 @@ def index():
 
 @app.route('/')
 def mainpage():
-    return render_template('mainpage.html.jinja', data=app.data)
+    return render_template('mainpage.html', data=app.data)
 
 @app.route('/overviewapps')
 @login_required
@@ -204,11 +192,9 @@ def showreview():
     print(reviewid)
     try:
         review = app.session.query(Review).get(reviewid)
-
         app.data['message'] = review
     except Exception as exception:
         app.data['message'] = str(exception)
-
     return render_template('showreview.html', data=app.data)
 
 @app.route('/overviewreviews')
@@ -232,7 +218,6 @@ def overviewtrades():
         app.data['message'] = activetrades
     except Exception as exception:
         app.data['message'] = str(exception)
-
     return render_template('overview.html', data=app.data)
 
 @app.route("/show")
@@ -240,7 +225,6 @@ def overviewtrades():
 def show():
     tradeid = request.args.get('tradeid')
     googleid = current_user.googleid
-
     try:
         thetrade = app.session.query(Trade).get(tradeid)
         app.data['message'] = thetrade
@@ -251,8 +235,7 @@ def show():
         app.data['canleave'] = thetrade.can_leave(googleid)
     except Exception as exception:
         app.data['message'] = str(exception)
-
-    return render_template('showtrade.html.jinja', data=app.data)
+    return render_template('showtrade.html', data=app.data)
 
 @app.route("/reject")
 @login_required
@@ -294,7 +277,7 @@ def delete():
 @login_required
 def join():
     tradeid = request.args.get('tradeid')
-    return render_template('join.html.jinja', tradeid=tradeid, data=app.data)
+    return render_template('join.html', tradeid=tradeid, data=app.data)
 
 @app.route("/processjoin", methods = ['POST'])
 @login_required
@@ -318,8 +301,6 @@ def processjoin():
             app.session.add(trade)
             app.session.commit()
             return redirect('/overviewtrades')
-
-
     return redirect('/join')
 
 @app.route("/leave")
@@ -333,5 +314,4 @@ def leave():
             app.session.commit()
     except Exception as exception:
         app.data['message'] = str(exception)
-
     return redirect('/overviewtrades')
