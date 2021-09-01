@@ -9,51 +9,51 @@
     <p class="menu-label">Main page</p>
     <ul class="menu-list">
       <li>
-        <a href="/index" class="is-active router-link-active has-icon">
+        <a href="{{ data.navigation.dashboard[1] }}" class="is-active router-link-active has-icon">
           <span class="icon"><i class="mdi mdi-desktop-mac mdi-24px"></i></span>
-          <span class="menu-item-label">Dashboard</span>
+          <span class="menu-item-label">{{ data.navigation.dashboard[0] }}</span>
         </a>
       </li>
     </ul>
     <p class="menu-label">All</p>
     <ul class="menu-list">
       <li>
-        <a href="/overviewtrades" class="has-icon">
+        <a href="{{ data.navigation.alltrades[1] }}" class="has-icon">
           <span class="icon"><i class="mdi mdi-twitter-retweet mdi-24px"></i></span>
-          <span class="menu-item-label">All trades</span>
+          <span class="menu-item-label">{{ data.navigation.alltrades[0] }}</span>
         </a>
       </li>
       <li>
-        <a href="/overviewapps" class="has-icon">
+        <a href="{{ data.navigation.allapps[1] }}" class="has-icon">
           <span class="icon has-update-mark"><i class="mdi mdi-android mdi-24px"></i></span>
-          <span class="menu-item-label">All apps</span>
+          <span class="menu-item-label">{{ data.navigation.allapps[0] }}</span>
         </a>
       </li>
       <li>
-        <a href="/overviewreviews" class="has-icon">
+        <a href="{{ data.navigation.allreviews[1] }}" class="has-icon">
           <span class="icon"><i class="mdi mdi-star-half mdi-24px"></i></span>
-          <span class="menu-item-label">All reviews</span>
+          <span class="menu-item-label">{{ data.navigation.allreviews[0] }}</span>
         </a>
       </li>
     </ul>
     <p class="menu-label">My</p>
     <ul class="menu-list">
       <li>
-        <a href="/trades" class="has-icon">
+        <a href="{{ data.navigation.mytrades[1] }}" class="has-icon">
           <span class="icon "><i class="mdi mdi-twitter-retweet mdi-24px"></i></span>
-          <span class="menu-item-label">My trades</span>
+          <span class="menu-item-label">{{ data.navigation.mytrades[0] }}</span>
         </a>
       </li>
       <li>
-        <a href="/apps" class="has-icon">
+        <a href="{{ data.navigation.myapps[1] }}" class="has-icon">
           <span class="icon "><i class="mdi mdi-android mdi-24px"></i></span>
-          <span class="menu-item-label">My apps</span>
+          <span class="menu-item-label">{{ data.navigation.myapps[0] }}</span>
         </a>
       </li>
       <li>
-        <a href="/overviewreviews" class="has-icon">
+        <a href="{{ data.navigation.myreviews[1] }}" class="has-icon">
           <span class="icon has-update-mark"><i class="mdi mdi-star-half mdi-24px"></i></span>
-          <span class="menu-item-label">My reviews</span>
+          <span class="menu-item-label">{{ data.navigation.myreviews[0] }}</span>
         </a>
       </li>
     </ul>

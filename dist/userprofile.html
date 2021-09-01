@@ -22,25 +22,25 @@
             <ul class="menu">
               <li class="divider"></li>
               <li class="menu-item">
-                <p>Nr of started trades: {{ data['message'].initiatortrades|length }}</p>
+                <p>Nr of started trades: {{ data['data'].initiatortrades|length }}</p>
               </li>
               <li class="menu-item">
-                <p>Nr of joined trades: {{ data['message'].joinertrades|length }}</p>
+                <p>Nr of joined trades: {{ data['data'].joinertrades|length }}</p>
               </li>
               <li class="divider"></li>
               <li class="menu-item">
-                <p>Nr of failed trades {{ data['message'].all_trade_fails()|length }}</p>
+                <p>Nr of failed trades {{ data['data'].all_trade_fails()|length }}</p>
               </li>
               <li class="menu-item">
-                <p>Nr of successfull trades: {{ data['message'].all_trade_successes()|length }}</p>
+                <p>Nr of successfull trades: {{ data['data'].all_trade_successes()|length }}</p>
               </li>
               <li class="menu-item">
-                <p>Nr of pending trades: {{ data['message'].all_pending()|length }}</p>
+                <p>Nr of pending trades: {{ data['data'].all_pending()|length }}</p>
               </li>
               <li class="divider"></li>
               <li class="menu-item">
                 <p>Lang:</p>
-                <p>{{ data['message'].locale }}</p>
+                <p>{{ data['data'].locale }}</p>
               </li>
               <li class="menu-item">
                 <p>Email: {{ data['user'].email }}</p>

@@ -16,29 +16,29 @@
         </header>
         <div class="card-content">
           <div class="is-user-avatar image has-max-width is-aligned-center">
-            <a href="{{ data.message.get_url() }}">
-              <img src="{{ data.message.imageurl }}" alt="{{ data.message.name }}">
-              <p> {{ data.message.name }} </p>
+            <a href="{{ data.data.get_url() }}">
+              <img src="{{ data.data.imageurl }}" alt="{{ data.data.name }}">
+              <p> {{ data.data.name }} </p>
             </a>
           </div>
           <hr>
           <div class="field">
             <label class="label">App id</label>
             <div class="control is-clearfix">
-              <input type="text" readonly value="{{ data.message.appidstring }}" class="input is-static">
+              <input type="text" readonly value="{{ data.data.appidstring }}" class="input is-static">
             </div>
           </div>
           <hr>
           <div class="field">
             <label class="label">nr of trades</label>
             <div class="control is-clearfix">
-              <input type="text" readonly value="{{ data.message.all_trades()|count }}" class="input is-static">
+              <input type="text" readonly value="{{ data.data.all_trades()|count }}" class="input is-static">
             </div>
           </div>
           <div class="field">
             <label class="label">Nr of users</label>
             <div class="control is-clearfix">
-              <input type="text" readonly value="{{ data.message.all_users()|count }}" class="input is-static">
+              <input type="text" readonly value="{{ data.data.all_users()|count }}" class="input is-static">
             </div>
           </div>
         </div>

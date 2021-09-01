@@ -10,7 +10,7 @@
 # er moet een functie komen die voor iedere pagina wordt aangeroepen en alle data laad die altijd nodig is: (done)
 # pagenaam, ingelogd of niet, logo, etc
 # ff checken of we een ding als memcahce of reddis nodig hebben voor het cachen van languages store calls, etc ? (done)
-# voor nu gewoon dickcache gebruiken met een een uur limiet voor development later wellicht een dag limiet !
+# voor nu gewoon diskcache gebruiken met een een uur limiet voor development later wellicht een dag limiet !
 # weghalen van menu als je niet bent ingelogd. (done)
 # invullen van footer met wat nuttige info (done)
 # zoals: privacy license, About, mogelijk gemaakt door (link to out page, copyright 2021 sixdots, cookie statement1)
@@ -36,16 +36,16 @@
 # - ophalen van alle ratings voor een app en deze in de ratings zetten die aan een app hangen
 # Er moet nog een robot checker in gezien er anders robots op de site komen wat nogal kut is, we willen niet dat iemand onze site inzet en wat eigen marketing om groter te worden dan ons terwijk ons dat cpu kost en dan onze concurent zijn ! (done)
 # De reviews moeten nog op de page komen, er zijn al links voor maar op die paginas komt nog nix te staan (done)
-
 # testbaar maken van het systeen door anderen (done)
 # Linten van de code (done)
 # Iconen voor het main menu moeten worden aangepast (done)
 
-#pagina namen in de code, zodat we ook in het menu de active page kunnen zetten !
-# de data structuur definitief maken: data, message , etxra, weetik veel
-# wellicht kunnen ook de links in een data structuur dat we de links slecht op een plek hoeven aan te passen !
-#bezig met de pagination !
-# er is voor niets aan messages nog een snackbar, ik geloof wel dat het in het thema zit en zelfs al in de html zit maar nog wel ff maken !
+# pagina namen in de code, zodat we ook in het menu de active page kunnen zetten ! (done)
+# de data structuur definitief maken: data, message, etxra, weetik veel (done)
+# wellicht kunnen ook de links in een data structuur dat we de links slecht op een plek hoeven aan te passen ! (done)
+
+#bezig met de pagination ! (todo)
+# er is voor niets aan messages nog een snackbar, ik geloof wel dat het in het thema zit en zelfs al in de html zit maar nog wel ff maken ! (todo)
 
 
 # er moet worden besloten wat er op het dashboard komt te staan !

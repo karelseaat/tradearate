@@ -2,7 +2,6 @@ import json
 import requests
 from flask import Flask, redirect, request, url_for, render_template
 from authlib.integrations.flask_client import OAuth
-import psutil
 import google_play_scraper
 from flask_login import (
     UserMixin,
@@ -56,7 +55,8 @@ def load_user(userid):
 
 @app.before_request
 def before_request_func():
-    app.data = {'message': [], 'logged-in': current_user.is_authenticated, 'stats-cpu':psutil.cpu_percent(), 'stats-mem':psutil.virtual_memory()[2]}
+    navigation = {'dashboard': ('Dashboard', 'index'), 'alltrades': ('All trades', 'overviewtrades'), 'allapps': ('All apps', 'overviewapps'), 'allreviews': ('All reviews', 'overviewreviews'), 'mytrades': ('My trades', 'trades'), 'myapps': ('My apps', 'apps'), 'myreviews': ('My reviews', 'overviewreviews'), 'profile': ('My profile', 'userprofile'), 'messages': ('Messages', ''), 'logout': ('Log Out', 'logout'), 'about': ('About', '/')}
+    app.data = {'pagename': 'Unknown', 'user': None, 'messages': [], 'navigation': navigation, 'data': None, 'logged-in': current_user.is_authenticated}
 
     if current_user.is_authenticated:
         app.data['user'] = {'fullname': current_user.fullname, 'language': current_user.locale, 'email': current_user.email, 'picture': current_user.picture}
@@ -64,7 +64,8 @@ def before_request_func():
 @app.route('/userprofile')
 @login_required
 def userprofile():
-    app.data['message'] = current_user
+    app.data['pagename'] = 'User profile'
+    app.data['data'] = current_user
     return render_template('userprofile.html', data=app.data)
 
 @app.route('/login')
@@ -82,7 +83,7 @@ def logout():
 @app.route('/authorize')
 def authorize():
     google_auth = oauth.create_client('google')
-    # token = google.authorize_access_token()
+    google_auth.authorize_access_token()
     resp = google_auth.get('userinfo')
     user_info = resp.json()
 
@@ -111,13 +112,15 @@ def authorize():
 @app.route("/trades")
 @login_required
 def trades():
-    app.data['message'] = current_user
+    app.data['pagename'] = 'My trades'
+    app.data['data'] = current_user
     return render_template('alltrades.html', data=app.data)
 
 @app.route("/apps")
 @login_required
 def apps():
-    app.data['message'] = current_user
+    app.data['pagename'] = 'My apps'
+    app.data['data'] = current_user
     return render_template('userapps.html', data=app.data)
 
 @app.route("/showapp")
@@ -125,7 +128,7 @@ def apps():
 def showapp():
     appid = request.args.get('appid')
     appobj = app.session.query(App).filter(App.id==appid).first()
-    app.data['message'] = appobj
+    app.data['data'] = appobj
     return render_template('oneapp.html', data=app.data)
 
 @app.route("/usertrades")
@@ -133,12 +136,13 @@ def showapp():
 def usertrades():
     userid = request.args.get('userid')
     userobj = app.session.query(User).filter(User.id==userid).first()
-    app.data['message'] = userobj
+    app.data['data'] = userobj
     return render_template('usertrades.html', data=app.data)
 
 @app.route("/add")
 @login_required
 def add():
+    app.data['pagename'] = 'Add Trade'
     return render_template('add.html', data=app.data)
 
 def get_app_from_store(appid, country='us'):
@@ -170,71 +174,77 @@ def processadd():
 
 @app.route('/index')
 def index():
+    app.data['pagename'] = 'Dashboard'
     return render_template('index.html', data=app.data)
 
 @app.route('/')
 def mainpage():
+    app.data['pagename'] = 'Intro page'
     return render_template('mainpage.html', data=app.data)
 
 @app.route('/overviewapps')
 @login_required
 def overviewapps():
+    app.data['pagename'] = 'All apps'
     try:
         activetrades = app.session.query(App).all()
-        app.data['message'] = activetrades
+        app.data['data'] = activetrades
     except Exception as exception:
-        app.data['message'] = str(exception)
+        app.data['messages'].append(str(exception))
     return render_template('overviewapps.html', data=app.data)
 
 @app.route('/showreview')
 def showreview():
+    app.data['pagename'] = 'Reviews ?'
     reviewid = request.args.get('reviewid')
-    print(reviewid)
     try:
         review = app.session.query(Review).get(reviewid)
-        app.data['message'] = review
+        app.data['data'] = review
     except Exception as exception:
-        app.data['message'] = str(exception)
+        app.data['messages'].append(str(exception))
     return render_template('showreview.html', data=app.data)
 
 @app.route('/overviewreviews')
 def overviewreviews():
+    app.data['pagename'] = 'My reviews'
     try:
         activereviews = app.session.query(Review).all()
         for review in activereviews:
             if review.app:
                 print(review.app.name)
 
-        app.data['message'] = activereviews
+        app.data['data'] = activereviews
     except Exception as exception:
-        app.data['message'] = str(exception)
+        app.data['messages'].append(str(exception))
     return render_template('overviewreviews.html', data=app.data)
 
 @app.route('/overviewtrades')
 @login_required
 def overviewtrades():
+    app.data['pagename'] = 'My trades'
     try:
         activetrades = app.session.query(Trade).all()
-        app.data['message'] = activetrades
+        app.data['data'] = activetrades
     except Exception as exception:
-        app.data['message'] = str(exception)
+        app.data['message'].append(str(exception))
     return render_template('overview.html', data=app.data)
 
 @app.route("/show")
 @login_required
 def show():
+    app.data['pagename'] = 'Trade details ?'
     tradeid = request.args.get('tradeid')
     googleid = current_user.googleid
     try:
         thetrade = app.session.query(Trade).get(tradeid)
-        app.data['message'] = thetrade
+        app.data['data'] = thetrade
         app.data['canaccept'] = thetrade.can_accept(googleid)
         app.data['canjoin'] = thetrade.can_join(googleid)
         app.data['canreject'] = thetrade.can_reject(googleid)
         app.data['candelete'] = thetrade.can_delete(googleid)
         app.data['canleave'] = thetrade.can_leave(googleid)
     except Exception as exception:
-        app.data['message'] = str(exception)
+        app.data['message'].append(str(exception))
     return render_template('showtrade.html', data=app.data)
 
 @app.route("/reject")
@@ -248,7 +258,7 @@ def reject():
             app.session.commit()
     except Exception as exception:
         app.session.rollback()
-        app.data['message'] = str(exception)
+        app.data['messages'].append(str(exception))
     return redirect('/show?tradeid=' + tradeid)
 
 @app.route("/accept")
@@ -262,7 +272,7 @@ def accept():
             app.session.commit()
     except Exception as exception:
         app.session.rollback()
-        app.data['message'] = str(exception)
+        app.data['messages'].append(str(exception))
     return redirect('/show?tradeid=' + tradeid)
 
 @app.route("/delete")
@@ -276,6 +286,7 @@ def delete():
 @app.route("/join")
 @login_required
 def join():
+    app.data['pagename'] = 'Join a trade ?'
     tradeid = request.args.get('tradeid')
     return render_template('join.html', tradeid=tradeid, data=app.data)
 
@@ -313,5 +324,5 @@ def leave():
             thetrade.joiner = None
             app.session.commit()
     except Exception as exception:
-        app.data['message'] = str(exception)
+        app.data['messages'].append(str(exception))
     return redirect('/overviewtrades')

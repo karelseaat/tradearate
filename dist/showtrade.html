@@ -22,54 +22,54 @@
           <div class="field">
             <label class="label">Day since start</label>
             <div class="control is-clearfix">
-              <input type="text" readonly value="{{ data.message.age() }}" class="input is-static">
+              <input type="text" readonly value="{{ data.data.age() }}" class="input is-static">
             </div>
           </div>
           <hr>
           <div class="field">
             <label class="label">Days since acceptation</label>
             <div class="control is-clearfix">
-              <input type="text" readonly value="{{ data.message.accept_age() }}" class="input is-static">
+              <input type="text" readonly value="{{ data.data.accept_age() }}" class="input is-static">
             </div>
           </div>
           <div class="field">
             <label class="label">Status</label>
             <div class="control is-clearfix">
-              <input type="text" readonly value="{{ data.message.status() }}" class="input is-static">
+              <input type="text" readonly value="{{ data.data.status() }}" class="input is-static">
             </div>
           </div>
           <div class="field">
             <label class="label">Days left until reviews should be done</label>
             <div class="control is-clearfix">
-              <input type="text" readonly value="{{ data.message.trade_days_left() }}" class="input is-static">
+              <input type="text" readonly value="{{ data.data.trade_days_left() }}" class="input is-static">
             </div>
             <label class="label">Initiator</label>
             <div class="control is-clearfix">
               <div class="is-user-avatar image has-max-width is-aligned-center">
-                <img src="{{ data.message.initiator.picture }}" alt="{{ data.message.initiator.fullname }}">
+                <img src="{{ data.data.initiator.picture }}" alt="{{ data.data.initiator.fullname }}">
               </div>
-              <input type="text" readonly value="{{ data.message.initiator.fullname }}" class="input is-static">
+              <input type="text" readonly value="{{ data.data.initiator.fullname }}" class="input is-static">
             </div>
             <label class="label">Initiaor App</label>
             <div class="control is-clearfix">
               <div class="is-user-avatar image has-max-width is-aligned-center">
-                <img src="{{ data.message.initiatorapp.imageurl }}" alt="{{ data.message.initiatorapp.name }}">
+                <img src="{{ data.data.initiatorapp.imageurl }}" alt="{{ data.data.initiatorapp.name }}">
               </div>
-              <input type="text" readonly value="{{ data.message.initiatorapp.name }}" class="input is-static">
+              <input type="text" readonly value="{{ data.data.initiatorapp.name }}" class="input is-static">
             </div>
             <label class="label">Joiner</label>
             <div class="control is-clearfix">
               <div class="is-user-avatar image has-max-width is-aligned-center">
-                <img src="{{ data.message.joiner.picture }}" alt="{{ data.message.joiner.fullname }}">
+                <img src="{{ data.data.joiner.picture }}" alt="{{ data.data.joiner.fullname }}">
               </div>
-              <input type="text" readonly value="{{ data.message.joiner.fullname }}" class="input is-static">
+              <input type="text" readonly value="{{ data.data.joiner.fullname }}" class="input is-static">
             </div>
             <label class="label">Joiner App</label>
             <div class="control is-clearfix">
               <div class="is-user-avatar image has-max-width is-aligned-center">
-                <img src="{{ data.message.joinerapp.imageurl }}" alt="{{ data.message.joinerapp.name }}">
+                <img src="{{ data.data.joinerapp.imageurl }}" alt="{{ data.data.joinerapp.name }}">
               </div>
-              <input type="text" readonly value="{{ data.message.joinerapp.name }}" class="input is-static">
+              <input type="text" readonly value="{{ data.data.joinerapp.name }}" class="input is-static">
             </div>
           </div>
         </div>
@@ -83,35 +83,35 @@
       <div class="card tile is-child">
 
         {% if data.candelete %}
-        <button class="button is-medium is-danger" type="button" onclick="window.location.href='/delete?tradeid={{ data.message.id }}'">
+        <button class="button is-medium is-danger" type="button" onclick="window.location.href='/delete?tradeid={{ data.data.id }}'">
           <span>Delete</span>
           <span class="icon"><i class="mdi mdi-delete-forever"></i></span>
         </button>
         {% endif %}
 
         {% if data.canjoin %}
-        <button class="button is-medium is-primary" type="button" onclick="window.location.href='/join?tradeid={{ data.message.id }}'">
+        <button class="button is-medium is-primary" type="button" onclick="window.location.href='/join?tradeid={{ data.data.id }}'">
           <span>Join</span>
           <span class="icon"><i class="mdi mdi-location-enter"></i></span>
         </button>
         {% endif%}
 
         {% if data.canleave %}
-        <button class="button is-medium is-primary" type="button" onclick="window.location.href='/leave?tradeid={{ data.message.id }}'">
+        <button class="button is-medium is-primary" type="button" onclick="window.location.href='/leave?tradeid={{ data.data.id }}'">
           <span>Leave</span>
           <span class="icon"><i class="mdi mdi-location-exit"></i></span>
         </button>
         {% endif%}
 
         {% if data.canaccept %}
-        <button class="button is-medium is-primary" type="button" onclick="window.location.href='/accept?tradeid={{ data.message.id }}'">
+        <button class="button is-medium is-primary" type="button" onclick="window.location.href='/accept?tradeid={{ data.data.id }}'">
           <span>Accept</span>
           <span class="icon"><i class="mdi mdi-checkbox-marked-circle-outline"></i></span>
         </button>
         {% endif%}
 
         {% if data.canreject %}
-        <button class="button is-medium is-primary" type="button" onclick="window.location.href='/reject?tradeid={{ data.message.id }}'">
+        <button class="button is-medium is-primary" type="button" onclick="window.location.href='/reject?tradeid={{ data.data.id }}'">
           <span>Reject</span>
           <span class="icon"><i class="mdi mdi-checkbox-blank-circle-outline"></i></span>
         </button>
