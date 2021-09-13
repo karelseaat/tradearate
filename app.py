@@ -40,6 +40,13 @@ oauth.register(**oauthconfig)
 def unauthorized(error):
     return redirect('/login')
 
+def local_breakdown(local):
+    if "-" in locale:
+        boff = local.split("-")[1]
+    else:
+        boff = locale
+    return boff.lower()
+
 def is_human(captcha_response):
     """ Validating recaptcha response from google server
         Returns True captcha test passed for submitted form else returns False.
@@ -104,14 +111,14 @@ def authorize():
             if user.fullname != user_info['name'] or user.email != user_info['email'] or user.locale != user_info['locale'].split("-")[1].lower() or user.email != user_info['email']:
                 user.fullname = user_info['name']
                 user.email = user_info['email']
-                user.locale = user_info['locale'].split("-")[1].lower()
+                user.locale = local_breakdown(user_info['locale'])
                 app.session.commit()
         else:
             newuser = User(user_info['id'])
             newuser.fullname = user_info['name']
             newuser.picture = user_info['picture']
             newuser.email = user_info['email']
-            newuser.locale = user_info['locale'].split("-")[1].lower()
+            newuser.locale = local_breakdown(user_info['locale'])
             app.session.add(newuser)
             app.session.commit()
             login_user(newuser)
