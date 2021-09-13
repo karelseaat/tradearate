@@ -44,7 +44,7 @@ def local_breakdown(local):
     if "-" in local:
         boff = local.split("-")[1]
     else:
-        boff = locale
+        boff = local
     return boff.lower()
 
 def is_human(captcha_response):
