@@ -242,7 +242,7 @@ def overviewtrades():
         activetrades = app.session.query(Trade).all()
         app.data['data'] = activetrades
     except Exception as exception:
-        app.data['message'].append(str(exception))
+        app.data['messages'].append(str(exception))
     return render_template('overview.html', data=app.data)
 
 @app.route("/show")
@@ -260,7 +260,7 @@ def show():
         app.data['candelete'] = thetrade.can_delete(googleid)
         app.data['canleave'] = thetrade.can_leave(googleid)
     except Exception as exception:
-        app.data['message'].append(str(exception))
+        app.data['messages'].append(str(exception))
     return render_template('showtrade.html', data=app.data)
 
 @app.route("/reject")
