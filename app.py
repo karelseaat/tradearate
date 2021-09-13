@@ -83,7 +83,10 @@ def logout():
 @app.route('/authorize')
 def authorize():
     google_auth = oauth.create_client('google')
-    google_auth.authorize_access_token()
+    test = google_auth.authorize_access_token()
+
+    print(test)
+
     resp = google_auth.get('userinfo')
     user_info = resp.json()
 
