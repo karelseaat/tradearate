@@ -41,7 +41,7 @@ def unauthorized(error):
     return redirect('/login')
 
 def local_breakdown(local):
-    if "-" in locale:
+    if "-" in local:
         boff = local.split("-")[1]
     else:
         boff = locale
