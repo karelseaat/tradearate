@@ -13,7 +13,7 @@ from flask_login import (
 )
 from config import make_session, oauthconfig, REVIEWLIMIT
 from models import User, Trade, App, Review
-import logging
+
 
 
 app = Flask(
@@ -23,7 +23,7 @@ app = Flask(
     template_folder = "dist",
 )
 
-logging.basicConfig(filename='example.log', level=logging.DEBUG)
+
 
 login_manager = LoginManager()
 login_manager.setup_app(app)
@@ -94,13 +94,9 @@ def authorize():
     google_auth = oauth.create_client('google')
     test = google_auth.authorize_access_token()
 
-    logging.debug(str(test))
-
 
     resp = google_auth.get('userinfo')
     user_info = resp.json()
-
-    logging.debug(str(user_info))
 
     if user_info and 'id' in user_info and 'verified_email' in user_info:
         user = app.session.query(User).filter(User.googleid == user_info['id']).first()
