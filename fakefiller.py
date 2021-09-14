@@ -57,16 +57,16 @@ session.close()
 
 session = make_session()
 
+faker = Faker()
+
 for _ in range(10):
     atrade = random_trade(Trade())
 
     atrade.initiator = random_user(User)
-    atrade.joiner = random_user(User)
+
 
     appa = App("test", "nogtest")
     appb = App("niettest", "Klont")
-
-
 
     for _ in range(10):
 
@@ -74,12 +74,16 @@ for _ in range(10):
         reviewb = Review()
 
         appa.reviews.append(random_review(reviewa))
+
         appb.reviews.append(random_review(reviewb))
         reviewa.user = atrade.initiator
+        #
         reviewb.user = atrade.joiner
 
     atrade.initiatorapp = random_app(appa)
-    atrade.joinerapp = random_app(appb)
+    if bool(faker.random_int(0, 1)):
+        atrade.joinerapp = random_app(appb)
+        atrade.joiner = random_user(User)
 
     session.add(atrade)
 

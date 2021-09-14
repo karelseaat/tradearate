@@ -55,7 +55,6 @@ def is_human(captcha_response):
     payload = {'response':captcha_response, 'secret':secret}
     response = requests.post("https://www.google.com/recaptcha/api/siteverify", payload)
     response_text = json.loads(response.text)
-    print(response_text)
     return response_text['success']
 
 @login_manager.user_loader
@@ -65,7 +64,7 @@ def load_user(userid):
 
 @app.before_request
 def before_request_func():
-    navigation = {'dashboard': ('Dashboard', 'index'), 'alltrades': ('All trades', 'overviewtrades'), 'allapps': ('All apps', 'overviewapps'), 'allreviews': ('All reviews', 'overviewreviews'), 'mytrades': ('My trades', 'trades'), 'myapps': ('My apps', 'apps'), 'myreviews': ('My reviews', 'overviewreviews'), 'profile': ('My profile', 'userprofile'), 'messages': ('Messages', ''), 'logout': ('Log Out', 'logout'), 'about': ('About', '/')}
+    navigation = {'dashboard': ('Dashboard', 'index'), 'alltrades': ('All trades', 'overviewtrades'), 'allapps': ('All apps', 'overviewapps'), 'allreviews': ('All reviews', 'overviewreviews'), 'mytrades': ('My trades', 'trades'), 'myapps': ('My apps', 'apps'), 'myreviews': ('All reviews', 'overviewreviews'), 'profile': ('My profile', 'userprofile'), 'messages': ('Messages', ''), 'logout': ('Log Out', 'logout'), 'about': ('About', '/')}
     app.data = {'pagename': 'Unknown', 'user': None, 'messages': [], 'navigation': navigation, 'data': None, 'logged-in': current_user.is_authenticated}
 
     if current_user.is_authenticated:
@@ -175,7 +174,6 @@ def processadd():
     appid = request.form.get('appid')
     captcha_response = request.form['g-recaptcha-response']
     appobj = get_app_from_store(appid, country=current_user.locale)
-    # print(bool(appobj), int(appobj['reviews']) <= REVIEWLIMIT, is_human(captcha_response))
 
     if appobj and int(appobj['reviews']) <= REVIEWLIMIT and is_human(captcha_response):
         appmodel = app.session.query(App).filter(App.appidstring==appid).first()
@@ -261,6 +259,7 @@ def show():
         app.data['canleave'] = thetrade.can_leave(googleid)
     except Exception as exception:
         app.data['messages'].append(str(exception))
+        print(exception)
     return render_template('showtrade.html', data=app.data)
 
 @app.route("/reject")
@@ -313,8 +312,6 @@ def processjoin():
     captcha_response = request.form['g-recaptcha-response']
     tradeid = request.form.get('tradeid')
     appobjjoiner = get_app_from_store(appid, country=current_user.locale)
-
-    # print(bool(appobj), int(appobj['reviews']) <= REVIEWLIMIT, is_human(captcha_response))
 
     if appobjjoiner and int(appobjjoiner['reviews']) <= REVIEWLIMIT and is_human(captcha_response):
         joinerappmodel = App(appobjjoiner['title'], appid)

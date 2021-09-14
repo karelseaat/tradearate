@@ -9,26 +9,29 @@
     <div class="hero-body">
       <div style="margin: auto">
         <form class="frame p-0" method="post" action="/processjoin" id="demo-form">
+
+          <hr>
+          <div class="field is-horizontal">
+            <div class="field-label is-normal">
+              <label class="label">The app id you want reviewed</label>
+            </div>
+            <div class="field-body">
+              <div class="field">
+                <div class="control">
+                  <input type="hidden" name="tradeid" value="{{ tradeid }}">
+                  <input class="input" type="text" name="appid" placeholder="Enter your app name">
+                </div>
+              </div>
+            </div>
+          </div>
+          <hr>
+
           <div class="frame__body p-0">
             <div class="row p-0 level fill-height">
               <div class="col">
                 <div class="space xlarge"></div>
                 <div class="padded">
-                  <h1 class="u-text-center u-font-alt">Join a trade</h1>
-                  <div class="divider"></div>
-                  <p class="u-text-center">Here you can join a app rate trade that someone else started</p>
-                  <div class="divider"></div>
-                  <p class="u-text-center">Go to the google app store an browse to your application, now from the url copy the id part of the url, and paste that in the app name field</p>
-                  <div class="divider"></div>
-                  <div class="form-group">
-                    <label class="form-group-label">
-                      <span class="icon">
-                        <i class="fa-wrapper fab fa-android"></i>
-                      </span>
-                    </label>
-                    <input type="hidden" name="tradeid" value="{{ tradeid }}">
-                    <input type="text" class="form-group-input" name="appid" placeholder="Enter your app name" />
-                  </div>
+
                   <div class="form-section section-inline">
                     <div class="space"></div>
                     <div class="btn-group u-pull-left">
