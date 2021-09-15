@@ -24,9 +24,6 @@ def random_trade(trade):
     trade.initiator_accepted = bool(faker.random_int(0, 1))
     trade.joiner_accepted = bool(faker.random_int(0, 1))
 
-    # if bool(faker.random_int(0, 1)):
-    #     trade.set_accepted()
-
     return trade
 
 def random_user(user):
@@ -48,7 +45,6 @@ def random_review(review):
     review.reviewrating = faker.random_int(0, 10)
     return review
 
-# session.query(Message).delete()
 session.query(User).delete()
 
 session.commit()
@@ -77,7 +73,6 @@ for _ in range(10):
 
         appb.reviews.append(random_review(reviewb))
         reviewa.user = atrade.initiator
-        #
         reviewb.user = atrade.joiner
 
     atrade.initiatorapp = random_app(appa)

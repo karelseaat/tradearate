@@ -7,8 +7,8 @@ REVIEWLIMIT = 1000
 
 oauthconfig = {
     'name':'google',
-    'client_id':'246793217963-ph4ft9vem6ocs45iathatof8914o88pa.apps.googleusercontent.com',
-    'client_secret':'xrXkKmbXWb_31zcrlfE3NPiG',
+    'client_id':'73190520700-quq0eklkk131ulbukpcokav1khtrupo6.apps.googleusercontent.com',
+    'client_secret':'PcA-dpVsAsqAzIcliLwhxZ7B',
     'access_token_url':'https://accounts.google.com/o/oauth2/token',
     'access_token_params':None,
     'authorize_url':'https://accounts.google.com/o/oauth2/auth',

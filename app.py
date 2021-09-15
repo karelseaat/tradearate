@@ -15,15 +15,12 @@ from config import make_session, oauthconfig, REVIEWLIMIT
 from models import User, Trade, App, Review
 
 
-
 app = Flask(
     __name__,
     static_url_path='/assets',
     static_folder = "assets",
     template_folder = "dist",
 )
-
-
 
 login_manager = LoginManager()
 login_manager.setup_app(app)
@@ -34,7 +31,6 @@ app.browsersession = {}
 
 oauth = OAuth(app)
 oauth.register(**oauthconfig)
-
 
 @app.errorhandler(401)
 def unauthorized(error):
