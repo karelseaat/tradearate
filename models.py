@@ -130,9 +130,14 @@ class Trade(DictSerializableMixin):
     def can_join(self, usergoogleid):
         return not self.joiner and self.initiator.googleid is not usergoogleid
 
-
     def can_reject(self, usergoogleid):
-        return (self.joiner and self.joiner.googleid is usergoogleid and self.joiner_accepted) or (self.initiator and self.initiator.googleid is usergoogleid and self.initiator_accepted) and not self.accepted
+
+        if self.joiner and self.joiner.googleid is usergoogleid and self.joiner_accepted and not self.accepted:
+            return True
+        elif self.initiator and self.initiator.googleid is usergoogleid and self.initiator_accepted and not self.accepted:
+            return True
+        return False
+
 
     def can_accept(self, usergoogleid):
         return (self.joiner and self.initiator) and ((self.joiner.googleid is usergoogleid and not self.joiner_accepted) or (self.initiator.googleid is usergoogleid and not self.initiator_accepted and not self.accepted))
@@ -146,7 +151,7 @@ class Trade(DictSerializableMixin):
     def reject_user(self, usergoogleid):
         if self.initiator_accepted and self.initiator.googleid == usergoogleid:
             self.initiator_accepted = False
-        if self.joiner_accepted and self.joiner.googleid == usergoogleid:
+        elif self.joiner_accepted and self.joiner.googleid == usergoogleid:
             self.joiner_accepted = False
 
     def accept_user(self, usergoogleid):

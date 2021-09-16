@@ -252,6 +252,7 @@ def show():
     except Exception as exception:
         app.data['messages'].append(str(exception))
         print(exception)
+
     return render_template('showtrade.html', data=app.data)
 
 @app.route("/reject")
@@ -306,8 +307,10 @@ def processjoin():
     appobjjoiner = get_app_from_store(appid, country=current_user.locale)
 
     if appobjjoiner and int(appobjjoiner['reviews']) <= REVIEWLIMIT and is_human(captcha_response):
-        joinerappmodel = App(appobjjoiner['title'], appid)
-        joinerappmodel.imageurl = appobjjoiner['icon']
+        joinerappmodel = app.session.query(App).filter(App.appidstring==appid).first()
+        if not joinerappmodel:
+            joinerappmodel = App(appobj['title'], appid)
+            joinerappmodel.imageurl = appobjjoiner['icon']
         trade = app.session.query(Trade).get(int(tradeid))
         initiatorabletoreview = get_app_from_store(trade.initiatorapp.appidstring, country=current_user.locale)
         if initiatorabletoreview:
@@ -322,11 +325,15 @@ def processjoin():
 @app.route("/leave")
 @login_required
 def leave():
-    tradeid = request.form.get('tradeid')
+    tradeid = request.args.get('tradeid')
     thetrade = app.session.query(Trade).get(int(tradeid))
     try:
         if thetrade.can_leave(current_user.googleid):
             thetrade.joiner = None
+            thetrade.joinerapp = None
+            thetrade.joiner_accepted = False
+            thetrade.joiner_accepted = False
+            thetrade.initiator_accepted = False
             app.session.commit()
     except Exception as exception:
         app.data['messages'].append(str(exception))
