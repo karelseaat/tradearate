@@ -6,6 +6,7 @@
 
   <!-- Bulma is included -->
   <link rel="stylesheet" href="assets/css/main.css">
+    <link rel="stylesheet" href="assets/css/custom.css">
 
   <!-- Fonts -->
   <link rel="dns-prefetch" href="https://fonts.gstatic.com">
@@ -13,8 +14,17 @@
   <script src="https://www.google.com/recaptcha/api.js"></script>
   <script>
   function onSubmit(token) {
-    console.log(" yes !!!");
     document.getElementById("demo-form").submit();
+  }
+
+  function myFunction() { 
+    var x = document.getElementById("snackbar");
+    if(x.innerHTML.replace(/\s+/g, '').length > 0)
+    {
+      x.className = "show";  
+      setTimeout(function(){ x.className = x.className.replace("show", ""); }, 3000);
+    }
+
   }
 </script>
 

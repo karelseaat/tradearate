@@ -5,7 +5,7 @@
 {% include "./partials/head.html" %}
 {% endblock %}
 
-<body>
+<body onLoad="myFunction()">
 <div id="app">
 
 {% block topnavigation %}
@@ -29,6 +29,19 @@
 {% block lowerjs %}
 {% include "./partials/lowerjs.html" %}
 {% endblock %}
+
+<!-- The actual snackbar -->
+<div id="snackbar">
+{% with messages = get_flashed_messages() %}
+  {% if messages %}
+    <ul class=flashes>
+    {% for message in messages %}
+      <li>{{ message }}</li>
+    {% endfor %}
+    </ul>
+  {% endif %}
+{% endwith %}
+</div>
 
 </body>
 </html>

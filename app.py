@@ -1,6 +1,6 @@
 import json
 import requests
-from flask import Flask, redirect, request, url_for, render_template
+from flask import Flask, redirect, request, url_for, render_template, flash
 from authlib.integrations.flask_client import OAuth
 import google_play_scraper
 from flask_login import (
@@ -61,7 +61,7 @@ def load_user(userid):
 @app.before_request
 def before_request_func():
     navigation = {'dashboard': ('Dashboard', 'index'), 'alltrades': ('All trades', 'overviewtrades'), 'allapps': ('All apps', 'overviewapps'), 'allreviews': ('All reviews', 'overviewreviews'), 'mytrades': ('My trades', 'trades'), 'myapps': ('My apps', 'apps'), 'myreviews': ('All reviews', 'overviewreviews'), 'profile': ('My profile', 'userprofile'), 'messages': ('Messages', ''), 'logout': ('Log Out', 'logout'), 'about': ('About', '/')}
-    app.data = {'pagename': 'Unknown', 'user': None, 'messages': [], 'navigation': navigation, 'data': None, 'logged-in': current_user.is_authenticated}
+    app.data = {'pagename': 'Unknown', 'user': None, 'navigation': navigation, 'data': None, 'logged-in': current_user.is_authenticated}
 
     if current_user.is_authenticated:
         app.data['user'] = {'fullname': current_user.fullname, 'language': current_user.locale, 'email': current_user.email, 'picture': current_user.picture}
@@ -99,7 +99,7 @@ def authorize():
 
         if user:
             login_user(user)
-            if user.fullname != user_info['name'] or user.email != user_info['email'] or user.locale != user_info['locale'].split("-")[1].lower() or user.email != user_info['email']:
+            if user.fullname != user_info['name'] or user.email != user_info['email'] or user.locale != local_breakdown(user_info['locale']) or user.email != user_info['email']:
                 user.fullname = user_info['name']
                 user.email = user_info['email']
                 user.locale = local_breakdown(user_info['locale'])
@@ -157,7 +157,7 @@ def get_app_from_store(appid, country='us'):
     try:
         appobj = google_play_scraper.app(appid, country=country)
     except Exception as exception:
-        print(exception)
+        flash(str(exception))
     return appobj
 
 @app.route("/processadd", methods = ['POST'])
@@ -167,6 +167,7 @@ def processadd():
     captcha_response = request.form['g-recaptcha-response']
     appobj = get_app_from_store(appid, country=current_user.locale)
 
+
     if appobj and int(appobj['reviews']) <= REVIEWLIMIT and is_human(captcha_response):
         appmodel = app.session.query(App).filter(App.appidstring==appid).first()
         if not appmodel:
@@ -175,7 +176,10 @@ def processadd():
         trade = Trade(current_user, appmodel, current_user.locale)
         app.session.add(trade)
         app.session.commit()
+        flash("added trade")
         return redirect('/overviewtrades')
+    else:
+        flash(str("chapcha trouble, more than reviews, or of the process doent exist"))
     return redirect('/add')
 
 @app.route('/index')
@@ -196,7 +200,7 @@ def overviewapps():
         activetrades = app.session.query(App).all()
         app.data['data'] = activetrades
     except Exception as exception:
-        app.data['messages'].append(str(exception))
+        flash(str(exception))
     return render_template('overviewapps.html', data=app.data)
 
 @app.route('/showreview')
@@ -207,7 +211,7 @@ def showreview():
         review = app.session.query(Review).get(reviewid)
         app.data['data'] = review
     except Exception as exception:
-        app.data['messages'].append(str(exception))
+        flash(str(exception))
     return render_template('showreview.html', data=app.data)
 
 @app.route('/overviewreviews')
@@ -221,7 +225,7 @@ def overviewreviews():
 
         app.data['data'] = activereviews
     except Exception as exception:
-        app.data['messages'].append(str(exception))
+        flash(str(exception))
     return render_template('overviewreviews.html', data=app.data)
 
 @app.route('/overviewtrades')
@@ -232,7 +236,7 @@ def overviewtrades():
         activetrades = app.session.query(Trade).all()
         app.data['data'] = activetrades
     except Exception as exception:
-        app.data['messages'].append(str(exception))
+        flash(str(exception))
     return render_template('overview.html', data=app.data)
 
 @app.route("/show")
@@ -250,8 +254,7 @@ def show():
         app.data['candelete'] = thetrade.can_delete(googleid)
         app.data['canleave'] = thetrade.can_leave(googleid)
     except Exception as exception:
-        app.data['messages'].append(str(exception))
-        print(exception)
+        flash(str(exception))
 
     return render_template('showtrade.html', data=app.data)
 
@@ -264,9 +267,10 @@ def reject():
         if thetrade.can_reject(current_user.googleid):
             thetrade.reject_user(current_user.googleid)
             app.session.commit()
+            flash("rejected the trade")
     except Exception as exception:
         app.session.rollback()
-        app.data['messages'].append(str(exception))
+        flash(str(exception))
     return redirect('/show?tradeid=' + tradeid)
 
 @app.route("/accept")
@@ -278,9 +282,10 @@ def accept():
         if thetrade.can_accept(current_user.googleid):
             thetrade.accept_user(current_user.googleid)
             app.session.commit()
+            flash("accepted the trade")
     except Exception as exception:
         app.session.rollback()
-        app.data['messages'].append(str(exception))
+        flash(str(exception))
     return redirect('/show?tradeid=' + tradeid)
 
 @app.route("/delete")
@@ -289,6 +294,7 @@ def delete():
     tradeid = request.args.get('tradeid')
     app.session.query(Trade).filter(Trade.id==tradeid).delete()
     app.session.commit()
+    flash("trade removed !")
     return redirect('/overviewtrades')
 
 @app.route("/join")
@@ -319,7 +325,11 @@ def processjoin():
             trade.joinerlang = current_user.locale
             app.session.add(trade)
             app.session.commit()
+            flash("joined the trade")
             return redirect('/overviewtrades')
+    else:
+        flash(str("chapcha trouble, more than reviews, or of the process doent exist"))
+
     return redirect('/join')
 
 @app.route("/leave")
@@ -335,6 +345,7 @@ def leave():
             thetrade.joiner_accepted = False
             thetrade.initiator_accepted = False
             app.session.commit()
+            flash("left the trade")
     except Exception as exception:
-        app.data['messages'].append(str(exception))
+        flash(str(exception))
     return redirect('/overviewtrades')

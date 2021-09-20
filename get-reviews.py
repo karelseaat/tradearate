@@ -61,7 +61,6 @@ def feedreviews(app, langs, numofrespercall):
 
             if continuation_token.token:
                 app.continuation_token = serialise_token(continuation_token)
-                print(app.continuation_token)
                 dbsession.add(app)
             dbsession.commit()
 
