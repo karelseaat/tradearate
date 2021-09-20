@@ -167,7 +167,7 @@ def processadd():
     captcha_response = request.form['g-recaptcha-response']
     appobj = get_app_from_store(appid, country=current_user.locale)
 
-    if 'reviews' not in appobj and appobj['reviews']:
+    if 'reviews' not in appobj or not appobj['reviews']:
         flash("at the moment there is minor trouble with google playstore, try angain later !")
         return redirect('/add')
 
