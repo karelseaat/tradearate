@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/python3
 
 # This script will go trough the db and will get all apps of trades that are active.
 #It will also get all the languages of the user associated with the trade.
