@@ -78,6 +78,7 @@ for value in allapps:
     for auser in value.all_users():
         allusers.append(auser)
 
+
     listoflangs = list(set([x.locale for x in set(allusers) if x.locale]))
     feedreviews(value, listoflangs, 100)
 

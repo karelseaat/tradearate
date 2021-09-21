@@ -39,10 +39,14 @@
 # testbaar maken van het systeen door anderen (done)
 # Linten van de code (done)
 # Iconen voor het main menu moeten worden aangepast (done)
-
 # pagina namen in de code, zodat we ook in het menu de active page kunnen zetten ! (done)
 # de data structuur definitief maken: data, message, etxra, weetik veel (done)
 # wellicht kunnen ook de links in een data structuur dat we de links slecht op een plek hoeven aan te passen ! (done)
+
+# bezig met te kijken wat de get-reviews nou helemaal doet !
+# kijken of de interval te verhogen van het aanvragen van de store geholpen heeft !
+
+
 
 #bezig met de pagination ! (todo)
 # er is voor niets aan messages nog een snackbar, ik geloof wel dat het in het thema zit en zelfs al in de html zit maar nog wel ff maken ! (todo)

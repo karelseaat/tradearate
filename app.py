@@ -13,6 +13,7 @@ from flask_login import (
 )
 from config import make_session, oauthconfig, REVIEWLIMIT
 from models import User, Trade, App, Review
+from myownscraper import get_app
 
 
 app = Flask(
@@ -155,7 +156,7 @@ def add():
 def get_app_from_store(appid, country='us'):
     appobj = None
     try:
-        appobj = google_play_scraper.app(appid, country=country)
+        appobj = get_app(appid, country=country)
     except Exception as exception:
         flash(str(exception))
     return appobj
@@ -167,11 +168,11 @@ def processadd():
     captcha_response = request.form['g-recaptcha-response']
     appobj = get_app_from_store(appid, country=current_user.locale)
 
-    if 'reviews' not in appobj or not appobj['reviews']:
+    if 'rating' not in appobj or not appobj['rating']:
         flash("at the moment there is minor trouble with google playstore, try angain later !")
         return redirect('/add')
 
-    if appobj and int(appobj['reviews']) <= REVIEWLIMIT and is_human(captcha_response):
+    if appobj and int(appobj['rating']) <= REVIEWLIMIT and is_human(captcha_response):
         appmodel = app.session.query(App).filter(App.appidstring==appid).first()
         if not appmodel:
             appmodel = App(appobj['title'], appid)
@@ -315,7 +316,7 @@ def processjoin():
     tradeid = request.form.get('tradeid')
     appobjjoiner = get_app_from_store(appid, country=current_user.locale)
 
-    if appobjjoiner and int(appobjjoiner['reviews']) <= REVIEWLIMIT and is_human(captcha_response):
+    if appobjjoiner and int(appobjjoiner['rating']) <= REVIEWLIMIT and is_human(captcha_response):
         joinerappmodel = app.session.query(App).filter(App.appidstring==appid).first()
         if not joinerappmodel:
             joinerappmodel = App(appobj['title'], appid)
