@@ -235,9 +235,17 @@ def overviewreviews():
 @login_required
 def overviewtrades():
     app.data['pagename'] = 'My trades'
+    pagenum = 0
+    if 'pagenum' in request.args:
+        pagenum = int(request.args.get('pagenum'))
     try:
-        activetrades = app.session.query(Trade).all()
+        print(pagenum)
+        total = app.session.query(Trade).count()
+        activetrades = app.session.query(Trade).limit(5).offset(pagenum*5).all()
         app.data['data'] = activetrades
+        app.data['total'] = list(range(1, int(total/5)+1))
+        # print(1, total+2)
+        # print(app.data['total'])
     except Exception as exception:
         flash(str(exception))
     return render_template('overview.html', data=app.data)
