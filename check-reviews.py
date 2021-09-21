@@ -1,4 +1,4 @@
-#!/usr/bin/python3
+#!/usr/bin/env python
 
 from config import make_session
 from models import User, Trade, App, Review

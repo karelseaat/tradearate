@@ -1,4 +1,4 @@
-#!/usr/bin/python3
+#!/usr/bin/env python
 
 # This script will go trough the db and will get all apps of trades that are active.
 #It will also get all the languages of the user associated with the trade.
@@ -30,14 +30,16 @@ def feedreviews(app, langs, numofrespercall):
         continuation_token = None
 
     for lang in langs:
+
         while resultcount == count:
-            time.sleep(1)
+
             result, continuation_token = google_play_scraper.reviews(
                 app.appidstring,
                 lang=lang,
                 count=count,
                 continuation_token=continuation_token
             )
+            time.sleep(10)
 
             resultcount = len(result)
 
@@ -78,8 +80,7 @@ for value in allapps:
     for auser in value.all_users():
         allusers.append(auser)
 
-
-    listoflangs = list(set([x.locale for x in set(allusers) if x.locale]))
-    feedreviews(value, listoflangs, 100)
+listoflangs = list(set([x.locale for x in set(allusers) if x.locale]))
+feedreviews(value, listoflangs, 100)
 
 dbsession.close()
