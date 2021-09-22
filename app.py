@@ -326,7 +326,7 @@ def processjoin():
     if appobjjoiner and int(appobjjoiner['rating']) <= REVIEWLIMIT and is_human(captcha_response):
         joinerappmodel = app.session.query(App).filter(App.appidstring==appid).first()
         if not joinerappmodel:
-            joinerappmodel = App(appobj['title'], appid)
+            joinerappmodel = App(appobjjoiner['title'], appid)
             joinerappmodel.imageurl = appobjjoiner['icon']
         trade = app.session.query(Trade).get(int(tradeid))
         initiatorabletoreview = get_app_from_store(trade.initiatorapp.appidstring, country=current_user.locale)
