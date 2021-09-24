@@ -39,6 +39,12 @@ def random_app(app):
     app.appidstring = faker.name()
     return app
 
+def random_historic(historic):
+    faker= Faker()
+    historic.infotype = faker.random_int(0, 2)
+    historic.number = faker.random_int(0, 2000)
+    return historic
+
 def random_review(review):
     faker = Faker()
     review.reviewtext = faker.name()
@@ -54,6 +60,10 @@ session.close()
 session = make_session()
 
 faker = Faker()
+
+for _ in range(10):
+    ahistoric = random_historic(Historic())
+    session.add(ahistoric)
 
 for _ in range(10):
     atrade = random_trade(Trade())

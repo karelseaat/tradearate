@@ -34,61 +34,9 @@
       </div>
     </div>
   </div>
-  <div class="card has-table has-mobile-sort-spaced">
-    <header class="card-header">
-      <p class="card-header-title">
-        <span class="icon"><i class="mdi mdi-account-multiple"></i></span>
-        Clients
-      </p>
-      <a href="#" class="card-header-icon">
-        <span class="icon"><i class="mdi mdi-reload"></i></span>
-      </a>
-    </header>
-    <div class="card-content">
-      <div class="b-table has-pagination">
-        <div class="table-wrapper has-mobile-cards">
-          <table class="table is-fullwidth is-striped is-hoverable is-sortable is-fullwidth">
-            <thead>
-              <tr>
-                <th></th>
-                <th>Name</th>
-                <th>Company</th>
-                <th>City</th>
-                <th>Progress</th>
-                <th>Created</th>
-                <th></th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td class="is-image-cell">
-                  <div class="image">
-                    <img src="https://avatars.dicebear.com/v2/initials/rebecca-bauch.svg" class="is-rounded">
-                  </div>
-                </td>
-                <td data-label="Name">Rebecca Bauch</td>
-                <td data-label="Company">Daugherty-Daniel</td>
-                <td data-label="City">South Cory</td>
-                <td data-label="Progress" class="is-progress-cell">
-                  <progress max="100" class="progress is-small is-primary" value="79">79</progress>
-                </td>
-                <td data-label="Created">
-                  <small class="has-text-grey is-abbr-like" title="Oct 25, 2020">Oct 25, 2020</small>
-                </td>
-                <td class="is-actions-cell">
-                  <div class="buttons is-right">
-                    <button class="button is-small is-primary" type="button">
-                      <span class="icon"><i class="mdi mdi-eye"></i></span>
-                    </button>
-                  </div>
-                </td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
-      </div>
-    </div>
-  </div>
+  <div class="is-hidden" id="apps-num-data">{{ data.apps }}</div>
+  <div class="is-hidden" id="trades-num-data">{{ data.trades }}</div>
+  <div class="is-hidden" id="reviews-num-data">{{ data.reviews }}</div>
 </section>
 
 {% endblock %}

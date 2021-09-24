@@ -195,7 +195,6 @@ class App(DictSerializableMixin):
         return [x for x in prelist if x]
 
 
-
 class Review(DictSerializableMixin):
     __tablename__ = 'reviews'
     id = Column(Integer, primary_key=True)
@@ -208,3 +207,10 @@ class Review(DictSerializableMixin):
     reviewrating = Column(Integer)
     reviewappversion = Column(String(16), nullable=True)
     username = Column(String(64), nullable=True)
+
+class Historic(DictSerializableMixin):
+    __tablename__ = 'historic'
+    id = Column(Integer, primary_key=True)
+    infotype = Column(Integer)
+    date = Column(Date, default=datetime.datetime.utcnow)
+    number = Column(Integer)

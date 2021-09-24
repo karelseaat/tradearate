@@ -17,11 +17,14 @@ var chartColors = {
     danger: '#FF3860'
   }
 };
+
+
 var ctx = document.getElementById('big-line-chart').getContext('2d');
 new Chart(ctx, {
   type: 'line',
   data: {
-    datasets: [{
+    datasets: [
+      {
       fill: false,
       borderColor: chartColors["default"].primary,
       borderWidth: 2,
@@ -34,7 +37,7 @@ new Chart(ctx, {
       pointHoverRadius: 4,
       pointHoverBorderWidth: 15,
       pointRadius: 4,
-      data: randomChartData(9)
+      data: JSON.parse(document.getElementById('apps-num-data').innerHTML)
     }, {
       fill: false,
       borderColor: chartColors["default"].info,
@@ -48,8 +51,9 @@ new Chart(ctx, {
       pointHoverRadius: 4,
       pointHoverBorderWidth: 15,
       pointRadius: 4,
-      data: randomChartData(9)
-    }, {
+      data: [9,8,7,6,5,4,3,2,1]
+    },
+     {
       fill: false,
       borderColor: chartColors["default"].danger,
       borderWidth: 2,
