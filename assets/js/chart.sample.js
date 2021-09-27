@@ -18,7 +18,6 @@ var chartColors = {
   }
 };
 
-
 var ctx = document.getElementById('big-line-chart').getContext('2d');
 new Chart(ctx, {
   type: 'line',
@@ -51,7 +50,7 @@ new Chart(ctx, {
       pointHoverRadius: 4,
       pointHoverBorderWidth: 15,
       pointRadius: 4,
-      data: [9,8,7,6,5,4,3,2,1]
+      data: JSON.parse(document.getElementById('trades-num-data').innerHTML)
     },
      {
       fill: false,
@@ -66,9 +65,9 @@ new Chart(ctx, {
       pointHoverRadius: 4,
       pointHoverBorderWidth: 15,
       pointRadius: 4,
-      data: randomChartData(9)
+      data: JSON.parse(document.getElementById('reviews-num-data').innerHTML)
     }],
-    labels: ['01', '02', '03', '04', '05', '06', '07', '08', '09']
+    labels: JSON.parse(document.getElementById('labels-num-data').innerHTML)
   },
   options: {
     maintainAspectRatio: false,

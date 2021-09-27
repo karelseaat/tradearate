@@ -35,12 +35,14 @@ def random_user(user):
 
 def random_app(app):
     faker = Faker()
+
     app.name = faker.name()
     app.appidstring = faker.name()
     return app
 
 def random_historic(historic):
     faker= Faker()
+    historic.date = faker.date_between(start_date='-1y', end_date='today')
     historic.infotype = faker.random_int(0, 2)
     historic.number = faker.random_int(0, 2000)
     return historic
@@ -61,7 +63,7 @@ session = make_session()
 
 faker = Faker()
 
-for _ in range(10):
+for _ in range(100):
     ahistoric = random_historic(Historic())
     session.add(ahistoric)
 

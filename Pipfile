@@ -16,6 +16,7 @@ flask-login = "*"
 pylint = "*"
 bs4 = "*"
 lxml = "*"
+flask-mail = "*"
 
 [dev-packages]
 

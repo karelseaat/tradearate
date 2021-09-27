@@ -4,9 +4,9 @@
 
 <section class="section is-main-section">
   <div class="tile is-ancestor">
-    {% include "./partials/card.html" %}
-    {% include "./partials/card.html" %}
-    {% include "./partials/card.html" %}
+    {% include "./partials/card-apps.html" %}
+    {% include "./partials/card-trades.html" %}
+    {% include "./partials/card-reviews.html" %}
   </div>
   <div class="card">
     <header class="card-header">
@@ -37,6 +37,7 @@
   <div class="is-hidden" id="apps-num-data">{{ data.apps }}</div>
   <div class="is-hidden" id="trades-num-data">{{ data.trades }}</div>
   <div class="is-hidden" id="reviews-num-data">{{ data.reviews }}</div>
+  <div class="is-hidden" id="labels-num-data">{{ data.labels }}</div>
 </section>
 
 {% endblock %}

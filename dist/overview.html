@@ -75,7 +75,11 @@
             </div>
             <div class="level-right">
               <div class="level-item">
-                <small>Page 1 of 3</small>
+                {% if data.pagenum %}
+                  <small>Page {{ data.pagenum[0] }} of {{ data.pagenum[1] }}</small>
+                {% else %}
+                  <small>Page 1 of 1</small>
+                {% endif %}
               </div>
             </div>
           </div>

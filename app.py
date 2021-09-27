@@ -11,10 +11,10 @@ from flask_login import (
     current_user,
     LoginManager
 )
-from config import make_session, oauthconfig, REVIEWLIMIT
+from config import make_session, oauthconfig, REVIEWLIMIT, recaptchasecret
 from models import User, Trade, App, Review, Historic
 from myownscraper import get_app
-
+from flask_mail import Mail, Message
 
 app = Flask(
     __name__,
@@ -26,9 +26,12 @@ app = Flask(
 login_manager = LoginManager()
 login_manager.setup_app(app)
 
-app.secret_key = 'random secret'
+
+app.secret_key = 'random secret223'
 app.session = make_session()
 app.browsersession = {}
+
+app.config.from_object("config.Config")
 
 oauth = OAuth(app)
 oauth.register(**oauthconfig)
@@ -48,8 +51,7 @@ def is_human(captcha_response):
     """ Validating recaptcha response from google server
         Returns True captcha test passed for submitted form else returns False.
     """
-    secret = "6Ld8rjMcAAAAAPDQI6igBibm24JIwHABlL5uw2RX"
-    payload = {'response':captcha_response, 'secret':secret}
+    payload = {'response':captcha_response, 'secret':recaptchasecret}
     response = requests.post("https://www.google.com/recaptcha/api/siteverify", payload)
     response_text = json.loads(response.text)
     return response_text['success']
@@ -59,12 +61,13 @@ def pagination(db_object, itemnum):
     data = None
     if 'pagenum' in request.args:
         pagenum = int(request.args.get('pagenum'))
-    try:
-        total = app.session.query(db_object).count()
-        app.data['total'] = list(range(1, int(total/itemnum)+1))
-        data = app.session.query(db_object).limit(itemnum).offset(pagenum*itemnum).all()
-    except Exception as exception:
-        flash(str(exception))
+
+    total = app.session.query(db_object).count()
+    app.data['total'] = list(range(1, int(total/itemnum)+1))
+    app.data['pagenum'] = pagenum+1, int(total/itemnum)
+    print(app.data['pagenum'])
+    data = app.session.query(db_object).limit(itemnum).offset(pagenum*itemnum).all()
+
     return data
 
 @login_manager.user_loader
@@ -216,10 +219,11 @@ def processadd():
 def index():
     app.data['pagename'] = 'Dashboard'
 
-    allstuff = app.session.query(Historic).filter(Historic.infotype==0).all()
+    allstuff = app.session.query(Historic).order_by(Historic.date).all()
     app.data['apps'] = [ x.number for x in allstuff if 0 == x.infotype ]
     app.data['trades'] = [ x.number for x in allstuff if 1 == x.infotype ]
     app.data['reviews'] = [ x.number for x in allstuff if 2 == x.infotype ]
+    app.data['labels'] = json.dumps(list(set([ str(x.date) for x in allstuff])))
 
     return render_template('index.html', data=app.data)
 
@@ -311,11 +315,20 @@ def reject():
 @login_required
 def accept():
     tradeid = request.args.get('tradeid')
+    baseurl = request.base_url
     try:
         thetrade = app.session.query(Trade).get(int(tradeid))
         if thetrade.can_accept(current_user.googleid):
             thetrade.accept_user(current_user.googleid)
             app.session.commit()
+            if thetrade.accepted:
+                msg = Message('Test !', body="The trade has now been accepted !", sender="no-reply@{}".format(baseurl), recipients=[thetrade.joiner.email])
+                mail = Mail(app)
+                mail.send(msg)
+                msg = Message('Test !', body="The trade has now been accepted !", sender="no-reply@{}".format(baseurl), recipients=[thetrade.initiator.email])
+                mail = Mail(app)
+                mail.send(msg)
+
             flash("accepted the trade")
     except Exception as exception:
         app.session.rollback()

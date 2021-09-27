@@ -20,12 +20,22 @@ oauthconfig = {
 
 CONNECTIONURI = "sqlite:///treetareet.sqlite"
 
+recaptchasecret = "6Ld8rjMcAAAAAPDQI6igBibm24JIwHABlL5uw2RX"
+
 def make_session():
     engine = create_engine(CONNECTIONURI, echo=False, connect_args={'check_same_thread': False})
     dbsession = scoped_session(sessionmaker(bind=engine))
     Base.metadata.create_all(engine)
     return dbsession()
 
+
+class Config(object):
+    MAIL_SERVER='smtp.gmail.com'
+    MAIL_PORT=465
+    MAIL_USERNAME='sixdots.soft@gmail.com'
+    MAIL_PASSWORD='oqmhnpocsnigsvrx'
+    MAIL_USE_TLS=False
+    MAIL_USE_SSL=True
 
 
 # Wat komt hier in te staan:
