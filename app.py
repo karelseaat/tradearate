@@ -16,6 +16,10 @@ from models import User, Trade, App, Review, Historic
 from myownscraper import get_app
 from flask_mail import Mail, Message
 
+from cerberus import Validator
+
+valliapp = Validator({'appid': {'required': True, 'type': 'string'}, 'g-recaptcha-response': {'required': True}})
+
 app = Flask(
     __name__,
     static_url_path='/assets',
@@ -193,9 +197,18 @@ def get_app_from_store(appid, country='us'):
 @app.route("/processadd", methods = ['POST'])
 @login_required
 def processadd():
+
+    valliapp.validate(dict(request.form))
+
+    if  valliapp.errors:
+        print(valliapp.errors)
+        flash(valliapp.errors)
+        return redirect('/add')
+
     appid = request.form.get('appid')
     captcha_response = request.form['g-recaptcha-response']
     appobj = get_app_from_store(appid, country=current_user.locale)
+
 
     if 'rating' not in appobj or not appobj['rating']:
         flash("at the moment there is minor trouble with google playstore, try angain later !")
@@ -237,8 +250,7 @@ def mainpage():
 def overviewapps():
     app.data['pagename'] = 'All apps'
     try:
-        activetrades = app.session.query(App).all()
-        app.data['data'] = activetrades
+        app.data['data'] = pagination(App, 5)
     except Exception as exception:
         flash(str(exception))
     return render_template('overviewapps.html', data=app.data)
@@ -258,12 +270,12 @@ def showreview():
 def overviewreviews():
     app.data['pagename'] = 'My reviews'
     try:
-        activereviews = app.session.query(Review).all()
-        for review in activereviews:
-            if review.app:
-                print(review.app.name)
+        # activereviews = app.session.query(Review).all()
+        # for review in activereviews:
+        #     if review.app:
+        #         print(review.app.name)
 
-        app.data['data'] = activereviews
+        app.data['data'] = pagination(Review, 50)
     except Exception as exception:
         flash(str(exception))
     return render_template('overviewreviews.html', data=app.data)

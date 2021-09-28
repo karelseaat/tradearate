@@ -17,6 +17,7 @@ pylint = "*"
 bs4 = "*"
 lxml = "*"
 flask-mail = "*"
+cerberus = "*"
 
 [dev-packages]
 
