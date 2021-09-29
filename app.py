@@ -60,16 +60,20 @@ def is_human(captcha_response):
     response_text = json.loads(response.text)
     return response_text['success']
 
+def round_up(num):
+    return int(-(-num // 1))
+
 def pagination(db_object, itemnum):
     pagenum = 0
     data = None
     if 'pagenum' in request.args:
         pagenum = int(request.args.get('pagenum'))
 
+    # int(-(-x // 1))
     total = app.session.query(db_object).count()
-    app.data['total'] = list(range(1, int(total/itemnum)+1))
-    app.data['pagenum'] = pagenum+1, int(total/itemnum)
-    print(app.data['pagenum'])
+    app.data['total'] = list(range(1, round_up(total/itemnum)+1))
+    app.data['pagenum'] = pagenum+1, round_up(total/itemnum)
+    # print(app.data['pagenum'])
     data = app.session.query(db_object).limit(itemnum).offset(pagenum*itemnum).all()
 
     return data
