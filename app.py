@@ -18,7 +18,7 @@ from flask_mail import Mail, Message
 
 from cerberus import Validator
 
-valliapp = Validator({'appid': {'required': True, 'type': 'string'}, 'g-recaptcha-response': {'required': True}})
+valliapp = Validator({'appid': {'required': True, 'type': 'string', 'regex': "^.*\..*\..*$"}, 'g-recaptcha-response': {'required': True}})
 
 app = Flask(
     __name__,
@@ -69,11 +69,9 @@ def pagination(db_object, itemnum):
     if 'pagenum' in request.args:
         pagenum = int(request.args.get('pagenum'))
 
-    # int(-(-x // 1))
     total = app.session.query(db_object).count()
     app.data['total'] = list(range(1, round_up(total/itemnum)+1))
     app.data['pagenum'] = pagenum+1, round_up(total/itemnum)
-    # print(app.data['pagenum'])
     data = app.session.query(db_object).limit(itemnum).offset(pagenum*itemnum).all()
 
     return data
@@ -274,10 +272,6 @@ def showreview():
 def overviewreviews():
     app.data['pagename'] = 'My reviews'
     try:
-        # activereviews = app.session.query(Review).all()
-        # for review in activereviews:
-        #     if review.app:
-        #         print(review.app.name)
 
         app.data['data'] = pagination(Review, 50)
     except Exception as exception:
@@ -370,6 +364,13 @@ def join():
 @app.route("/processjoin", methods = ['POST'])
 @login_required
 def processjoin():
+    valliapp.validate(dict(request.form))
+
+    if valliapp.errors:
+        print(valliapp.errors)
+        flash(valliapp.errors)
+        return redirect('/add')
+
     appid = request.form.get('appid')
     captcha_response = request.form['g-recaptcha-response']
     tradeid = request.form.get('tradeid')

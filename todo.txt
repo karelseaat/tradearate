@@ -54,15 +54,15 @@
 # weghalen van de refresh circle icons, deze geen we nooit gebruiken ! (done)
 # De pagination overal toepassen waar kan !(done)
 # de iconen van het dashboard moeten mogen meer to the point van apps, reviews, en trades ! (done)
-# Hebben we nog iets aan de logout knop ? mag die weg ? (nee niet echt weg gedaan !, done)
+# Hebben we nog iets aan de logout knop ? mag die weg ? (nee niet echt weg gedaan !, (done)
+# De pagination is nog niet helemaal ok, in geval van 5 items maar je hebt bijvoorbeeld 16 items, dan wordt er voor het 16 item niet een 4e page gemaakt.  (done)
+# Toevoegen van form validatie ? (done)
+# In het geval van een trade moet er in de trade een link staan naar de app store an bijde apps zodat je snel naar de store kunt om te reviewen ! (done)
 
-# De pagination is nog niet helemaal ok, in geval van 5 items maar je hebt bijvoorbeeld 16 items, dan wordt er voor het 16 item niet een 4e page gemaakt.
-# Toevoegen van form validatie ? (1/2)
-# In het geval van een trade moet er in de trade een link staan naar de app store an bijde apps zodat je snel naar de store kunt om te reviewen ! <--
-# crontab voor het playbook en een script maken om de counts te pakken voor apps, trades en reviews !
+# crontab voor het playbook en een script maken om de counts te pakken voor apps, trades en reviews ! (todo) <--
+# de content zit nog te vaak op een card of verkeerd verdeelt over kaarten, dit ff aanpakken ! (todo)
 
 # op het dashboard moet ik er voor zorgen dat de range voor data en labels slechts een maand oud is en niet meer data !
-# de content zit nog te vaak op een card of verkeerd verdeelt over kaarten, dit ff aanpakken !
 # er moet een mailer komen naar het email address van initiator en van joiner om de veranderde staat van een treet aan te geven, als bijde accept een seintje dat het aan is als er gejoined word ook ff en als een treet gelukt is ! (1/2)
 # dus het zou a handig zijn als gebruikers met elkaar kunnen comuniceren en b er is ruimte zat voor, doen ?
 # de my profile page mag nog wel wat liefde krijgen !
