@@ -5,8 +5,8 @@
   <div class="card has-table">
     <header class="card-header">
       <p class="card-header-title">
-        <span class="icon"><i class="mdi mdi-account-multiple"></i></span>
-        Clients
+        <span class="icon"><i class="mdi mdi-star-half"></i></span>
+        Reviews
       </p>
     </header>
     <div class="card-content">
@@ -56,7 +56,11 @@
               <div class="level-item">
                 <div class="buttons has-addons">
                   {% for page in data['total'] %}
-                  <button type="button" class="button is-active" onclick="window.location.href='/overviewreviews?pagenum={{ page -1}}';">{{ page }}</button>
+                    {% if data.pagenum %}
+                      <button type="button" class="button {{ 'is-active' if page == data.pagenum[0] }}" onclick="window.location.href='/overviewreviews?pagenum={{ page -1}}';">{{ page }}</button>
+                    {% else %}
+                      <button type="button" class="button {{ 'is-active' if page == 1 }}" onclick="window.location.href='/overviewreviews?pagenum={{ page -1}}';">{{ page }}</button>
+                    {% endif %}
                   {% endfor %}
                 </div>
               </div>

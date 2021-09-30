@@ -212,5 +212,5 @@ class Historic(DictSerializableMixin):
     __tablename__ = 'historic'
     id = Column(Integer, primary_key=True)
     infotype = Column(Integer)
-    date = Column(Date)
+    date = Column(Date, default=datetime.datetime.utcnow)
     number = Column(Integer)

@@ -17,6 +17,8 @@ from myownscraper import get_app
 from flask_mail import Mail, Message
 
 from cerberus import Validator
+from datetime import date, timedelta
+import datetime as dt
 
 valliapp = Validator({'appid': {'required': True, 'type': 'string', 'regex': "^.*\..*\..*$"}, 'g-recaptcha-response': {'required': True}})
 
@@ -73,6 +75,8 @@ def pagination(db_object, itemnum):
     app.data['total'] = list(range(1, round_up(total/itemnum)+1))
     app.data['pagenum'] = pagenum+1, round_up(total/itemnum)
     data = app.session.query(db_object).limit(itemnum).offset(pagenum*itemnum).all()
+
+    print(app.data['pagenum'], app.data['total'])
 
     return data
 
@@ -234,7 +238,9 @@ def processadd():
 def index():
     app.data['pagename'] = 'Dashboard'
 
-    allstuff = app.session.query(Historic).order_by(Historic.date).all()
+    nowdate = dt.datetime.now().date()
+
+    allstuff = app.session.query(Historic).filter(Historic.date >= nowdate + timedelta(days=-30) ,Historic.date <= nowdate).order_by(Historic.date).all()
     app.data['apps'] = [ x.number for x in allstuff if 0 == x.infotype ]
     app.data['trades'] = [ x.number for x in allstuff if 1 == x.infotype ]
     app.data['reviews'] = [ x.number for x in allstuff if 2 == x.infotype ]
@@ -253,6 +259,7 @@ def overviewapps():
     app.data['pagename'] = 'All apps'
     try:
         app.data['data'] = pagination(App, 5)
+
     except Exception as exception:
         flash(str(exception))
     return render_template('overviewapps.html', data=app.data)

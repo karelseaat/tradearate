@@ -91,3 +91,19 @@ and out */
     opacity: 0;
   }
 }
+
+aside.aside .aside-tools {
+    line-height: 5rem;
+}
+
+section.section.is-main-section {
+  min-height: 100vh;
+}
+
+footer {
+  border-top: 1px solid rgba(24, 28, 33, 0.06);
+}
+
+.logo {
+  padding-left: 10px;
+}

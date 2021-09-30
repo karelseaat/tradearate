@@ -58,16 +58,25 @@
 # De pagination is nog niet helemaal ok, in geval van 5 items maar je hebt bijvoorbeeld 16 items, dan wordt er voor het 16 item niet een 4e page gemaakt.  (done)
 # Toevoegen van form validatie ? (done)
 # In het geval van een trade moet er in de trade een link staan naar de app store an bijde apps zodat je snel naar de store kunt om te reviewen ! (done)
+# op het dashboard moet ik er voor zorgen dat de range voor data en labels slechts een maand oud is en niet meer data ! (done)
+# crontab voor het playbook en een script maken om de counts te pakken voor apps, trades en reviews ! (done)
+# logo van tradearate in de site ! (done)
+# van de pagination is het active page nr nog niet duidelijk ! (done)
+# de content zit nog te vaak op een card of verkeerd verdeelt over kaarten, dit ff aanpakken ! (done)
+# De footer van de page nog ff minimaal op de bodem van de page forcen ! (done)
+# Boven alle tabellen staat nu nog client en een ico, deze moeten worden aangepast naar de content op de kaart, beetje to the point ! (done)
 
-# crontab voor het playbook en een script maken om de counts te pakken voor apps, trades en reviews ! (todo) <--
-# de content zit nog te vaak op een card of verkeerd verdeelt over kaarten, dit ff aanpakken ! (todo)
-
-# op het dashboard moet ik er voor zorgen dat de range voor data en labels slechts een maand oud is en niet meer data !
+# De profile zoals die bij login > profile staat moet ongeveel hetzelfde worden als My trades ! (todo)
 # er moet een mailer komen naar het email address van initiator en van joiner om de veranderde staat van een treet aan te geven, als bijde accept een seintje dat het aan is als er gejoined word ook ff en als een treet gelukt is ! (1/2)
+
+de woorden in het side menu zijn wat miniem "MY" en "ALL" en "MAIN PAGE" dit mag duidelijker, ook is main page niet echt de main page !
+# het geselecteerde menuitem moet ook nog oplichten als we op die pagine zitten ! (todo)
 # dus het zou a handig zijn als gebruikers met elkaar kunnen comuniceren en b er is ruimte zat voor, doen ?
 # de my profile page mag nog wel wat liefde krijgen !
 # wellicht het zo maken dat de tabellen nu wel gesorteerd kunnnen worden ?
+# er mag een halfe studie gedaan worden naar wat er geparametriseerd kan worden in de templates hoe het geparametriseerd kan worden en het daadwerkelijk parametriseren !
 
+# er moet een score systeem komen voor zij die geen review heeft gedaan en daar moeten consequensies aan hangen !
 # belangrijk in de toekomst: https://brizzo.net/tips/hide-recaptcha-v3-badge/ (todo)
 # de data in de db is niet heel byzonder en we hebben deze data nodig om alle data in de db te linken maar moet een gebruiker zn account niet kunnen verwijderen ? (todo) (gebruiker account data verwijderen we niet !)
 # wellicht voor later, dat een gebruiker custom data bij zn account kan zetten (geen id wat) (voorlopig niet)

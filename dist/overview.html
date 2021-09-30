@@ -6,8 +6,8 @@
   <div class="card has-table">
     <header class="card-header">
       <p class="card-header-title">
-        <span class="icon"><i class="mdi mdi-account-multiple"></i></span>
-        Clients
+        <span class="icon"><i class="mdi mdi-twitter-retweet"></i></span>
+        Trades
       </p>
     </header>
     <div class="card-content">
@@ -65,7 +65,11 @@
               <div class="level-item">
                 <div class="buttons has-addons">
                   {% for page in data['total'] %}
-                  <button type="button" class="button is-active" onclick="window.location.href='/overviewtrades?pagenum={{ page -1}}';">{{ page }}</button>
+                    {% if data.pagenum %}
+                      <button type="button" class="button {{ 'is-active' if page == data.pagenum[0] }}" onclick="window.location.href='/overviewtrades?pagenum={{ page -1}}';">{{ page }}</button>
+                    {% else %}
+                      <button type="button" class="button {{ 'is-active' if page == 1 }}" onclick="window.location.href='/overviewtrades?pagenum={{ page -1}}';">{{ page }}</button>
+                    {% endif %}
                   {% endfor %}
                 </div>
               </div>
@@ -80,15 +84,13 @@
               </div>
             </div>
           </div>
+          <button class="button is-medium is-primary" type="button" onclick="window.location.href='/add'">
+            <span>Add</span>
+            <span class="icon"><i class="mdi mdi-folder-plus"></i></span>
+          </button>
         </div>
       </div>
     </div>
-  </div>
-  <div class="card tile is-child">
-    <button class="button is-medium is-primary" type="button" onclick="window.location.href='/add'">
-      <span>Add</span>
-      <span class="icon"><i class="mdi mdi-folder-plus"></i></span>
-    </button>
   </div>
 </section>
 
