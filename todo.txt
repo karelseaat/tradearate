@@ -69,6 +69,8 @@
 
 # er moet een mailer komen naar het email address van initiator en van joiner om de veranderde staat van een treet aan te geven, als bijde accept een seintje dat het aan is als er gejoined word ook ff en als een treet gelukt is ! (1/2)
 
+removing germen account van de server !
+er moet nog een mail worden gestuurd wanneer een review niet gedaan is en er over de timeout time is gegegaan voor de review !
 de woorden in het side menu zijn wat miniem "MY" en "ALL" en "MAIN PAGE" dit mag duidelijker, ook is main page niet echt de main page !
 # het geselecteerde menuitem moet ook nog oplichten als we op die pagine zitten ! (todo)
 # dus het zou a handig zijn als gebruikers met elkaar kunnen comuniceren en b er is ruimte zat voor, doen ?

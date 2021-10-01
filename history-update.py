@@ -2,7 +2,12 @@
 
 from config import make_session
 from models import Trade, App, Review, Historic
+import logging
+import datetime
 
+logging.basicConfig(filename='history-update.log', level=logging.INFO)
+
+logging.info('Start of history update ' + datetime.datetime.now().strftime("%m/%d/%Y, %H:%M:%S"))
 
 dbsession = make_session()
 
@@ -19,3 +24,5 @@ dbsession.add(historytrade)
 dbsession.add(historyapp)
 dbsession.add(historyreview)
 dbsession.commit()
+
+logging.info('End of history update ' + datetime.datetime.now().strftime("%m/%d/%Y, %H:%M:%S"))

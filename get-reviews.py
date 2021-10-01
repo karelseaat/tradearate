@@ -10,6 +10,9 @@ import google_play_scraper
 import time
 
 from google_play_scraper.features.reviews import _ContinuationToken
+import logging
+import datetime
+logging.basicConfig(filename='get-reviews.log', level=logging.INFO)
 
 def serialise_token(token):
     if not token.token:
@@ -66,9 +69,13 @@ def feedreviews(app, langs, numofrespercall):
                 dbsession.add(app)
             dbsession.commit()
 
+
+logging.info('Start of get reviews' + datetime.datetime.now().strftime("%m/%d/%Y, %H:%M:%S"))
 dbsession = make_session()
 
 allapps = []
+
+
 trades = dbsession.query(Trade).filter(Trade.accepted).filter(Trade.success==None).filter(Trade.failure==None).all()
 
 for value in trades:
@@ -80,7 +87,9 @@ for value in allapps:
     for auser in value.all_users():
         allusers.append(auser)
 
-listoflangs = list(set([x.locale for x in set(allusers) if x.locale]))
-feedreviews(value, listoflangs, 100)
+    listoflangs = list(set([x.locale for x in set(allusers) if x.locale]))
+    feedreviews(value, listoflangs, 100)
 
 dbsession.close()
+
+logging.info('End of get reviews' + datetime.datetime.now().strftime("%m/%d/%Y, %H:%M:%S"))
