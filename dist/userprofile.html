@@ -3,55 +3,68 @@
 {% extends "base.html" %}
 {% block content %}
 
-<div class="hero fullscreen">
-  <div class="hero-body u-center">
-    <div class="w-90" style="position: relative">
-      <div class="row">
-        <div class="frame fullwidth">
-          <div class="frame__body">
-            <div class="tile level">
-              <div class="tile__icon">
-                <figure class="avatar"><img src="{{ data['user'].picture }}"></figure>
-              </div>
-              <div class="tile__container">
-                <p class="tile__title m-0">{{ data['user'].fullname }}</p>
-              </div>
+<section class="section is-main-section">
+  <div class="tile is-ancestor">
+    <div class="tile is-parent">
+      <div class="card tile is-child">
+        <header class="card-header">
+          <p class="card-header-title">
+            <span class="icon"><i class="mdi mdi-account default"></i></span>
+            Profile
+          </p>
+        </header>
+        <div class="card-content">
+          <div class="is-user-avatar image has-max-width is-aligned-center">
+            <img src="{{ data.data.picture }}" alt="{{ data.data.fullname }}">
+          </div>
+          <hr>
+          <div class="field">
+            <label class="label">Name</label>
+            <div class="control is-clearfix">
+              <input type="text" readonly value="{{ data.data.fullname }}" class="input is-static">
             </div>
           </div>
-          <div class="frame__body">
-            <ul class="menu">
-              <li class="divider"></li>
-              <li class="menu-item">
-                <p>Nr of started trades: {{ data['data'].initiatortrades|length }}</p>
-              </li>
-              <li class="menu-item">
-                <p>Nr of joined trades: {{ data['data'].joinertrades|length }}</p>
-              </li>
-              <li class="divider"></li>
-              <li class="menu-item">
-                <p>Nr of failed trades {{ data['data'].all_trade_fails()|length }}</p>
-              </li>
-              <li class="menu-item">
-                <p>Nr of successfull trades: {{ data['data'].all_trade_successes()|length }}</p>
-              </li>
-              <li class="menu-item">
-                <p>Nr of pending trades: {{ data['data'].all_pending()|length }}</p>
-              </li>
-              <li class="divider"></li>
-              <li class="menu-item">
-                <p>Lang:</p>
-                <p>{{ data['data'].locale }}</p>
-              </li>
-              <li class="menu-item">
-                <p>Email: {{ data['user'].email }}</p>
-              </li>
-            </ul>
+          <hr>
+          <div class="field">
+            <label class="label">E-mail</label>
+            <div class="control is-clearfix">
+              <input type="text" readonly value="{{ data.data.email }}" class="input is-static">
+            </div>
+          </div>
+          <div class="field">
+            <label class="label">Locale</label>
+            <div class="control is-clearfix">
+              <input type="text" readonly value="{{ data.data.locale }}" class="input is-static">
+            </div>
+          </div>
+          <div class="field">
+            <label class="label">Started trades</label>
+            <div class="control is-clearfix">
+              <input type="text" readonly value="{{ data['data'].initiatortrades|length }}" class="input is-static">
+            </div>
+            <label class="label">Joined trades</label>
+            <div class="control is-clearfix">
+              <input type="text" readonly value="{{ data['data'].joinertrades|length }}" class="input is-static">
+            </div>
+            <label class="label">Failed trades</label>
+            <div class="control is-clearfix">
+              <input type="text" readonly value="{{ data['data'].all_trade_fails()|length }}" class="input is-static">
+            </div>
+            <label class="label">Successfull trades</label>
+            <div class="control is-clearfix">
+              <input type="text" readonly value="{{ data['data'].all_trade_successes()|length }}" class="input is-static">
+            </div>
+            <label class="label">Pending trades</label>
+            <div class="control is-clearfix">
+              <input type="text" readonly value="{{ data['data'].all_pending()|length }}" class="input is-static">
+            </div>
           </div>
         </div>
       </div>
     </div>
   </div>
-</div>
+</section>
+
 <script src="https://use.fontawesome.com/a696b91557.js"></script>
 
 {% endblock %}

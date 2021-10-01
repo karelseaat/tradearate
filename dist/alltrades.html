@@ -4,67 +4,6 @@
 
 {% block content %}
 
-<section class="section is-main-section">
-  <div class="tile is-ancestor">
-    <div class="tile is-parent">
-      <div class="card tile is-child">
-        <header class="card-header">
-          <p class="card-header-title">
-            <span class="icon"><i class="mdi mdi-account default"></i></span>
-            Profile
-          </p>
-        </header>
-        <div class="card-content">
-          <div class="is-user-avatar image has-max-width is-aligned-center">
-            <img src="{{ data.data.picture }}" alt="{{ data.data.fullname }}">
-          </div>
-          <hr>
-          <div class="field">
-            <label class="label">Name</label>
-            <div class="control is-clearfix">
-              <input type="text" readonly value="{{ data.data.fullname }}" class="input is-static">
-            </div>
-          </div>
-          <hr>
-          <div class="field">
-            <label class="label">E-mail</label>
-            <div class="control is-clearfix">
-              <input type="text" readonly value="{{ data.data.email }}" class="input is-static">
-            </div>
-          </div>
-          <div class="field">
-            <label class="label">Locale</label>
-            <div class="control is-clearfix">
-              <input type="text" readonly value="{{ data.data.locale }}" class="input is-static">
-            </div>
-          </div>
-          <div class="field">
-            <label class="label">Started trades</label>
-            <div class="control is-clearfix">
-              <input type="text" readonly value="{{ data['data'].initiatortrades|length }}" class="input is-static">
-            </div>
-            <label class="label">Joined trades</label>
-            <div class="control is-clearfix">
-              <input type="text" readonly value="{{ data['data'].joinertrades|length }}" class="input is-static">
-            </div>
-            <label class="label">Failed trades</label>
-            <div class="control is-clearfix">
-              <input type="text" readonly value="{{ data['data'].all_trade_fails()|length }}" class="input is-static">
-            </div>
-            <label class="label">Successfull trades</label>
-            <div class="control is-clearfix">
-              <input type="text" readonly value="{{ data['data'].all_trade_successes()|length }}" class="input is-static">
-            </div>
-            <label class="label">Pending trades</label>
-            <div class="control is-clearfix">
-              <input type="text" readonly value="{{ data['data'].all_pending()|length }}" class="input is-static">
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
 <section class="section">
   <div class="card has-table">
     <header class="card-header">
