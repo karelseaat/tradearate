@@ -67,7 +67,21 @@
 # Boven alle tabellen staat nu nog client en een ico, deze moeten worden aangepast naar de content op de kaart, beetje to the point ! (done)
 # De profile zoals die bij login > profile staat moet ongeveel hetzelfde worden als My trades ! (done)
 
+
+ook onder my trades de mogelijkheid geven een trade toe te voegen !
+progress bar van een time left voor een trade begint niet bij 100% time nodig voor een trade zal een week zijn !
+Titel klopt niet helemaal. "Trade details?" bij: https://trade.six-dots.app/show?tradeid=1
+Tekstuele fout: Initiaor
+https://trade.six-dots.app/show?tradeid=1: Day since start > Days active?
+https://trade.six-dots.app/overviewapps: All apps > stringId leeg
+My apps blijft leeg (kan weg?) na het toegen van een trade ? en dus een app ?
+https://trade.six-dots.app/: Help tekst klopt niet meer
+Onder de gebruiker: messages werkt niet
+zoom in dan krijg je te zien dat het linker menu verdwijnt maar het top menu in een hamburger menu wordt opgenomen, das niet toff !
+
 # er moet een mailer komen naar het email address van initiator en van joiner om de veranderde staat van een treet aan te geven, als bijde accept een seintje dat het aan is als er gejoined word ook ff en als een treet gelukt is ! (1/2)
+# remove de cache dir
+De playbook aanpassen check removal script tegen generate script
 
 removing germen account van de server !
 er moet nog een mail worden gestuurd wanneer een review niet gedaan is en er over de timeout time is gegegaan voor de review !
