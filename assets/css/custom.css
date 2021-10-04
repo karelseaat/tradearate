@@ -111,3 +111,12 @@ footer {
 .ppadding {
     padding-left: 20px;
 }
+
+.menu-label {
+  color: #fff;
+  font-size: 1em;
+}
+
+.menu-list {
+  border-bottom: 1px solid #17191e;
+}

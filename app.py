@@ -89,15 +89,17 @@ def load_user(userid):
 def before_request_func():
     navigation = {'dashboard': ('Dashboard', 'index'), 'alltrades': ('All trades', 'overviewtrades'), 'allapps': ('All apps', 'overviewapps'), 'allreviews': ('All reviews', 'overviewreviews'), 'mytrades': ('My trades', 'trades'), 'myapps': ('My apps', 'apps'), 'myreviews': ('All reviews', 'overviewreviews'), 'profile': ('My profile', 'userprofile'), 'logout': ('Log Out', 'logout'), 'about': ('About', '/')}
     app.data = {'pagename': 'Unknown', 'user': None, 'navigation': navigation, 'data': None, 'logged-in': current_user.is_authenticated}
+    app.data['currentnavigation'] = request.full_path[1:-1]
 
     if current_user.is_authenticated:
-        app.data['user'] = {'fullname': current_user.fullname, 'language': current_user.locale, 'email': current_user.email, 'picture': current_user.picture}
+        app.data['user'] = {'fullname': current_user.fullname, 'language': current_user.locale, 'email': current_user.email, 'picture': current_user.picture, 'cancreate': current_user.can_create_trade()}
 
 @app.route('/userprofile')
 @login_required
 def userprofile():
     app.data['pagename'] = 'User profile'
     app.data['data'] = current_user
+    app.data['userscore'] = current_user.get_score()
     return render_template('userprofile.html', data=app.data)
 
 @app.route('/login')
@@ -313,7 +315,7 @@ def show():
         thetrade = app.session.query(Trade).get(tradeid)
         app.data['data'] = thetrade
         app.data['canaccept'] = thetrade.can_accept(googleid)
-        app.data['canjoin'] = thetrade.can_join(googleid)
+        app.data['canjoin'] = thetrade.can_join(googleid) and current_user.can_join_trade()
         app.data['canreject'] = thetrade.can_reject(googleid)
         app.data['candelete'] = thetrade.can_delete(googleid)
         app.data['canleave'] = thetrade.can_leave(googleid)

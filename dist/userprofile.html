@@ -54,6 +54,16 @@
             <div class="control is-clearfix">
               <input type="text" readonly value="{{ data['data'].all_trade_successes()|length }}" class="input is-static">
             </div>
+            {% if data.data.get_score() > 0 %}
+            <label class="label has-text-primary">Trade score</label>
+            {% elif data.data.get_score() == 0 %}
+            <label class="label has-text-info">Trade score</label>
+            {% else %}
+            <label class="label has-text-danger">Trade score</label>
+            {% endif %}
+            <div class="control is-clearfix">
+              <input type="text" readonly value="{{ data['data'].get_score()}}" class="input is-static">
+            </div>
             <label class="label">Pending trades</label>
             <div class="control is-clearfix">
               <input type="text" readonly value="{{ data['data'].all_pending()|length }}" class="input is-static">

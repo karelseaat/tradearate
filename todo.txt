@@ -76,15 +76,17 @@ Onder de gebruiker: messages werkt niet (done)
 removing germen account van de server ! (done)
 https://trade.six-dots.app/: Help tekst klopt niet meer (done)
 # de data in de db is niet heel byzonder en we hebben deze data nodig om alle data in de db te linken maar moet een gebruiker zn account niet kunnen verwijderen ? (done) (gebruiker account data verwijderen we niet !)
+# het geselecteerde menuitem moet ook nog oplichten als we op die pagine zitten ! (done)
+# remove de cache dir (done)
+# De playbook aanpassen check removal script tegen generate script (done)
+# de woorden in het side menu zijn wat miniem "MY" en "ALL" en "MAIN PAGE" dit mag duidelijker, ook is main page niet echt de main page ! (done)
 
-# het geselecteerde menuitem moet ook nog oplichten als we op die pagine zitten ! (todo)
-# remove de cache dir (todo) <--
-# De playbook aanpassen check removal script tegen generate script (todo)
-# de woorden in het side menu zijn wat miniem "MY" en "ALL" en "MAIN PAGE" dit mag duidelijker, ook is main page niet echt de main page ! (todo)
-# er moet een score systeem komen voor zij die geen review heeft gedaan en daar moeten consequensies aan hangen ! (todo)
-
+# als we kijken naar de user profile is het dan niet beter 'Label: waarde' ? ipv onder elkaar ? (todo)
+# http://rolandtreetareet.nl:5000/usertrades?userid=1 is nog niet helemaal wat ik er van verwacht, ik verwacht hiet user profile info ! <-- (todo)
+# er moet een score systeem komen voor zij die geen review heeft gedaan en daar moeten consequensies aan hangen ! (2/3 ?) (een keer het niet doen van een trade zijn 10 minpunten, ee goede score is 1 punt) (het hebben van een score lager dan 0 en je kunt niet meer traden)
 # er moet een mailer komen naar het email address van initiator en van joiner om de veranderde staat van een treet aan te geven, als bijde accept een seintje dat het aan is als er gejoined word ook ff en als een treet gelukt is ! (1/2)
-# er moet nog een mail worden gestuurd wanneer een review niet gedaan is en er over de timeout time is gegegaan voor de review !
+# er moet nog een mail worden gestuurd wanneer een review niet gedaan is en er over de timeout time is gegegaan voor de review ! (todo)
+
 # wellicht het zo maken dat de tabellen nu wel gesorteerd kunnnen worden ?
 # er mag een halfe studie gedaan worden naar wat er geparametriseerd kan worden in de templates hoe het geparametriseerd kan worden en het daadwerkelijk parametriseren !
 # belangrijk in de toekomst: https://brizzo.net/tips/hide-recaptcha-v3-badge/ (todo)

@@ -84,10 +84,12 @@
               </div>
             </div>
           </div>
+          {% if data.user.cancreate %}
           <button class="button is-medium is-primary" type="button" onclick="window.location.href='/add?redirectto=/overview'">
             <span>Add</span>
             <span class="icon"><i class="mdi mdi-folder-plus"></i></span>
           </button>
+          {% endif %}
         </div>
       </div>
     </div>

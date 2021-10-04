@@ -134,10 +134,12 @@
   </div>
   </div>
   <div class="card tile is-child">
+    {% if data.user.cancreate %}
     <button class="button is-medium is-primary" type="button" onclick="window.location.href='/add'">
       <span>Add</span>
       <span class="icon"><i class="mdi mdi-folder-plus"></i></span>
     </button>
+    {% endif %}
   </div>
 </section>
 

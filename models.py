@@ -31,7 +31,6 @@ class User(DictSerializableMixin):
     picture = Column(String(256))
     email = Column(String(256))
     locale = Column(String(3))
-    # reviews = relationship('Review', back_populates="user")
     googleid = Column(String(256), nullable=False)
 
     def __init__(self, googleid):
@@ -49,11 +48,20 @@ class User(DictSerializableMixin):
     def is_anonymous(self):
         return False
 
+    def can_create_trade(self):
+        return self.get_score() >= 0
+
+    def can_join_trade(self):
+        return self.get_score() >= 0
+
     def all_trade_fails(self):
         return [x for x in set(self.initiatortrades + self.joinertrades) if x.failure]
 
     def all_trade_successes(self):
         return [x for x in set(self.initiatortrades + self.joinertrades) if x.success]
+
+    def get_score(self):
+        return len(self.all_trade_successes()) - (len(self.all_trade_fails())*10)
 
     def all_pending(self):
         return [x for x in set(self.initiatortrades + self.joinertrades) if not x.success and not x.failure]
@@ -127,6 +135,7 @@ class Trade(DictSerializableMixin):
             currDate = datetime.datetime.now()
             return (currDate.date() - self.accepted).days
         return 0
+
 
     def can_join(self, usergoogleid):
         return not self.joiner and self.initiator.googleid is not usergoogleid
