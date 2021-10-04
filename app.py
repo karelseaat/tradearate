@@ -20,7 +20,8 @@ from cerberus import Validator
 from datetime import date, timedelta
 import datetime as dt
 
-valliapp = Validator({'appid': {'required': True, 'type': 'string', 'regex': "^.*\..*\..*$"}, 'g-recaptcha-response': {'required': True}})
+valliappinit = Validator({'appid': {'required': True, 'type': 'string', 'regex': "^.*\..*\..*$"}, 'g-recaptcha-response': {'required': True}})
+alliappjoin = Validator({'tradeid':{'required': True, 'type': 'number'}, 'appid': {'required': True, 'type': 'string', 'regex': "^.*\..*\..*$"}, 'g-recaptcha-response': {'required': True}})
 
 app = Flask(
     __name__,
@@ -86,7 +87,7 @@ def load_user(userid):
 
 @app.before_request
 def before_request_func():
-    navigation = {'dashboard': ('Dashboard', 'index'), 'alltrades': ('All trades', 'overviewtrades'), 'allapps': ('All apps', 'overviewapps'), 'allreviews': ('All reviews', 'overviewreviews'), 'mytrades': ('My trades', 'trades'), 'myapps': ('My apps', 'apps'), 'myreviews': ('All reviews', 'overviewreviews'), 'profile': ('My profile', 'userprofile'), 'messages': ('Messages', ''), 'logout': ('Log Out', 'logout'), 'about': ('About', '/')}
+    navigation = {'dashboard': ('Dashboard', 'index'), 'alltrades': ('All trades', 'overviewtrades'), 'allapps': ('All apps', 'overviewapps'), 'allreviews': ('All reviews', 'overviewreviews'), 'mytrades': ('My trades', 'trades'), 'myapps': ('My apps', 'apps'), 'myreviews': ('All reviews', 'overviewreviews'), 'profile': ('My profile', 'userprofile'), 'logout': ('Log Out', 'logout'), 'about': ('About', '/')}
     app.data = {'pagename': 'Unknown', 'user': None, 'navigation': navigation, 'data': None, 'logged-in': current_user.is_authenticated}
 
     if current_user.is_authenticated:
@@ -190,6 +191,8 @@ def usertrades():
 @login_required
 def add():
     app.data['pagename'] = 'Add Trade'
+    if 'redirectto' in request.args:
+        app.data['redirectto'] = request.args['redirectto']
     return render_template('add.html', data=app.data)
 
 def get_app_from_store(appid, country='us'):
@@ -204,11 +207,12 @@ def get_app_from_store(appid, country='us'):
 @login_required
 def processadd():
 
-    valliapp.validate(dict(request.form))
+    valliappinit.validate(dict(request.form))
 
-    if  valliapp.errors:
-        print(valliapp.errors)
-        flash(valliapp.errors)
+
+    if  valliappinit.errors:
+        print(valliappinit.errors)
+        flash(valliappinit.errors)
         return redirect('/add')
 
     appid = request.form.get('appid')
@@ -229,6 +233,8 @@ def processadd():
         app.session.add(trade)
         app.session.commit()
         flash("added trade")
+        if 'redirectto' in request.args:
+            return redirect(request.args.get('redirectto'))
         return redirect('/overviewtrades')
     else:
         flash(str("chapcha trouble, more than reviews, or of the process doent exist"))
@@ -259,6 +265,9 @@ def overviewapps():
     app.data['pagename'] = 'All apps'
     try:
         app.data['data'] = pagination(App, 5)
+
+        for value in app.data['data']:
+            print(value._asdict())
 
     except Exception as exception:
         flash(str(exception))
@@ -297,7 +306,7 @@ def overviewtrades():
 @app.route("/show")
 @login_required
 def show():
-    app.data['pagename'] = 'Trade details ?'
+    app.data['pagename'] = 'Trade details'
     tradeid = request.args.get('tradeid')
     googleid = current_user.googleid
     try:
@@ -371,12 +380,12 @@ def join():
 @app.route("/processjoin", methods = ['POST'])
 @login_required
 def processjoin():
-    valliapp.validate(dict(request.form))
+    alliappjoin.validate(dict(request.form))
 
-    if valliapp.errors:
-        print(valliapp.errors)
-        flash(valliapp.errors)
-        return redirect('/add')
+    if alliappjoin.errors:
+        print(alliappjoin.errors)
+        flash(alliappjoin.errors)
+        return redirect('/join')
 
     appid = request.form.get('appid')
     captcha_response = request.form['g-recaptcha-response']

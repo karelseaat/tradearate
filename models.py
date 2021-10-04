@@ -91,6 +91,7 @@ class Trade(DictSerializableMixin):
     success = Column(Date, nullable=True)
     failure = Column(Date, nullable=True)
 
+    timetotrade = 7
 
     def __init__(self, initiator=None, initiatorapp=None, initiatorlang=None):
         if initiator:
@@ -113,9 +114,9 @@ class Trade(DictSerializableMixin):
 
     def trade_days_left(self):
         if self.accepted:
-            currDate = datetime.datetime.now() + datetime.timedelta(days=10)
-            return (currDate.date() - self.accepted).days
-        return 0
+            currDate = datetime.datetime.now() + datetime.timedelta(days=self.timetotrade)
+            return (currDate.date() - self.accepted).days - self.timetotrade
+        return self.timetotrade
 
     def age(self):
         currDate = datetime.datetime.now()

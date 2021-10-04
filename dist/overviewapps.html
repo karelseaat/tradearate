@@ -31,8 +31,8 @@
                     <img src="{{ my_item.imageurl }}" class="is-rounded">
                   </div>
                 </td>
-                <td data-label="Name"><a href="{{ my_item.name }}"></a></td>
-                <td data-label="IdString"><a href="{{ my_item.appidstring }}"></a></td>
+                <td data-label="Name">{{ my_item.name }}</a></td>
+                <td data-label="IdString"><a href="{{ my_item.appidstring }}">{{ my_item.appidstring }}</a></td>
                 <td data-label="Reviews">
                   <p>{{my_item.reviews|count}}</p>
                 </td>

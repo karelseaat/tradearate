@@ -43,10 +43,10 @@
                 <td data-label="Company">{{ my_item.initiatorapp.name }}</td>
                 <td data-label="City">{{ my_item.status() }}</td>
                 <td data-label="Progress" class="is-progress-cell">
-                  <progress max="100" class="progress is-small is-primary" value="79">79</progress>
+                  <progress max="{{ my_item.timetotrade }}" class="progress is-small is-primary" value="{{ my_item.trade_days_left() }}">{{ my_item.trade_days_left() }}</progress>
                 </td>
                 <td data-label="Created">
-                  <small class="has-text-grey is-abbr-like" title="Oct 25, 2020">{{ my_item.initiated }}</small>
+                  <small class="has-text-grey is-abbr-like" title="{{ my_item.initiated }}">{{ my_item.initiated }}</small>
                 </td>
                 <td class="is-actions-cell">
                   <div class="buttons is-right">
@@ -84,7 +84,7 @@
               </div>
             </div>
           </div>
-          <button class="button is-medium is-primary" type="button" onclick="window.location.href='/add'">
+          <button class="button is-medium is-primary" type="button" onclick="window.location.href='/add?redirectto=/overview'">
             <span>Add</span>
             <span class="icon"><i class="mdi mdi-folder-plus"></i></span>
           </button>

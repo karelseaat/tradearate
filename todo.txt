@@ -42,7 +42,6 @@
 # pagina namen in de code, zodat we ook in het menu de active page kunnen zetten ! (done)
 # de data structuur definitief maken: data, message, etxra, weetik veel (done)
 # wellicht kunnen ook de links in een data structuur dat we de links slecht op een plek hoeven aan te passen ! (done)
-
 # bezig met te kijken wat de get-reviews nou helemaal doet ! (done)
 # kijken of de interval te verhogen van het aanvragen van de store geholpen heeft ! (done)
 # er is voor niets aan messages nog een snackbar, ik geloof wel dat het in het thema zit en zelfs al in de html zit maar nog wel ff maken ! (done)
@@ -66,35 +65,30 @@
 # De footer van de page nog ff minimaal op de bodem van de page forcen ! (done)
 # Boven alle tabellen staat nu nog client en een ico, deze moeten worden aangepast naar de content op de kaart, beetje to the point ! (done)
 # De profile zoals die bij login > profile staat moet ongeveel hetzelfde worden als My trades ! (done)
+# https://trade.six-dots.app/show?tradeid=1: Day since start > Days active? (done)
+Tekstuele fout: Initiaor (done)
+Titel klopt niet helemaal. "Trade details?" bij: https://trade.six-dots.app/show?tradeid=1 (done)
+https://trade.six-dots.app/overviewapps: All apps > stringId leeg  (done)
+Als je bij 'join' een fout in het form krijgt wordt je naar 'add' geredirect om een niewe app te initiaten das niet goed ! (done)
+ook onder my trades de mogelijkheid geven een trade toe te voegen ! (done)
+progress bar van een time left voor een trade begint niet bij 100% time nodig voor een trade zal een week zijn ! (done)
+Onder de gebruiker: messages werkt niet (done)
+removing germen account van de server ! (done)
+https://trade.six-dots.app/: Help tekst klopt niet meer (done)
+# de data in de db is niet heel byzonder en we hebben deze data nodig om alle data in de db te linken maar moet een gebruiker zn account niet kunnen verwijderen ? (done) (gebruiker account data verwijderen we niet !)
 
-
-ook onder my trades de mogelijkheid geven een trade toe te voegen !
-progress bar van een time left voor een trade begint niet bij 100% time nodig voor een trade zal een week zijn !
-Titel klopt niet helemaal. "Trade details?" bij: https://trade.six-dots.app/show?tradeid=1
-Tekstuele fout: Initiaor
-https://trade.six-dots.app/show?tradeid=1: Day since start > Days active?
-https://trade.six-dots.app/overviewapps: All apps > stringId leeg
-My apps blijft leeg (kan weg?) na het toegen van een trade ? en dus een app ?
-https://trade.six-dots.app/: Help tekst klopt niet meer
-Onder de gebruiker: messages werkt niet
-zoom in dan krijg je te zien dat het linker menu verdwijnt maar het top menu in een hamburger menu wordt opgenomen, das niet toff !
+# het geselecteerde menuitem moet ook nog oplichten als we op die pagine zitten ! (todo)
+# remove de cache dir (todo) <--
+# De playbook aanpassen check removal script tegen generate script (todo)
+# de woorden in het side menu zijn wat miniem "MY" en "ALL" en "MAIN PAGE" dit mag duidelijker, ook is main page niet echt de main page ! (todo)
+# er moet een score systeem komen voor zij die geen review heeft gedaan en daar moeten consequensies aan hangen ! (todo)
 
 # er moet een mailer komen naar het email address van initiator en van joiner om de veranderde staat van een treet aan te geven, als bijde accept een seintje dat het aan is als er gejoined word ook ff en als een treet gelukt is ! (1/2)
-# remove de cache dir
-De playbook aanpassen check removal script tegen generate script
-
-removing germen account van de server !
-er moet nog een mail worden gestuurd wanneer een review niet gedaan is en er over de timeout time is gegegaan voor de review !
-de woorden in het side menu zijn wat miniem "MY" en "ALL" en "MAIN PAGE" dit mag duidelijker, ook is main page niet echt de main page !
-# het geselecteerde menuitem moet ook nog oplichten als we op die pagine zitten ! (todo)
-# dus het zou a handig zijn als gebruikers met elkaar kunnen comuniceren en b er is ruimte zat voor, doen ?
+# er moet nog een mail worden gestuurd wanneer een review niet gedaan is en er over de timeout time is gegegaan voor de review !
 # wellicht het zo maken dat de tabellen nu wel gesorteerd kunnnen worden ?
 # er mag een halfe studie gedaan worden naar wat er geparametriseerd kan worden in de templates hoe het geparametriseerd kan worden en het daadwerkelijk parametriseren !
-
-# er moet een score systeem komen voor zij die geen review heeft gedaan en daar moeten consequensies aan hangen !
 # belangrijk in de toekomst: https://brizzo.net/tips/hide-recaptcha-v3-badge/ (todo)
-# de data in de db is niet heel byzonder en we hebben deze data nodig om alle data in de db te linken maar moet een gebruiker zn account niet kunnen verwijderen ? (todo) (gebruiker account data verwijderen we niet !)
-# wellicht voor later, dat een gebruiker custom data bij zn account kan zetten (geen id wat) (voorlopig niet)
-
-
+# dus het zou a handig zijn als gebruikers met elkaar kunnen comuniceren en b er is ruimte zat voor, doen ?
+# zoom in dan krijg je te zien dat het linker menu verdwijnt maar het top menu in een hamburger menu wordt opgenomen, das niet toff ! (todo)
+# My apps blijft leeg (kan weg?) na het toevoegen van een trade ? en dus een app ? (todo) (dit heb ik zo snel niet kunnen ondervinden !)
 # een custom ontworpen faficon maken ! (todo)
