@@ -6,7 +6,7 @@ import logging
 import datetime
 import os
 
-dirname = os.getcwd(__file__)
+dirname = os.getcwd()
 
 logging.basicConfig(filename='{}/history-update.log'.format(dirname), level=logging.INFO)
 

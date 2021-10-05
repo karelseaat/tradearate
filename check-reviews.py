@@ -3,7 +3,6 @@
 from config import make_session
 from models import User, Trade, App, Review
 import google_play_scraper
-import pprint
 import time
 import smtplib
 import logging

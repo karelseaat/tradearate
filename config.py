@@ -2,6 +2,7 @@
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker, scoped_session
 from models import Base
+import os
 
 REVIEWLIMIT = 1000
 
@@ -18,7 +19,7 @@ oauthconfig = {
     'client_kwargs':{'scope': 'openid email profile'}
 }
 
-CONNECTIONURI = "sqlite:///treetareet.sqlite"
+CONNECTIONURI = "sqlite:////{}/treetareet.sqlite".format(os.path.dirname(__file__))
 
 recaptchasecret = "6Ld8rjMcAAAAAPDQI6igBibm24JIwHABlL5uw2RX"
 
