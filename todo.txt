@@ -86,7 +86,7 @@ https://trade.six-dots.app/: Help tekst klopt niet meer (done)
 # Er moet een mailer komen naar het email address van initiator en van joiner om de veranderde staat van een treet aan te geven, als bijde accept een seintje dat het aan is als er gejoined word ook ff en als een treet gelukt is ! (done)
 # er moet nog een mail worden gestuurd wanneer een review niet gedaan is en er over de timeout time is gegegaan voor de review ! (done)
 
-# Er moet ook een mail worden gestuurd als een trade expired is !
+# Er moet ook een mail worden gestuurd als een trade expired is ! (todo) <--
 # Je moet ook kunnen zien bij een trade wat de ratings zijn van bijde partijen die meedoen !
 
 #ik zou de minpunten voor een gefailde trade het liefst willen toewijzen aan de partij of partijen die de trades niet hebben voltooit, dus geen review hebben geplaatst ! de partij die wel een review heeft geplaatst geen geen min of pluspunten !
