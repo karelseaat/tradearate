@@ -6,8 +6,7 @@ import logging
 import datetime
 import os
 
-dirname = os.path.dirname(__file__)
-# print(dirname)
+dirname = os.getcwd(__file__)
 
 logging.basicConfig(filename='{}/history-update.log'.format(dirname), level=logging.INFO)
 
@@ -19,22 +18,25 @@ try:
     tradenum = dbsession.query(Trade).count()
     appnum = dbsession.query(App).count()
     reviewnum = dbsession.query(Review).count()
+    logging.info("counts: {} {} {}".format(tradenum, appnum, reviewnum))
 except error:
-   print("An error occured while counting objects", error)
+   logging.info("An error occured while counting objects: {}".format(error))
 
 try:
     historyapp = Historic(infotype=0, number=appnum)
     historytrade = Historic(infotype=1, number=tradenum)
     historyreview = Historic(infotype=2, number=reviewnum)
+    logging.info("history objects made !")
 except error:
-   print("An error occured where adding to history", error)
+   logging.info("An error occured where adding to history: {}".format(error))
 
 try:
     dbsession.add(historytrade)
     dbsession.add(historyapp)
     dbsession.add(historyreview)
     dbsession.commit()
+    logging.info("All inserted into the db !")
 except error:
-   print("An error occured while sending the whole shabang to the db", error)
+   logging.info("An error occured while sending the whole shabang to the db: {}".format(error))
 
 logging.info('End of history update ' + datetime.datetime.now().strftime("%m/%d/%Y, %H:%M:%S"))
