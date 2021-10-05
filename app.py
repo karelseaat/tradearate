@@ -184,9 +184,12 @@ def showapp():
 @app.route("/usertrades")
 @login_required
 def usertrades():
+    app.data['pagename'] = 'User profile'
+
     userid = request.args.get('userid')
     userobj = app.session.query(User).filter(User.id==userid).first()
     app.data['data'] = userobj
+
     return render_template('usertrades.html', data=app.data)
 
 @app.route("/add")

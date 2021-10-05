@@ -80,13 +80,16 @@ https://trade.six-dots.app/: Help tekst klopt niet meer (done)
 # remove de cache dir (done)
 # De playbook aanpassen check removal script tegen generate script (done)
 # de woorden in het side menu zijn wat miniem "MY" en "ALL" en "MAIN PAGE" dit mag duidelijker, ook is main page niet echt de main page ! (done)
+# als we kijken naar de user profile is het dan niet beter 'Label: waarde' ? ipv onder elkaar ? (Done ? ish)
+# http://rolandtreetareet.nl:5000/usertrades?userid=1 is nog niet helemaal wat ik er van verwacht, ik verwacht hiet user profile info ! (done)
+# een crontab script maken dat een trade failed nadat de timeout verstreken is !(een keer het niet doen van een trade zijn 10 minpunten, ee goede score is 1 punt) (het hebben van een score lager dan 0 en je kunt niet meer traden) (done)
+# Er moet een mailer komen naar het email address van initiator en van joiner om de veranderde staat van een treet aan te geven, als bijde accept een seintje dat het aan is als er gejoined word ook ff en als een treet gelukt is ! (done)
+# er moet nog een mail worden gestuurd wanneer een review niet gedaan is en er over de timeout time is gegegaan voor de review ! (done)
 
-# als we kijken naar de user profile is het dan niet beter 'Label: waarde' ? ipv onder elkaar ? (todo)
-# http://rolandtreetareet.nl:5000/usertrades?userid=1 is nog niet helemaal wat ik er van verwacht, ik verwacht hiet user profile info ! <-- (todo)
-# er moet een score systeem komen voor zij die geen review heeft gedaan en daar moeten consequensies aan hangen ! (2/3 ?) (een keer het niet doen van een trade zijn 10 minpunten, ee goede score is 1 punt) (het hebben van een score lager dan 0 en je kunt niet meer traden)
-# er moet een mailer komen naar het email address van initiator en van joiner om de veranderde staat van een treet aan te geven, als bijde accept een seintje dat het aan is als er gejoined word ook ff en als een treet gelukt is ! (1/2)
-# er moet nog een mail worden gestuurd wanneer een review niet gedaan is en er over de timeout time is gegegaan voor de review ! (todo)
+# Er moet ook een mail worden gestuurd als een trade expired is !
+# Je moet ook kunnen zien bij een trade wat de ratings zijn van bijde partijen die meedoen !
 
+#ik zou de minpunten voor een gefailde trade het liefst willen toewijzen aan de partij of partijen die de trades niet hebben voltooit, dus geen review hebben geplaatst ! de partij die wel een review heeft geplaatst geen geen min of pluspunten !
 # wellicht het zo maken dat de tabellen nu wel gesorteerd kunnnen worden ?
 # er mag een halfe studie gedaan worden naar wat er geparametriseerd kan worden in de templates hoe het geparametriseerd kan worden en het daadwerkelijk parametriseren !
 # belangrijk in de toekomst: https://brizzo.net/tips/hide-recaptcha-v3-badge/ (todo)

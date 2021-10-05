@@ -57,6 +57,8 @@ for trade in trades:
 
     if joiner in joinerreviews and initiator in initiatorreviews and trade.joiner_reviewed and trade.initiator_reviewed:
 
+        trade.success = datetime.datetime.now()
+
         sender = "no-reply@{}".format(siteurl)
 
         message_initiator = f"""\

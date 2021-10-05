@@ -17,64 +17,48 @@
           <div class="is-user-avatar image has-max-width is-aligned-center">
             <img src="{{ data.data.picture }}" alt="{{ data.data.fullname }}">
           </div>
-          <hr>
           <div class="field">
-            <label class="label">Name</label>
-            <div class="control is-clearfix">
-              <input type="text" readonly value="{{ data.data.fullname }}" class="input is-static">
-            </div>
+            <label class="label">Name:</label>
+            <p> {{ data.data.fullname }} </p>
+          </div>
+          <div class="field">
+            <label class="label">E-mail:</label>
+            <p>{{ data.data.email }}</p>
+          </div>
+          <div class="field">
+            <label class="label">Locale:</label>
+            <p>{{ data.data.locale }}</p>
           </div>
           <hr>
           <div class="field">
-            <label class="label">E-mail</label>
-            <div class="control is-clearfix">
-              <input type="text" readonly value="{{ data.data.email }}" class="input is-static">
-            </div>
-          </div>
-          <div class="field">
-            <label class="label">Locale</label>
-            <div class="control is-clearfix">
-              <input type="text" readonly value="{{ data.data.locale }}" class="input is-static">
-            </div>
-          </div>
-          <div class="field">
-            <label class="label">Started trades</label>
-            <div class="control is-clearfix">
-              <input type="text" readonly value="{{ data['data'].initiatortrades|length }}" class="input is-static">
-            </div>
-            <label class="label">Joined trades</label>
-            <div class="control is-clearfix">
-              <input type="text" readonly value="{{ data['data'].joinertrades|length }}" class="input is-static">
-            </div>
-            <label class="label">Failed trades</label>
-            <div class="control is-clearfix">
-              <input type="text" readonly value="{{ data['data'].all_trade_fails()|length }}" class="input is-static">
-            </div>
-            <label class="label">Successfull trades</label>
-            <div class="control is-clearfix">
-              <input type="text" readonly value="{{ data['data'].all_trade_successes()|length }}" class="input is-static">
-            </div>
+            <label class="label">Started trades:</label>
+            <p>{{ data['data'].initiatortrades|length }}</p>
+            <hr>
+            <label class="label">Joined trades:</label>
+            <p>{{ data['data'].joinertrades|length }}</p>
+            <hr>
+            <label class="label">Failed trades:</label>
+            <p> {{ data['data'].all_trade_fails()|length }}</p>
+            <hr>
+            <label class="label">Successfull trades:</label>
+            <p> {{ data['data'].all_trade_successes()|length }} </p>
+            <hr>
+            <label class="label">Trade score:</label>
             {% if data.data.get_score() > 0 %}
-            <label class="label has-text-primary">Trade score</label>
+            <p class="label has-text-primary"> {{ data['data'].get_score()}} </p>
             {% elif data.data.get_score() == 0 %}
-            <label class="label has-text-info">Trade score</label>
+            <p class="label has-text-info"> {{ data['data'].get_score()}} </p>
             {% else %}
-            <label class="label has-text-danger">Trade score</label>
+            <p class="label has-text-danger"> {{ data['data'].get_score()}} </p>
             {% endif %}
-            <div class="control is-clearfix">
-              <input type="text" readonly value="{{ data['data'].get_score()}}" class="input is-static">
-            </div>
-            <label class="label">Pending trades</label>
-            <div class="control is-clearfix">
-              <input type="text" readonly value="{{ data['data'].all_pending()|length }}" class="input is-static">
-            </div>
+            <hr>
+            <label class="label">Pending trades:</label>
+            <p> {{ data['data'].all_pending()|length }} </p>
           </div>
         </div>
       </div>
     </div>
   </div>
 </section>
-
-<script src="https://use.fontawesome.com/a696b91557.js"></script>
 
 {% endblock %}
