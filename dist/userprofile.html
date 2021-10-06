@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+{% from "macros.html" import build_user_profile_basic %}
 
 {% extends "base.html" %}
 {% block content %}
@@ -6,57 +7,7 @@
 <section class="section is-main-section">
   <div class="tile is-ancestor">
     <div class="tile is-parent">
-      <div class="card tile is-child">
-        <header class="card-header">
-          <p class="card-header-title">
-            <span class="icon"><i class="mdi mdi-account default"></i></span>
-            Profile
-          </p>
-        </header>
-        <div class="card-content">
-          <div class="is-user-avatar image has-max-width is-aligned-center">
-            <img src="{{ data.data.picture }}" alt="{{ data.data.fullname }}">
-          </div>
-          <div class="field">
-            <label class="label">Name:</label>
-            <p> {{ data.data.fullname }} </p>
-          </div>
-          <div class="field">
-            <label class="label">E-mail:</label>
-            <p>{{ data.data.email }}</p>
-          </div>
-          <div class="field">
-            <label class="label">Locale:</label>
-            <p>{{ data.data.locale }}</p>
-          </div>
-          <hr>
-          <div class="field">
-            <label class="label">Started trades:</label>
-            <p>{{ data['data'].initiatortrades|length }}</p>
-            <hr>
-            <label class="label">Joined trades:</label>
-            <p>{{ data['data'].joinertrades|length }}</p>
-            <hr>
-            <label class="label">Failed trades:</label>
-            <p> {{ data['data'].all_trade_fails()|length }}</p>
-            <hr>
-            <label class="label">Successfull trades:</label>
-            <p> {{ data['data'].all_trade_successes()|length }} </p>
-            <hr>
-            <label class="label">Trade score:</label>
-            {% if data.data.get_score() > 0 %}
-            <p class="label has-text-primary"> {{ data['data'].get_score()}} </p>
-            {% elif data.data.get_score() == 0 %}
-            <p class="label has-text-info"> {{ data['data'].get_score()}} </p>
-            {% else %}
-            <p class="label has-text-danger"> {{ data['data'].get_score()}} </p>
-            {% endif %}
-            <hr>
-            <label class="label">Pending trades:</label>
-            <p> {{ data['data'].all_pending()|length }} </p>
-          </div>
-        </div>
-      </div>
+      {{ build_user_profile_basic(data) }}
     </div>
   </div>
 </section>

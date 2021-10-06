@@ -1,22 +1,19 @@
 <!DOCTYPE html>
 {% extends "base.html" %}
 {% block content %}
+{% from "macros.html" import build_pagination, build_card_header %}
 <section class="section is-main-section">
   <div class="card has-table">
-    <header class="card-header">
-      <p class="card-header-title">
-        <span class="icon"><i class="mdi mdi-star-half"></i></span>
-        Reviews
-      </p>
-    </header>
+    {{ build_card_header('Reviews','mdi-star-half') }}
     <div class="card-content">
       <div class="b-table has-pagination">
         <div class="table-wrapper has-mobile-cards">
           <table class="table is-fullwidth is-striped is-hoverable is-fullwidth">
             <thead>
               <tr>
-                <th>User name</th>
+
                 <th></th>
+                <th>User name</th>
                 <th>App name</th>
                 <th>Review rating</th>
                 <th></th>
@@ -51,30 +48,7 @@
           </table>
         </div>
         <div class="notification">
-          <div class="level">
-            <div class="level-left">
-              <div class="level-item">
-                <div class="buttons has-addons">
-                  {% for page in data['total'] %}
-                    {% if data.pagenum %}
-                      <button type="button" class="button {{ 'is-active' if page == data.pagenum[0] }}" onclick="window.location.href='/overviewreviews?pagenum={{ page -1}}';">{{ page }}</button>
-                    {% else %}
-                      <button type="button" class="button {{ 'is-active' if page == 1 }}" onclick="window.location.href='/overviewreviews?pagenum={{ page -1}}';">{{ page }}</button>
-                    {% endif %}
-                  {% endfor %}
-                </div>
-              </div>
-            </div>
-            <div class="level-right">
-              <div class="level-item">
-                {% if data.pagenum %}
-                  <small>Page {{ data.pagenum[0] }} of {{ data.pagenum[1] }}</small>
-                {% else %}
-                  <small>Page 1 of 1</small>
-                {% endif %}
-              </div>
-            </div>
-          </div>
+          {{ build_pagination("overviewreviews", data) }}
         </div>
       </div>
     </div>

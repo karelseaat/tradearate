@@ -1,0 +1,226 @@
+{% macro build_badge(data, title, colorclass, iconclass) %}
+<div class="tile is-parent">
+  <div class="card tile is-child">
+    <div class="card-content">
+      <div class="level is-mobile">
+        <div class="level-item">
+          <div class="is-widget-label"><h3 class="subtitle is-spaced">
+            {{ title }}
+          </h3>
+            <h1 class="title">
+              {{ data[-1] }}
+            </h1>
+          </div>
+        </div>
+        <div class="level-item has-widget-icon">
+          <div class="is-widget-icon"><span class="icon {{ colorclass }} is-large"><i
+              class="mdi {{ iconclass }} mdi-48px"></i></span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endmacro %}
+
+{% macro build_pagination(pagename, data) %}
+<div class="level">
+  <div class="level-left">
+    <div class="level-item">
+      <div class="buttons has-addons">
+        {% for page in data['total'] %}
+          {% if data.pagenum %}
+            <button type="button" class="button {{ 'is-active' if page == data.pagenum[0] }}" onclick="window.location.href='/{{ pagename }}?pagenum={{ page -1}}';">{{ page }}</button>
+          {% else %}
+            <button type="button" class="button {{ 'is-active' if page == 1 }}" onclick="window.location.href='/{{ pagename }}?pagenum={{ page -1}}';">{{ page }}</button>
+          {% endif %}
+        {% endfor %}
+      </div>
+    </div>
+  </div>
+  <div class="level-right">
+    <div class="level-item">
+      {% if data.pagenum %}
+        <small>Page {{ data.pagenum[0] }} of {{ data.pagenum[1] }}</small>
+      {% else %}
+        <small>Page 1 of 1</small>
+      {% endif %}
+    </div>
+  </div>
+</div>
+{% endmacro %}
+
+{% macro build_add_button(data, navigate ,redirectto) %}
+{% if data.user.cancreate %}
+<button class="button is-medium is-primary" type="button" onclick="window.location.href='/{{ navigate }}?redirectto=/{{ redirectto }}'">
+  <span>Add</span>
+  <span class="icon"><i class="mdi mdi-folder-plus"></i></span>
+</button>
+{% endif %}
+{% endmacro %}
+
+{% macro build_table(data) %}
+<table class="table is-fullwidth is-striped is-hoverable is-fullwidth">
+  <thead>
+    <tr>
+      <th></th>
+      <th>Start User</th>
+      <th></th>
+      <th>Start App</th>
+      <th>Status</th>
+      <th>time left</th>
+      <th>Created</th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for my_item in data %}
+    <tr>
+      <td class="is-image-cell">
+        <div class="image">
+          <img src="{{ my_item.initiator.picture }}" class="is-rounded">
+        </div>
+      </td>
+      <td data-label="Name"><a href="./usertrades?userid={{ my_item.initiator.id }}">{{ my_item.initiator.fullname }}</a></td>
+      <td class="is-image-cell">
+        <div class="image">
+          <img src="{{ my_item.initiatorapp.imageurl }}" class="is-rounded">
+        </div>
+      </td>
+      <td data-label="Company">{{ my_item.initiatorapp.name }}</td>
+      <td data-label="City">{{ my_item.status() }}</td>
+      <td data-label="Progress" class="is-progress-cell">
+        <progress max="{{ my_item.timetotrade }}" class="progress is-small is-primary" value="{{ my_item.trade_days_left() }}">{{ my_item.trade_days_left() }}</progress>
+      </td>
+      <td data-label="Created">
+        <small class="has-text-grey is-abbr-like" title="{{ my_item.initiated }}">{{ my_item.initiated }}</small>
+      </td>
+      <td class="is-actions-cell">
+        <div class="buttons is-right">
+          <button class="button is-small is-primary" type="button" onclick="window.location.href='/show?tradeid={{ my_item.id }}';">
+            <span class="icon"><i class="mdi mdi-eye"></i></span>
+          </button>
+      </td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+{% endmacro %}
+
+{% macro build_app_table(data) %}
+<table class="table is-fullwidth is-striped is-hoverable is-fullwidth">
+  <thead>
+    <tr>
+      <th></th>
+      <th>Name</th>
+      <th>IdString</th>
+      <th>Reviews</th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for my_item in data %}
+    <tr>
+      <td class="is-image-cell">
+        <div class="image">
+          <img src="{{ my_item.imageurl }}" class="is-rounded">
+        </div>
+      </td>
+      <td data-label="Name">{{ my_item.name }}</a></td>
+      <td data-label="IdString"><a href="{{ my_item.get_url() }}">{{ my_item.appidstring }}</a></td>
+      <td data-label="Reviews">
+        <p>{{my_item.reviews|count}}</p>
+      </td>
+      <td class="is-actions-cell">
+        <div class="buttons is-right">
+          <button class="button is-small is-primary" type="button" onclick="window.location.href='/showapp?appid={{ my_item.id }}';">
+            <span class="icon"><i class="mdi mdi-eye"></i></span>
+          </button>
+      </td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+{% endmacro %}
+
+{% macro build_user_profile_basic(data) %}
+<div class="card tile is-child">
+  <header class="card-header">
+    <p class="card-header-title">
+      <span class="icon"><i class="mdi mdi-account default"></i></span>
+      Profile
+    </p>
+  </header>
+  <div class="card-content">
+    <div class="is-user-avatar image has-max-width is-aligned-center">
+      <img src="{{ data.data.picture }}" alt="{{ data.data.fullname }}">
+    </div>
+    <div class="field">
+      <label class="label">Name:</label>
+      <p> {{ data.data.fullname }} </p>
+    </div>
+    <div class="field">
+      <label class="label">E-mail:</label>
+      <p>{{ data.data.email }}</p>
+    </div>
+    <div class="field">
+      <label class="label">Locale:</label>
+      <p>{{ data.data.locale }}</p>
+    </div>
+    <hr>
+    <div class="field">
+      <label class="label">Started trades:</label>
+      <p>{{ data['data'].initiatortrades|length }}</p>
+      <hr>
+      <label class="label">Joined trades:</label>
+      <p>{{ data['data'].joinertrades|length }}</p>
+      <hr>
+      <label class="label">Failed trades:</label>
+      <p> {{ data['data'].all_trade_fails()|length }}</p>
+      <hr>
+      <label class="label">Successfull trades:</label>
+      <p> {{ data['data'].all_trade_successes()|length }} </p>
+      <hr>
+      <label class="label">Trade score:</label>
+      {% if data.data.get_score() > 0 %}
+      <p class="label has-text-primary"> {{ data['data'].get_score()}} </p>
+      {% elif data.data.get_score() == 0 %}
+      <p class="label has-text-info"> {{ data['data'].get_score()}} </p>
+      {% else %}
+      <p class="label has-text-danger"> {{ data['data'].get_score()}} </p>
+      {% endif %}
+      <hr>
+      <label class="label">Pending trades:</label>
+      <p> {{ data['data'].all_pending()|length }} </p>
+    </div>
+  </div>
+</div>
+{% endmacro %}
+
+{% macro build_form_submit(recapcha) %}
+<div class="field-body">
+  <div class="field">
+    <div class="field is-grouped">
+      <div class="control">
+        <button class="g-recaptcha button is-primary" data-sitekey="{{ recapcha }}" data-callback='onSubmit' data-action='submit'>
+          Submit
+        </button>
+      </div>
+      <div class="control">
+        <button type="button" class="button is-primary is-outlined">
+          <span>Reset</span>
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+{% endmacro %}
+
+{% macro build_card_header(title, icon) %}
+<header class="card-header">
+  <p class="card-header-title">
+    <span class="icon"><i class="mdi {{ icon }}"></i></span>
+    {{ title }}
+  </p>
+</header>
+{% endmacro %}

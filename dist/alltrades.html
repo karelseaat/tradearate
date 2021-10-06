@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+{% from "macros.html" import build_add_button, build_table, build_card_header %}
 
 {% extends "base.html" %}
 
@@ -6,67 +7,21 @@
 
 <section class="section">
   <div class="card has-table">
-    <header class="card-header">
+    {{ build_card_header('Initiated trades', 'mdi-twitter-retweet') }}
+    <!-- <header class="card-header">
       <p class="card-header-title">
         <span class="icon"><i class="mdi mdi-twitter-retweet"></i></span>
         Initiated trades
       </p>
-    </header>
+    </header> -->
     <div class="card-content">
       <div class="b-table has-pagination">
         <div class="table-wrapper has-mobile-cards">
-          <table class="table is-fullwidth is-striped is-hoverable is-fullwidth">
-            <thead>
-              <tr>
-                <th></th>
-                <th>Joiner User</th>
-                <th></th>
-                <th>Start App</th>
-                <th>Status</th>
-                <th>time left</th>
-                <th>Created</th>
-                <th></th>
-              </tr>
-            </thead>
-            <tbody>
-              {% for my_item in data['data'].initiatortrades %}
-              <tr>
-                <td class="is-image-cell">
-                  <div class="image">
-                    <img src="{{ my_item.joiner.picture }}" class="is-rounded">
-                  </div>
-                </td>
-                <td data-label="Name"><a href="./usertrades?userid={{ my_item.joiner.id }}">{{ my_item.joiner.fullname }}</a></td>
-                <td class="is-image-cell">
-                  <div class="image">
-                    <img src="{{ my_item.initiatorapp.imageurl }}" class="is-rounded">
-                  </div>
-                </td>
-                <td data-label="Company">{{ my_item.initiatorapp.name }}</td>
-                <td data-label="City">{{ my_item.status() }}</td>
-                <td data-label="Progress" class="is-progress-cell">
-                  <progress max="{{ my_item.timetotrade }}" class="progress is-small is-primary" value="{{ my_item.trade_days_left() }}">{{ my_item.trade_days_left() }}</progress>
-                </td>
-                <td data-label="Created">
-                  <small class="has-text-grey is-abbr-like" title="Oct 25, 2020">{{ my_item.initiated }}</small>
-                </td>
-                <td class="is-actions-cell">
-                  <div class="buttons is-right">
-                    <button class="button is-small is-primary" type="button" onclick="window.location.href='/show?tradeid={{ my_item.id }}';">
-                      <span class="icon"><i class="mdi mdi-eye"></i></span>
-                    </button>
-                </td>
-              </tr>
-              {% endfor %}
-            </tbody>
-          </table>
+          {{ build_table(data.data.initiatortrades) }}
         </div>
         <div class="notification">
           <div class="level">
-            <button class="button is-medium is-primary" type="button" onclick="window.location.href='/add?redirectto=/trades'">
-              <span>Add</span>
-              <span class="icon"><i class="mdi mdi-folder-plus"></i></span>
-            </button>
+            {{ build_add_button(data, 'add', 'trades') }}
           </div>
         </div>
       </div>
@@ -85,51 +40,7 @@
     <div class="card-content">
       <div class="b-table has-pagination">
         <div class="table-wrapper has-mobile-cards">
-          <table class="table is-fullwidth is-striped is-hoverable is-fullwidth">
-            <thead>
-              <tr>
-                <th></th>
-                <th>Joiner User</th>
-                <th></th>
-                <th>Start App</th>
-                <th>Status</th>
-                <th>time left</th>
-                <th>Created</th>
-                <th></th>
-              </tr>
-            </thead>
-            <tbody>
-              {% for my_item in data['data'].joinertrades %}
-              <tr>
-                <td class="is-image-cell">
-                  <div class="image">
-                    <img src="{{ my_item.joiner.picture }}" class="is-rounded">
-                  </div>
-                </td>
-                <td data-label="Name"><a href="./usertrades?userid={{ my_item.joiner.id }}">{{ my_item.joiner.fullname }}</a></td>
-                <td class="is-image-cell">
-                  <div class="image">
-                    <img src="{{ my_item.initiatorapp.imageurl }}" class="is-rounded">
-                  </div>
-                </td>
-                <td data-label="Company">{{ my_item.initiatorapp.name }}</td>
-                <td data-label="City">{{ my_item.status() }}</td>
-                <td data-label="Progress" class="is-progress-cell">
-                  <progress max="100" class="progress is-small is-primary" value="79">79</progress>
-                </td>
-                <td data-label="Created">
-                  <small class="has-text-grey is-abbr-like" title="Oct 25, 2020">{{ my_item.initiated }}</small>
-                </td>
-                <td class="is-actions-cell">
-                  <div class="buttons is-right">
-                    <button class="button is-small is-primary" type="button" onclick="window.location.href='/show?tradeid={{ my_item.id }}';">
-                      <span class="icon"><i class="mdi mdi-eye"></i></span>
-                    </button>
-                </td>
-              </tr>
-              {% endfor %}
-            </tbody>
-          </table>
+          {{ build_table(data.data.joinertrades) }}
         </div>
         <div class="notification">
           <div class="level">

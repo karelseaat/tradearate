@@ -164,6 +164,7 @@ def authorize():
 def trades():
     app.data['pagename'] = 'My trades'
     app.data['data'] = current_user
+
     return render_template('alltrades.html', data=app.data)
 
 @app.route("/apps")
@@ -378,7 +379,7 @@ def delete():
 @app.route("/join")
 @login_required
 def join():
-    app.data['pagename'] = 'Join a trade ?'
+    app.data['pagename'] = 'Join Trade'
     tradeid = request.args.get('tradeid')
     return render_template('join.html', tradeid=tradeid, data=app.data)
 

@@ -1,9 +1,12 @@
 #!/usr/bin/env python
 
 from config import make_session
+from config import Config
+form config import domain
 from models import Trade
 import logging
 import datetime
+import smtplib
 import os
 from sqlalchemy import and_, or_, not_
 
@@ -14,17 +17,38 @@ logging.info('Start of expire trade ' + datetime.datetime.now().strftime("%m/%d/
 dbsession = make_session()
 tradeobj = Trade()
 
-
-# suctrades = dbsession.query(Trade).filter(and_(Trade.initiator_reviewed, Trade.joiner_reviewed)).all()
-# for trade in suctrades:
-#     trade.success = datetime.datetime.now()
-#
-# dbsession.commit()
-
 trades = dbsession.query(Trade).filter(Trade.accepted + datetime.timedelta(days=tradeobj.timetotrade) < datetime.datetime.now().date()).filter(and_(not_(Trade.initiator_reviewed), not_(Trade.joiner_reviewed))).all()
+
+
 
 for trade in trades:
     trade.failure = datetime.datetime.now()
+
+    sender = "no-reply@{}".format(siteurl)
+
+    message_initiator = f"""\
+        Subject: Trade a Rate, status change !
+        To: {trade.initiator.email}
+        From: {sender}
+
+        The trade is succesfull !
+    """
+
+    message_joiner = f"""\
+        Subject: Trade a Rate, status change !
+        To: {trade.joiner.email}
+        From: {sender}
+
+        The trade is succesfull !
+    """
+
+    with smtplib.SMTP(Config.MAIL_SERVER, Config.MAIL_PORT) as server:
+        server.login(Config.MAIL_USERNAME, Config.MAIL_PASSWORD)
+        server.sendmail("no-reply@{}".format(domain), trade.initiator.email, message_initiator)
+
+    with smtplib.SMTP(Config.MAIL_SERVER, Config.MAIL_PORT) as server:
+        server.login(Config.MAIL_USERNAME, Config.MAIL_PASSWORD)
+        server.sendmail("no-reply@{}".format(domain), trade.joiner.email, message_joiner)
 
 dbsession.commit()
 dbsession.close()

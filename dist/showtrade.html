@@ -1,31 +1,32 @@
 <!DOCTYPE html>
+{% from "macros.html" import build_card_header %}
 
 {% extends "base.html" %}
-
 {% block content %}
 
 <section class="section is-main-section">
   <div class="tile is-ancestor">
     <div class="tile is-parent">
       <div class="card tile is-child">
-        <header class="card-header">
+        {{ build_card_header('Trade Status','mdi-account') }}
+        <!-- <header class="card-header">
           <p class="card-header-title">
             <span class="icon"><i class="mdi mdi-account default"></i></span>
             Trade Status
           </p>
-        </header>
+        </header> -->
         <div class="card-content">
           <div class="is-user-avatar image has-max-width is-aligned-center">
             <img src="" alt="">
           </div>
-          <hr>
+
           <div class="field">
             <label class="label">Days active</label>
             <div class="control is-clearfix">
               <input type="text" readonly value="{{ data.data.age() }}" class="input is-static">
             </div>
           </div>
-          <hr>
+
           <div class="field">
             <label class="label">Days since acceptation</label>
             <div class="control is-clearfix">
@@ -43,12 +44,24 @@
             <div class="control is-clearfix">
               <input type="text" readonly value="{{ data.data.trade_days_left() }}" class="input is-static">
             </div>
+            <hr>
             <label class="label">Initiator</label>
             <div class="control is-clearfix">
               <div class="is-user-avatar image has-max-width is-aligned-center">
                 <img src="{{ data.data.initiator.picture }}" alt="{{ data.data.initiator.fullname }}">
               </div>
               <input type="text" readonly value="{{ data.data.initiator.fullname }}" class="input is-static">
+            </div>
+            <label class="label">Initiator review score</label>
+            <div class="control is-clearfix">
+              {% if data.data.initiator.get_score() > 0 %}
+              <p class="label has-text-primary"> {{ data.data.initiator.get_score()}} </p>
+              {% elif data.data.initiator.get_score() == 0 %}
+              <p class="label has-text-info"> {{ data.data.initiator.get_score()}} </p>
+              {% else %}
+              <p class="label has-text-danger"> {{ data.data.initiator.get_score()}} </p>
+              {% endif %}
+
             </div>
             <label class="label">Initiator App</label>
             <div class="control is-clearfix">
@@ -58,12 +71,24 @@
               <span><a href="{{ data.data.initiatorapp.get_url() }}">{{ data.data.initiatorapp.name }}</a></span>
             </div>
             {% if data.data.joiner %}
+            <hr>
             <label class="label">Joiner</label>
             <div class="control is-clearfix">
               <div class="is-user-avatar image has-max-width is-aligned-center">
                 <img src="{{ data.data.joiner.picture }}" alt="{{ data.data.joiner.fullname }}">
               </div>
               <span>{{ data.data.joiner.fullname }} </span>
+            </div>
+            <label class="label">Joiner review score</label>
+            <div class="control is-clearfix">
+              {% if data.data.joiner.get_score() > 0 %}
+              <p class="label has-text-primary"> {{ data.data.joiner.get_score()}} </p>
+              {% elif data.data.joiner.get_score() == 0 %}
+              <p class="label has-text-info"> {{ data.data.joiner.get_score()}} </p>
+              {% else %}
+              <p class="label has-text-danger"> {{ data.data.joiner.get_score()}} </p>
+              {% endif %}
+
             </div>
             {% endif %}
             {% if data.data.joinerapp %}

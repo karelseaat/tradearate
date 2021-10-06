@@ -1,25 +1,8 @@
 <!DOCTYPE html>
+{% from "macros.html" import build_form_submit %}
 
 {% extends "base.html" %}
-
 {% block content %}
-
-<section class="hero is-hero-bar">
-  <div class="hero-body">
-    <div class="level">
-      <div class="level-left">
-        <div class="level-item">
-          <h1 class="title">
-            Forms
-          </h1>
-        </div>
-      </div>
-      <div class="level-right" style="display: none;">
-        <div class="level-item"></div>
-      </div>
-    </div>
-  </div>
-</section>
 
 <section class="section is-main-section">
   <div class="card">
@@ -31,8 +14,6 @@
     </header>
     <div class="card-content">
       <form method="post" action="/processadd" id="demo-form">
-
-
         <hr>
         <div class="field is-horizontal">
           <div class="field-label is-normal">
@@ -51,22 +32,7 @@
           <div class="field-label">
             <!-- Left empty for spacing -->
           </div>
-          <div class="field-body">
-            <div class="field">
-              <div class="field is-grouped">
-                <div class="control">
-                  <button class="g-recaptcha button is-primary" data-sitekey="6Ld8rjMcAAAAAFbplPzzBMF-iZsXfvmxUG5Q5cZB" data-callback='onSubmit' data-action='submit'>
-                    Submit
-                  </button>
-                </div>
-                <div class="control">
-                  <button type="button" class="button is-primary is-outlined">
-                    <span>Reset</span>
-                  </button>
-                </div>
-              </div>
-            </div>
-          </div>
+          {{ build_form_submit("6Ld8rjMcAAAAAFbplPzzBMF-iZsXfvmxUG5Q5cZB") }}
         </div>
       </form>
     </div>

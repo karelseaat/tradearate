@@ -1,68 +1,30 @@
 <!DOCTYPE html>
+{% from "macros.html" import build_app_table, build_card_header %}
+
 {% extends "base.html" %}
 {% block content %}
 
 <section class="section is-main-section">
   <div class="card has-table">
-    <header class="card-header">
+    {{ build_card_header('Apps', 'mdi-android') }}
+    <!-- <header class="card-header">
       <p class="card-header-title">
         <span class="icon"><i class="mdi mdi-android"></i></span>
         Apps
       </p>
-    </header>
+    </header> -->
     <div class="card-content">
       <div class="b-table has-pagination">
         <div class="table-wrapper has-mobile-cards">
-          <table class="table is-fullwidth is-striped is-hoverable is-fullwidth">
-            <thead>
-              <tr>
-                <th></th>
-                <th>Name</th>
-                <th>IdString</th>
-                <th>Review</th>
-                <th></th>
-              </tr>
-            </thead>
-            <tbody>
-              {% for my_item in data.data.all_apps() %}
-              <tr>
-                <td class="is-image-cell">
-                  <div class="image">
-                    <img src="{{ my_item.imageurl }}" class="is-rounded">
-                  </div>
-                </td>
-                <td data-label="Name">{{ my_item.name }}</td>
-                <td data-label="IdString">{{ my_item.appidstring }}</td>
-                <td data-label="Reviews">
-                  <p>reviews per app</p>
-                </td>
-                <td class="is-actions-cell">
-                  <div class="buttons is-right">
-                    <button class="button is-small is-primary" type="button" onclick="window.location.href='/showapp?appid={{ my_item.id }}';">
-                      <span class="icon"><i class="mdi mdi-eye"></i></span>
-                    </button>
-                </td>
-              </tr>
-              {% endfor %}
-            </tbody>
-          </table>
+          {{ build_app_table(data.data.all_apps()) }}
         </div>
         <div class="notification">
           <div class="level">
             <div class="level-left">
               <div class="level-item">
-                <!-- <div class="buttons has-addons">
-                  <button type="button" class="button is-active">1</button>
-                  <button type="button" class="button">2</button>
-                  <button type="button" class="button">3</button>
-                </div>
-              </div> -->
+                <!-- somewhere here will be pagination if there needs to be -->
             </div>
-            <!-- <div class="level-right">
-              <div class="level-item">
-                <small>Page 1 of 3</small>
-              </div>
-            </div> -->
+
           </div>
         </div>
       </div>

@@ -6,6 +6,8 @@ import os
 
 REVIEWLIMIT = 1000
 
+domain = "rolandtreetareet.nl"
+
 oauthconfig = {
     'name':'google',
     'client_id':'73190520700-quq0eklkk131ulbukpcokav1khtrupo6.apps.googleusercontent.com',

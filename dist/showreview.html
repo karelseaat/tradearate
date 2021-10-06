@@ -1,19 +1,20 @@
 <!DOCTYPE html>
+{% from "macros.html" import build_card_header %}
 
 {% extends "base.html" %}
-
 {% block content %}
 
 <section class="section is-main-section">
   <div class="tile is-ancestor">
     <div class="tile is-parent">
       <div class="card tile is-child">
-        <header class="card-header">
+        {{ build_card_header('Review','mdi-account') }}
+        <!-- <header class="card-header">
           <p class="card-header-title">
             <span class="icon"><i class="mdi mdi-account default"></i></span>
             Review
           </p>
-        </header>
+        </header> -->
         <div class="card-content">
           <div class="is-user-avatar image has-max-width is-aligned-center">
             <img src="" alt="">
