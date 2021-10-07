@@ -28,7 +28,7 @@
   <div class="level-left">
     <div class="level-item">
       <div class="buttons has-addons">
-        {% for page in data['total'] %}
+        {% for page in data.total %}
           {% if data.pagenum %}
             <button type="button" class="button {{ 'is-active' if page == data.pagenum[0] }}" onclick="window.location.href='/{{ pagename }}?pagenum={{ page -1}}';">{{ page }}</button>
           {% else %}
@@ -126,7 +126,7 @@
           <img src="{{ my_item.imageurl }}" class="is-rounded">
         </div>
       </td>
-      <td data-label="Name">{{ my_item.name }}</a></td>
+      <td data-label="Name">{{ my_item.name }}</td>
       <td data-label="IdString"><a href="{{ my_item.get_url() }}">{{ my_item.appidstring }}</a></td>
       <td data-label="Reviews">
         <p>{{my_item.reviews|count}}</p>
@@ -170,28 +170,28 @@
     <hr>
     <div class="field">
       <label class="label">Started trades:</label>
-      <p>{{ data['data'].initiatortrades|length }}</p>
+      <p>{{ data.data.initiatortrades|length }}</p>
       <hr>
       <label class="label">Joined trades:</label>
-      <p>{{ data['data'].joinertrades|length }}</p>
+      <p>{{ data.data.joinertrades|length }}</p>
       <hr>
       <label class="label">Failed trades:</label>
-      <p> {{ data['data'].all_trade_fails()|length }}</p>
+      <p> {{ data.data.all_trade_fails()|length }}</p>
       <hr>
       <label class="label">Successfull trades:</label>
-      <p> {{ data['data'].all_trade_successes()|length }} </p>
+      <p> {{ data.data.all_trade_successes()|length }} </p>
       <hr>
       <label class="label">Trade score:</label>
       {% if data.data.get_score() > 0 %}
-      <p class="label has-text-primary"> {{ data['data'].get_score()}} </p>
+      <p class="label has-text-primary"> {{ data.data.get_score()}} </p>
       {% elif data.data.get_score() == 0 %}
-      <p class="label has-text-info"> {{ data['data'].get_score()}} </p>
+      <p class="label has-text-info"> {{ data.data.get_score()}} </p>
       {% else %}
-      <p class="label has-text-danger"> {{ data['data'].get_score()}} </p>
+      <p class="label has-text-danger"> {{ data.data.get_score()}} </p>
       {% endif %}
       <hr>
       <label class="label">Pending trades:</label>
-      <p> {{ data['data'].all_pending()|length }} </p>
+      <p> {{ data.data.all_pending()|length }} </p>
     </div>
   </div>
 </div>
@@ -207,7 +207,7 @@
         </button>
       </div>
       <div class="control">
-        <button type="button" class="button is-primary is-outlined">
+        <button type="button" class="button is-primary is-outlined" onclick="resetform()">
           <span>Reset</span>
         </button>
       </div>

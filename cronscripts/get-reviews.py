@@ -1,5 +1,9 @@
 #!/usr/bin/env python
 
+#the two lines bellow, hate it !
+import sys
+sys.path.append('..')
+
 # This script will go trough the db and will get all apps of trades that are active.
 #It will also get all the languages of the user associated with the trade.
 # aftwe that it will ask the google play store api what all the reviews are of that app

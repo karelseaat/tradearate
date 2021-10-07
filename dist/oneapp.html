@@ -25,20 +25,20 @@
           <div class="field">
             <label class="label">App id</label>
             <div class="control is-clearfix">
-              <input type="text" readonly value="{{ data.data.appidstring }}" class="input is-static">
+              <p>{{ data.data.appidstring }}</p>
             </div>
           </div>
           <hr>
           <div class="field">
             <label class="label">nr of trades</label>
             <div class="control is-clearfix">
-              <input type="text" readonly value="{{ data.data.all_trades()|count }}" class="input is-static">
+            <p>{{ data.data.all_trades()|count }}</p>
             </div>
           </div>
           <div class="field">
             <label class="label">Nr of users</label>
             <div class="control is-clearfix">
-              <input type="text" readonly value="{{ data.data.all_users()|count }}" class="input is-static">
+              <p>{{ data.data.all_users()|count }}</p>
             </div>
           </div>
         </div>

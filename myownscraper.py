@@ -8,7 +8,9 @@ playstoreurl = "https://play.google.com"
 
 def get_app(appid, country='us'):
     results = {'rating':None, 'title':None, 'icon':None}
-    x = requests.get("{}/store/apps/details?id={}&hl={}".format(playstoreurl, appid, country))
+    requesturl = "{}/store/apps/details?id={}&hl={}".format(playstoreurl, appid, country)
+    x = requests.get(requesturl)
+    print(x.status_code, requesturl)
     soup = BeautifulSoup(x.text, features="lxml")
     leltext = soup.find("script", {"type" : re.compile('.*')}).text
     temp = json.loads(leltext)

@@ -9,12 +9,6 @@
     <div class="tile is-parent">
       <div class="card tile is-child">
         {{ build_card_header('Profile','mdi-account') }}
-        <!-- <header class="card-header">
-          <p class="card-header-title">
-            <span class="icon"><i class="mdi mdi-account default"></i></span>
-            Profile
-          </p>
-        </header> -->
         <div class="card-content">
           <div class="is-user-avatar image has-max-width is-aligned-center">
             <img src="{{ data.message.picture }}" alt="{{ data.message.fullname }}">
@@ -42,23 +36,23 @@
           <div class="field">
             <label class="label">Started trades</label>
             <div class="control is-clearfix">
-              <input type="text" readonly value="{{ data['message'].initiatortrades|length }}" class="input is-static">
+              <input type="text" readonly value="{{ data.message.initiatortrades|length }}" class="input is-static">
             </div>
             <label class="label">Joined trades</label>
             <div class="control is-clearfix">
-              <input type="text" readonly value="{{ data['message'].joinertrades|length }}" class="input is-static">
+              <input type="text" readonly value="{{ data.message.joinertrades|length }}" class="input is-static">
             </div>
             <label class="label">Failed trades</label>
             <div class="control is-clearfix">
-              <input type="text" readonly value="{{ data['message'].all_trade_fails()|length }}" class="input is-static">
+              <input type="text" readonly value="{{ data.message.all_trade_fails()|length }}" class="input is-static">
             </div>
             <label class="label">Successfull trades</label>
             <div class="control is-clearfix">
-              <input type="text" readonly value="{{ data['message'].all_trade_successes()|length }}" class="input is-static">
+              <input type="text" readonly value="{{ data.message.all_trade_successes()|length }}" class="input is-static">
             </div>
             <label class="label">Pending trades</label>
             <div class="control is-clearfix">
-              <input type="text" readonly value="{{ data['message'].all_pending()|length }}" class="input is-static">
+              <input type="text" readonly value="{{ data.message.all_pending()|length }}" class="input is-static">
             </div>
           </div>
         </div>

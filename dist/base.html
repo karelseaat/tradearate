@@ -30,18 +30,9 @@
 {% include "./partials/lowerjs.html" %}
 {% endblock %}
 
+{% include "./partials/snackbar.html" %}
 <!-- The actual snackbar -->
-<div id="snackbar">
-{% with messages = get_flashed_messages() %}
-  {% if messages %}
-    <ul class=flashes>
-    {% for message in messages %}
-      <li>{{ message }}</li>
-    {% endfor %}
-    </ul>
-  {% endif %}
-{% endwith %}
-</div>
+
 
 </body>
 </html>

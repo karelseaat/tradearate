@@ -9,49 +9,44 @@
     <div class="tile is-parent">
       <div class="card tile is-child">
         {{ build_card_header('Review','mdi-account') }}
-        <!-- <header class="card-header">
-          <p class="card-header-title">
-            <span class="icon"><i class="mdi mdi-account default"></i></span>
-            Review
-          </p>
-        </header> -->
         <div class="card-content">
           <div class="is-user-avatar image has-max-width is-aligned-center">
             <img src="" alt="">
           </div>
           <hr>
           <div class="field">
-            <label class="label">Review time</label>
+            <label class="label">Review time:</label>
             <div class="control is-clearfix">
-              <input type="text" readonly value="{{ data.data.reviewtime }}" class="input is-static">
+              <p>{{ data.data.reviewtime }}</p>
             </div>
           </div>
           <hr>
           <div class="field">
-            <label class="label">App name</label>
+            <label class="label">App name:</label>
             <div class="control is-clearfix">
               {% if data.data.app %}
-              <input type="text" readonly value="{{ data.data.app.name }}" class="input is-static">
+              <p>{{ data.data.app.name }}</p>
               {% endif %}
             </div>
           </div>
           <div class="field">
-            <label class="label">Review text</label>
+            <label class="label">Review text:</label>
             <div class="control is-clearfix">
-              <input type="text" readonly value="{{ data.data.reviewtext }}" class="input is-static">
+              <p>{{ data.data.reviewtext }}</p>
             </div>
           </div>
           <div class="field">
-            <label class="label">Review Score</label>
+            <label class="label">Review Score:</label>
             <div class="control is-clearfix">
-              <input type="text" readonly value="{{ data.data.reviewrating }}" class="input is-static">
+              <p>{{ data.data.reviewrating }}</p>
             </div>
-            <label class="label">Reviewer name</label>
+            <label class="label">Reviewer:</label>
             <div class="control is-clearfix">
               <div class="is-user-avatar image has-max-width is-aligned-center">
                 <img src="{{ data.data }}" alt="{{ data.data.username }}">
               </div>
-              <input type="text" readonly value="{{ data.data }}" class="input is-static">
+              <label class="label">Name:</label>
+              <p>{{ data.data.username }}</p>
             </div>
           </div>
         </div>

@@ -11,7 +11,7 @@ from flask_login import (
     current_user,
     LoginManager
 )
-from config import make_session, oauthconfig, REVIEWLIMIT, recaptchasecret
+from config import make_session, oauthconfig, REVIEWLIMIT, recaptchasecret, recapchasitekey
 from models import User, Trade, App, Review, Historic
 from myownscraper import get_app
 from flask_mail import Mail, Message
@@ -21,7 +21,7 @@ from datetime import date, timedelta
 import datetime as dt
 
 valliappinit = Validator({'appid': {'required': True, 'type': 'string', 'regex': "^.*\..*\..*$"}, 'g-recaptcha-response': {'required': True}})
-alliappjoin = Validator({'tradeid':{'required': True, 'type': 'number'}, 'appid': {'required': True, 'type': 'string', 'regex': "^.*\..*\..*$"}, 'g-recaptcha-response': {'required': True}})
+alliappjoin = Validator({'tradeid':{'required': True, 'type': 'string'}, 'appid': {'required': True, 'type': 'string', 'regex': "^.*\..*\..*$"}, 'g-recaptcha-response': {'required': True}})
 
 app = Flask(
     __name__,
@@ -87,8 +87,8 @@ def load_user(userid):
 
 @app.before_request
 def before_request_func():
-    navigation = {'dashboard': ('Dashboard', 'index'), 'alltrades': ('All trades', 'overviewtrades'), 'allapps': ('All apps', 'overviewapps'), 'allreviews': ('All reviews', 'overviewreviews'), 'mytrades': ('My trades', 'trades'), 'myapps': ('My apps', 'apps'), 'myreviews': ('All reviews', 'overviewreviews'), 'profile': ('My profile', 'userprofile'), 'logout': ('Log Out', 'logout'), 'about': ('About', '/')}
-    app.data = {'pagename': 'Unknown', 'user': None, 'navigation': navigation, 'data': None, 'logged-in': current_user.is_authenticated}
+    navigation = {'dashboard': ('Dashboard', 'index'), 'alltrades': ('All trades', 'overviewtrades'), 'allapps': ('All apps', 'overviewapps'), 'allreviews': ('All reviews', 'overviewreviews'), 'mytrades': ('My trades', 'trades'), 'myreviews': ('All reviews', 'overviewreviews'), 'profile': ('My profile', 'userprofile'), 'logout': ('Log Out', 'logout'), 'about': ('About', '/')}
+    app.data = {'pagename': 'Unknown', 'user': None, 'navigation': navigation, 'recapchasitekey': recapchasitekey, 'data': None, 'logged-in': current_user.is_authenticated}
     app.data['currentnavigation'] = request.full_path[1:-1]
 
     if current_user.is_authenticated:
@@ -167,12 +167,12 @@ def trades():
 
     return render_template('alltrades.html', data=app.data)
 
-@app.route("/apps")
-@login_required
-def apps():
-    app.data['pagename'] = 'My apps'
-    app.data['data'] = current_user
-    return render_template('userapps.html', data=app.data)
+# @app.route("/apps")
+# @login_required
+# def apps():
+#     app.data['pagename'] = 'My apps'
+#     app.data['data'] = current_user
+#     return render_template('userapps.html', data=app.data)
 
 @app.route("/showapp")
 @login_required
@@ -215,9 +215,7 @@ def processadd():
 
     valliappinit.validate(dict(request.form))
 
-
     if  valliappinit.errors:
-        print(valliappinit.errors)
         flash(valliappinit.errors)
         return redirect('/add')
 
@@ -388,14 +386,19 @@ def join():
 def processjoin():
     alliappjoin.validate(dict(request.form))
 
+    tradeid = request.form.get('tradeid')
+
+    if not tradeid:
+        return redirect('/')
+
     if alliappjoin.errors:
         print(alliappjoin.errors)
         flash(alliappjoin.errors)
-        return redirect('/join')
+        return redirect('/join?tradeid={}'.format(tradeid))
 
     appid = request.form.get('appid')
     captcha_response = request.form['g-recaptcha-response']
-    tradeid = request.form.get('tradeid')
+
     appobjjoiner = get_app_from_store(appid, country=current_user.locale)
 
     if appobjjoiner and int(appobjjoiner['rating']) <= REVIEWLIMIT and is_human(captcha_response):
@@ -404,15 +407,14 @@ def processjoin():
             joinerappmodel = App(appobjjoiner['title'], appid)
             joinerappmodel.imageurl = appobjjoiner['icon']
         trade = app.session.query(Trade).get(int(tradeid))
-        initiatorabletoreview = get_app_from_store(trade.initiatorapp.appidstring, country=current_user.locale)
-        if initiatorabletoreview:
-            trade.joiner = current_user
-            trade.joinerapp = joinerappmodel
-            trade.joinerlang = current_user.locale
-            app.session.add(trade)
-            app.session.commit()
-            flash("joined the trade")
-            return redirect('/overviewtrades')
+
+        trade.joiner = current_user
+        trade.joinerapp = joinerappmodel
+        trade.joinerlang = current_user.locale
+        app.session.add(trade)
+        app.session.commit()
+        flash("joined the trade")
+        return redirect('/overviewtrades')
     else:
         flash(str("chapcha trouble, more than reviews, or of the process doent exist"))
 

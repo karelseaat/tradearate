@@ -24,6 +24,7 @@ oauthconfig = {
 CONNECTIONURI = "sqlite:////{}/treetareet.sqlite".format(os.path.dirname(__file__))
 
 recaptchasecret = "6Ld8rjMcAAAAAPDQI6igBibm24JIwHABlL5uw2RX"
+recapchasitekey = "6Ld8rjMcAAAAAFbplPzzBMF-iZsXfvmxUG5Q5cZB"
 
 def make_session():
     engine = create_engine(CONNECTIONURI, echo=False, connect_args={'check_same_thread': False})

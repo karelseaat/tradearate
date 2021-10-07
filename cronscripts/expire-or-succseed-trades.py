@@ -1,5 +1,9 @@
 #!/usr/bin/env python
 
+#the two lines bellow, hate it !
+import sys
+sys.path.append('..')
+
 from config import make_session
 from config import Config
 form config import domain

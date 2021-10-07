@@ -1,6 +1,10 @@
 #!/usr/bin/env python
 
-from config import make_session
+#the two lines bellow, hate it !
+import sys
+sys.path.append('..')
+
+from treetareet.config import make_session
 from config import Config
 from config import domain
 from models import User, Trade, App, Review
