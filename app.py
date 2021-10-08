@@ -206,7 +206,7 @@ def get_app_from_store(appid, country='us'):
     try:
         appobj = get_app(appid, country=country)
     except Exception as exception:
-        flash(str(exception))
+        flash(str(exception), 'has-text-danger')
     return appobj
 
 @app.route("/processadd", methods = ['POST'])
@@ -215,8 +215,9 @@ def processadd():
 
     valliappinit.validate(dict(request.form))
 
-    if  valliappinit.errors:
-        flash(valliappinit.errors)
+    if valliappinit.errors:
+        for key, val in valliappinit.errors.items():
+            flash(key + ": " + val, 'has-text-danger')
         return redirect('/add')
 
     appid = request.form.get('appid')
@@ -225,7 +226,7 @@ def processadd():
 
 
     if 'rating' not in appobj or not appobj['rating']:
-        flash("at the moment there is minor trouble with google playstore, try angain later !")
+        flash("at the moment there is minor trouble with google playstore, try angain later !", 'has-text-danger')
         return redirect('/add')
 
     if appobj and int(appobj['rating']) <= REVIEWLIMIT and is_human(captcha_response):
@@ -236,12 +237,12 @@ def processadd():
         trade = Trade(current_user, appmodel, current_user.locale)
         app.session.add(trade)
         app.session.commit()
-        flash("added trade")
+        flash("added trade", 'has-text-primary')
         if 'redirectto' in request.args:
             return redirect(request.args.get('redirectto'))
         return redirect('/overviewtrades')
     else:
-        flash(str("chapcha trouble, more than reviews, or of the process doent exist"))
+        flash(str("chapcha trouble, more than reviews, or of the process doent exist"), 'has-text-danger')
     return redirect('/add')
 
 @app.route('/index')
@@ -274,7 +275,7 @@ def overviewapps():
             print(value._asdict())
 
     except Exception as exception:
-        flash(str(exception))
+        flash(str(exception), 'has-text-danger')
     return render_template('overviewapps.html', data=app.data)
 
 @app.route('/showreview')
@@ -285,7 +286,7 @@ def showreview():
         review = app.session.query(Review).get(reviewid)
         app.data['data'] = review
     except Exception as exception:
-        flash(str(exception))
+        flash(str(exception), 'has-text-danger')
     return render_template('showreview.html', data=app.data)
 
 @app.route('/overviewreviews')
@@ -295,7 +296,7 @@ def overviewreviews():
 
         app.data['data'] = pagination(Review, 50)
     except Exception as exception:
-        flash(str(exception))
+        flash(str(exception), 'has-text-danger')
     return render_template('overviewreviews.html', data=app.data)
 
 @app.route('/overviewtrades')
@@ -322,7 +323,7 @@ def show():
         app.data['candelete'] = thetrade.can_delete(googleid)
         app.data['canleave'] = thetrade.can_leave(googleid)
     except Exception as exception:
-        flash(str(exception))
+        flash(str(exception), 'has-text-danger')
 
     return render_template('showtrade.html', data=app.data)
 
@@ -335,10 +336,10 @@ def reject():
         if thetrade.can_reject(current_user.googleid):
             thetrade.reject_user(current_user.googleid)
             app.session.commit()
-            flash("rejected the trade")
+            flash("rejected the trade", 'has-text-danger')
     except Exception as exception:
         app.session.rollback()
-        flash(str(exception))
+        flash(str(exception), 'has-text-danger')
     return redirect('/show?tradeid=' + tradeid)
 
 @app.route("/accept")
@@ -359,10 +360,10 @@ def accept():
                 mail = Mail(app)
                 mail.send(msg)
 
-            flash("accepted the trade")
+            flash("accepted the trade",'has-text-danger')
     except Exception as exception:
         app.session.rollback()
-        flash(str(exception))
+        flash(str(exception),'has-text-danger')
     return redirect('/show?tradeid=' + tradeid)
 
 @app.route("/delete")
@@ -371,7 +372,7 @@ def delete():
     tradeid = request.args.get('tradeid')
     app.session.query(Trade).filter(Trade.id==tradeid).delete()
     app.session.commit()
-    flash("trade removed !")
+    flash("trade removed !",'has-text-primary')
     return redirect('/overviewtrades')
 
 @app.route("/join")
@@ -392,8 +393,8 @@ def processjoin():
         return redirect('/')
 
     if alliappjoin.errors:
-        print(alliappjoin.errors)
-        flash(alliappjoin.errors)
+        for key, val in alliappjoin.errors.items():
+            flash(key + ": " + val[0], 'has-text-danger')
         return redirect('/join?tradeid={}'.format(tradeid))
 
     appid = request.form.get('appid')
@@ -413,10 +414,10 @@ def processjoin():
         trade.joinerlang = current_user.locale
         app.session.add(trade)
         app.session.commit()
-        flash("joined the trade")
+        flash("joined the trade", 'has-text-primary')
         return redirect('/overviewtrades')
     else:
-        flash(str("chapcha trouble, more than reviews, or of the process doent exist"))
+        flash(str("chapcha trouble, more than reviews, or of the process doent exist"), 'has-text-danger')
 
     return redirect('/join')
 
@@ -433,7 +434,7 @@ def leave():
             thetrade.joiner_accepted = False
             thetrade.initiator_accepted = False
             app.session.commit()
-            flash("left the trade")
+            flash("left the trade", 'has-text-primary')
     except Exception as exception:
-        flash(str(exception))
+        flash(str(exception), 'has-text-danger')
     return redirect('/overviewtrades')

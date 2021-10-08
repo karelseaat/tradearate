@@ -34,12 +34,12 @@ def make_session():
 
 
 class Config(object):
-    MAIL_SERVER='smtp.gmail.com'
-    MAIL_PORT=465
-    MAIL_USERNAME='sixdots.soft@gmail.com'
-    MAIL_PASSWORD='oqmhnpocsnigsvrx'
+    MAIL_SERVER='localhost'
+    MAIL_PORT=25
+    MAIL_USERNAME=''
+    MAIL_PASSWORD=''
     MAIL_USE_TLS=False
-    MAIL_USE_SSL=True
+    MAIL_USE_SSL=False
 
 
 # Wat komt hier in te staan:

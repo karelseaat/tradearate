@@ -1,11 +1,9 @@
 <div id="snackbar">
-{% with messages = get_flashed_messages() %}
+{% with messages = get_flashed_messages(with_categories=true) %}
   {% if messages %}
     <ul class=flashes>
-    {% for message in messages %}
-      {{ message }}
-
-
+    {% for cat, message in messages %}
+      <li class='{{ cat }}'>{{ message }}</li>
     {% endfor %}
     </ul>
   {% endif %}
