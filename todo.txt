@@ -127,6 +127,7 @@ https://www.digitalocean.com/community/tutorials/how-to-install-and-configure-po
 Nog rolands comments:
 waarom staat het menu niet boven aan !
 
+# eigenlijk een soort dbfiller maken die data in grote hoeveelheden de db in chuncked om te checken hoeveel zooi er in kan en wat dat doet met de db/site speed !
 # ik zou de minpunten voor een gefailde trade het liefst willen toewijzen aan de partij of partijen die de trades niet hebben voltooit, dus geen review hebben geplaatst ! de partij die wel een review heeft geplaatst geen geen min of pluspunten ! (todo)
 # nog eens kijken bij de imports naar het toevoegen van het path probleem , dat moet mooier kunnen ! via__init__.py maar dat moeten we ff goed onderzoeken !
 # de imports mogen nog eens worden nagekeken bij alle script en dan ff netjes maken
