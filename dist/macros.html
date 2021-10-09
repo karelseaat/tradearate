@@ -69,7 +69,6 @@
       <th>Start App</th>
       <th>Status</th>
       <th>time left</th>
-      <th>B</th>
       <th>Created</th>
       <th></th>
     </tr>
@@ -92,10 +91,6 @@
       <td data-label="City">{{ my_item.status() }}</td>
       <td data-label="Progress" class="is-progress-cell">
         <progress max="{{ my_item.timetotrade }}" class="progress is-small is-primary" value="{{ my_item.trade_days_left() }}">{{ my_item.trade_days_left() }}</progress>
-      </td>
-      <td> {{ build_rating(5) }} </td>
-      <td data-label="Created">
-        <small class="has-text-grey is-abbr-like" title="{{ my_item.initiated }}">{{ my_item.initiated }}</small>
       </td>
       <td class="is-actions-cell">
         <div class="buttons is-right">

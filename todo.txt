@@ -112,7 +112,6 @@ zelfde voor alls trades en all apps !  (not gonna do ?)
 
 
 # smelly octopus !
-
 # de gmail smtp server stuurt enkel emails met als afsender het email assdress van de account houder dus: no-reply@sixdots.soft.app is niet mogelijk, enkel sixdots.soft@gmail.com, dus de smtp server vervangen ! (done):
 https://ubuntu.com/server/docs/mail-postfix
 deze moet goed genoeg zijn voor internal:
@@ -134,6 +133,7 @@ Nog rolands comments:
 waarom staat het menu niet boven aan !
 
 
+# de legenda van de dashboard grafieken staat in omgekeerde volgorde dan de data !
 # nog eens kijken bij de imports naar het toevoegen van het path probleem , dat moet mooier kunnen ! via__init__.py maar dat moeten we ff goed onderzoeken !
 # de imports mogen nog eens worden nagekeken bij alle script en dan ff netjes maken
 # we moeten er ook voor zorgen dat als er fouten op een form staan deze wellicht niet in de snackbar moeten komen te staan maar onder een form veld in rode letters !?
