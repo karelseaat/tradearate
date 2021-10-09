@@ -252,7 +252,7 @@ def index():
 
     nowdate = dt.datetime.now().date()
 
-    allstuff = app.session.query(Historic).filter(Historic.date >= nowdate + timedelta(days=-30) ,Historic.date <= nowdate).order_by(Historic.date.desc()).all()
+    allstuff = app.session.query(Historic).filter(Historic.date >= nowdate + timedelta(days=-30) ,Historic.date <= nowdate).order_by(Historic.date).all()
     app.data['apps'] = [ x.number for x in allstuff if 0 == x.infotype ]
     app.data['trades'] = [ x.number for x in allstuff if 1 == x.infotype ]
     app.data['reviews'] = [ x.number for x in allstuff if 2 == x.infotype ]
