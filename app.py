@@ -19,6 +19,7 @@ from flask_mail import Mail, Message
 from cerberus import Validator
 from datetime import date, timedelta
 import datetime as dt
+from sqlalchemy import distinct, desc
 
 valliappinit = Validator({'appid': {'required': True, 'type': 'string', 'regex': "^.*\..*\..*$"}, 'g-recaptcha-response': {'required': True}})
 alliappjoin = Validator({'tradeid':{'required': True, 'type': 'string'}, 'appid': {'required': True, 'type': 'string', 'regex': "^.*\..*\..*$"}, 'g-recaptcha-response': {'required': True}})
@@ -251,11 +252,11 @@ def index():
 
     nowdate = dt.datetime.now().date()
 
-    allstuff = app.session.query(Historic).filter(Historic.date >= nowdate + timedelta(days=-30) ,Historic.date <= nowdate).order_by(Historic.date).all()
+    allstuff = app.session.query(Historic).filter(Historic.date >= nowdate + timedelta(days=-30) ,Historic.date <= nowdate).order_by(Historic.date.desc()).all()
     app.data['apps'] = [ x.number for x in allstuff if 0 == x.infotype ]
     app.data['trades'] = [ x.number for x in allstuff if 1 == x.infotype ]
     app.data['reviews'] = [ x.number for x in allstuff if 2 == x.infotype ]
-    app.data['labels'] = json.dumps(list(set([ str(x.date) for x in allstuff])))
+    app.data['labels'] = json.dumps(sorted(list(set([ str(x.date) for x in allstuff]))))
 
     return render_template('index.html', data=app.data)
 

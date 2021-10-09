@@ -132,6 +132,9 @@ https://www.digitalocean.com/community/tutorials/how-to-install-and-configure-po
 Nog rolands comments:
 waarom staat het menu niet boven aan !
 
+# de review score ook in sterren om de review retail pagina ipv nummer !
+# gooi de apparte scripts ff in een tools mapje ofzo !
+# Ussage stats  = Usage stats
 # de legenda van de dashboard grafieken staat in omgekeerde volgorde dan de data !
 # nog eens kijken bij de imports naar het toevoegen van het path probleem , dat moet mooier kunnen ! via__init__.py maar dat moeten we ff goed onderzoeken !
 # de imports mogen nog eens worden nagekeken bij alle script en dan ff netjes maken
