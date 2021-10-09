@@ -16,19 +16,18 @@
         </header>
         <div class="card-content">
           <div class="is-user-avatar image has-max-width is-aligned-center">
-            <a href="{{ data.data.get_url() }}">
-              <img src="{{ data.data.imageurl }}" alt="{{ data.data.name }}">
-              <p> {{ data.data.name }} </p>
-            </a>
+            <img src="{{ data.data.imageurl }}" alt="{{ data.data.name }}">
+            <p> {{ data.data.name }} </p>
           </div>
           <hr>
           <div class="field">
             <label class="label">App id</label>
             <div class="control is-clearfix">
-              <p>{{ data.data.appidstring }}</p>
+              <a href="{{ data.data.get_url() }}">
+                <p>{{ data.data.appidstring }}</p>
+              </a>
             </div>
           </div>
-          <hr>
           <div class="field">
             <label class="label">nr of trades</label>
             <div class="control is-clearfix">

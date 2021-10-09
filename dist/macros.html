@@ -69,6 +69,7 @@
       <th>Start App</th>
       <th>Status</th>
       <th>time left</th>
+      <th>B</th>
       <th>Created</th>
       <th></th>
     </tr>
@@ -92,6 +93,7 @@
       <td data-label="Progress" class="is-progress-cell">
         <progress max="{{ my_item.timetotrade }}" class="progress is-small is-primary" value="{{ my_item.trade_days_left() }}">{{ my_item.trade_days_left() }}</progress>
       </td>
+      <td> {{ build_rating(5) }} </td>
       <td data-label="Created">
         <small class="has-text-grey is-abbr-like" title="{{ my_item.initiated }}">{{ my_item.initiated }}</small>
       </td>
@@ -105,6 +107,27 @@
     {% endfor %}
   </tbody>
 </table>
+{% endmacro %}
+
+{% macro build_rating(score) %}
+  {% set newscore = (score/2)|int %}
+  {% set restscore = (5-newscore)|int %}
+  <span title="{{ score }}">
+  {% for n in range(newscore) %}
+  <span  class="mdi mdi-star"></span>
+  {% endfor %}
+
+  {% if score%2 %}
+    <span  class="mdi mdi-star-half "></span>
+    {% set restscore = restscore -1 %}
+  {% endif %}
+
+  {% for n in range(restscore) %}
+  <span  class="mdi mdi mdi-star-outline"></span>
+  {% endfor %}
+  </span>
+
+
 {% endmacro %}
 
 {% macro build_app_table(data) %}

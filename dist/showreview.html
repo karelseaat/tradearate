@@ -13,20 +13,19 @@
           <div class="is-user-avatar image has-max-width is-aligned-center">
             <img src="" alt="">
           </div>
-          <hr>
-          <div class="field">
-            <label class="label">Review time:</label>
-            <div class="control is-clearfix">
-              <p>{{ data.data.reviewtime }}</p>
-            </div>
-          </div>
-          <hr>
           <div class="field">
             <label class="label">App name:</label>
             <div class="control is-clearfix">
               {% if data.data.app %}
               <p>{{ data.data.app.name }}</p>
               {% endif %}
+            </div>
+          </div>
+          <hr>
+          <div class="field">
+            <label class="label">Review time:</label>
+            <div class="control is-clearfix">
+              <p>{{ data.data.reviewtime }}</p>
             </div>
           </div>
           <div class="field">
@@ -40,6 +39,7 @@
             <div class="control is-clearfix">
               <p>{{ data.data.reviewrating }}</p>
             </div>
+            <hr>
             <label class="label">Reviewer:</label>
             <div class="control is-clearfix">
               <div class="is-user-avatar image has-max-width is-aligned-center">

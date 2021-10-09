@@ -95,53 +95,54 @@
             </div>
             {% endif %}
           </div>
+
+          <hr>
+
+          {% if data.candelete %}
+          <button class="button is-medium is-danger" type="button" onclick="window.location.href='/delete?tradeid={{ data.data.id }}'">
+            <span>Delete</span>
+            <span class="icon"><i class="mdi mdi-delete-forever"></i></span>
+          </button>
+          {% endif %}
+
+          {% if data.canjoin %}
+          <button class="button is-medium is-primary" type="button" onclick="window.location.href='/join?tradeid={{ data.data.id }}'">
+            <span>Join</span>
+            <span class="icon"><i class="mdi mdi-location-enter"></i></span>
+          </button>
+          {% endif%}
+
+          {% if data.canleave %}
+          <button class="button is-medium is-primary" type="button" onclick="window.location.href='/leave?tradeid={{ data.data.id }}'">
+            <span>Leave</span>
+            <span class="icon"><i class="mdi mdi-location-exit"></i></span>
+          </button>
+          {% endif%}
+
+          {% if data.canaccept %}
+          <button class="button is-medium is-primary" type="button" onclick="window.location.href='/accept?tradeid={{ data.data.id }}'">
+            <span>Accept</span>
+            <span class="icon"><i class="mdi mdi-checkbox-marked-circle-outline"></i></span>
+          </button>
+          {% endif%}
+
+          {% if data.canreject %}
+          <button class="button is-medium is-primary" type="button" onclick="window.location.href='/reject?tradeid={{ data.data.id }}'">
+            <span>Reject</span>
+            <span class="icon"><i class="mdi mdi-checkbox-blank-circle-outline"></i></span>
+          </button>
+          {% endif%}
+
         </div>
+
       </div>
+
     </div>
   </div>
 </section>
-<section class="section is-main-section">
-  <div class="tile is-ancestor">
-    <div class="tile is-parent">
-      <div class="card tile is-child">
 
-        {% if data.candelete %}
-        <button class="button is-medium is-danger" type="button" onclick="window.location.href='/delete?tradeid={{ data.data.id }}'">
-          <span>Delete</span>
-          <span class="icon"><i class="mdi mdi-delete-forever"></i></span>
-        </button>
-        {% endif %}
 
-        {% if data.canjoin %}
-        <button class="button is-medium is-primary" type="button" onclick="window.location.href='/join?tradeid={{ data.data.id }}'">
-          <span>Join</span>
-          <span class="icon"><i class="mdi mdi-location-enter"></i></span>
-        </button>
-        {% endif%}
 
-        {% if data.canleave %}
-        <button class="button is-medium is-primary" type="button" onclick="window.location.href='/leave?tradeid={{ data.data.id }}'">
-          <span>Leave</span>
-          <span class="icon"><i class="mdi mdi-location-exit"></i></span>
-        </button>
-        {% endif%}
 
-        {% if data.canaccept %}
-        <button class="button is-medium is-primary" type="button" onclick="window.location.href='/accept?tradeid={{ data.data.id }}'">
-          <span>Accept</span>
-          <span class="icon"><i class="mdi mdi-checkbox-marked-circle-outline"></i></span>
-        </button>
-        {% endif%}
-
-        {% if data.canreject %}
-        <button class="button is-medium is-primary" type="button" onclick="window.location.href='/reject?tradeid={{ data.data.id }}'">
-          <span>Reject</span>
-          <span class="icon"><i class="mdi mdi-checkbox-blank-circle-outline"></i></span>
-        </button>
-        {% endif%}
-      </div>
-    </div>
-  </div>
-</section>
 
 {% endblock %}
