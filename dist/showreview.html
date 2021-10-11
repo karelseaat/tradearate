@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-{% from "macros.html" import build_card_header %}
+{% from "macros.html" import build_card_header, build_rating %}
 
 {% extends "base.html" %}
 {% block content %}
@@ -37,7 +37,7 @@
           <div class="field">
             <label class="label">Review Score:</label>
             <div class="control is-clearfix">
-              <p>{{ data.data.reviewrating }}</p>
+              <p>{{ build_rating(data.data.reviewrating) }}</p>
             </div>
             <hr>
             <label class="label">Reviewer:</label>

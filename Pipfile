@@ -18,6 +18,7 @@ bs4 = "*"
 lxml = "*"
 flask-mail = "*"
 cerberus = "*"
+locust = "*"
 
 [dev-packages]
 

@@ -120,3 +120,11 @@ footer {
 .menu-list {
   border-bottom: 1px solid #17191e;
 }
+
+.inverted-progress::-moz-progress-bar {
+  background-color: #E6E6E6;
+}
+
+.inverted-progress {
+  background-color: #00d1b2;
+}

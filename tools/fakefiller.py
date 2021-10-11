@@ -1,4 +1,8 @@
 #!/usr/bin/env python
+
+import sys
+sys.path.append('..')
+
 import random
 import os
 import sqlalchemy
@@ -12,8 +16,9 @@ from config import make_session, CONNECTIONURI
 
 
 if CONNECTIONURI and 'sqlite:///' in CONNECTIONURI:
-    if os.path.exists(CONNECTIONURI.split('/')[-1]):
-        os.remove(CONNECTIONURI.split('/')[-1])
+    realpath = "/"+"/".join(CONNECTIONURI.split('/')[5:])
+    if os.path.exists(realpath):
+        os.remove(realpath)
 
 session = make_session()
 

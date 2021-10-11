@@ -55,7 +55,10 @@ class User(DictSerializableMixin):
         return self.get_score() >= 0
 
     def all_trade_fails(self):
-        return [x for x in set(self.initiatortrades + self.joinertrades) if x.failure]
+        a = [x for x in self.joinertrades if x.failure and x.joiner_reviewed ]
+        b = [x for x in self.initiatortrades  if x.failure and x.initiator_reviewed ]
+        return set(a + b)
+
 
     def all_trade_successes(self):
         return [x for x in set(self.initiatortrades + self.joinertrades) if x.success]
@@ -123,6 +126,7 @@ class Trade(DictSerializableMixin):
     def trade_days_left(self):
         if self.accepted:
             currDate = datetime.datetime.now() + datetime.timedelta(days=self.timetotrade)
+            print((currDate.date() - self.accepted).days - self.timetotrade, self.timetotrade)
             return (currDate.date() - self.accepted).days - self.timetotrade
         return self.timetotrade
 

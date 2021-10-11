@@ -109,7 +109,7 @@ Bij all trades en mytrades zijn een tal tabellen met dezelfde layout maar andere
 Er zit nog een fout als je een app probeert te joinen !  (done)
 my trade en my apps is niet duidelijk de, wellicht kan my apps weg ! (done)
 zelfde voor alls trades en all apps !  (not gonna do ?)
-
+# de legenda van de dashboard grafieken staat in omgekeerde volgorde dan de data ! (done)
 
 # smelly octopus !
 # de gmail smtp server stuurt enkel emails met als afsender het email assdress van de account houder dus: no-reply@sixdots.soft.app is niet mogelijk, enkel sixdots.soft@gmail.com, dus de smtp server vervangen ! (done):
@@ -121,21 +121,20 @@ https://www.digitalocean.com/community/tutorials/how-to-install-and-configure-po
 # als we kijken naar de add op een tabel dan zie je dat die staat op een donkerde achtergrond dat wil ik ook voor de knop die bij een add of een join staat ! (done)
 # nog even kijken waar de horizontal rules <hr> goed staan waar niet en ze ff tweaken ! vooral detail views ! (done)
 # De review rating moet niet enkel een nummer zijn maar ook een rijtje aan sterren ? (done)
+# Ussage stats  = Usage stats (done)
+# Als we kijken naar de grafieken dan lijkt het erop dat er dingen niet goed geteld worden, ff checken !  (done)
 
 # Little dead mearmaid
-# het aftellen naar nul van de review tijd die nog over is is nu geinverteerd, dit ff aanpassen, (check balkje kleur) !
-# Als we kijken naar de grafieken dan lijkt het erop dat er dingen niet goed geteld worden, ff checken !
-# ik zou de minpunten voor een gefailde trade het liefst willen toewijzen aan de partij of partijen die de trades niet hebben voltooit, dus geen review hebben geplaatst ! de partij die wel een review heeft geplaatst geen geen min of pluspunten ! (todo)
-# voor de performance ff een locust runner maken ? (moet kunnen we kunnen getten posten etc, geen vreemde js problemen ?)
-
+# het aftellen naar nul van de review tijd die nog over is is nu geinverteerd, dit ff aanpassen, (check balkje kleur) !  (done)
+# ik zou de minpunten voor een gefailde trade het liefst willen toewijzen aan de partij of partijen die de trades niet hebben voltooit, dus geen review hebben geplaatst ! de partij die wel een review heeft geplaatst geen geen min of pluspunten ! (done)
+# voor de performance ff een locust runner maken ? (moet kunnen we kunnen getten posten etc, geen vreemde js problemen ?) (done) <--
+# de review score ook in sterren om de review retail pagina ipv nummer ! (done)
+# gooi de apparte scripts ff in een tools mapje ofzo ! (done)
 
 Nog rolands comments:
 waarom staat het menu niet boven aan !
 
-# de review score ook in sterren om de review retail pagina ipv nummer !
-# gooi de apparte scripts ff in een tools mapje ofzo !
-# Ussage stats  = Usage stats
-# de legenda van de dashboard grafieken staat in omgekeerde volgorde dan de data !
+# de score is nu zo dat je enkel minpunten krijgt als jij de gene wat die geen review hebt achtergelaten als je bij een review was en je hebt wel een review gedaan maar de andere partij niet dan krijg je geen min of pluspunten, dit mag in de uitleg komen te staan !
 # nog eens kijken bij de imports naar het toevoegen van het path probleem , dat moet mooier kunnen ! via__init__.py maar dat moeten we ff goed onderzoeken !
 # de imports mogen nog eens worden nagekeken bij alle script en dan ff netjes maken
 # we moeten er ook voor zorgen dat als er fouten op een form staan deze wellicht niet in de snackbar moeten komen te staan maar onder een form veld in rode letters !?

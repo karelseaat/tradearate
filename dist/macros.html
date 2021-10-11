@@ -90,7 +90,12 @@
       <td data-label="Company">{{ my_item.initiatorapp.name }}</td>
       <td data-label="City">{{ my_item.status() }}</td>
       <td data-label="Progress" class="is-progress-cell">
-        <progress max="{{ my_item.timetotrade }}" class="progress is-small is-primary" value="{{ my_item.trade_days_left() }}">{{ my_item.trade_days_left() }}</progress>
+        {% if my_item.status() == "initiated" %}
+          <progress  max="{{ my_item.timetotrade }}" class="progress is-small is-primary" value="{{ my_item.trade_days_left() }}">{{ my_item.trade_days_left() }}</progress>
+        {% else %}
+          <progress  max="{{ my_item.timetotrade }}" class="progress is-small inverted-progress" value="{{ my_item.trade_days_left() }}">{{ my_item.trade_days_left() }}</progress>
+        {% endif %}
+
       </td>
       <td class="is-actions-cell">
         <div class="buttons is-right">
