@@ -2,7 +2,10 @@
 
 #the two lines bellow, hate it !
 import sys
-sys.path.append('..')
+import os
+dirname = os.getcwd()
+
+sys.path.append(dirname + '/..')
 
 from treetareet.config import make_session
 from config import Config

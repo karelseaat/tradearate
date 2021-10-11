@@ -2,7 +2,10 @@
 
 #the two lines bellow, hate it !
 import sys
-sys.path.append('..')
+import os
+dirname = os.getcwd()
+
+sys.path.append(dirname + '/..')
 
 # This script will go trough the db and will get all apps of trades that are active.
 #It will also get all the languages of the user associated with the trade.

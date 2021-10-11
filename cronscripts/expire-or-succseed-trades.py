@@ -2,7 +2,10 @@
 
 #the two lines bellow, hate it !
 import sys
-sys.path.append('..')
+import os
+dirname = os.getcwd()
+
+sys.path.append(dirname + '/..')
 
 from config import make_session
 from config import Config
@@ -11,7 +14,7 @@ from models import Trade
 import logging
 import datetime
 import smtplib
-import os
+
 from sqlalchemy import and_, or_, not_
 
 dirname = os.getcwd()

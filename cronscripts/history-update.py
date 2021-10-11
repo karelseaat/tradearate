@@ -2,13 +2,18 @@
 
 #the two lines bellow, hate it !
 import sys
-sys.path.append('..')
+import os
+dirname = os.getcwd()
+
+sys.path.append(dirname + '/..')
+
+print(dirname + '/..')
 
 from config import make_session
 from models import Trade, App, Review, Historic
 import logging
 import datetime
-import os
+
 
 dirname = os.getcwd()
 
