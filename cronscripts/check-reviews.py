@@ -3,7 +3,7 @@
 #the two lines bellow, hate it !
 import sys
 import os
-dirname = os.getcwd()
+dirname = "/".join(os.path.realpath(__file__).split('/')[:-1])
 
 sys.path.append(dirname + '/..')
 

@@ -3,19 +3,12 @@
 #the two lines bellow, hate it !
 import sys
 import os
-dirname = os.getcwd()
-
-sys.path.append(dirname + '/..')
-
-print(dirname + '/..')
+dirname = "/".join(os.path.realpath(__file__).split('/')[:-1])
 
 from config import make_session
 from models import Trade, App, Review, Historic
 import logging
 import datetime
-
-
-dirname = os.getcwd()
 
 logging.basicConfig(filename='{}/history-update.log'.format(dirname), level=logging.INFO)
 

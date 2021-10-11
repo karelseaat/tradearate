@@ -3,13 +3,13 @@
 #the two lines bellow, hate it !
 import sys
 import os
-dirname = os.getcwd()
+dirname = "/".join(os.path.realpath(__file__).split('/')[:-1])
 
 sys.path.append(dirname + '/..')
 
 from config import make_session
 from config import Config
-form config import domain
+from config import domain
 from models import Trade
 import logging
 import datetime
