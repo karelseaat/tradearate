@@ -4,6 +4,7 @@
 import sys
 import os
 dirname = "/".join(os.path.realpath(__file__).split('/')[:-1])
+sys.path.append(dirname + '/..')
 
 from config import make_session
 from models import Trade, App, Review, Historic
