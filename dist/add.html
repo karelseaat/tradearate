@@ -14,6 +14,7 @@
     </header>
     <div class="card-content">
       <form method="post" action="/processadd" id="demo-form">
+
         <hr>
         <div class="field is-horizontal">
           <div class="field-label is-normal">
@@ -22,7 +23,11 @@
           <div class="field-body">
             <div class="field">
               <div class="control">
-                <input class="input" type="text" name="appid" placeholder="Enter your app name">
+                {% if current_user.get_score() < 0 %}
+                  <input class="input" type="text" name="appid" placeholder="Enter your app id" disabled>
+                {% else %}
+                  <input class="input" type="text" name="appid" placeholder="Enter your app id">
+                {% endif %}
               </div>
             </div>
           </div>

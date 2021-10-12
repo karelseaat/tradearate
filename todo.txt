@@ -127,26 +127,34 @@ https://www.digitalocean.com/community/tutorials/how-to-install-and-configure-po
 # Little dead mearmaid
 # het aftellen naar nul van de review tijd die nog over is is nu geinverteerd, dit ff aanpassen, (check balkje kleur) !  (done)
 # ik zou de minpunten voor een gefailde trade het liefst willen toewijzen aan de partij of partijen die de trades niet hebben voltooit, dus geen review hebben geplaatst ! de partij die wel een review heeft geplaatst geen geen min of pluspunten ! (done)
-# voor de performance ff een locust runner maken ? (moet kunnen we kunnen getten posten etc, geen vreemde js problemen ?) (done) <--
+# voor de performance ff een locust runner maken ? (moet kunnen we kunnen getten posten etc, geen vreemde js problemen ?) (done)
 # de review score ook in sterren om de review retail pagina ipv nummer ! (done)
 # gooi de apparte scripts ff in een tools mapje ofzo ! (done)
 
 # Serial baby killers
-# de imports mogen nog eens worden nagekeken bij alle script en dan ff netjes maken.
-# zoom in dan krijg je te zien dat het linker menu verdwijnt maar het top menu in een hamburger menu wordt opgenomen, das niet toff ! (todo)
-# er mag een halfe studie gedaan worden naar wat er geparametriseerd kan worden in de templates hoe het geparametriseerd kan worden en het daadwerkelijk parametriseren !
-# draaien van een python linter (de strengste)!
-# heb ik het al zo gemaakt dat je niet kunt joinen of kunt starten als je geen punten hebt, krijg je die melding ook ergens te staan ?
-# de helptxt nog uitbrijden, vooral het score systeem uitleggen !
-# er moet uitleg komen hoe een goede review te doen bij de add en de join
-# het gehele process moet nog eens worden gestest en dan vooral of de crons doen wat ze moeten doen !
-# toch lijkt het erop dat als je net een tade accepteerd dat pas bij de refresh de trade geaccepteerd lijkt !
+# de imports mogen nog eens worden nagekeken bij alle script en dan ff netjes maken.  (done)
+# draaien van een python linter (de strengste)!  (done)
+# heb ik het al zo gemaakt dat je niet kunt joinen of kunt starten als je geen punten hebt, krijg je die melding ook ergens te staan ? (done)
+(^ dit komt bij het join of het add scherm/html te staan afhankelijk van user score form grijs en melding bij snackbar dat de score niet hoog genoeg is)
+# de helptxt nog uitbrijden, vooral het score systeem uitleggen ! (done)
+# het gehele process moet nog eens worden getest en dan vooral of de crons doen wat ze moeten doen ! (kan pas worden gedaan samen met andere tester) <<
+# toch lijkt het erop dat als je net een trade accepteerd dat pas bij de refresh de trade geaccepteerd lijkt ! (kan pas worden gedaan samen met andere tester) <<
+# er mag een halfe studie gedaan worden naar wat er geparametriseerd kan worden in de templates hoe het geparametriseerd kan worden en het daadwerkelijk parametriseren ! <<
 
+# Kerstwensen en bommen
+# controleer hoe veel score iemand heeft en hoeveel pending trades iemand heeftvoordat we een extra trade toelaten
+# controleer ik ook al of een score hoger is dan 0 voordat ik een trade toesta
+# mediating a solution = contact form !
+# Na een add of een join moet er een redirect worden gedaan naar een pagina die alle tools bied om een goede review te kunnen doen samen met een link naar de store, link naar de trade detail pagina en naar de store voor andere app.
+# Er het plan dat je geen punten hebt om te starten houd er nu enkel rekening mee dat je geen punten meer hebt maar dit kan ook gelden dat er al initiated trades zijn, te veel voor je punten tal, fix this !
 
+#snackbar mag langer blijven staan !
+#Het is nog niet zo gedaan dat een rating ook werkelijk waar afhankelikk is van een score en een text, super belangrijk ?
 # Nog eens kijken bij de imports naar het toevoegen van het path probleem, dat moet mooier kunnen ! via__init__.py maar dat moeten we ff goed onderzoeken !
-
+# zouden er niet meer trades scores moeten zijn ipv pending, suceeded and failed, wellicht nog wat toevoegen zoals waiting, accepted etc ?
 # we moeten er ook voor zorgen dat als er fouten op een form staan deze wellicht niet in de snackbar moeten komen te staan maar onder een form veld in rode letters !?
 # wellicht het zo maken dat de tabellen nu wel gesorteerd kunnnen worden ?
 # belangrijk in de toekomst: https://brizzo.net/tips/hide-recaptcha-v3-badge/
 # dus het zou a handig zijn als gebruikers met elkaar kunnen comuniceren en b er is ruimte zat voor, doen ?
 # een custom ontworpen faficon maken ! (todo)
+# zoom in dan krijg je te zien dat het linker menu verdwijnt maar het top menu in een hamburger menu wordt opgenomen, das niet toff ! (nog niet makkelijk om te fixen, menu toch maar opmraaien of remodellen ?)
