@@ -17,9 +17,7 @@ from cerberus import Validator
 from config import make_session, oauthconfig, REVIEWLIMIT, recaptchasecret, recapchasitekey
 from models import User, Trade, App, Review, Historic
 from myownscraper import get_app
-
-
-
+from translator import PyNalator
 
 valliappinit = Validator({
     'appid': {'required': True, 'type': 'string', 'regex': "^.*\..*\..*$"},
@@ -38,6 +36,7 @@ app = Flask(
     static_folder = "assets",
     template_folder = "dist",
 )
+
 
 login_manager = LoginManager()
 login_manager.setup_app(app)
@@ -89,8 +88,6 @@ def pagination(db_object, itemnum):
     app.data['pagenum'] = pagenum+1, round_up(total/itemnum)
     data = app.session.query(db_object).limit(itemnum).offset(pagenum*itemnum).all()
 
-    print(app.data['pagenum'], app.data['total'])
-
     return data
 
 @login_manager.user_loader
@@ -99,6 +96,9 @@ def load_user(userid):
 
 @app.before_request
 def before_request_func():
+    app.pyn = PyNalator("de")
+    app.jinja_env.globals.update(trans=app.pyn.trans)
+
     navigation = {
         'dashboard': ('Dashboard', 'index'),
         'alltrades': ('All trades', 'overviewtrades'),

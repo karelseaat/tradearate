@@ -139,7 +139,7 @@ https://www.digitalocean.com/community/tutorials/how-to-install-and-configure-po
 # de helptxt nog uitbrijden, vooral het score systeem uitleggen ! (done)
 # het gehele process moet nog eens worden getest en dan vooral of de crons doen wat ze moeten doen ! (kan pas worden gedaan samen met andere tester) <<
 # toch lijkt het erop dat als je net een trade accepteerd dat pas bij de refresh de trade geaccepteerd lijkt ! (kan pas worden gedaan samen met andere tester) <<
-# er mag een halfe studie gedaan worden naar wat er geparametriseerd kan worden in de templates hoe het geparametriseerd kan worden en het daadwerkelijk parametriseren ! <<
+# Vertalingen in de template regelen (done)
 
 # Kerstwensen en bommen
 # controleer hoe veel score iemand heeft en hoeveel pending trades iemand heeftvoordat we een extra trade toelaten
@@ -148,6 +148,9 @@ https://www.digitalocean.com/community/tutorials/how-to-install-and-configure-po
 # Na een add of een join moet er een redirect worden gedaan naar een pagina die alle tools bied om een goede review te kunnen doen samen met een link naar de store, link naar de trade detail pagina en naar de store voor andere app.
 # Er het plan dat je geen punten hebt om te starten houd er nu enkel rekening mee dat je geen punten meer hebt maar dit kan ook gelden dat er al initiated trades zijn, te veel voor je punten tal, fix this !
 
+
+# close de vertalingen file in deze request ff experimeneteren: https://pythonise.com/series/learning-flask/python-before-after-request
+# de adds komen on top te staan, tussen het top menu en de titel !?
 #snackbar mag langer blijven staan !
 #Het is nog niet zo gedaan dat een rating ook werkelijk waar afhankelikk is van een score en een text, super belangrijk ?
 # Nog eens kijken bij de imports naar het toevoegen van het path probleem, dat moet mooier kunnen ! via__init__.py maar dat moeten we ff goed onderzoeken !
