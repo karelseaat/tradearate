@@ -3,3 +3,6 @@
 Status = "Status"
 "Time left" = "Time left"
 Created = "Created"
+Name = "Name"
+IdString = "IdString"
+Reviews = "Reviews"

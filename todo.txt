@@ -148,6 +148,7 @@ https://www.digitalocean.com/community/tutorials/how-to-install-and-configure-po
 # Er moet een link komen te staan in de email die je krijgt nadat alle partijen hebben geaccepteerd, alle tools in de email ? om de trade goed te laten verlopen ! <--
 # Er het plan dat je geen punten hebt om te starten houd er nu enkel rekening mee dat je geen punten meer hebt maar dit kan ook gelden dat er al initiated trades zijn, te veel voor je punten tal, fix this ! (done)
 
+Als er geen items op de paginas staan zoals bij de trade table: dan kun je "Page 1 of 0" krijgen, dat is niet goed !
 we moeten er ook voor zorgen dat betaalde apps bij een app detail een duidelijke marker krijgen dat ie betaald is ! (zodat je weet dat je er geen geld aan uit hoeft te geven)
 we moeten er ook voor zorgen dat bijde reviewers niet dezelfde app kunnen kiezen
 De accept knoppen lijken soms trades niet te accepteren !

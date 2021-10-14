@@ -142,14 +142,17 @@ def userprofile():
     app.data['pagename'] = 'User profile'
     app.data['data'] = current_user
     app.data['userscore'] = current_user.get_score()
-    return render_template('userprofile.html', data=app.data)
+    result = render_template('userprofile.html', data=app.data)
+    return result
+
 
 @app.route('/login')
 def login():
     """login that will call google oauth to you can login with your gooogle account"""
     google = oauth.create_client('google')
     redirect_uri = url_for('authorize', _external=True)
-    return google.authorize_redirect(redirect_uri)
+    result = google.authorize_redirect(redirect_uri)
+    return result
 
 @app.route("/customlogin", methods = ['POST'])
 def customlogin():
@@ -172,6 +175,7 @@ def customlogin():
 def logout():
     """here you can logout , it is not used since you login via google oauth so as soon as you are on the site you are loggedin"""
     logout_user()
+    app.session.close()
     return redirect('/')
 
 @app.route('/contact')
@@ -179,7 +183,8 @@ def logout():
 def contact():
     """Showin a contact form !"""
     app.data['pagename'] = 'Contact'
-    return render_template('contact.html', data=app.data)
+    result = render_template('contact.html', data=app.data)
+    return result
 
 @app.route('/processcontact')
 @login_required
@@ -205,6 +210,8 @@ def processcontact():
         sender="no-reply@{}".format(baseurl),
         recipients=['karelseaat@gmail.com']
     )
+
+    app.session.close()
 
 @app.route('/authorize')
 def authorize():
@@ -238,6 +245,7 @@ def authorize():
             app.session.commit()
             login_user(newuser)
 
+    app.session.close()
     return redirect('/overviewtrades')
 
 @app.route("/trades")
@@ -247,7 +255,9 @@ def trades():
     app.data['pagename'] = 'My trades'
     app.data['data'] = current_user
 
-    return render_template('alltrades.html', data=app.data)
+    result = render_template('alltrades.html', data=app.data)
+    app.session.close()
+    return result
 
 # @app.route("/apps")
 # @login_required
@@ -263,7 +273,9 @@ def showapp():
     appid = request.args.get('appid')
     appobj = app.session.query(App).filter(App.id==appid).first()
     app.data['data'] = appobj
-    return render_template('oneapp.html', data=app.data)
+    result = render_template('oneapp.html', data=app.data)
+    app.session.close()
+    return result
 
 @app.route("/usertrades")
 @login_required
@@ -274,7 +286,9 @@ def usertrades():
     userobj = app.session.query(User).filter(User.id==userid).first()
     app.data['data'] = userobj
 
-    return render_template('usertrades.html', data=app.data)
+    result = render_template('usertrades.html', data=app.data)
+    app.session.close()
+    return result
 
 @app.route("/add")
 @login_required
@@ -287,7 +301,9 @@ def add():
 
     if current_user.get_score() < 0:
         flash("your trade score is not height enough to start a trade!", 'has-text-danger')
-    return render_template('add.html', data=app.data)
+    result = render_template('add.html', data=app.data)
+    app.session.close()
+    return result
 
 def get_app_from_store(appid, country='us'):
     """this method / function can be removed and get_app can be called directly"""
@@ -315,10 +331,12 @@ def processadd():
 
     if current_user.get_score() < 0:
         flash("your trade score is not height enough to start a trade!", 'has-text-danger')
+        app.session.close()
         return redirect('/overviewtrades')
 
     if 'rating' not in appobj or not appobj['rating']:
         flash("at the moment there is minor trouble with google playstore, try angain later !", 'has-text-danger')
+        app.session.close()
         return redirect('/add')
 
     if appobj and int(appobj['rating']) <= REVIEWLIMIT and is_human(captcha_response):
@@ -331,10 +349,15 @@ def processadd():
         app.session.commit()
         flash("added trade", 'has-text-primary')
         if 'redirectto' in request.args:
+            app.session.close()
             return redirect(request.args.get('redirectto'))
+
+        app.session.close()
         return redirect('/overviewtrades')
     else:
         flash(str("chapcha trouble, more than reviews, or of the process doent exist"), 'has-text-danger')
+
+    app.session.close()
     return redirect('/add')
 
 @app.route('/index')
@@ -357,13 +380,17 @@ def index():
     app.data['reviews'] = [ x.number for x in allstuff if 2 == x.infotype ]
     app.data['labels'] = json.dumps(sorted(list({ str(x.date) for x in allstuff})))
 
-    return render_template('index.html', data=app.data)
+    result =  render_template('index.html', data=app.data)
+    app.session.close()
+    return result
 
 @app.route('/')
 def mainpage():
     """This intro page will show the help for this webapp, perhaps an other name or url is needed ?"""
     app.data['pagename'] = 'Intro page'
-    return render_template('mainpage.html', data=app.data)
+    result = render_template('mainpage.html', data=app.data)
+    app.session.close()
+    return result
 
 @app.route('/overviewapps')
 @login_required
@@ -373,10 +400,12 @@ def overviewapps():
     try:
         app.data['data'] = pagination(App, 5)
 
-
     except Exception as exception:
         flash(str(exception), 'has-text-danger')
-    return render_template('overviewapps.html', data=app.data)
+
+    result = render_template('overviewapps.html', data=app.data)
+    app.session.close()
+    return result
 
 @app.route('/showreview')
 def showreview():
@@ -388,7 +417,9 @@ def showreview():
         app.data['data'] = review
     except Exception as exception:
         flash(str(exception), 'has-text-danger')
-    return render_template('showreview.html', data=app.data)
+    result = render_template('showreview.html', data=app.data)
+    app.session.close()
+    return result
 
 @app.route('/overviewreviews')
 def overviewreviews():
@@ -399,17 +430,20 @@ def overviewreviews():
         app.data['data'] = pagination(Review, 50)
     except Exception as exception:
         flash(str(exception), 'has-text-danger')
-    return render_template('overviewreviews.html', data=app.data)
+    result = render_template('overviewreviews.html', data=app.data)
+    app.session.close()
+    return result
 
 @app.route('/overviewtrades')
 @login_required
 def overviewtrades():
     """a page that will show you a overview for all trades"""
     app.data['pagename'] = 'My trades'
-
     app.data['data'] = pagination(Trade, 5)
 
-    return render_template('overview.html', data=app.data)
+    result = render_template('overview.html', data=app.data)
+    app.session.close()
+    return result
 
 @app.route("/show")
 @login_required
@@ -429,7 +463,9 @@ def show():
     except Exception as exception:
         flash(str(exception), 'has-text-danger')
 
-    return render_template('showtrade.html', data=app.data)
+    result = render_template('showtrade.html', data=app.data)
+    app.session.close()
+    return result
 
 @app.route("/reject")
 @login_required
@@ -444,7 +480,9 @@ def reject():
     except Exception as exception:
         app.session.rollback()
         flash(str(exception), 'has-text-danger')
-    return redirect('/show?tradeid=' + tradeid)
+    result = redirect('/show?tradeid=' + tradeid)
+    app.session.close()
+    return result
 
 @app.route("/accept")
 @login_required
@@ -480,7 +518,10 @@ def accept():
     except Exception as exception:
         app.session.rollback()
         flash(str(exception),'has-text-danger')
+
+    app.session.close()
     return redirect('/show?tradeid=' + tradeid)
+
 
 @app.route("/delete")
 @login_required
@@ -490,6 +531,7 @@ def delete():
     app.session.query(Trade).filter(Trade.id==tradeid).delete()
     app.session.commit()
     flash("trade removed !",'has-text-primary')
+    app.session.close()
     return redirect('/overviewtrades')
 
 @app.route("/join")
@@ -502,7 +544,9 @@ def join():
     if current_user.get_score() < 0:
         flash("your trade score is not height enough to join a trade!", 'has-text-danger')
 
-    return render_template('join.html', tradeid=tradeid, data=app.data)
+    result = render_template('join.html', tradeid=tradeid, data=app.data)
+    app.session.close()
+    return result
 
 @app.route("/processjoin", methods = ['POST'])
 @login_required
@@ -513,15 +557,18 @@ def processjoin():
     tradeid = request.form.get('tradeid')
 
     if not tradeid:
+        app.session.close()
         return redirect('/')
 
     if alliappjoin.errors:
         for key, val in alliappjoin.errors.items():
             flash(key + ": " + val[0], 'has-text-danger')
+        app.session.close()
         return redirect('/join?tradeid={}'.format(tradeid))
 
     if current_user.get_score() < 0:
         flash("your trade score is not height enough to join a trade!", 'has-text-danger')
+        app.session.close()
         return redirect('/overviewtrades')
 
     appid = request.form.get('appid')
@@ -538,6 +585,7 @@ def processjoin():
 
         if not trade.can_join(current_user.id):
             flash("trade is already joind you sly dog !", 'has-text-danger')
+            app.session.close()
             return redirect('/overviewtrades')
 
         trade.joiner = current_user
@@ -546,10 +594,12 @@ def processjoin():
         app.session.add(trade)
         app.session.commit()
         flash("joined the trade", 'has-text-primary')
+        app.session.close()
         return redirect('/overviewtrades')
     else:
         flash(str("chapcha trouble, more than reviews, or of the process doent exist"), 'has-text-danger')
 
+    app.session.close()
     return redirect('/join')
 
 @app.route("/leave")
@@ -569,4 +619,13 @@ def leave():
             flash("left the trade", 'has-text-primary')
     except Exception as exception:
         flash(str(exception), 'has-text-danger')
+
+    app.session.close()
     return redirect('/overviewtrades')
+
+@app.after_request
+def set_response_headers(response):
+    response.headers['Cache-Control'] = 'no-cache, no-store, must-revalidate'
+    response.headers['Pragma'] = 'no-cache'
+    response.headers['Expires'] = '0'
+    return response
