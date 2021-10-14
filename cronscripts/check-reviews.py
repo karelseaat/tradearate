@@ -7,7 +7,7 @@ dirname = "/".join(os.path.realpath(__file__).split('/')[:-1])
 
 sys.path.append(dirname + '/..')
 
-from treetareet.config import make_session
+from config import make_session
 from config import Config
 from config import domain
 from models import User, Trade, App, Review

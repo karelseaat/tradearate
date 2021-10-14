@@ -142,13 +142,20 @@ https://www.digitalocean.com/community/tutorials/how-to-install-and-configure-po
 # Vertalingen in de template regelen (done)
 
 # Kerstwensen en bommen
-# controleer hoe veel score iemand heeft en hoeveel pending trades iemand heeftvoordat we een extra trade toelaten
-# controleer ik ook al of een score hoger is dan 0 voordat ik een trade toesta
-# mediating a solution = contact form !
-# Na een add of een join moet er een redirect worden gedaan naar een pagina die alle tools bied om een goede review te kunnen doen samen met een link naar de store, link naar de trade detail pagina en naar de store voor andere app.
-# Er het plan dat je geen punten hebt om te starten houd er nu enkel rekening mee dat je geen punten meer hebt maar dit kan ook gelden dat er al initiated trades zijn, te veel voor je punten tal, fix this !
+# controleer hoe veel score iemand heeft en hoeveel pending trades iemand heeftvoordat we een extra trade toelaten. (done)
+# controleer ik ook al of een score hoger is dan 0 voordat ik een trade toesta. (done)
+# mediating a solution = contact form ! (1/2)
+# Er moet een link komen te staan in de email die je krijgt nadat alle partijen hebben geaccepteerd, alle tools in de email ? om de trade goed te laten verlopen ! <--
+# Er het plan dat je geen punten hebt om te starten houd er nu enkel rekening mee dat je geen punten meer hebt maar dit kan ook gelden dat er al initiated trades zijn, te veel voor je punten tal, fix this ! (done)
 
-
+we moeten er ook voor zorgen dat betaalde apps bij een app detail een duidelijke marker krijgen dat ie betaald is ! (zodat je weet dat je er geen geld aan uit hoeft te geven)
+we moeten er ook voor zorgen dat bijde reviewers niet dezelfde app kunnen kiezen
+De accept knoppen lijken soms trades niet te accepteren !
+De leave knop mag rood !
+voeg een vertalings dingens toe ? of halen we de internationalisatie gewoon van de google account ?
+translate everything !
+nu wordt er rekening gehouden met je score als je een trade aanmaakt of join en het aantal trades dat je teglijkertijd kunt doen, maar enkel de knop niet bij het processen, nog wel ff doen !
+de vertalingen mogen ook in hun eigen mapje maar dat zien we wel !
 # close de vertalingen file in deze request ff experimeneteren: https://pythonise.com/series/learning-flask/python-before-after-request
 # de adds komen on top te staan, tussen het top menu en de titel !?
 #snackbar mag langer blijven staan !

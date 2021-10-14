@@ -55,11 +55,11 @@ class User(DictSerializableMixin):
 
     def can_create_trade(self):
         """if your score is height enough you can, chine eat your heart out"""
-        return self.get_score() >= 0
+        return (self.get_score() - len(self.all_pending()) * 10) >= 0
 
     def can_join_trade(self):
         """if your score is height enough you can, chine eat your heart out"""
-        return self.get_score() >= 0
+        return (self.get_score() - len(self.all_pending()) * 10)  >= 0
 
     def all_trade_fails(self):
         """will give you all the trades that you failed"""
@@ -82,6 +82,7 @@ class User(DictSerializableMixin):
     def all_pending(self):
         """will give you all your pending trades"""
         return [x for x in set(self.initiatortrades + self.joinertrades) if not x.success and not x.failure]
+
 
     def all_apps(self):
         return [x.initiatorapp for x in self.initiatortrades] + [x.joinerapp for x in self.joinertrades]
@@ -208,14 +209,14 @@ class Trade(DictSerializableMixin):
         """will reject a trade, this trade, perhaps this can be done better, why need userid ?"""
         if self.initiator_accepted and self.initiator.googleid == usergoogleid:
             self.initiator_accepted = False
-        elif self.joiner_accepted and self.joiner.googleid == usergoogleid:
+        if self.joiner_accepted and self.joiner.googleid == usergoogleid:
             self.joiner_accepted = False
 
     def accept_user(self, usergoogleid):
         """will accept a trade, this trade, perhaps this can be done better, why need userid ?"""
         if self.initiator.googleid == usergoogleid:
             self.initiator_accepted = True
-        elif self.joiner.googleid == usergoogleid:
+        if self.joiner.googleid == usergoogleid:
             self.joiner_accepted = True
 
         if self.initiator_accepted and self.joiner_accepted:

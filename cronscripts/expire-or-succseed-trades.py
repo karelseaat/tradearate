@@ -27,11 +27,10 @@ tradeobj = Trade()
 trades = dbsession.query(Trade).filter(Trade.accepted + datetime.timedelta(days=tradeobj.timetotrade) < datetime.datetime.now().date()).filter(and_(not_(Trade.initiator_reviewed), not_(Trade.joiner_reviewed))).all()
 
 
-
 for trade in trades:
     trade.failure = datetime.datetime.now()
 
-    sender = "no-reply@{}".format(siteurl)
+    sender = "no-reply@{}".format(domain)
 
     message_initiator = f"""\
         Subject: Trade a Rate, status change !

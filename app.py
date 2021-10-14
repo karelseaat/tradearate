@@ -30,6 +30,11 @@ alliappjoin = Validator({
     'g-recaptcha-response': {'required': True}
 })
 
+vallcontact = Validator({
+    'message':{'required': True, 'type': 'string'},
+    'g-recaptcha-response': {'required': True}
+})
+
 app = Flask(
     __name__,
     static_url_path='/assets',
@@ -107,9 +112,10 @@ def before_request_func():
         'mytrades': ('My trades', 'trades'),
         'myreviews': ('All reviews', 'overviewreviews'),
         'profile': ('My profile', 'userprofile'),
-        'logout': ('Log Out', 'logout'),
-        'about': ('About', '/')
+        'about': ('About', '/'),
+        'contact': ('Contact', '/contact')
     }
+
     app.data = {
         'pagename': 'Unknown',
         'user': None,
@@ -167,6 +173,38 @@ def logout():
     """here you can logout , it is not used since you login via google oauth so as soon as you are on the site you are loggedin"""
     logout_user()
     return redirect('/')
+
+@app.route('/contact')
+@login_required
+def contact():
+    """Showin a contact form !"""
+    app.data['pagename'] = 'Contact'
+    return render_template('contact.html', data=app.data)
+
+@app.route('/processcontact')
+@login_required
+def processcontact():
+    vallcontact.validate(dict(request.form))
+
+    message = request.form.get('message')
+
+    if not message:
+        flash("message send !", 'has-text-danger')
+        return redirect('/')
+
+    if vallcontact.errors:
+        for key, val in vallcontact.errors.items():
+            flash(key + ": " + val[0], 'has-text-danger')
+        return redirect('/')
+
+    mail = Mail(app)
+    mail.send(msg)
+    msg = Message(
+        'Test !',
+        body=message,
+        sender="no-reply@{}".format(baseurl),
+        recipients=['karelseaat@gmail.com']
+    )
 
 @app.route('/authorize')
 def authorize():
@@ -438,7 +476,7 @@ def accept():
                 mail = Mail(app)
                 mail.send(msg)
 
-            flash("accepted the trade",'has-text-danger')
+            flash("accepted the trade",'has-text-primary')
     except Exception as exception:
         app.session.rollback()
         flash(str(exception),'has-text-danger')
@@ -497,6 +535,10 @@ def processjoin():
             joinerappmodel = App(appobjjoiner['title'], appid)
             joinerappmodel.imageurl = appobjjoiner['icon']
         trade = app.session.query(Trade).get(int(tradeid))
+
+        if not trade.can_join(current_user.id):
+            flash("trade is already joind you sly dog !", 'has-text-danger')
+            return redirect('/overviewtrades')
 
         trade.joiner = current_user
         trade.joinerapp = joinerappmodel
