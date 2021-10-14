@@ -148,24 +148,25 @@ https://www.digitalocean.com/community/tutorials/how-to-install-and-configure-po
 # Er moet een link komen te staan in de email die je krijgt nadat alle partijen hebben geaccepteerd, alle tools in de email ? om de trade goed te laten verlopen ! <--
 # Er het plan dat je geen punten hebt om te starten houd er nu enkel rekening mee dat je geen punten meer hebt maar dit kan ook gelden dat er al initiated trades zijn, te veel voor je punten tal, fix this ! (done)
 
-Als er geen items op de paginas staan zoals bij de trade table: dan kun je "Page 1 of 0" krijgen, dat is niet goed !
-we moeten er ook voor zorgen dat betaalde apps bij een app detail een duidelijke marker krijgen dat ie betaald is ! (zodat je weet dat je er geen geld aan uit hoeft te geven)
-we moeten er ook voor zorgen dat bijde reviewers niet dezelfde app kunnen kiezen
-De accept knoppen lijken soms trades niet te accepteren !
-De leave knop mag rood !
-voeg een vertalings dingens toe ? of halen we de internationalisatie gewoon van de google account ?
-translate everything !
-nu wordt er rekening gehouden met je score als je een trade aanmaakt of join en het aantal trades dat je teglijkertijd kunt doen, maar enkel de knop niet bij het processen, nog wel ff doen !
-de vertalingen mogen ook in hun eigen mapje maar dat zien we wel !
-# close de vertalingen file in deze request ff experimeneteren: https://pythonise.com/series/learning-flask/python-before-after-request
-# de adds komen on top te staan, tussen het top menu en de titel !?
-#snackbar mag langer blijven staan !
-#Het is nog niet zo gedaan dat een rating ook werkelijk waar afhankelikk is van een score en een text, super belangrijk ?
+# Ultrabuff seagull:
+# Als er geen items op de paginas staan zoals bij de trade table: dan kun je "Page 1 of 0" krijgen, dat is niet goed !
+# Translate everything !
+# We moeten er ook voor zorgen dat betaalde apps bij een app detail een duidelijke marker krijgen dat ie betaald is ! (zodat je weet dat je er geen geld aan uit hoeft te geven)
+# We moeten er ook voor zorgen dat bijde reviewers niet dezelfde app kunnen kiezen
+# De leave knop mag rood !
+# Snackbar mag langer blijven staan !
+
+# Voeg een vertalings dingens toe ? of halen we de internationalisatie gewoon van de google account ?
+# Nu wordt er rekening gehouden met je score als je een trade aanmaakt of join en het aantal trades dat je teglijkertijd kunt doen, maar enkel de knop niet bij het processen, nog wel ff doen !
+# De vertalingen mogen ook in hun eigen mapje maar dat zien we wel !
+# Close de vertalingen file in deze request ff experimeneteren: https://pythonise.com/series/learning-flask/python-before-after-request
+# De adds komen on top te staan, tussen het top menu en de titel !?
+# Het is nog niet zo gedaan dat een rating ook werkelijk waar afhankelikk is van een score en een text, super belangrijk ?
 # Nog eens kijken bij de imports naar het toevoegen van het path probleem, dat moet mooier kunnen ! via__init__.py maar dat moeten we ff goed onderzoeken !
-# zouden er niet meer trades scores moeten zijn ipv pending, suceeded and failed, wellicht nog wat toevoegen zoals waiting, accepted etc ?
-# we moeten er ook voor zorgen dat als er fouten op een form staan deze wellicht niet in de snackbar moeten komen te staan maar onder een form veld in rode letters !?
-# wellicht het zo maken dat de tabellen nu wel gesorteerd kunnnen worden ?
-# belangrijk in de toekomst: https://brizzo.net/tips/hide-recaptcha-v3-badge/
-# dus het zou a handig zijn als gebruikers met elkaar kunnen comuniceren en b er is ruimte zat voor, doen ?
-# een custom ontworpen faficon maken ! (todo)
-# zoom in dan krijg je te zien dat het linker menu verdwijnt maar het top menu in een hamburger menu wordt opgenomen, das niet toff ! (nog niet makkelijk om te fixen, menu toch maar opmraaien of remodellen ?)
+# Zouden er niet meer trades scores moeten zijn ipv pending, suceeded and failed, wellicht nog wat toevoegen zoals waiting, accepted etc ?
+# We moeten er ook voor zorgen dat als er fouten op een form staan deze wellicht niet in de snackbar moeten komen te staan maar onder een form veld in rode letters !?
+# Wellicht het zo maken dat de tabellen nu wel gesorteerd kunnnen worden ?
+# Belangrijk in de toekomst: https://brizzo.net/tips/hide-recaptcha-v3-badge/
+# Dus het zou a handig zijn als gebruikers met elkaar kunnen comuniceren en b er is ruimte zat voor, doen ?
+# Een custom ontworpen faficon maken ! (todo)
+# Zoom in dan krijg je te zien dat het linker menu verdwijnt maar het top menu in een hamburger menu wordt opgenomen, das niet toff ! (nog niet makkelijk om te fixen, menu toch maar opmraaien of remodellen ?)
