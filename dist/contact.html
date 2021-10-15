@@ -9,7 +9,7 @@
     <header class="card-header">
       <p class="card-header-title">
         <span class="icon"><i class="mdi mdi-ballot"></i></span>
-        Forms
+        {{ trans("Forms") }}
       </p>
     </header>
     <div class="card-content">
@@ -18,14 +18,12 @@
         <hr>
         <div class="field is-horizontal">
           <div class="field-label is-normal">
-            <label class="label">Message</label>
+            <label class="label">{{ trans("Message") }}</label>
           </div>
           <div class="field-body">
             <div class="field">
               <div class="control">
-
                   <textarea class="textarea" name="message" placeholder="Message" rows="6"></textarea>
-
               </div>
             </div>
           </div>
@@ -41,5 +39,4 @@
     </div>
   </div>
 </section>
-
 {% endblock %}

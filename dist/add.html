@@ -10,6 +10,7 @@
       <p class="card-header-title">
         <span class="icon"><i class="mdi mdi-ballot"></i></span>
         Forms
+        {{ trans("Forms") }}
       </p>
     </header>
     <div class="card-content">
@@ -18,15 +19,15 @@
         <hr>
         <div class="field is-horizontal">
           <div class="field-label is-normal">
-            <label class="label">The app id you want reviewed</label>
+            <label class="label">{{ trans("The app id you want reviewed") }}</label>
           </div>
           <div class="field-body">
             <div class="field">
               <div class="control">
                 {% if current_user.get_score() < 0 %}
-                  <input class="input" type="text" name="appid" placeholder="Enter your app id" disabled>
+                  <input class="input" type="text" name="appid" placeholder="{{ trans('Enter your app id') }}" disabled>
                 {% else %}
-                  <input class="input" type="text" name="appid" placeholder="Enter your app id">
+                  <input class="input" type="text" name="appid" placeholder="{{ trans('Enter your app id') }}">
                 {% endif %}
               </div>
             </div>

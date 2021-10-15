@@ -110,6 +110,7 @@ Er zit nog een fout als je een app probeert te joinen !  (done)
 my trade en my apps is niet duidelijk de, wellicht kan my apps weg ! (done)
 zelfde voor alls trades en all apps !  (not gonna do ?)
 # de legenda van de dashboard grafieken staat in omgekeerde volgorde dan de data ! (done)
+# we krijgen nu 2x een message te zien zoals:"deleted trade" en dan nog eens , fix it ! (done)
 
 # smelly octopus !
 # de gmail smtp server stuurt enkel emails met als afsender het email assdress van de account houder dus: no-reply@sixdots.soft.app is niet mogelijk, enkel sixdots.soft@gmail.com, dus de smtp server vervangen ! (done):
@@ -145,25 +146,35 @@ https://www.digitalocean.com/community/tutorials/how-to-install-and-configure-po
 # controleer hoe veel score iemand heeft en hoeveel pending trades iemand heeftvoordat we een extra trade toelaten. (done)
 # controleer ik ook al of een score hoger is dan 0 voordat ik een trade toesta. (done)
 # mediating a solution = contact form ! (1/2)
-# Er moet een link komen te staan in de email die je krijgt nadat alle partijen hebben geaccepteerd, alle tools in de email ? om de trade goed te laten verlopen ! <--
+# Er moet een link komen te staan in de email die je krijgt nadat alle partijen hebben geaccepteerd, alle tools in de email ? om de trade goed te laten verlopen ! (done ?)
 # Er het plan dat je geen punten hebt om te starten houd er nu enkel rekening mee dat je geen punten meer hebt maar dit kan ook gelden dat er al initiated trades zijn, te veel voor je punten tal, fix this ! (done)
 
 # Ultrabuff seagull:
-# Als er geen items op de paginas staan zoals bij de trade table: dan kun je "Page 1 of 0" krijgen, dat is niet goed !
-# Translate everything !
-# We moeten er ook voor zorgen dat betaalde apps bij een app detail een duidelijke marker krijgen dat ie betaald is ! (zodat je weet dat je er geen geld aan uit hoeft te geven)
-# We moeten er ook voor zorgen dat bijde reviewers niet dezelfde app kunnen kiezen
-# De leave knop mag rood !
-# Snackbar mag langer blijven staan !
+# Als er geen items op de paginas staan zoals bij de trade table: dan kun je "Page 1 of 0" krijgen, dat is niet goed ! (done)
+# Translate everything ! (done)
+# We moeten er ook voor zorgen dat betaalde apps bij een app detail een duidelijke marker krijgen dat ie betaald is ! (zodat je weet dat je er geen geld aan uit hoeft te geven) (done)
+# We moeten er ook voor zorgen dat bijde reviewers niet dezelfde app kunnen kiezen (done)
+# De leave knop mag rood ! (done)
+# Snackbar mag langer blijven staan ! (done)
 
+# Mmm, roasted hippopotamus:
+# Nu wordt er rekening gehouden met je score als je een trade aanmaakt of join en het aantal trades dat je teglijkertijd kunt doen, maar enkel de knop niet bij het processen, nog wel ff doen ! (todo)
+# alles dat een lib kan zijn in een lib dir (todo)
+# Close de vertalingen file in deze request ff experimeneteren: https://pythonise.com/series/learning-flask/python-before-after-request (done)
+# De adds komen on top te staan, tussen het top menu en de titel !? (todo)
+# Bij de app overview staat het aantal reviews op 0 terwijk bij de reviews overzicht voor deze apps wel reviews zijn, fix this ! (todo)
+# bijna alles klopt behalve het domein dat wort gebruikt op de live site, wat gaan we hiermee doen ?
+
+# Isis barbie, think about it
+# we kunnen nog even goed kijken wat er te vertalen valt !
+# de app redirect nog niet naar de app details na het toevoegen van een app of het joinen van een app.
 # Voeg een vertalings dingens toe ? of halen we de internationalisatie gewoon van de google account ?
-# Nu wordt er rekening gehouden met je score als je een trade aanmaakt of join en het aantal trades dat je teglijkertijd kunt doen, maar enkel de knop niet bij het processen, nog wel ff doen !
-# De vertalingen mogen ook in hun eigen mapje maar dat zien we wel !
-# Close de vertalingen file in deze request ff experimeneteren: https://pythonise.com/series/learning-flask/python-before-after-request
-# De adds komen on top te staan, tussen het top menu en de titel !?
 # Het is nog niet zo gedaan dat een rating ook werkelijk waar afhankelikk is van een score en een text, super belangrijk ?
-# Nog eens kijken bij de imports naar het toevoegen van het path probleem, dat moet mooier kunnen ! via__init__.py maar dat moeten we ff goed onderzoeken !
 # Zouden er niet meer trades scores moeten zijn ipv pending, suceeded and failed, wellicht nog wat toevoegen zoals waiting, accepted etc ?
+
+
+# De vertalingen mogen ook in hun eigen mapje maar dat zien we wel !
+# Nog eens kijken bij de imports naar het toevoegen van het path probleem, dat moet mooier kunnen ! via__init__.py maar dat moeten we ff goed onderzoeken !
 # We moeten er ook voor zorgen dat als er fouten op een form staan deze wellicht niet in de snackbar moeten komen te staan maar onder een form veld in rode letters !?
 # Wellicht het zo maken dat de tabellen nu wel gesorteerd kunnnen worden ?
 # Belangrijk in de toekomst: https://brizzo.net/tips/hide-recaptcha-v3-badge/

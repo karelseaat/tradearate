@@ -15,38 +15,38 @@
           </div>
 
           <div class="field">
-            <label class="label">Days active</label>
+            <label class="label">{{ trans("Days active") }}</label>
             <div class="control is-clearfix">
               <input type="text" readonly value="{{ data.data.age() }}" class="input is-static">
             </div>
           </div>
 
           <div class="field">
-            <label class="label">Days since acceptation</label>
+            <label class="label">{{ trans("Days since acceptation") }}</label>
             <div class="control is-clearfix">
               <input type="text" readonly value="{{ data.data.accept_age() }}" class="input is-static">
             </div>
           </div>
           <div class="field">
-            <label class="label">Status</label>
+            <label class="label">{{ trans("Status") }}</label>
             <div class="control is-clearfix">
               <input type="text" readonly value="{{ data.data.status() }}" class="input is-static">
             </div>
           </div>
           <div class="field">
-            <label class="label">Days left until reviews should be done</label>
+            <label class="label">{{ trans("Days left until reviews should be done") }}</label>
             <div class="control is-clearfix">
               <input type="text" readonly value="{{ data.data.trade_days_left() }}" class="input is-static">
             </div>
             <hr>
-            <label class="label">Initiator</label>
+            <label class="label">{{ trans("Initiator") }}</label>
             <div class="control is-clearfix">
               <div class="is-user-avatar image has-max-width is-aligned-center">
                 <img src="{{ data.data.initiator.picture }}" alt="{{ data.data.initiator.fullname }}">
               </div>
               <input type="text" readonly value="{{ data.data.initiator.fullname }}" class="input is-static">
             </div>
-            <label class="label">Initiator review score</label>
+            <label class="label">{{ trans("Initiator review score") }}</label>
             <div class="control is-clearfix">
               {% if data.data.initiator.get_score() > 0 %}
               <p class="label has-text-primary"> {{ data.data.initiator.get_score()}} </p>
@@ -57,23 +57,29 @@
               {% endif %}
 
             </div>
-            <label class="label">Initiator App</label>
+            <label class="label">{{ trans("Initiator App") }}</label>
             <div class="control is-clearfix">
               <div class="is-user-avatar image has-max-width is-aligned-center">
                 <img src="{{ data.data.initiatorapp.imageurl }}" alt="{{ data.data.initiatorapp.name }}">
               </div>
               <span><a href="{{ data.data.initiatorapp.get_url() }}">{{ data.data.initiatorapp.name }}</a></span>
             </div>
+            <div class="field">
+              <label class="label">{{ trans("Initiator app is payed") }}</label>
+              <div class="control is-clearfix">
+              <p>{{ trans("Yes") if data.data.joinerapp.paid else trans("No") }}</p>
+              </div>
+            </div>
             {% if data.data.joiner %}
             <hr>
-            <label class="label">Joiner</label>
+            <label class="label">{{ trans("Joiner") }}</label>
             <div class="control is-clearfix">
               <div class="is-user-avatar image has-max-width is-aligned-center">
                 <img src="{{ data.data.joiner.picture }}" alt="{{ data.data.joiner.fullname }}">
               </div>
               <span>{{ data.data.joiner.fullname }} </span>
             </div>
-            <label class="label">Joiner review score</label>
+            <label class="label">{{ trans("Joiner review score") }}</label>
             <div class="control is-clearfix">
               {% if data.data.joiner.get_score() > 0 %}
               <p class="label has-text-primary"> {{ data.data.joiner.get_score()}} </p>
@@ -86,12 +92,18 @@
             </div>
             {% endif %}
             {% if data.data.joinerapp %}
-            <label class="label">Joiner App</label>
+            <label class="label">{{ trans("Joiner App") }}</label>
             <div class="control is-clearfix">
               <div class="is-user-avatar image has-max-width is-aligned-center">
                 <img src="{{ data.data.joinerapp.imageurl }}" alt="{{ data.data.joinerapp.name }}">
               </div>
               <span><a href="{{ data.data.joinerapp.get_url() }}">{{ data.data.joinerapp.name }}</a></span>
+            </div>
+            <div class="field">
+              <label class="label">{{ trans("Joiner app is payed") }}</label>
+              <div class="control is-clearfix">
+              <p>{{ trans("No") if data.data.joinerapp.paid else trans("Yes") }}</p>
+              </div>
             </div>
             {% endif %}
           </div>
@@ -100,35 +112,35 @@
 
           {% if data.candelete %}
           <button class="button is-medium is-danger" type="button" onclick="window.location.href='/delete?tradeid={{ data.data.id }}'">
-            <span>Delete</span>
+            <span>{{ trans("Delete") }}</span>
             <span class="icon"><i class="mdi mdi-delete-forever"></i></span>
           </button>
           {% endif %}
 
           {% if data.canjoin %}
           <button class="button is-medium is-primary" type="button" onclick="window.location.href='/join?tradeid={{ data.data.id }}'">
-            <span>Join</span>
+            <span>{{ trans("Join") }}</span>
             <span class="icon"><i class="mdi mdi-location-enter"></i></span>
           </button>
           {% endif%}
 
           {% if data.canleave %}
-          <button class="button is-medium is-primary" type="button" onclick="window.location.href='/leave?tradeid={{ data.data.id }}'">
-            <span>Leave</span>
+          <button class="button is-medium is-danger" type="button" onclick="window.location.href='/leave?tradeid={{ data.data.id }}'">
+            <span>{{ trans("Leave") }}</span>
             <span class="icon"><i class="mdi mdi-location-exit"></i></span>
           </button>
           {% endif%}
 
           {% if data.canaccept %}
           <button class="button is-medium is-primary" type="button" onclick="window.location.href='/accept?tradeid={{ data.data.id }}'">
-            <span>Accept</span>
+            <span>{{ trans("Accept") }}</span>
             <span class="icon"><i class="mdi mdi-checkbox-marked-circle-outline"></i></span>
           </button>
           {% endif%}
 
           {% if data.canreject %}
           <button class="button is-medium is-primary" type="button" onclick="window.location.href='/reject?tradeid={{ data.data.id }}'">
-            <span>Reject</span>
+            <span>{{ trans("Reject") }}</span>
             <span class="icon"><i class="mdi mdi-checkbox-blank-circle-outline"></i></span>
           </button>
           {% endif%}

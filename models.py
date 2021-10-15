@@ -239,6 +239,7 @@ class App(DictSerializableMixin):
     appidstring = Column(String(64), nullable=False)
     continuation_token = Column(String(512))
     reviews = relationship('Review', back_populates="app")
+    paid = Column(Boolean, default=False)
     imageurl = Column(String(256))
 
     def __init__(self, name, idstring):

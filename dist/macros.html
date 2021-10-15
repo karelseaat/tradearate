@@ -43,7 +43,7 @@
       {% if data.pagenum[1] %}
         <small>Page {{ data.pagenum[0] }} of {{ data.pagenum[1] }}</small>
       {% else %}
-        <small>Page 1 of 1</small>
+        <small>Page 0 of 0</small>
       {% endif %}
     </div>
   </div>
@@ -53,12 +53,12 @@
 {% macro build_add_button(data, navigate ,redirectto) %}
 {% if data.user.cancreate %}
 <button class="button is-medium is-primary" type="button" onclick="window.location.href='/{{ navigate }}?redirectto=/{{ redirectto }}'">
-  <span>Add</span>
+  <span>{{ trans("Add") }}</span>
   <span class="icon"><i class="mdi mdi-folder-plus"></i></span>
 </button>
 {% else %}
 <button class="button is-medium is-primary" disabled type="button">
-  <span>Add</span>
+  <span>{{ trans("Add") }}</span>
   <span class="icon"><i class="mdi mdi-folder-plus"></i></span>
 </button>
 {% endif %}
@@ -176,7 +176,7 @@
   <header class="card-header">
     <p class="card-header-title">
       <span class="icon"><i class="mdi mdi-account default"></i></span>
-      Profile
+      {{ trans("Profile") }}
     </p>
   </header>
   <div class="card-content">
@@ -184,32 +184,32 @@
       <img src="{{ data.data.picture }}" alt="{{ data.data.fullname }}">
     </div>
     <div class="field">
-      <label class="label">Name:</label>
+      <label class="label">{{ trans("Name:") }}</label>
       <p> {{ data.data.fullname }} </p>
     </div>
     <div class="field">
-      <label class="label">E-mail:</label>
+      <label class="label">{{ trans("E-mail:") }}</label>
       <p>{{ data.data.email }}</p>
     </div>
     <div class="field">
-      <label class="label">Locale:</label>
+      <label class="label">{{ trans("Locale:") }}</label>
       <p>{{ data.data.locale }}</p>
     </div>
     <hr>
     <div class="field">
-      <label class="label">Started trades:</label>
+      <label class="label">{{ trans("Started trades:") }}</label>
       <p>{{ data.data.initiatortrades|length }}</p>
       <hr>
-      <label class="label">Joined trades:</label>
+      <label class="label">{{ trans("Joined trades:") }}</label>
       <p>{{ data.data.joinertrades|length }}</p>
       <hr>
-      <label class="label">Failed trades:</label>
+      <label class="label">{{ trans("Failed trades:") }}</label>
       <p> {{ data.data.all_trade_fails()|length }}</p>
       <hr>
-      <label class="label">Successfull trades:</label>
+      <label class="label"> {{ trans("Successfull trades:") }}</label>
       <p> {{ data.data.all_trade_successes()|length }} </p>
       <hr>
-      <label class="label">Trade score:</label>
+      <label class="label"> {{ trans("Trade score:") }}</label>
       {% if data.data.get_score() > 0 %}
       <p class="label has-text-primary"> {{ data.data.get_score()}} </p>
       {% elif data.data.get_score() == 0 %}
@@ -218,7 +218,7 @@
       <p class="label has-text-danger"> {{ data.data.get_score()}} </p>
       {% endif %}
       <hr>
-      <label class="label">Pending trades:</label>
+      <label class="label">{{ trans("Pending trades:") }}</label>
       <p> {{ data.data.all_pending()|length }} </p>
     </div>
   </div>
@@ -231,12 +231,12 @@
     <div class="field is-grouped">
       <div class="control">
         <button class="g-recaptcha button is-primary" data-sitekey="{{ recapcha }}" data-callback='onSubmit' data-action='submit'>
-          Submit
+            {{ trans("Submit") }}
         </button>
       </div>
       <div class="control">
         <button type="button" class="button is-primary is-outlined" onclick="resetform()">
-          <span>Reset</span>
+          <span>{{ trans("Reset") }}</span>
         </button>
       </div>
     </div>

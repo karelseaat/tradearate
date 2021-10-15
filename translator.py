@@ -14,41 +14,47 @@ class PyNalator:
     transfile = None
     defaulttransfile = None
 
+    transcont = {}
+    defaulttranscont = {}
+
     def __init__(self, localename=None):
 
         if localename:
             if not os.path.exists("./trans-{}.toml".format(localename)):
                 open("./trans-{}.toml".format(localename), "x").close()
 
-            self.transfile = "./trans-{}.toml".format(localename)
+            self.transfile = open("./trans-{}.toml".format(localename), "r+")
+
+            if self.transfile:
+                cont = self.transfile.read()
+                self.transcont =  toml.loads(cont, _dict=dict)
 
         if not os.path.exists("./trans-default.toml"):
             open("./trans-default.toml", "x").close()
 
-        self.defaulttransfile = "./trans-default.toml"
+        self.defaulttransfile = open("./trans-default.toml", "r+")
+
+        if self.defaulttransfile:
+            cont = self.defaulttransfile.read()
+            self.defaulttranscont =  toml.loads(cont, _dict=dict)
 
     def trans(self, word):
-        lel = {}
-        if self.transfile:
-            transfile = open(self.transfile, "r+")
-            transfile.seek(0, 0)
-            cont = transfile.read()
-            lel = toml.loads(cont, _dict=dict)
-            transfile.close()
 
-        if word in lel:
-            return lel[word]
+        if word in self.transcont:
+            return self.transcont[word]
         else:
-            defaulttransfile = open(self.defaulttransfile, "r+")
-            cont = defaulttransfile.read()
-            defaulttransfile.truncate(0)
-            defaulttransfile.seek(0, 0)
-            lel = toml.loads(cont, _dict=dict)
-            lel.update({word: word})
-            defaulttransfile.write(toml.dumps(lel))
-            defaulttransfile.close()
+            self.defaulttranscont.update({word: word})
             return word
 
+    def close(self):
+        self.transfile.seek(0, 0)
+        self.defaulttransfile.seek(0, 0)
+
+        self.transfile.write(toml.dumps(self.transcont))
+        self.defaulttransfile.write(toml.dumps(self.defaulttranscont))
+
+        self.transfile.close()
+        self.defaulttransfile.close()
 
 
 if __name__ == "__main__":
@@ -58,3 +64,5 @@ if __name__ == "__main__":
     print(pyn.trans("faaaack"))
     print(pyn.trans("nog test"))
     pyn.trans("iets")
+
+    pyn.close()

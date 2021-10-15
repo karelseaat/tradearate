@@ -15,42 +15,42 @@
           </div>
           <hr>
           <div class="field">
-            <label class="label">Name</label>
+            <label class="label">{{ trans("Name") }}</label>
             <div class="control is-clearfix">
               <input type="text" readonly value="{{ data.message.fullname }}" class="input is-static">
             </div>
           </div>
           <hr>
           <div class="field">
-            <label class="label">E-mail</label>
+            <label class="label">{{ trans("E-mail") }}</label>
             <div class="control is-clearfix">
               <input type="text" readonly value="{{ data.message.email }}" class="input is-static">
             </div>
           </div>
           <div class="field">
-            <label class="label">Locale</label>
+            <label class="label">{{ trans("Locale") }}</label>
             <div class="control is-clearfix">
               <input type="text" readonly value="{{ data.message.locale }}" class="input is-static">
             </div>
           </div>
           <div class="field">
-            <label class="label">Started trades</label>
+            <label class="label">{{ trans("Started trades") }}</label>
             <div class="control is-clearfix">
               <input type="text" readonly value="{{ data.message.initiatortrades|length }}" class="input is-static">
             </div>
-            <label class="label">Joined trades</label>
+            <label class="label">{{ trans("Joined trades") }}</label>
             <div class="control is-clearfix">
               <input type="text" readonly value="{{ data.message.joinertrades|length }}" class="input is-static">
             </div>
-            <label class="label">Failed trades</label>
+            <label class="label">{{ trans("Failed trades") }}</label>
             <div class="control is-clearfix">
               <input type="text" readonly value="{{ data.message.all_trade_fails()|length }}" class="input is-static">
             </div>
-            <label class="label">Successfull trades</label>
+            <label class="label">{{ trans("Successfull trades") }}</label>
             <div class="control is-clearfix">
               <input type="text" readonly value="{{ data.message.all_trade_successes()|length }}" class="input is-static">
             </div>
-            <label class="label">Pending trades</label>
+            <label class="label">{{ trans("Pending trades") }}</label>
             <div class="control is-clearfix">
               <input type="text" readonly value="{{ data.message.all_pending()|length }}" class="input is-static">
             </div>
