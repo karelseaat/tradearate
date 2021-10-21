@@ -128,3 +128,9 @@ footer {
 .inverted-progress {
   background-color: #00d1b2;
 }
+
+.addblock {
+  padding: 10px;
+  text-align: center;
+  display: block;
+}

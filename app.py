@@ -16,8 +16,8 @@ from flask_mail import Mail, Message
 from cerberus import Validator
 from config import make_session, oauthconfig, REVIEWLIMIT, recaptchasecret, recapchasitekey
 from models import User, Trade, App, Review, Historic
-from myownscraper import get_app
-from translator import PyNalator
+from lib.myownscraper import get_app
+from lib.translator import PyNalator
 
 valliappinit = Validator({
     'appid': {'required': True, 'type': 'string', 'regex': "^.*\..*\..*$"},
@@ -100,7 +100,7 @@ def load_user(userid):
 
 @app.before_request
 def before_request_func():
-    app.pyn = PyNalator("de")
+    app.pyn = PyNalator("de", "translations")
     app.jinja_env.globals.update(trans=app.pyn.trans)
 
     navigation = {
@@ -115,7 +115,9 @@ def before_request_func():
         'contact': ('Contact', '/contact')
     }
 
+
     app.data = {
+        'environ': request.environ,
         'pagename': 'Unknown',
         'user': None,
         'navigation': navigation,

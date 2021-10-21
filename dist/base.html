@@ -16,6 +16,14 @@
 {% include "./partials/sidenavigation.html" %}
 {% endblock %}
 
+{% if data.environ.TEST %}
+-- {{ data.environ.TEST }} --
+{% endif %}
+
+{% block addblock %}
+{% include "./partials/addblock.html" %}
+{% endblock %}
+
 {% block pagetitle %}
 {% include "./partials/pagetitle.html" %}
 {% endblock %}

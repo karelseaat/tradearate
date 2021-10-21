@@ -158,12 +158,12 @@ https://www.digitalocean.com/community/tutorials/how-to-install-and-configure-po
 # Snackbar mag langer blijven staan ! (done)
 
 # Mmm, roasted hippopotamus:
-# Nu wordt er rekening gehouden met je score als je een trade aanmaakt of join en het aantal trades dat je teglijkertijd kunt doen, maar enkel de knop niet bij het processen, nog wel ff doen ! (todo)
-# alles dat een lib kan zijn in een lib dir (todo)
+# Nu wordt er rekening gehouden met je score als je een trade aanmaakt of join en het aantal trades dat je teglijkertijd kunt doen, maar enkel de knop niet bij het processen, nog wel ff doen ! (done)
+# alles dat een lib kan zijn in een lib dir (done)
 # Close de vertalingen file in deze request ff experimeneteren: https://pythonise.com/series/learning-flask/python-before-after-request (done)
-# De adds komen on top te staan, tussen het top menu en de titel !? (todo)
-# Bij de app overview staat het aantal reviews op 0 terwijk bij de reviews overzicht voor deze apps wel reviews zijn, fix this ! (todo)
-# bijna alles klopt behalve het domein dat wort gebruikt op de live site, wat gaan we hiermee doen ?
+# De adds komen on top te staan, tussen het top menu en de titel !? (done)
+# Bij de app overview staat het aantal reviews op 0 terwijk bij de reviews overzicht voor deze apps wel reviews zijn, fix this ! (done)
+# bijna alles klopt behalve het domein dat wort gebruikt op de live site, wat gaan we hiermee doen ? (todo)
 
 # Isis barbie, think about it
 # we kunnen nog even goed kijken wat er te vertalen valt !
@@ -173,6 +173,7 @@ https://www.digitalocean.com/community/tutorials/how-to-install-and-configure-po
 # Zouden er niet meer trades scores moeten zijn ipv pending, suceeded and failed, wellicht nog wat toevoegen zoals waiting, accepted etc ?
 
 
+# de reviews van een app ofwel het nr of reviews zegt hoeveel reviews er zijn voor de locales van de reviewers die wij hebben, dit moet het idee reviews wel reflectren !
 # De vertalingen mogen ook in hun eigen mapje maar dat zien we wel !
 # Nog eens kijken bij de imports naar het toevoegen van het path probleem, dat moet mooier kunnen ! via__init__.py maar dat moeten we ff goed onderzoeken !
 # We moeten er ook voor zorgen dat als er fouten op een form staan deze wellicht niet in de snackbar moeten komen te staan maar onder een form veld in rode letters !?

@@ -17,22 +17,22 @@ class PyNalator:
     transcont = {}
     defaulttranscont = {}
 
-    def __init__(self, localename=None):
+    def __init__(self, localename=None, subdir="."):
 
         if localename:
-            if not os.path.exists("./trans-{}.toml".format(localename)):
-                open("./trans-{}.toml".format(localename), "x").close()
+            if not os.path.exists("./{}/trans-{}.toml".format(subdir, localename)):
+                open("./{}/trans-{}.toml".format(subdir, localename), "x").close()
 
-            self.transfile = open("./trans-{}.toml".format(localename), "r+")
+            self.transfile = open("./{}/trans-{}.toml".format(subdir, localename), "r+")
 
             if self.transfile:
                 cont = self.transfile.read()
                 self.transcont =  toml.loads(cont, _dict=dict)
 
-        if not os.path.exists("./trans-default.toml"):
-            open("./trans-default.toml", "x").close()
+        if not os.path.exists("./{}/trans-default.toml".format(subdir)):
+            open("./{}/trans-default.toml".format(subdir), "x").close()
 
-        self.defaulttransfile = open("./trans-default.toml", "r+")
+        self.defaulttransfile = open("./{}/trans-default.toml".format(subdir), "r+")
 
         if self.defaulttransfile:
             cont = self.defaulttransfile.read()
