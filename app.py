@@ -101,8 +101,11 @@ def load_user(userid):
 
 @app.before_request
 def before_request_func():
-    # print(current_user.locale)
-    app.pyn = PyNalator(current_user.locale, "translations")
+    if current_user.locale:
+        app.pyn = PyNalator(localename=current_user.locale, subdir="translations")
+    else:
+        app.pyn = PyNalator(subdir="translations")
+
     app.jinja_env.globals.update(trans=app.pyn.trans)
 
     navigation = {
