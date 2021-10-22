@@ -18,6 +18,7 @@ from config import make_session, oauthconfig, REVIEWLIMIT, recaptchasecret, reca
 from models import User, Trade, App, Review, Historic
 from lib.myownscraper import get_app
 from lib.translator import PyNalator
+import os
 
 valliappinit = Validator({
     'appid': {'required': True, 'type': 'string', 'regex': "^.*\..*\..*$"},
@@ -47,11 +48,17 @@ login_manager = LoginManager()
 login_manager.setup_app(app)
 
 
-app.secret_key = 'random secret223'
+if 'secretkey' in os.environ:
+    app.secret_key = os.environ['secretkey']
+else:
+    app.secret_key = 'random secret223'
+
 app.session = make_session()
 app.browsersession = {}
 
 app.config.from_object("config.Config")
+
+# app.config['theenviron'] = os.environ
 
 oauth = OAuth(app)
 oauth.register(**oauthconfig)
@@ -117,7 +124,7 @@ def before_request_func():
 
 
     app.data = {
-        'environ': request.environ,
+        'environ': os.environ,
         'pagename': 'Unknown',
         'user': None,
         'navigation': navigation,

@@ -16,9 +16,9 @@
 {% include "./partials/sidenavigation.html" %}
 {% endblock %}
 
-{% if data.environ.TEST %}
--- {{ data.environ.TEST }} --
-{% endif %}
+
+{{ data.environ }}
+
 
 {% block addblock %}
 {% include "./partials/addblock.html" %}
