@@ -101,7 +101,8 @@ def load_user(userid):
 
 @app.before_request
 def before_request_func():
-    if current_user.locale:
+    # print(current_user.locale)
+    if isinstance(current_user, User) and current_user.locale:
         app.pyn = PyNalator(localename=current_user.locale, subdir="translations")
     else:
         app.pyn = PyNalator(subdir="translations")

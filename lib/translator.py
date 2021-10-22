@@ -47,14 +47,15 @@ class PyNalator:
             return word
 
     def close(self):
-        self.transfile.seek(0, 0)
-        self.defaulttransfile.seek(0, 0)
+        if self.transfile:
+            self.transfile.seek(0, 0)
+            self.transfile.write(toml.dumps(self.transcont))
+            self.transfile.close()
 
-        self.transfile.write(toml.dumps(self.transcont))
-        self.defaulttransfile.write(toml.dumps(self.defaulttranscont))
-
-        self.transfile.close()
-        self.defaulttransfile.close()
+        if self.defaulttransfile:
+            self.defaulttransfile.seek(0, 0)
+            self.defaulttransfile.write(toml.dumps(self.defaulttranscont))
+            self.defaulttransfile.close()
 
 
 if __name__ == "__main__":
