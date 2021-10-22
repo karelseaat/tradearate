@@ -48,17 +48,11 @@ login_manager = LoginManager()
 login_manager.setup_app(app)
 
 
-if 'secretkey' in os.environ:
-    app.secret_key = os.environ['secretkey']
-else:
-    app.secret_key = 'random secret223'
-
+app.secret_key = 'random secret223'
 app.session = make_session()
 app.browsersession = {}
 
 app.config.from_object("config.Config")
-
-# app.config['theenviron'] = os.environ
 
 oauth = OAuth(app)
 oauth.register(**oauthconfig)
@@ -124,7 +118,6 @@ def before_request_func():
 
 
     app.data = {
-        'environ': os.environ,
         'pagename': 'Unknown',
         'user': None,
         'navigation': navigation,
@@ -364,7 +357,7 @@ def processadd():
         flash("your trade score is not height enough to start a trade!", 'has-text-danger')
         app.session.close()
         app.pyn.close()
-        return redirect('/overviewtrades')
+        return redirect('/showtrade')
 
     if 'rating' not in appobj or not appobj['rating']:
         flash("at the moment there is minor trouble with google playstore, try angain later !", 'has-text-danger')
@@ -389,6 +382,8 @@ def processadd():
 
         app.session.close()
         app.pyn.close()
+        # print(trade)
+        # return redirect('/show?tradeid=' + trade.id)
         return redirect('/overviewtrades')
     else:
         flash(str("chapcha trouble, more than reviews, or of the process doent exist"), 'has-text-danger')
