@@ -14,7 +14,7 @@
             <img src="" alt="">
           </div>
           <div class="field">
-            <label class="label">App name:</label>
+            <label class="label">{{ trans("App name") }}:</label>
             <div class="control is-clearfix">
               {% if data.data.app %}
               <p>{{ data.data.app.name }}</p>
@@ -23,29 +23,29 @@
           </div>
           <hr>
           <div class="field">
-            <label class="label">Review time:</label>
+            <label class="label">{{ trans("Review time") }}:</label>
             <div class="control is-clearfix">
               <p>{{ data.data.reviewtime }}</p>
             </div>
           </div>
           <div class="field">
-            <label class="label">Review text:</label>
+            <label class="label">{{ trans("Review text") }}:</label>
             <div class="control is-clearfix">
               <p>{{ data.data.reviewtext }}</p>
             </div>
           </div>
           <div class="field">
-            <label class="label">Review Score:</label>
+            <label class="label">{{ trans("Review Score") }}:</label>
             <div class="control is-clearfix">
               <p>{{ build_rating(data.data.reviewrating) }}</p>
             </div>
             <hr>
-            <label class="label">Reviewer:</label>
+            <label class="label">{{ trans("Reviewer") }}:</label>
             <div class="control is-clearfix">
               <div class="is-user-avatar image has-max-width is-aligned-center">
                 <img src="{{ data.data }}" alt="{{ data.data.username }}">
               </div>
-              <label class="label">Name:</label>
+              <label class="label">{{ trans("Name") }}:</label>
               <p>{{ data.data.username }}</p>
             </div>
           </div>

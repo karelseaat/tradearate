@@ -101,7 +101,8 @@ def load_user(userid):
 
 @app.before_request
 def before_request_func():
-    app.pyn = PyNalator("de", "translations")
+    # print(current_user.locale)
+    app.pyn = PyNalator(current_user.locale, "translations")
     app.jinja_env.globals.update(trans=app.pyn.trans)
 
     navigation = {
@@ -374,6 +375,7 @@ def processadd():
         trade = Trade(current_user, appmodel, current_user.locale)
         app.session.add(trade)
         app.session.commit()
+        tradeid = trade.id
         flash("added trade", 'has-text-primary')
         if 'redirectto' in request.args:
             app.session.close()
@@ -382,9 +384,8 @@ def processadd():
 
         app.session.close()
         app.pyn.close()
-        # print(trade)
-        # return redirect('/show?tradeid=' + trade.id)
-        return redirect('/overviewtrades')
+
+        return redirect('/show?tradeid={}'.format(tradeid))
     else:
         flash(str("chapcha trouble, more than reviews, or of the process doent exist"), 'has-text-danger')
 
@@ -644,12 +645,14 @@ def processjoin():
         trade.joiner = current_user
         trade.joinerapp = joinerappmodel
         trade.joinerlang = current_user.locale
+        trade.joined = dt.datetime.now()
         app.session.add(trade)
         app.session.commit()
+        tradeid = trade.id
         flash("joined the trade", 'has-text-primary')
         app.session.close()
         app.pyn.close()
-        return redirect('/overviewtrades')
+        return redirect('/show?tradeid={}'.format(tradeid))
     else:
         flash(str("chapcha trouble, more than reviews, or of the process doent exist"), 'has-text-danger')
 
@@ -666,6 +669,7 @@ def leave():
     try:
         if thetrade.can_leave(current_user.googleid):
             thetrade.joiner = None
+            thetrade.joined = None
             thetrade.joinerapp = None
             thetrade.joiner_accepted = False
             thetrade.joiner_accepted = False

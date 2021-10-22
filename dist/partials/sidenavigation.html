@@ -1,12 +1,12 @@
 <aside class="aside is-placed-left is-expanded">
   <div class="aside-tools">
     <div class="aside-tools-label">
-      <span>Trade <b>A</b> Rate</span>
+      <span>{{ trans("Trade") }} <b>{{ trans("A") }}</b> {{ trans("Rate") }}</span>
     </div>
     <img src="assets/img/tradearate.svg" width="75" class="logo">
   </div>
   <div class="menu is-menu-main">
-    <p class="menu-label">Main page</p>
+    <p class="menu-label">{{ trans("Main page") }}</p>
     <ul class="menu-list">
       <li>
 
@@ -16,7 +16,7 @@
         </a>
       </li>
     </ul>
-    <p class="menu-label">All</p>
+    <p class="menu-label">{{ trans("All") }}</p>
     <ul class="menu-list">
       <li>
         <a href="{{ data.navigation.alltrades[1] }}" class="{{'is-active' if data.currentnavigation == data.navigation.alltrades[1]}}  has-icon">
@@ -37,7 +37,7 @@
         </a>
       </li>
     </ul>
-    <p class="menu-label">My</p>
+    <p class="menu-label">{{ trans("My") }}</p>
     <ul class="menu-list">
       <li>
         <a href="{{ data.navigation.mytrades[1] }}" class="{{'is-active' if data.currentnavigation == data.navigation.mytrades[1]}}  has-icon">
@@ -46,7 +46,7 @@
         </a>
       </li>
     </ul>
-    <p class="menu-label">Contact</p>
+    <p class="menu-label">{{ trans("Contact") }}</p>
     <ul class="menu-list">
       <li>
         <a href="{{ data.navigation.contact[1] }}" class="{{'is-active' if data.currentnavigation == data.navigation.contact[1]}}  has-icon">

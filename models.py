@@ -134,6 +134,7 @@ class Trade(DictSerializableMixin):
     accepted = Column(Date, nullable=True)
     success = Column(Date, nullable=True)
     failure = Column(Date, nullable=True)
+    joined = Column(Date, nullable=True)
 
     timetotrade = 7
 
@@ -152,6 +153,8 @@ class Trade(DictSerializableMixin):
             return "failure"
         elif self.success:
             return "success"
+        elif self.joined:
+            return "joined"
         elif self.accepted:
             return "accepted"
         else:

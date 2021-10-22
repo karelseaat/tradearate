@@ -38,15 +38,15 @@ for trade in trades:
     if trade.joiner:
         joiner = trade.joiner.fullname
 
-
     if trade.initiatorapp:
         for value in trade.initiatorapp.reviews:
-            initiatorreviews.append(value.username)
+            if len(value.reviewtext) > 50:
+                initiatorreviews.append(value.username)
 
     if trade.joinerapp:
         for value in trade.joinerapp.reviews:
-            joinerreviews.append(value.username)
-
+            if len(value.reviewtext) > 50:
+                joinerreviews.append(value.username)
 
     if initiator in initiatorreviews:
         print("initiator has done review")
