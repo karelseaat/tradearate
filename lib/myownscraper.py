@@ -13,12 +13,12 @@ def get_app(appid, country='us'):
     soup = BeautifulSoup(x.text, features="lxml")
     leltext = soup.find("script", {"type" : re.compile('.*')}).text
     temp = json.loads(leltext)
-    results['price'] = temp['offers'][0]['price']
+    results['price'] = float(temp['offers'][0]['price'])
     results['rating'] = temp['aggregateRating']['ratingCount']
     results['title'] = temp['name']
     results['icon'] = temp['image']
     return results
 
 if __name__ == "__main__":
-    thedict = get_app("com.chucklefish.stardewvalley", country='nl')
+    thedict = get_app("com.sixdots.alpypro", country='nl')
     print(thedict)

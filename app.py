@@ -375,7 +375,7 @@ def processadd():
         if not appmodel:
             appmodel = App(appobj['title'], appid)
         appmodel.imageurl = appobj['icon']
-        appmodel.paid = float(appobj['price']) > 0
+        appmodel.paid = appobj['price'] > 0
         trade = Trade(current_user, appmodel, current_user.locale)
         app.session.add(trade)
         app.session.commit()
@@ -465,7 +465,7 @@ def showreview():
 @app.route('/overviewreviews')
 def overviewreviews():
     """the overview page so you can see all the reviews done"""
-    app.data['pagename'] = 'My reviews'
+    app.data['pagename'] = 'All reviews'
     try:
 
         app.data['data'] = pagination(Review, 50)
@@ -506,6 +506,7 @@ def show():
     except Exception as exception:
         flash(str(exception), 'has-text-danger')
 
+    print(app.data['data'].initiatorapp.paid)
     result = render_template('showtrade.html', data=app.data)
     app.session.close()
     app.pyn.close()

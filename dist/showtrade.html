@@ -67,7 +67,7 @@
             <div class="field">
               <label class="label">{{ trans("Initiator app is payed") }}</label>
               <div class="control is-clearfix">
-              <p>{{ trans("Yes") if data.data.joinerapp.paid else trans("No") }}</p>
+              <p>{{ trans("Yes") if data.data.initiatorapp.paid else trans("No") }}</p>
               </div>
             </div>
             {% if data.data.joiner %}
@@ -107,7 +107,6 @@
             </div>
             {% endif %}
           </div>
-
           <hr>
 
           {% if data.candelete %}
@@ -144,11 +143,8 @@
             <span class="icon"><i class="mdi mdi-checkbox-blank-circle-outline"></i></span>
           </button>
           {% endif%}
-
         </div>
-
       </div>
-
     </div>
   </div>
 </section>

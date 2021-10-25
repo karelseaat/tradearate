@@ -55,7 +55,7 @@ def random_historic(historic):
 def random_review(review):
     faker = Faker()
     review.reviewtext = faker.name()
-    review.reviewrating = faker.random_int(0, 10)
+    review.reviewrating = faker.random_int(0, 5)
     return review
 
 session.query(User).delete()

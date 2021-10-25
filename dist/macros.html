@@ -115,17 +115,13 @@
 {% endmacro %}
 
 {% macro build_rating(score) %}
-  {% set newscore = (score/2)|int %}
+  {% set newscore = (score)|int %}
   {% set restscore = (5-newscore)|int %}
   <span title="{{ score }}">
   {% for n in range(newscore) %}
   <span  class="mdi mdi-star"></span>
   {% endfor %}
 
-  {% if score%2 %}
-    <span  class="mdi mdi-star-half "></span>
-    {% set restscore = restscore -1 %}
-  {% endif %}
 
   {% for n in range(restscore) %}
   <span  class="mdi mdi mdi-star-outline"></span>
@@ -142,7 +138,7 @@
       <th></th>
       <th>{{ trans("Name") }}</th>
       <th>{{ trans("IdString") }}</th>
-      <th>{{ trans("Reviews") }}</th>
+      <th>{{ trans("Found Reviews") }}</th>
       <th></th>
     </tr>
   </thead>

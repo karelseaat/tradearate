@@ -273,6 +273,8 @@ class Review(DictSerializableMixin):
     reviewappversion = Column(String(16), nullable=True)
     username = Column(String(64), nullable=True)
 
+    minreviewlength = 50
+
 class Historic(DictSerializableMixin):
     __tablename__ = 'historic'
     id = Column(Integer, primary_key=True)

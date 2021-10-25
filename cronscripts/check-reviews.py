@@ -40,12 +40,12 @@ for trade in trades:
 
     if trade.initiatorapp:
         for value in trade.initiatorapp.reviews:
-            if len(value.reviewtext) > 50:
+            if len(value.reviewtext) > value.minreviewlength:
                 initiatorreviews.append(value.username)
 
     if trade.joinerapp:
         for value in trade.joinerapp.reviews:
-            if len(value.reviewtext) > 50:
+            if len(value.reviewtext) > value.minreviewlength:
                 joinerreviews.append(value.username)
 
     if initiator in initiatorreviews:
