@@ -41,9 +41,9 @@
   <div class="level-right">
     <div class="level-item">
       {% if data.pagenum[1] %}
-        <small>Page {{ data.pagenum[0] }} of {{ data.pagenum[1] }}</small>
+        <small>{{ trans("Page") }} {{ data.pagenum[0] }} {{ trans("of") }} {{ data.pagenum[1] }}</small>
       {% else %}
-        <small>Page 0 of 0</small>
+        <small>{{ trans("Page") }} 0 {{ trans("of") }} 0</small>
       {% endif %}
     </div>
   </div>

@@ -1,7 +1,7 @@
 <aside class="aside is-placed-left is-expanded">
   <div class="aside-tools">
     <div class="aside-tools-label">
-      <span>{{ trans("Trade") }} <b>{{ trans("A") }}</b> {{ trans("Rate") }}</span>
+      <span>Trade<b>A</b>Rate</span>
     </div>
     <img src="assets/img/tradearate.svg" width="75" class="logo">
   </div>
@@ -12,7 +12,7 @@
 
         <a href="{{ data.navigation.dashboard[1] }}" class="{{'is-active' if data.currentnavigation == data.navigation.dashboard[1]}}  has-icon">
           <span class="icon"><i class="mdi mdi-laptop mdi-24px"></i></span>
-          <span class="menu-item-label">{{ data.navigation.dashboard[0] }}</span>
+          <span class="menu-item-label">{{ trans(data.navigation.dashboard[0]) }}</span>
         </a>
       </li>
     </ul>
@@ -21,19 +21,19 @@
       <li>
         <a href="{{ data.navigation.alltrades[1] }}" class="{{'is-active' if data.currentnavigation == data.navigation.alltrades[1]}}  has-icon">
           <span class="icon"><i class="mdi mdi-twitter-retweet mdi-24px"></i></span>
-          <span class="menu-item-label">{{ data.navigation.alltrades[0] }}</span>
+          <span class="menu-item-label">{{ trans(data.navigation.alltrades[0]) }}</span>
         </a>
       </li>
       <li>
         <a href="{{ data.navigation.allapps[1] }}" class="{{'is-active' if data.currentnavigation == data.navigation.allapps[1]}}  has-icon">
           <span class="icon has-update-mark"><i class="mdi mdi-android mdi-24px"></i></span>
-          <span class="menu-item-label">{{ data.navigation.allapps[0] }}</span>
+          <span class="menu-item-label">{{ trans(data.navigation.allapps[0]) }}</span>
         </a>
       </li>
       <li>
         <a href="{{ data.navigation.allreviews[1] }}" class="{{'is-active' if data.currentnavigation == data.navigation.allreviews[1]}}  has-icon">
           <span class="icon"><i class="mdi mdi-star-half mdi-24px"></i></span>
-          <span class="menu-item-label">{{ data.navigation.allreviews[0] }}</span>
+          <span class="menu-item-label">{{ trans(data.navigation.allreviews[0]) }}</span>
         </a>
       </li>
     </ul>
@@ -42,7 +42,7 @@
       <li>
         <a href="{{ data.navigation.mytrades[1] }}" class="{{'is-active' if data.currentnavigation == data.navigation.mytrades[1]}}  has-icon">
           <span class="icon "><i class="mdi mdi-twitter-retweet mdi-24px"></i></span>
-          <span class="menu-item-label">{{ data.navigation.mytrades[0] }}</span>
+          <span class="menu-item-label">{{ trans(data.navigation.mytrades[0]) }}</span>
         </a>
       </li>
     </ul>
@@ -51,7 +51,7 @@
       <li>
         <a href="{{ data.navigation.contact[1] }}" class="{{'is-active' if data.currentnavigation == data.navigation.contact[1]}}  has-icon">
           <span class="icon "><i class="mdi mdi-twitter-retweet mdi-24px"></i></span>
-          <span class="menu-item-label">{{ data.navigation.contact[0] }}</span>
+          <span class="menu-item-label">{{ trans(data.navigation.contact[0]) }}</span>
         </a>
       </li>
     </ul>

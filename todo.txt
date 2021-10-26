@@ -183,8 +183,8 @@ https://www.digitalocean.com/community/tutorials/how-to-install-and-configure-po
 # a merry party of face stabbers !
 # de vertalingen vertalen in het: Nederlands, duits en het spaans ! (done)
 # De vertalingen in de app.py moeten ook nog worden gedaan, kud ! (todo)
-# contact form ff afmaken en testen ! (todo) <--
-# zorgen dat de emails verstuurd kunnen worden (this might be shit work) (todo)
+# contact form ff afmaken en testen ! (done)
+# zorgen dat de emails verstuurd kunnen worden (this might be shit work) (done met compromis)
 
 # er is nog een probleem dat een app als betaald staat terwijk dat niet het geval is ! (done)
 # t zou ook nog fijn zijn om ergens de gemiddelde reviewscore neer te zetten !
