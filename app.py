@@ -204,7 +204,7 @@ def contact():
     app.pyn.close()
     return result
 
-@app.route('/processcontact')
+@app.route('/processcontact', methods = ['POST'])
 @login_required
 def processcontact():
     vallcontact.validate(dict(request.form))
@@ -226,7 +226,7 @@ def processcontact():
         return redirect('/')
 
     mail = Mail(app)
-    mail.send(msg)
+    mail.send(message)
     msg = Message(
         'Test !',
         body=message,
