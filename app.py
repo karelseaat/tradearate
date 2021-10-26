@@ -14,7 +14,7 @@ from flask_login import (
 
 from flask_mail import Mail, Message
 from cerberus import Validator
-from config import make_session, oauthconfig, REVIEWLIMIT, recaptchasecret, recapchasitekey
+from config import make_session, oauthconfig, REVIEWLIMIT, recaptchasecret, recapchasitekey, domain
 from models import User, Trade, App, Review, Historic
 from lib.myownscraper import get_app
 from lib.translator import PyNalator
@@ -212,7 +212,7 @@ def processcontact():
     message = request.form.get('message')
 
     if not message:
-        flash("message send !", 'has-text-danger')
+        flash("no message ?!", 'has-text-danger')
         app.session.close()
         app.pyn.close()
         return redirect('/')
@@ -226,16 +226,20 @@ def processcontact():
         return redirect('/')
 
     mail = Mail(app)
-    mail.send(message)
+
     msg = Message(
         'Test !',
         body=message,
-        sender="no-reply@{}".format(baseurl),
+        sender="no-reply@{}".format(domain),
         recipients=['karelseaat@gmail.com']
     )
 
+    mail.send(msg)
+
     app.session.close()
     app.pyn.close()
+    flash("Message send !", 'has-text-primary')
+    return redirect('/overviewtrades')
 
 @app.route('/authorize')
 def authorize():
@@ -535,7 +539,7 @@ def reject():
 def accept():
     """here a initiator or a joiner of a trade can accept the trade, if both partys have accepted the trade is on so to call"""
     tradeid = request.args.get('tradeid')
-    baseurl = request.base_url
+    # baseurl = request.base_url
     try:
         thetrade = app.session.query(Trade).get(int(tradeid))
         if thetrade.can_accept(current_user.googleid):
@@ -545,7 +549,7 @@ def accept():
                 msg = Message(
                     'Test !',
                     body="The trade has now been accepted !",
-                    sender="no-reply@{}".format(baseurl),
+                    sender="no-reply@{}".format(domain),
                     recipients=[thetrade.joiner.email]
                 )
 
@@ -554,7 +558,7 @@ def accept():
                 msg = Message(
                     'Test !',
                     body="The trade has now been accepted !",
-                    sender="no-reply@{}".format(baseurl),
+                    sender="no-reply@{}".format(domain),
                     recipients=[thetrade.initiator.email]
                 )
                 mail = Mail(app)
