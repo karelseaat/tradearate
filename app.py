@@ -230,7 +230,7 @@ def processcontact():
     msg = Message(
         'Test !',
         body=message,
-        sender="no-reply@{}".format(domain),
+        sender="karelseaat@{}".format(domain),
         recipients=['karelseaat@gmail.com']
     )
 
