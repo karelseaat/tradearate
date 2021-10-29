@@ -101,7 +101,6 @@ def load_user(userid):
 
 @app.before_request
 def before_request_func():
-    # print(current_user.locale)
     if isinstance(current_user, User) and current_user.locale:
         app.pyn = PyNalator(localename=current_user.locale, subdir="translations")
     else:
@@ -120,7 +119,6 @@ def before_request_func():
         'about': ('About', '/'),
         'contact': ('Contact', '/contact')
     }
-
 
     app.data = {
         'pagename': 'Unknown',
@@ -227,11 +225,13 @@ def processcontact():
 
     mail = Mail(app)
 
+    print(current_user)
+
     msg = Message(
-        'Test !',
-        body=message,
-        sender="karelseaat@{}".format(domain),
-        recipients=['karelseaat@gmail.com']
+        'Trade a rate contact form !',
+        sender = 'sixdots.soft@gmail.com',
+        body="name: {}\nemail: {}\nmessage: {}".format(current_user.fullname, current_user.email, message),
+        recipients=['sixdots.soft@gmail.com']
     )
 
     mail.send(msg)
@@ -547,21 +547,32 @@ def accept():
             app.session.commit()
             if thetrade.accepted:
                 msg = Message(
-                    'Test !',
-                    body="The trade has now been accepted !",
-                    sender="no-reply@{}".format(domain),
+                    'One of your app trades has been accepted',
+                    html= """
+                        <p>The trade has now been accepted !</p>
+                        <p>The system will now start to look for your review.</p>
+                        <p>Go to your <a href='{}/show?tradeid={}'>trade</a> to view the details and do a review of the counter app.</p>
+                    """.format(domain, thetrade.id),
+                    sender="sixdots.soft@gmail.com",
                     recipients=[thetrade.joiner.email]
                 )
 
                 mail = Mail(app)
+                # msg.add_header('Content-Type','text/html')
                 mail.send(msg)
+
                 msg = Message(
-                    'Test !',
-                    body="The trade has now been accepted !",
-                    sender="no-reply@{}".format(domain),
+                    'One of your app trades has been accepted',
+                    html= """
+                        <p>The trade has now been accepted !</p>
+                        <p>The system will now start to look for your review.</p>
+                        <p>Go to your <a href='{}/show?tradeid={}'>trade</a> to view the details and do a review of the counter app.</p>
+                    """.format(domain, thetrade.id),
+                    sender="sixdots.soft@gmail.com",
                     recipients=[thetrade.initiator.email]
                 )
                 mail = Mail(app)
+                # msg.add_header('Content-Type','text/html')
                 mail.send(msg)
 
             flash("accepted the trade",'has-text-primary')
@@ -645,17 +656,18 @@ def processjoin():
             app.pyn.close()
             return redirect('/overviewtrades')
 
+        trade.joiner = current_user
+        trade.joinerapp = joinerappmodel
+        trade.joinerlang = current_user.locale
+        trade.joined = dt.datetime.now()
+        app.session.add(trade)
+
         if trade.joinerapp == trade.initiatorapp:
             flash("cant join with same app as initiator app !", 'has-text-danger')
             app.session.close()
             app.pyn.close()
             return redirect('/overviewtrades')
 
-        trade.joiner = current_user
-        trade.joinerapp = joinerappmodel
-        trade.joinerlang = current_user.locale
-        trade.joined = dt.datetime.now()
-        app.session.add(trade)
         app.session.commit()
         tradeid = trade.id
         flash("joined the trade", 'has-text-primary')

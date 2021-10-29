@@ -6,7 +6,7 @@ import os
 
 REVIEWLIMIT = 1000
 
-domain = "six-dots.app"
+domain = "trade.six-dots.app"
 
 oauthconfig = {
     'name':'google',

@@ -24,7 +24,7 @@ logging.info('Start of expire trade ' + datetime.datetime.now().strftime("%m/%d/
 dbsession = make_session()
 tradeobj = Trade()
 
-trades = dbsession.query(Trade).filter(Trade.accepted + datetime.timedelta(days=tradeobj.timetotrade) < datetime.datetime.now().date()).filter(and_(not_(Trade.initiator_reviewed), not_(Trade.joiner_reviewed))).all()
+trades = dbsession.query(Trade).filter(Trade.accepted + datetime.timedelta(days=tradeobj.timetotrade) < datetime.datetime.now().date()).filter(or_(not_(Trade.initiator_reviewed), not_(Trade.joiner_reviewed))).all()
 
 
 for trade in trades:
@@ -37,7 +37,7 @@ for trade in trades:
         To: {trade.initiator.email}
         From: {sender}
 
-        The trade is succesfull !
+        The trade has failed !
     """
 
     message_joiner = f"""\
@@ -45,7 +45,7 @@ for trade in trades:
         To: {trade.joiner.email}
         From: {sender}
 
-        The trade is succesfull !
+        The trade has failed !
     """
 
     with smtplib.SMTP(Config.MAIL_SERVER, Config.MAIL_PORT) as server:
