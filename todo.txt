@@ -194,7 +194,8 @@ https://www.digitalocean.com/community/tutorials/how-to-install-and-configure-po
 # roland de site laten doorlopen (todo)
 # t zou ook nog fijn zijn om ergens de gemiddelde reviewscore neer te zetten ! (todo) <--
 
-
+Bij showapp staat ipv 'app detail' 'trade status'  bevendien staat bogenaan Unknown, dit alles aanpassen !
+Voor allapps staat er idstring, das niet mooi
 Kijken wat er gebeurt als we ids zoals tradeid x maken ipv een nummer !
 server crashed met een smily in de app naar als je maakt of joint !
 # gezien we van buitenaf via bv emal binnen komen kan het zijn dat we niet direct naar die link kunnen gezien we langs autologin moeten, hier moet rekening mee worden gehouden
