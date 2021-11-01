@@ -10,8 +10,8 @@
       <div class="card tile is-child">
         <header class="card-header">
           <p class="card-header-title">
-            <span class="icon"><i class="mdi mdi-account default"></i></span>
-            Trade Status
+            <span class="icon"><i class="mdi mdi-android default"></i></span>
+            {{ trans("App detail") }}
           </p>
         </header>
         <div class="card-content">
@@ -21,7 +21,7 @@
           </div>
           <hr>
           <div class="field">
-            <label class="label">App id</label>
+            <label class="label">{{ trans("App id") }}</label>
             <div class="control is-clearfix">
               <a href="{{ data.data.get_url() }}">
                 <p>{{ data.data.appidstring }}</p>
@@ -29,19 +29,19 @@
             </div>
           </div>
           <div class="field">
-            <label class="label">nr of trades</label>
+            <label class="label">{{ trans("Nr of trades") }}</label>
             <div class="control is-clearfix">
             <p>{{ data.data.all_trades()|count }}</p>
             </div>
           </div>
           <div class="field">
-            <label class="label">Payed</label>
+            <label class="label">{{ trans("Payed") }}</label>
             <div class="control is-clearfix">
             <p>{{ data.data.paid }}</p>
             </div>
           </div>
           <div class="field">
-            <label class="label">Nr of users</label>
+            <label class="label">{{ trans("Nr of users") }}</label>
             <div class="control is-clearfix">
               <p>{{ data.data.all_users()|count }}</p>
             </div>

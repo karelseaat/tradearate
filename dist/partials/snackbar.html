@@ -3,7 +3,7 @@
   {% if messages %}
     <ul class=flashes>
     {% for cat, message in messages %}
-      <li class='{{ cat }}'>{{ message }}</li>
+      <li class='{{ cat }}'>{{ trans(message) }}</li>
     {% endfor %}
     </ul>
   {% endif %}

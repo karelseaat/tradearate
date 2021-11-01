@@ -15,6 +15,7 @@ from flask_login import (
 from flask_mail import Mail, Message
 from cerberus import Validator
 from config import make_session, oauthconfig, REVIEWLIMIT, recaptchasecret, recapchasitekey, domain
+from flask import session as browsersession
 from models import User, Trade, App, Review, Historic
 from lib.myownscraper import get_app
 from lib.translator import PyNalator
@@ -50,7 +51,7 @@ login_manager.setup_app(app)
 
 app.secret_key = 'random secret223'
 app.session = make_session()
-app.browsersession = {}
+
 
 app.config.from_object("config.Config")
 
@@ -59,6 +60,7 @@ oauth.register(**oauthconfig)
 
 @app.errorhandler(401)
 def unauthorized(_):
+    browsersession['redirect'] = request.path
     return redirect('/login')
 
 def local_breakdown(local):
@@ -86,7 +88,7 @@ def pagination(db_object, itemnum):
     """it does the pagination for db results"""
     pagenum = 0
     data = None
-    if 'pagenum' in request.args:
+    if 'pagenum' in request.args and request.args.get('pagenum').isnumeric():
         pagenum = int(request.args.get('pagenum'))
 
     total = app.session.query(db_object).count()
@@ -225,8 +227,6 @@ def processcontact():
 
     mail = Mail(app)
 
-    print(current_user)
-
     msg = Message(
         'Trade a rate contact form !',
         sender = 'sixdots.soft@gmail.com',
@@ -275,7 +275,7 @@ def authorize():
 
     app.session.close()
     app.pyn.close()
-    return redirect('/overviewtrades')
+    return redirect(browsersession['redirect'])
 
 @app.route("/trades")
 @login_required
@@ -289,19 +289,23 @@ def trades():
     app.pyn.close()
     return result
 
-# @app.route("/apps")
-# @login_required
-# def apps():
-#     app.data['pagename'] = 'My apps'
-#     app.data['data'] = current_user
-#     return render_template('userapps.html', data=app.data)
 
 @app.route("/showapp")
 @login_required
 def showapp():
     """detail page for one application"""
+    app.data['pagename'] = 'App details'
     appid = request.args.get('appid')
+    if not appid.isnumeric():
+        flash('Should be a number', 'has-text-danger')
+        return redirect('/overviewtrades')
+
     appobj = app.session.query(App).filter(App.id==appid).first()
+
+    if not appobj:
+        flash('app not found', 'has-text-danger')
+        return redirect('/overviewtrades')
+
     app.data['data'] = appobj
     result = render_template('oneapp.html', data=app.data)
     app.session.close()
@@ -312,9 +316,16 @@ def showapp():
 @login_required
 def usertrades():
     app.data['pagename'] = 'User profile'
-
     userid = request.args.get('userid')
+    if not userid.isnumeric():
+        flash('Should be a number', 'has-text-danger')
+        return redirect('/overviewtrades')
+
     userobj = app.session.query(User).filter(User.id==userid).first()
+    if not userobj:
+        flash('app not found', 'has-text-danger')
+        return redirect('/overviewtrades')
+
     app.data['data'] = userobj
 
     result = render_template('usertrades.html', data=app.data)
@@ -361,6 +372,12 @@ def processadd():
     appid = request.form.get('appid')
     captcha_response = request.form['g-recaptcha-response']
     appobj = get_app_from_store(appid, country=current_user.locale)
+
+    if not appobj:
+        app.session.close()
+        app.pyn.close()
+        flash('app not found', 'has-text-danger')
+        return redirect('/overviewtrades')
 
     if current_user.get_score() < 0:
         flash("your trade score is not height enough to start a trade!", 'has-text-danger')
@@ -452,12 +469,18 @@ def overviewapps():
     return result
 
 @app.route('/showreview')
+@login_required
 def showreview():
     """This will show the details about a review"""
     app.data['pagename'] = 'Reviews ?'
     reviewid = request.args.get('reviewid')
     try:
         review = app.session.query(Review).get(reviewid)
+        if not review:
+            app.session.close()
+            app.pyn.close()
+            flash('review not found', 'has-text-danger')
+            return redirect('/overviewtrades')
         app.data['data'] = review
     except Exception as exception:
         flash(str(exception), 'has-text-danger')
@@ -467,6 +490,7 @@ def showreview():
     return result
 
 @app.route('/overviewreviews')
+@login_required
 def overviewreviews():
     """the overview page so you can see all the reviews done"""
     app.data['pagename'] = 'All reviews'
@@ -498,9 +522,18 @@ def show():
     """detail page for a single trade"""
     app.data['pagename'] = 'Trade details'
     tradeid = request.args.get('tradeid')
+
+    if not tradeid.isnumeric():
+        flash('Should be a number', 'has-text-danger')
+        return redirect('/overviewtrades')
+
     googleid = current_user.googleid
     try:
         thetrade = app.session.query(Trade).get(tradeid)
+        if not thetrade:
+            flash('No trade found', 'has-text-danger')
+            return redirect('/overviewtrades')
+
         app.data['data'] = thetrade
         app.data['canaccept'] = thetrade.can_accept(googleid)
         app.data['canjoin'] = thetrade.can_join(googleid) and current_user.can_join_trade()
@@ -510,7 +543,6 @@ def show():
     except Exception as exception:
         flash(str(exception), 'has-text-danger')
 
-    print(app.data['data'].initiatorapp.paid)
     result = render_template('showtrade.html', data=app.data)
     app.session.close()
     app.pyn.close()
@@ -520,8 +552,19 @@ def show():
 @login_required
 def reject():
     tradeid = request.args.get('tradeid')
+    if not tradeid.isnumeric():
+        flash('Should be a number', 'has-text-danger')
+        return redirect('/overviewtrades')
+
     try:
         thetrade = app.session.query(Trade).get(int(tradeid))
+
+        if not thetrade:
+            app.session.close()
+            app.pyn.close()
+            flash('review not found', 'has-text-danger')
+            return redirect('/overviewtrades')
+
         if thetrade.can_reject(current_user.googleid):
             thetrade.reject_user(current_user.googleid)
             app.session.commit()
@@ -539,9 +582,19 @@ def reject():
 def accept():
     """here a initiator or a joiner of a trade can accept the trade, if both partys have accepted the trade is on so to call"""
     tradeid = request.args.get('tradeid')
-    # baseurl = request.base_url
+    if not tradeid.isnumeric():
+        flash('Should be a number', 'has-text-danger')
+        return redirect('/overviewtrades')
+
     try:
         thetrade = app.session.query(Trade).get(int(tradeid))
+
+        if not thetrade:
+            app.session.close()
+            app.pyn.close()
+            flash('trade not found', 'has-text-danger')
+            return redirect('/overviewtrades')
+
         if thetrade.can_accept(current_user.googleid):
             thetrade.accept_user(current_user.googleid)
             app.session.commit()
@@ -558,7 +611,6 @@ def accept():
                 )
 
                 mail = Mail(app)
-                # msg.add_header('Content-Type','text/html')
                 mail.send(msg)
 
                 msg = Message(
@@ -572,7 +624,6 @@ def accept():
                     recipients=[thetrade.initiator.email]
                 )
                 mail = Mail(app)
-                # msg.add_header('Content-Type','text/html')
                 mail.send(msg)
 
             flash("accepted the trade",'has-text-primary')
@@ -590,6 +641,9 @@ def accept():
 def delete():
     """this function will let the initiator of the trade delete the trade"""
     tradeid = request.args.get('tradeid')
+    if not tradeid.isnumeric():
+        flash('Should be a number', 'has-text-danger')
+        return redirect('/overviewtrades')
     app.session.query(Trade).filter(Trade.id==tradeid).delete()
     app.session.commit()
     flash("trade removed !",'has-text-primary')
@@ -603,6 +657,9 @@ def join():
     """here someone can join a trade by filling in a form with something to review, an app"""
     app.data['pagename'] = 'Join Trade'
     tradeid = request.args.get('tradeid')
+    if not tradeid.isnumeric():
+        flash('Should be a number', 'has-text-danger')
+        return redirect('/overviewtrades')
 
     if current_user.get_score() < 0:
         flash("your trade score is not height enough to join a trade!", 'has-text-danger')
@@ -620,10 +677,12 @@ def processjoin():
 
     tradeid = request.form.get('tradeid')
 
-    if not tradeid:
+    if not tradeid or not appid.isnumeric():
+        flash('Should be a number', 'has-text-danger')
         app.session.close()
         app.pyn.close()
         return redirect('/')
+
 
     if alliappjoin.errors:
         for key, val in alliappjoin.errors.items():
@@ -686,9 +745,12 @@ def processjoin():
 def leave():
     """here a trade joiner can leave a trade"""
     tradeid = request.args.get('tradeid')
+    if not tradeid.isnumeric():
+        flash('Should be a number', 'has-text-danger')
+        return redirect('/overviewtrades')
     thetrade = app.session.query(Trade).get(int(tradeid))
     try:
-        if thetrade.can_leave(current_user.googleid):
+        if thetrade and thetrade.can_leave(current_user.googleid):
             thetrade.joiner = None
             thetrade.joined = None
             thetrade.joinerapp = None
@@ -697,6 +759,11 @@ def leave():
             thetrade.initiator_accepted = False
             app.session.commit()
             flash("left the trade", 'has-text-primary')
+        else:
+            flash("cant leave since trade does not exist or trade has to be concluded", 'has-text-danger')
+            app.session.close()
+            app.pyn.close()
+            return redirect('/overviewtrades')
     except Exception as exception:
         flash(str(exception), 'has-text-danger')
 

@@ -136,7 +136,7 @@ class Trade(DictSerializableMixin):
     failure = Column(Date, nullable=True)
     joined = Column(Date, nullable=True)
 
-    timetotrade = 7
+    timetotrade = 6
 
     def __init__(self, initiator=None, initiatorapp=None, initiatorlang=None):
         if initiator:
@@ -163,12 +163,12 @@ class Trade(DictSerializableMixin):
     def trade_days_left(self):
         """ will return the nr of days left for a trade, counted from the moment a trade was accepted"""
         if self.accepted:
-            curr_date = (
-                datetime.datetime.now()
-                +
-                datetime.timedelta(days=self.timetotrade)
-            )
-            return (curr_date.date() - self.accepted).days - self.timetotrade
+
+            timeleft = (
+                self.accepted + datetime.timedelta(days=self.timetotrade)
+            ) - datetime.datetime.now().date()
+
+            return timeleft.days
         return self.timetotrade
 
     def age(self):
