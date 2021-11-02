@@ -1,4 +1,4 @@
-#!/usr/bin/python3
+#!/usr/bin/env python
 
 #the two lines bellow, hate it !
 import sys
@@ -54,6 +54,7 @@ def feedreviews(app, langs, numofrespercall):
             resultcount = len(result)
 
             for x in result:
+                print(x)
                 if 'content' in x and 'at' in x and 'score' in x and 'userName' in x:
                     try:
                         aitem = dbsession.query(Review).filter(Review.google_id==x['reviewId']).first()

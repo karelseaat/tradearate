@@ -229,8 +229,15 @@ bij sidenavigation.html zitten er ook meerdere in moet te vinden zijn !
 # Ook profile.html mag van een form met niet te gebruiken velden naar normale html worden omgezet !
 # word showtrade.html nog gebruikt zo nee weg zo jah dan mag dat van een form naar een normaal stuk html worden gemaakt !
 # Bij de reviews staat er een icoontje van de app maar er moet op zn minst ook een icoontje staan van de reviewer
-# Een custom ontworpen faficon maken ! (todo)
+# Een custom ontworpen faficon maken ! (done)
 
+
+er moet bij de review nog een url komen naar de user die em gereviewed heeft pic (of kan dat niet ?)
+In de app detail staat er nr of users, wat is dat ?
+bij overzicht van apps staat er de app naam en de app id, wellicht enkel naam van maken als link en of die payed
+bij trade overzicht staat er ook de start app, moet je ook op kunnen klikken !
+Als trade gedaan is staat er nog altijd days left, dat moety ook niet
+# wel hebben bij de trades wel de mogelijkheid om op namen van users te klikken om de stats van die user te zien, maar dit hebben we niet bij alle reviews, of bij de app reviews
 # refactor stukken functionaliteid tot extra functies !
 # bijna alles klopt behalve het domein dat wort gebruikt op de live site, wat gaan we hiermee doen ?, erg lastig, environment variablen in flask zijn lastig (w8 for later)
 # Nog eens kijken bij de imports naar het toevoegen van het path probleem, dat moet mooier kunnen ! via__init__.py maar dat moeten we ff goed onderzoeken !
