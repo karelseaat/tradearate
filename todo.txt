@@ -209,14 +209,28 @@ https://www.digitalocean.com/community/tutorials/how-to-install-and-configure-po
 # de contact van trade a reet mag nog met onderwerp ?. (done)
 
 # attack of the floating condoms
-# De status kann  nun wel op joined staan maar. .  . staat nog niet op accepted ondanks dat die wel accepted is! (todo)
+# De status kann  nun wel op joined staan maar. .  . staat nog niet op accepted ondanks dat die wel accepted is! (done)
 # Bij het trade scherm mogen de verschillende secties hun eigen panel krijgen: trade status, app A, app B ofzo! (done)
 # Bij my trades staat er enkel de initiated trade dus de trade die door mij begonnen zijn, toevoegen van de joind trades! (done foutje)
-# de check review script mag nog ff worden nagekeken, want nu komen de reviews binnen maar de trades worden nog niet goed gekeurt. (todo) <--
-# nog ff onderzoeken wat er nog meer tot macro kan worden gemaakt! (todo)
+# de check review script mag nog ff worden nagekeken, want nu komen de reviews binnen maar de trades worden nog niet goed gekeurt. (done)
+# nog ff onderzoeken wat er nog meer tot macro kan worden gemaakt! (done)
 
-Bij my trades staat er enkel de initiated trade dus de trade die door mij begonnen zijn, toevoegen van de joind trades !
+# wat er nog vermacrot kan worden:
+bij join.html de <div class="field-body"> gezien die ook voor komt bij init van app
+bij index.html de <div class="card-content"> zeker als we meerdere grafieken gan maken (wellicht zelfs de selee <section>?)
+bij add, join en contact zijn er forms die daar voor de velden een structuurtje gebruiken dat in een macro kan
+bij overview reviews zit er een tabel nog niet in een macro
+bij bijvoorbeeld oneapp (nog meer ?) zie je dat de structuur voor die lijst overal word herhaald: div > label + div > p, div > label + div > p, div > label + div > p
+bij showtrade moeten er makkelijk meerdere te vinden zijn !
+bij sidenavigation.html zitten er ook meerdere in moet te vinden zijn !
+
+# Hele oude gijtenneuker !
+# word card-apps.html, card-reviews.html, card-trades.html nog wel gebruikt ! zo nee verwijder !
+# Ook profile.html mag van een form met niet te gebruiken velden naar normale html worden omgezet !
+# word showtrade.html nog gebruikt zo nee weg zo jah dan mag dat van een form naar een normaal stuk html worden gemaakt !
 # Bij de reviews staat er een icoontje van de app maar er moet op zn minst ook een icoontje staan van de reviewer
+# Een custom ontworpen faficon maken ! (todo)
+
 # refactor stukken functionaliteid tot extra functies !
 # bijna alles klopt behalve het domein dat wort gebruikt op de live site, wat gaan we hiermee doen ?, erg lastig, environment variablen in flask zijn lastig (w8 for later)
 # Nog eens kijken bij de imports naar het toevoegen van het path probleem, dat moet mooier kunnen ! via__init__.py maar dat moeten we ff goed onderzoeken !
@@ -224,5 +238,4 @@ Bij my trades staat er enkel de initiated trade dus de trade die door mij begonn
 # Wellicht het zo maken dat de tabellen nu wel gesorteerd kunnnen worden ?
 # Belangrijk in de toekomst: https://brizzo.net/tips/hide-recaptcha-v3-badge/
 # Dus het zou a handig zijn als gebruikers met elkaar kunnen comuniceren en b er is ruimte zat voor, doen ?
-# Een custom ontworpen faficon maken ! (todo)
 # Zoom in dan krijg je te zien dat het linker menu verdwijnt maar het top menu in een hamburger menu wordt opgenomen, das niet toff ! (nog niet makkelijk om te fixen, menu toch maar pmdraaien of remodellen ?)

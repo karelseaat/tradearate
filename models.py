@@ -153,10 +153,10 @@ class Trade(DictSerializableMixin):
             return "failure"
         elif self.success:
             return "success"
-        elif self.joined:
-            return "joined"
         elif self.accepted:
             return "accepted"
+        elif self.joined:
+            return "joined"
         else:
             return "initiated"
 
