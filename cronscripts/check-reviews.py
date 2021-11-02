@@ -79,11 +79,11 @@ for trade in trades:
             The trade is succesfull !
         """
 
-        with smtplib.SMTP(Config.MAIL_SERVER, Config.MAIL_PORT) as server:
+        with smtplib.SMTP_SSL(Config.MAIL_SERVER, Config.MAIL_PORT) as server:
             server.login(Config.MAIL_USERNAME, Config.MAIL_PASSWORD)
             server.sendmail("no-reply@{}".format(domain), trade.initiator.email, message_initiator)
 
-        with smtplib.SMTP(Config.MAIL_SERVER, Config.MAIL_PORT) as server:
+        with smtplib.SMTP_SSL(Config.MAIL_SERVER, Config.MAIL_PORT) as server:
             server.login(Config.MAIL_USERNAME, Config.MAIL_PASSWORD)
             server.sendmail("no-reply@{}".format(domain), trade.joiner.email, message_joiner)
 

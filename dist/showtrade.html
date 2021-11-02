@@ -8,12 +8,11 @@
   <div class="tile is-ancestor">
     <div class="tile is-parent">
       <div class="card tile is-child">
-        {{ build_card_header('Trade Status','mdi-account') }}
+        {{ build_card_header('Trade Status','mdi-twitter-retweet') }}
         <div class="card-content">
           <div class="is-user-avatar image has-max-width is-aligned-center">
             <img src="" alt="">
           </div>
-
           <div class="field">
             <label class="label">{{ trans("Days active") }}</label>
             <div class="control is-clearfix">
@@ -38,7 +37,19 @@
             <div class="control is-clearfix">
               <input type="text" readonly value="{{ data.data.trade_days_left() }}" class="input is-static">
             </div>
-            <hr>
+          </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section is-main-section">
+  <div class="tile is-ancestor">
+    <div class="tile is-parent">
+      <div class="card tile is-child">
+        {{ build_card_header('Initiator status','mdi-android') }}
+        <div class="card-content">
+
             <label class="label">{{ trans("Initiator") }}</label>
             <div class="control is-clearfix">
               <div class="is-user-avatar image has-max-width is-aligned-center">
@@ -71,7 +82,24 @@
               </div>
             </div>
             {% if data.data.joiner %}
-            <hr>
+
+            {% endif %}
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+{% if data.data.joiner and data.data.joinerapp %}
+<section class="section is-main-section">
+  <div class="tile is-ancestor">
+    <div class="tile is-parent">
+      <div class="card tile is-child">
+        {{ build_card_header('Joiner status','mdi-android') }}
+        <div class="card-content">
+
             <label class="label">{{ trans("Joiner") }}</label>
             <div class="control is-clearfix">
               <div class="is-user-avatar image has-max-width is-aligned-center">
@@ -90,8 +118,8 @@
               {% endif %}
 
             </div>
-            {% endif %}
-            {% if data.data.joinerapp %}
+
+
             <label class="label">{{ trans("Joiner App") }}</label>
             <div class="control is-clearfix">
               <div class="is-user-avatar image has-max-width is-aligned-center">
@@ -102,13 +130,23 @@
             <div class="field">
               <label class="label">{{ trans("Joiner app is payed") }}</label>
               <div class="control is-clearfix">
-              <p>{{ trans("No") if data.data.joinerapp.paid else trans("Yes") }}</p>
+              <p>{{ trans("Yes") if data.data.joinerapp.paid else trans("No") }}<p>
               </div>
             </div>
-            {% endif %}
           </div>
-          <hr>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+{% endif %}
 
+<section class="section is-main-section">
+  <div class="tile is-ancestor">
+    <div class="tile is-parent">
+      <div class="card tile is-child">
+
+        <div class="card-content">
           {% if data.candelete %}
           <button class="button is-medium is-danger" type="button" onclick="window.location.href='/delete?tradeid={{ data.data.id }}'">
             <span>{{ trans("Delete") }}</span>
@@ -148,9 +186,5 @@
     </div>
   </div>
 </section>
-
-
-
-
 
 {% endblock %}

@@ -33,6 +33,7 @@ alliappjoin = Validator({
 })
 
 vallcontact = Validator({
+    'subject':{'required': True, 'type': 'string'},
     'message':{'required': True, 'type': 'string'},
     'g-recaptcha-response': {'required': True}
 })
@@ -210,6 +211,7 @@ def processcontact():
     vallcontact.validate(dict(request.form))
 
     message = request.form.get('message')
+    subject = request.form.get('subject')
 
     if not message:
         flash("no message ?!", 'has-text-danger')
@@ -228,7 +230,7 @@ def processcontact():
     mail = Mail(app)
 
     msg = Message(
-        'Trade a rate contact form !',
+        "Trade a rate contact form !, {}".format(subject),
         sender = 'sixdots.soft@gmail.com',
         body="name: {}\nemail: {}\nmessage: {}".format(current_user.fullname, current_user.email, message),
         recipients=['sixdots.soft@gmail.com']
@@ -274,7 +276,7 @@ def authorize():
             login_user(newuser)
 
     app.session.close()
-    app.pyn.close()
+    # app.pyn.close()
     return redirect(browsersession['redirect'])
 
 @app.route("/trades")
@@ -296,7 +298,7 @@ def showapp():
     """detail page for one application"""
     app.data['pagename'] = 'App details'
     appid = request.args.get('appid')
-    if not appid.isnumeric():
+    if not appid or not appid.isnumeric():
         flash('Should be a number', 'has-text-danger')
         return redirect('/overviewtrades')
 
@@ -317,7 +319,7 @@ def showapp():
 def usertrades():
     app.data['pagename'] = 'User profile'
     userid = request.args.get('userid')
-    if not userid.isnumeric():
+    if not userid or not userid.isnumeric():
         flash('Should be a number', 'has-text-danger')
         return redirect('/overviewtrades')
 
@@ -523,7 +525,7 @@ def show():
     app.data['pagename'] = 'Trade details'
     tradeid = request.args.get('tradeid')
 
-    if not tradeid.isnumeric():
+    if not tradeid or not tradeid.isnumeric():
         flash('Should be a number', 'has-text-danger')
         return redirect('/overviewtrades')
 
@@ -552,7 +554,7 @@ def show():
 @login_required
 def reject():
     tradeid = request.args.get('tradeid')
-    if not tradeid.isnumeric():
+    if not tradeid or not tradeid.isnumeric():
         flash('Should be a number', 'has-text-danger')
         return redirect('/overviewtrades')
 
@@ -582,7 +584,7 @@ def reject():
 def accept():
     """here a initiator or a joiner of a trade can accept the trade, if both partys have accepted the trade is on so to call"""
     tradeid = request.args.get('tradeid')
-    if not tradeid.isnumeric():
+    if not tradeid or not tradeid.isnumeric():
         flash('Should be a number', 'has-text-danger')
         return redirect('/overviewtrades')
 
@@ -641,7 +643,7 @@ def accept():
 def delete():
     """this function will let the initiator of the trade delete the trade"""
     tradeid = request.args.get('tradeid')
-    if not tradeid.isnumeric():
+    if not tradeid or not tradeid.isnumeric():
         flash('Should be a number', 'has-text-danger')
         return redirect('/overviewtrades')
     app.session.query(Trade).filter(Trade.id==tradeid).delete()
@@ -657,7 +659,7 @@ def join():
     """here someone can join a trade by filling in a form with something to review, an app"""
     app.data['pagename'] = 'Join Trade'
     tradeid = request.args.get('tradeid')
-    if not tradeid.isnumeric():
+    if not tradeid or not tradeid.isnumeric():
         flash('Should be a number', 'has-text-danger')
         return redirect('/overviewtrades')
 
@@ -677,7 +679,7 @@ def processjoin():
 
     tradeid = request.form.get('tradeid')
 
-    if not tradeid or not appid.isnumeric():
+    if not tradeid or not tradeid.isnumeric():
         flash('Should be a number', 'has-text-danger')
         app.session.close()
         app.pyn.close()
@@ -745,7 +747,7 @@ def processjoin():
 def leave():
     """here a trade joiner can leave a trade"""
     tradeid = request.args.get('tradeid')
-    if not tradeid.isnumeric():
+    if not tradeid or not tradeid.isnumeric():
         flash('Should be a number', 'has-text-danger')
         return redirect('/overviewtrades')
     thetrade = app.session.query(Trade).get(int(tradeid))

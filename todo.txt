@@ -202,12 +202,21 @@ https://www.digitalocean.com/community/tutorials/how-to-install-and-configure-po
 # gezien we van buitenaf via bv email binnen komen kan het zijn dat we niet direct naar die link kunnen gezien we langs autologin moeten, hier moet rekening mee worden gehouden (done)
 
 # a basket of rabit squirrels
-# veel van de detail paginas maakt nog niet gebruik van de macros wel ff doen ! (todo)
+# veel van de detail paginas maakt nog niet gebruik van de macros wel ff doen ! (done)
 # Days left until reviews should be done klopt niet, dit moet beter berekend worden ! (done)
-# het lijkt er op dat payed alsnog niet goed wordt gedaan ! (todo) <--
+# het lijkt er op dat payed alsnog niet goed wordt gedaan ! (done)
 # de flash messages wordennog niet vertaald ! (done)
-# de contact van trade a reet mag nog met onderwerp ?. (todo) <--
+# de contact van trade a reet mag nog met onderwerp ?. (done)
 
+# attack of the floating condoms
+# De status kann  nun wel op joined staan maar. .  . staat nog niet op accepted ondanks dat die wel accepted is! (todo)
+# Bij het trade scherm mogen de verschillende secties hun eigen panel krijgen: trade status, app A, app B ofzo! (done)
+# Bij my trades staat er enkel de initiated trade dus de trade die door mij begonnen zijn, toevoegen van de joind trades! (done foutje)
+# de check review script mag nog ff worden nagekeken, want nu komen de reviews binnen maar de trades worden nog niet goed gekeurt. (todo) <--
+# nog ff onderzoeken wat er nog meer tot macro kan worden gemaakt! (todo)
+
+Bij my trades staat er enkel de initiated trade dus de trade die door mij begonnen zijn, toevoegen van de joind trades !
+# Bij de reviews staat er een icoontje van de app maar er moet op zn minst ook een icoontje staan van de reviewer
 # refactor stukken functionaliteid tot extra functies !
 # bijna alles klopt behalve het domein dat wort gebruikt op de live site, wat gaan we hiermee doen ?, erg lastig, environment variablen in flask zijn lastig (w8 for later)
 # Nog eens kijken bij de imports naar het toevoegen van het path probleem, dat moet mooier kunnen ! via__init__.py maar dat moeten we ff goed onderzoeken !

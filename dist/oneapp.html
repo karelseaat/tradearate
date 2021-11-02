@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-
+{% from "macros.html" import build_card_header %}
 {% extends "base.html" %}
 
 {% block content %}
@@ -8,12 +8,7 @@
   <div class="tile is-ancestor">
     <div class="tile is-parent">
       <div class="card tile is-child">
-        <header class="card-header">
-          <p class="card-header-title">
-            <span class="icon"><i class="mdi mdi-android default"></i></span>
-            {{ trans("App detail") }}
-          </p>
-        </header>
+        {{ build_card_header('App detail','mdi-android') }}
         <div class="card-content">
           <div class="is-user-avatar image has-max-width is-aligned-center">
             <img src="{{ data.data.imageurl }}" alt="{{ data.data.name }}">
@@ -37,7 +32,7 @@
           <div class="field">
             <label class="label">{{ trans("Payed") }}</label>
             <div class="control is-clearfix">
-            <p>{{ data.data.paid }}</p>
+            <p>{{ trans("Yes") if data.data.paid else trans("No") }}</p>
             </div>
           </div>
           <div class="field">

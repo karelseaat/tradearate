@@ -96,8 +96,13 @@ aside.aside .aside-tools {
     line-height: 5rem;
 }
 
-section.section.is-main-section {
+/* section.section.is-main-section {
   min-height: 100vh;
+} */
+
+.section {
+    padding: 0rem 1.5rem;
+        padding-top: 0rem;
 }
 
 footer {

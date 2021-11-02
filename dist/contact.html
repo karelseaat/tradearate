@@ -1,20 +1,28 @@
 <!DOCTYPE html>
-{% from "macros.html" import build_form_submit %}
+{% from "macros.html" import build_form_submit, build_card_header %}
 
 {% extends "base.html" %}
 {% block content %}
 
 <section class="section is-main-section">
   <div class="card">
-    <header class="card-header">
-      <p class="card-header-title">
-        <span class="icon"><i class="mdi mdi-ballot"></i></span>
-        {{ trans("Forms") }}
-      </p>
-    </header>
+
+    {{ build_card_header('Forms','mdi-ballot') }}
     <div class="card-content">
       <form method="post" action="/processcontact" id="demo-form">
 
+        <div class="field is-horizontal">
+          <div class="field-label is-normal">
+            <label class="label">{{ trans("Subject") }}</label>
+          </div>
+          <div class="field-body">
+            <div class="field">
+              <div class="control">
+                  <input class="input" type="text" name="subject" placeholder="{{ trans('Enter subject') }}">
+              </div>
+            </div>
+          </div>
+        </div>
         <hr>
         <div class="field is-horizontal">
           <div class="field-label is-normal">
@@ -23,7 +31,7 @@
           <div class="field-body">
             <div class="field">
               <div class="control">
-                  <textarea class="textarea" name="message" placeholder="Message" rows="6"></textarea>
+                  <textarea class="textarea" name="message" placeholder="{{ trans('Enter message') }}" rows="6"></textarea>
               </div>
             </div>
           </div>
