@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-{% from "macros.html" import build_card_header %}
+{% from "macros.html" import build_card_header, build_defautl_field, build_href_field %}
 {% extends "base.html" %}
 
 {% block content %}
@@ -15,32 +15,15 @@
             <p> {{ data.data.name }} </p>
           </div>
           <hr>
-          <div class="field">
-            <label class="label">{{ trans("App id") }}</label>
-            <div class="control is-clearfix">
-              <a href="{{ data.data.get_url() }}">
-                <p>{{ data.data.appidstring }}</p>
-              </a>
-            </div>
-          </div>
-          <div class="field">
-            <label class="label">{{ trans("Nr of trades") }}</label>
-            <div class="control is-clearfix">
-            <p>{{ data.data.all_trades()|count }}</p>
-            </div>
-          </div>
-          <div class="field">
-            <label class="label">{{ trans("Payed") }}</label>
-            <div class="control is-clearfix">
-            <p>{{ trans("Yes") if data.data.paid else trans("No") }}</p>
-            </div>
-          </div>
-          <div class="field">
-            <label class="label">{{ trans("Nr of users") }}</label>
-            <div class="control is-clearfix">
-              <p>{{ data.data.all_users()|count }}</p>
-            </div>
-          </div>
+
+          {{ build_href_field("App id",  data.data.appidstring, data.data.get_url()) }}
+
+          {{ build_defautl_field("Nr of trades", data.data.all_trades()|count) }}
+
+          {{ build_defautl_field("Payed", trans("Yes") if data.data.paid else trans("No")) }}
+
+          {{ build_defautl_field("Nr of users", data.data.all_users()|count) }}
+
         </div>
       </div>
     </div>

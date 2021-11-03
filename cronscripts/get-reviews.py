@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/python3
 
 #the two lines bellow, hate it !
 import sys
@@ -49,12 +49,11 @@ def feedreviews(app, langs, numofrespercall):
                 count=count,
                 continuation_token=continuation_token
             )
-            time.sleep(10)
+            # time.sleep(10)
 
             resultcount = len(result)
 
             for x in result:
-                print(x)
                 if 'content' in x and 'at' in x and 'score' in x and 'userName' in x:
                     try:
                         aitem = dbsession.query(Review).filter(Review.google_id==x['reviewId']).first()
@@ -67,6 +66,7 @@ def feedreviews(app, langs, numofrespercall):
                             aitem.app = app
                             aitem.google_id = x['reviewId']
                             aitem.username = x['userName']
+                            aitem.userimageurl = x['userImage']
                         dbsession.add(aitem)
 
                     except Exception as e:
@@ -76,6 +76,8 @@ def feedreviews(app, langs, numofrespercall):
                 app.continuation_token = serialise_token(continuation_token)
                 dbsession.add(app)
             dbsession.commit()
+
+            time.sleep(10)
 
 
 logging.info('Start of get reviews' + datetime.datetime.now().strftime("%m/%d/%Y, %H:%M:%S"))

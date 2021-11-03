@@ -272,6 +272,7 @@ class Review(DictSerializableMixin):
     reviewrating = Column(Integer)
     reviewappversion = Column(String(16), nullable=True)
     username = Column(String(64), nullable=True)
+    userimageurl = Column(String(256))
 
     minreviewlength = 50
 

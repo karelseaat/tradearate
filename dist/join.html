@@ -1,24 +1,23 @@
 <!DOCTYPE html>
-{% from "macros.html" import build_form_submit, build_card_header %}
+{% from "macros.html" import build_form_submit, build_card_header, build_app_add_join %}
 
 {% extends "base.html" %}
 {% block content %}
-
 
 <section class="section is-main-section">
   <div class="card">
     {{ build_card_header('Forms', 'mdi-ballot') }}
     <div class="card-content">
       <form method="post" action="/processjoin" id="demo-form">
+        <input type="hidden" name="tradeid" value="{{ tradeid }}">
         <hr>
-        <div class="field is-horizontal">
+        <!-- <div class="field is-horizontal">
           <div class="field-label is-normal">
             <label class="label">{{ trans("The app id you want reviewed") }}</label>
           </div>
           <div class="field-body">
             <div class="field">
               <div class="control">
-                <input type="hidden" name="tradeid" value="{{ tradeid }}">
                 {% if current_user.get_score() < 0 %}
                   <input class="input" type="text" name="appid" placeholder="{{ trans('Enter your app id') }}" disabled>
                 {% else %}
@@ -27,14 +26,10 @@
               </div>
             </div>
           </div>
-        </div>
+        </div> -->
+        {{ build_app_add_join(current_user) }}
         <hr>
-        <div class="field is-horizontal">
-          <div class="field-label">
-            <!-- Left empty for spacing -->
-          </div>
-          {{ build_form_submit(data.recapchasitekey) }}
-        </div>
+        {{ build_form_submit(data.recapchasitekey) }}
       </form>
     </div>
   </div>

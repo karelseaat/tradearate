@@ -120,7 +120,7 @@ def before_request_func():
         'myreviews': ('All reviews', 'overviewreviews'),
         'profile': ('My profile', 'userprofile'),
         'about': ('About', '/'),
-        'contact': ('Contact', '/contact')
+        'contact': ('Contact', 'contact')
     }
 
     app.data = {

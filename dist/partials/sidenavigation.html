@@ -1,3 +1,5 @@
+{% from "macros.html" import build_menu_li %}
+
 <aside class="aside is-placed-left is-expanded">
   <div class="aside-tools">
     <div class="aside-tools-label">
@@ -8,52 +10,24 @@
   <div class="menu is-menu-main">
     <p class="menu-label">{{ trans("Main page") }}</p>
     <ul class="menu-list">
-      <li>
-
-        <a href="{{ data.navigation.dashboard[1] }}" class="{{'is-active' if data.currentnavigation == data.navigation.dashboard[1]}}  has-icon">
-          <span class="icon"><i class="mdi mdi-laptop mdi-24px"></i></span>
-          <span class="menu-item-label">{{ trans(data.navigation.dashboard[0]) }}</span>
-        </a>
-      </li>
+      {{ build_menu_li(data.navigation.dashboard[0] ,data.navigation.dashboard[1], "mdi-laptop", data.currentnavigation == data.navigation.dashboard[1]) }}
     </ul>
     <p class="menu-label">{{ trans("All") }}</p>
     <ul class="menu-list">
-      <li>
-        <a href="{{ data.navigation.alltrades[1] }}" class="{{'is-active' if data.currentnavigation == data.navigation.alltrades[1]}}  has-icon">
-          <span class="icon"><i class="mdi mdi-twitter-retweet mdi-24px"></i></span>
-          <span class="menu-item-label">{{ trans(data.navigation.alltrades[0]) }}</span>
-        </a>
-      </li>
-      <li>
-        <a href="{{ data.navigation.allapps[1] }}" class="{{'is-active' if data.currentnavigation == data.navigation.allapps[1]}}  has-icon">
-          <span class="icon has-update-mark"><i class="mdi mdi-android mdi-24px"></i></span>
-          <span class="menu-item-label">{{ trans(data.navigation.allapps[0]) }}</span>
-        </a>
-      </li>
-      <li>
-        <a href="{{ data.navigation.allreviews[1] }}" class="{{'is-active' if data.currentnavigation == data.navigation.allreviews[1]}}  has-icon">
-          <span class="icon"><i class="mdi mdi-star-half mdi-24px"></i></span>
-          <span class="menu-item-label">{{ trans(data.navigation.allreviews[0]) }}</span>
-        </a>
-      </li>
+
+      {{ build_menu_li(data.navigation.alltrades[0] ,data.navigation.alltrades[1], "mdi-twitter-retweet", data.currentnavigation == data.navigation.alltrades[1]) }}
+
+      {{ build_menu_li(data.navigation.allapps[0] ,data.navigation.allapps[1], "mdi-android", data.currentnavigation == data.navigation.allapps[1]) }}
+
+      {{ build_menu_li(data.navigation.allreviews[0] ,data.navigation.allreviews[1], "mdi-star-half", data.currentnavigation == data.navigation.allreviews[1]) }}
     </ul>
     <p class="menu-label">{{ trans("My") }}</p>
     <ul class="menu-list">
-      <li>
-        <a href="{{ data.navigation.mytrades[1] }}" class="{{'is-active' if data.currentnavigation == data.navigation.mytrades[1]}}  has-icon">
-          <span class="icon "><i class="mdi mdi-twitter-retweet mdi-24px"></i></span>
-          <span class="menu-item-label">{{ trans(data.navigation.mytrades[0]) }}</span>
-        </a>
-      </li>
+      {{ build_menu_li(data.navigation.mytrades[0] ,data.navigation.mytrades[1], "mdi-twitter-retweet", data.currentnavigation == data.navigation.mytrades[1]) }}
     </ul>
     <p class="menu-label">{{ trans("Contact") }}</p>
     <ul class="menu-list">
-      <li>
-        <a href="{{ data.navigation.contact[1] }}" class="{{'is-active' if data.currentnavigation == data.navigation.contact[1]}}  has-icon">
-          <span class="icon "><i class="mdi mdi-twitter-retweet mdi-24px"></i></span>
-          <span class="menu-item-label">{{ trans(data.navigation.contact[0]) }}</span>
-        </a>
-      </li>
+        {{ build_menu_li(data.navigation.contact[0] ,data.navigation.contact[1], "mdi-twitter-retweet", data.currentnavigation == data.navigation.contact[1]) }}
     </ul>
   </div>
 </aside>

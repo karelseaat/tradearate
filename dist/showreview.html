@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-{% from "macros.html" import build_card_header, build_rating %}
+{% from "macros.html" import build_card_header, build_rating, build_defautl_field %}
 
 {% extends "base.html" %}
 {% block content %}
@@ -13,27 +13,10 @@
           <div class="is-user-avatar image has-max-width is-aligned-center">
             <img src="" alt="">
           </div>
-          <div class="field">
-            <label class="label">{{ trans("App name") }}:</label>
-            <div class="control is-clearfix">
-              {% if data.data.app %}
-              <p>{{ data.data.app.name }}</p>
-              {% endif %}
-            </div>
-          </div>
+          {{ build_defautl_field("App name", data.data.app.name) }}
           <hr>
-          <div class="field">
-            <label class="label">{{ trans("Review time") }}:</label>
-            <div class="control is-clearfix">
-              <p>{{ data.data.reviewtime }}</p>
-            </div>
-          </div>
-          <div class="field">
-            <label class="label">{{ trans("Review text") }}:</label>
-            <div class="control is-clearfix">
-              <p>{{ data.data.reviewtext }}</p>
-            </div>
-          </div>
+          {{ build_defautl_field("Review time", data.data.reviewtime) }}
+          {{ build_defautl_field("Review text", data.data.reviewtext) }}
           <div class="field">
             <label class="label">{{ trans("Review Score") }}:</label>
             <div class="control is-clearfix">

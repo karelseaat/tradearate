@@ -64,6 +64,55 @@
 {% endif %}
 {% endmacro %}
 
+{% macro build_review_table(data) %}
+<table class="table is-fullwidth is-striped is-hoverable is-fullwidth">
+  <thead>
+    <tr>
+      <th></th>
+      <th>{{ trans("User name") }}</th>
+      <th></th>
+      <th>{{ trans("App name") }}</th>
+      <th>{{ trans("Review rating") }}</th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for my_item in data.data %}
+    <tr>
+      <td class="is-image-cell">
+        <div class="image">
+          {% if my_item.app %}
+          <img src="{{ my_item.userimageurl }}" class="is-rounded">
+          {% endif %}
+        </div>
+      </td>
+      <td data-label="Name">{{ my_item.username }}</td>
+      <td class="is-image-cell">
+        <div class="image">
+          {% if my_item.app %}
+          <img src="{{ my_item.app.imageurl }}" class="is-rounded">
+          {% endif %}
+        </div>
+      </td>
+      {% if my_item.app %}
+      <td data-label="IdString">{{ my_item.app.name }}</td>
+      {% endif %}
+
+      <td title="{{ score }}">
+        {{ build_rating(my_item.reviewrating) }}
+      </td>
+      <td class="is-actions-cell">
+        <div class="buttons is-right">
+          <button class="button is-small is-primary" type="button" onclick="window.location.href='/showreview?reviewid={{ my_item.id }}';">
+            <span class="icon"><i class="mdi mdi-eye"></i></span>
+          </button>
+      </td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+{% endmacro %}
+
 {% macro build_table(data) %}
 <table class="table is-fullwidth is-striped is-hoverable is-fullwidth">
   <thead>
@@ -123,8 +172,6 @@
   <span  class="mdi mdi mdi-star-outline"></span>
   {% endfor %}
   </span>
-
-
 {% endmacro %}
 
 {% macro build_app_table(data) %}
@@ -165,59 +212,40 @@
 
 {% macro build_user_profile_basic(data) %}
 <div class="card tile is-child">
-  <header class="card-header">
-    <p class="card-header-title">
-      <span class="icon"><i class="mdi mdi-account default"></i></span>
-      {{ trans("Profile") }}
-    </p>
-  </header>
+
+  {{ build_card_header("Profile", "mdi-account") }}
   <div class="card-content">
     <div class="is-user-avatar image has-max-width is-aligned-center">
       <img src="{{ data.data.picture }}" alt="{{ data.data.fullname }}">
     </div>
-    <div class="field">
-      <label class="label">{{ trans("Name:") }}</label>
-      <p> {{ data.data.fullname }} </p>
-    </div>
-    <div class="field">
-      <label class="label">{{ trans("E-mail:") }}</label>
-      <p>{{ data.data.email }}</p>
-    </div>
-    <div class="field">
-      <label class="label">{{ trans("Locale:") }}</label>
-      <p>{{ data.data.locale }}</p>
-    </div>
+    {{ build_defautl_field("Name", data.data.fullname) }}
+    {{ build_defautl_field("E-mail", data.data.email) }}
+    {{ build_defautl_field("Locale", data.data.locale) }}
     <hr>
-    <div class="field">
-      <label class="label">{{ trans("Started trades:") }}</label>
-      <p>{{ data.data.initiatortrades|length }}</p>
-      <hr>
-      <label class="label">{{ trans("Joined trades:") }}</label>
-      <p>{{ data.data.joinertrades|length }}</p>
-      <hr>
-      <label class="label">{{ trans("Failed trades:") }}</label>
-      <p> {{ data.data.all_trade_fails()|length }}</p>
-      <hr>
-      <label class="label"> {{ trans("Successfull trades:") }}</label>
-      <p> {{ data.data.all_trade_successes()|length }} </p>
-      <hr>
-      <label class="label"> {{ trans("Trade score:") }}</label>
-      {% if data.data.get_score() > 0 %}
-      <p class="label has-text-primary"> {{ data.data.get_score()}} </p>
-      {% elif data.data.get_score() == 0 %}
-      <p class="label has-text-info"> {{ data.data.get_score()}} </p>
-      {% else %}
-      <p class="label has-text-danger"> {{ data.data.get_score()}} </p>
-      {% endif %}
-      <hr>
-      <label class="label">{{ trans("Pending trades:") }}</label>
-      <p> {{ data.data.all_pending()|length }} </p>
-    </div>
+    {{ build_defautl_field("Started trades", data.data.initiatortrades|length) }}
+    <hr>
+    {{ build_defautl_field("Joined trades", data.data.joinertrades|length) }}
+    <hr>
+    {{ build_defautl_field("Failed trades", data.data.all_trade_fails()|length) }}
+    <hr>
+    {{ build_defautl_field("Successfull trades", data.data.all_trade_successes()|length) }}
+    <hr>
+    <label class="label"> {{ trans("Trade score:") }}</label>
+    {% if data.data.get_score() > 0 %}
+    <p class="label has-text-primary"> {{ data.data.get_score()}} </p>
+    {% elif data.data.get_score() == 0 %}
+    <p class="label has-text-info"> {{ data.data.get_score()}} </p>
+    {% else %}
+    <p class="label has-text-danger"> {{ data.data.get_score()}} </p>
+    {% endif %}
+    <hr>
+    {{ build_defautl_field("Pending trades", data.data.all_pending()|length) }}
+    <hr>
   </div>
 </div>
 {% endmacro %}
 
-{% macro build_form_submit(recapcha) %}
+<!-- {% macro build_form_submit(recapcha) %}
 <div class="field-body">
   <div class="field">
     <div class="field is-grouped">
@@ -234,6 +262,30 @@
     </div>
   </div>
 </div>
+{% endmacro %} -->
+
+{% macro build_form_submit(recapcha) %}
+<div class="field is-horizontal">
+  <div class="field-label">
+    <!-- Left empty for spacing -->
+  </div>
+  <div class="field-body">
+    <div class="field">
+      <div class="field is-grouped">
+        <div class="control">
+          <button class="g-recaptcha button is-primary" data-sitekey="{{ recapcha }}" data-callback='onSubmit' data-action='submit'>
+              {{ trans("Submit") }}
+          </button>
+        </div>
+        <div class="control">
+          <button type="button" class="button is-primary is-outlined" onclick="resetform()">
+            <span>{{ trans("Reset") }}</span>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
 {% endmacro %}
 
 {% macro build_card_header(title, icon) %}
@@ -243,4 +295,90 @@
     {{ title }}
   </p>
 </header>
+{% endmacro %}
+
+{% macro build_graph(data) %}
+<div class="card">
+  {{ build_card_header('  Usage stats', 'mdi-finance') }}
+  <div class="card-content">
+    <div class="chart-area">
+      <div style="height: 100%;">
+        <div class="chartjs-size-monitor">
+          <div class="chartjs-size-monitor-expand">
+            <div></div>
+          </div>
+          <div class="chartjs-size-monitor-shrink">
+            <div></div>
+          </div>
+        </div>
+        <canvas id="big-line-chart" width="2992" height="1000" class="chartjs-render-monitor" style="display: block; height: 400px; width: 1197px;"></canvas>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="is-hidden" id="apps-num-data">{{ data.apps }}</div>
+<div class="is-hidden" id="trades-num-data">{{ data.trades }}</div>
+<div class="is-hidden" id="reviews-num-data">{{ data.reviews }}</div>
+<div class="is-hidden" id="labels-num-data">{{ data.labels }}</div>
+{% endmacro %}
+
+{% macro build_app_add_join(current_user) %}
+<div class="field is-horizontal">
+  <div class="field-label is-normal">
+    <label class="label">{{ trans("The app id you want reviewed") }}</label>
+  </div>
+  <div class="field-body">
+    <div class="field">
+      <div class="control">
+        {% if current_user.get_score() < 0 %}
+          <input class="input" type="text" name="appid" placeholder="{{ trans('Enter your app id') }}" disabled>
+        {% else %}
+          <input class="input" type="text" name="appid" placeholder="{{ trans('Enter your app id') }}">
+        {% endif %}
+      </div>
+    </div>
+  </div>
+</div>
+{% endmacro %}
+
+{% macro build_href_field(label, content, href) %}
+<div class="field">
+  <label class="label">{{ trans(label) }}</label>
+  <div class="control is-clearfix">
+    <a href="{{ href }}">
+      <p>{{ content }}</p>
+    </a>
+  </div>
+</div>
+{% endmacro %}
+
+{% macro build_defautl_field(label, content) %}
+<div class="field">
+  <label class="label">{{ trans(label) }}</label>
+  <div class="control is-clearfix">
+  <p>{{ content }}</p>
+  </div>
+</div>
+{% endmacro %}
+
+{% macro build_review_score(label, score) %}
+<label class="label">{{ trans(label) }}</label>
+<div class="control is-clearfix">
+  {% if score > 0 %}
+  <p class="label has-text-primary"> {{ score }} </p>
+  {% elif score == 0 %}
+  <p class="label has-text-info"> {{ score }} </p>
+  {% else %}
+  <p class="label has-text-danger"> {{ score }} </p>
+  {% endif %}
+</div>
+{% endmacro %}
+
+{% macro build_menu_li(name, href, icon, active) %}
+<li>
+  <a href="{{ href }}" class="{{'is-active' if active}}  has-icon">
+    <span class="icon"><i class="mdi {{ icon }} mdi-24px"></i></span>
+    <span class="menu-item-label">{{ trans(name) }}</span>
+  </a>
+</li>
 {% endmacro %}

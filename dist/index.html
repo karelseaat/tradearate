@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-{% from "macros.html" import build_badge, build_card_header %}
+{% from "macros.html" import build_badge, build_card_header, build_graph %}
 
 {% extends "base.html" %}
 {% block content %}
@@ -12,28 +12,9 @@
     {{ build_badge(data.reviews, "Nr of reviews", "has-text-danger", "mdi-star-half") }}
 
   </div>
-  <div class="card">
-    {{ build_card_header('  Usage stats', 'mdi-finance') }}
-    <div class="card-content">
-      <div class="chart-area">
-        <div style="height: 100%;">
-          <div class="chartjs-size-monitor">
-            <div class="chartjs-size-monitor-expand">
-              <div></div>
-            </div>
-            <div class="chartjs-size-monitor-shrink">
-              <div></div>
-            </div>
-          </div>
-          <canvas id="big-line-chart" width="2992" height="1000" class="chartjs-render-monitor" style="display: block; height: 400px; width: 1197px;"></canvas>
-        </div>
-      </div>
-    </div>
-  </div>
-  <div class="is-hidden" id="apps-num-data">{{ data.apps }}</div>
-  <div class="is-hidden" id="trades-num-data">{{ data.trades }}</div>
-  <div class="is-hidden" id="reviews-num-data">{{ data.reviews }}</div>
-  <div class="is-hidden" id="labels-num-data">{{ data.labels }}</div>
+
+  {{ build_graph(data) }}
+
 </section>
 
 {% endblock %}

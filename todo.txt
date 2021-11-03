@@ -216,30 +216,38 @@ https://www.digitalocean.com/community/tutorials/how-to-install-and-configure-po
 # nog ff onderzoeken wat er nog meer tot macro kan worden gemaakt! (done)
 
 # wat er nog vermacrot kan worden:
-bij join.html de <div class="field-body"> gezien die ook voor komt bij init van app
-bij index.html de <div class="card-content"> zeker als we meerdere grafieken gan maken (wellicht zelfs de selee <section>?)
-bij add, join en contact zijn er forms die daar voor de velden een structuurtje gebruiken dat in een macro kan
-bij overview reviews zit er een tabel nog niet in een macro
-bij bijvoorbeeld oneapp (nog meer ?) zie je dat de structuur voor die lijst overal word herhaald: div > label + div > p, div > label + div > p, div > label + div > p
-bij showtrade moeten er makkelijk meerdere te vinden zijn !
-bij sidenavigation.html zitten er ook meerdere in moet te vinden zijn !
+bij join.html de <div class="field-body"> gezien die ook voor komt bij init van app (done)
+bij index.html de <div class="card-content"> zeker als we meerdere grafieken gan maken (wellicht zelfs de selee <section>?) (done)
+bij add, join en contact zijn er forms die daar voor de velden een structuurtje gebruiken dat in een macro kan (done)
+bij overview reviews zit er een tabel nog niet in een macro (done)
+bij bijvoorbeeld oneapp (nog meer ?) zie je dat de structuur voor die lijst overal word herhaald: div > label + div > p, div > label + div > p, div > label + div > p (done)
+bij showtrade moeten er makkelijk meerdere te vinden zijn ! (done)
+bij sidenavigation.html zitten er ook meerdere in moet te vinden zijn ! (done)
 
-# Hele oude gijtenneuker !
-# word card-apps.html, card-reviews.html, card-trades.html nog wel gebruikt ! zo nee verwijder !
-# Ook profile.html mag van een form met niet te gebruiken velden naar normale html worden omgezet !
-# word showtrade.html nog gebruikt zo nee weg zo jah dan mag dat van een form naar een normaal stuk html worden gemaakt !
-# Bij de reviews staat er een icoontje van de app maar er moet op zn minst ook een icoontje staan van de reviewer
+# Hele oude gijtenneuker!
+# word card-apps.html, card-reviews.html, card-trades.html nog wel gebruikt ! zo nee verwijder! (done)
+# Ook profile.html mag van een form met niet te gebruiken velden naar normale html worden omgezet! (done)
+# word showtrade.html nog gebruikt zo nee weg zo jah dan mag dat van een form naar een normaal stuk html worden gemaakt! (done)
+# Bij de reviews staat er een icoontje van de app maar er moet op zn minst ook een icoontje staan van de reviewer (done)
 # Een custom ontworpen faficon maken ! (done)
 
+# The ultra dirty fuge phucker!
+# ik zie redelijk wat ':' in de vertaling staan, ff alle vertalingen hier op nakijken (todo)
+# alle ':' buiten de vertaling terugplaatsen, bij label velden dan natuurlijk! (todo)
+# de trade succeed email werkt nu goed met ssl, geld dit ook voor de trade fail ?, nope! (todo)
+# de trade succeed email ziet er niet echt top uit ff mooi maken, dit zal ook gelden voor de trade fail (todo)
+# ander icoontje in de side menu bar voor contact ! (todo)
 
-er moet bij de review nog een url komen naar de user die em gereviewed heeft pic (of kan dat niet ?)
-In de app detail staat er nr of users, wat is dat ?
-bij overzicht van apps staat er de app naam en de app id, wellicht enkel naam van maken als link en of die payed
-bij trade overzicht staat er ook de start app, moet je ook op kunnen klikken !
-Als trade gedaan is staat er nog altijd days left, dat moety ook niet
-# wel hebben bij de trades wel de mogelijkheid om op namen van users te klikken om de stats van die user te zien, maar dit hebben we niet bij alle reviews, of bij de app reviews
-# refactor stukken functionaliteid tot extra functies !
-# bijna alles klopt behalve het domein dat wort gebruikt op de live site, wat gaan we hiermee doen ?, erg lastig, environment variablen in flask zijn lastig (w8 for later)
+# Snel pak het slagkonijn !
+# In de app detail staat er nr of users, wat is dat ? (todo)
+# Bij overzicht van apps staat er de app naam en de app id, wellicht enkel naam van maken als link en of die payed is. (todo)
+# Bij trade overzicht staat er ook de start app, moet je ook op kunnen klikken! (todo)
+# Als trade gedaan is staat er nog altijd days left, dat moety ook niet (todo)
+# Wel hebben bij de trades wel de mogelijkheid om op namen van users te klikken om de stats van die user te zien, maar dit hebben we niet bij alle reviews, of bij de app reviews(todo)
+
+
+# Refactor stukken functionaliteid tot extra functies !
+# Bijna alles klopt behalve het domein dat wort gebruikt op de live site, wat gaan we hiermee doen ?, erg lastig, environment variablen in flask zijn lastig (w8 for later)
 # Nog eens kijken bij de imports naar het toevoegen van het path probleem, dat moet mooier kunnen ! via__init__.py maar dat moeten we ff goed onderzoeken !
 # We moeten er ook voor zorgen dat als er fouten op een form staan deze wellicht niet in de snackbar moeten komen te staan maar onder een form veld in rode letters !?
 # Wellicht het zo maken dat de tabellen nu wel gesorteerd kunnnen worden ?

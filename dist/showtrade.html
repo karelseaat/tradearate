@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-{% from "macros.html" import build_card_header %}
+{% from "macros.html" import build_card_header, build_defautl_field, build_review_score %}
 
 {% extends "base.html" %}
 {% block content %}
@@ -13,31 +13,13 @@
           <div class="is-user-avatar image has-max-width is-aligned-center">
             <img src="" alt="">
           </div>
-          <div class="field">
-            <label class="label">{{ trans("Days active") }}</label>
-            <div class="control is-clearfix">
-              <input type="text" readonly value="{{ data.data.age() }}" class="input is-static">
-            </div>
-          </div>
+          {{ build_defautl_field("Days active", data.data.age()) }}
 
-          <div class="field">
-            <label class="label">{{ trans("Days since acceptation") }}</label>
-            <div class="control is-clearfix">
-              <input type="text" readonly value="{{ data.data.accept_age() }}" class="input is-static">
-            </div>
-          </div>
-          <div class="field">
-            <label class="label">{{ trans("Status") }}</label>
-            <div class="control is-clearfix">
-              <input type="text" readonly value="{{ data.data.status() }}" class="input is-static">
-            </div>
-          </div>
-          <div class="field">
-            <label class="label">{{ trans("Days left until reviews should be done") }}</label>
-            <div class="control is-clearfix">
-              <input type="text" readonly value="{{ data.data.trade_days_left() }}" class="input is-static">
-            </div>
-          </div>
+          {{ build_defautl_field("Days since acceptation", data.data.accept_age()) }}
+
+          {{ build_defautl_field("Status", data.data.status()) }}
+
+          {{ build_defautl_field("Days left until reviews should be done", data.data.trade_days_left()) }}
       </div>
     </div>
   </div>
@@ -49,25 +31,15 @@
       <div class="card tile is-child">
         {{ build_card_header('Initiator status','mdi-android') }}
         <div class="card-content">
-
-            <label class="label">{{ trans("Initiator") }}</label>
+            <label class="label">{{ trans("Initiator") }} </label>
             <div class="control is-clearfix">
               <div class="is-user-avatar image has-max-width is-aligned-center">
                 <img src="{{ data.data.initiator.picture }}" alt="{{ data.data.initiator.fullname }}">
               </div>
               <input type="text" readonly value="{{ data.data.initiator.fullname }}" class="input is-static">
             </div>
-            <label class="label">{{ trans("Initiator review score") }}</label>
-            <div class="control is-clearfix">
-              {% if data.data.initiator.get_score() > 0 %}
-              <p class="label has-text-primary"> {{ data.data.initiator.get_score()}} </p>
-              {% elif data.data.initiator.get_score() == 0 %}
-              <p class="label has-text-info"> {{ data.data.initiator.get_score()}} </p>
-              {% else %}
-              <p class="label has-text-danger"> {{ data.data.initiator.get_score()}} </p>
-              {% endif %}
+            {{ build_review_score("Initiator review score", data.data.initiator.get_score()) }}
 
-            </div>
             <label class="label">{{ trans("Initiator App") }}</label>
             <div class="control is-clearfix">
               <div class="is-user-avatar image has-max-width is-aligned-center">
@@ -75,17 +47,11 @@
               </div>
               <span><a href="{{ data.data.initiatorapp.get_url() }}">{{ data.data.initiatorapp.name }}</a></span>
             </div>
-            <div class="field">
-              <label class="label">{{ trans("Initiator app is payed") }}</label>
-              <div class="control is-clearfix">
-              <p>{{ trans("Yes") if data.data.initiatorapp.paid else trans("No") }}</p>
-              </div>
-            </div>
+            {{ build_defautl_field("Initiator app is payed", trans("Yes") if data.data.initiatorapp.paid else trans("No")) }}
             {% if data.data.joiner %}
 
             {% endif %}
           </div>
-
         </div>
       </div>
     </div>
@@ -107,19 +73,7 @@
               </div>
               <span>{{ data.data.joiner.fullname }} </span>
             </div>
-            <label class="label">{{ trans("Joiner review score") }}</label>
-            <div class="control is-clearfix">
-              {% if data.data.joiner.get_score() > 0 %}
-              <p class="label has-text-primary"> {{ data.data.joiner.get_score()}} </p>
-              {% elif data.data.joiner.get_score() == 0 %}
-              <p class="label has-text-info"> {{ data.data.joiner.get_score()}} </p>
-              {% else %}
-              <p class="label has-text-danger"> {{ data.data.joiner.get_score()}} </p>
-              {% endif %}
-
-            </div>
-
-
+            {{ build_review_score("Joiner review score", data.data.joiner.get_score()) }}
             <label class="label">{{ trans("Joiner App") }}</label>
             <div class="control is-clearfix">
               <div class="is-user-avatar image has-max-width is-aligned-center">
@@ -127,12 +81,7 @@
               </div>
               <span><a href="{{ data.data.joinerapp.get_url() }}">{{ data.data.joinerapp.name }}</a></span>
             </div>
-            <div class="field">
-              <label class="label">{{ trans("Joiner app is payed") }}</label>
-              <div class="control is-clearfix">
-              <p>{{ trans("Yes") if data.data.joinerapp.paid else trans("No") }}<p>
-              </div>
-            </div>
+            {{ build_defautl_field("Joiner app is payed", trans("Yes") if data.data.joinerapp.paid else trans("No")) }}
           </div>
         </div>
       </div>
@@ -159,28 +108,28 @@
             <span>{{ trans("Join") }}</span>
             <span class="icon"><i class="mdi mdi-location-enter"></i></span>
           </button>
-          {% endif%}
+          {% endif %}
 
           {% if data.canleave %}
           <button class="button is-medium is-danger" type="button" onclick="window.location.href='/leave?tradeid={{ data.data.id }}'">
             <span>{{ trans("Leave") }}</span>
             <span class="icon"><i class="mdi mdi-location-exit"></i></span>
           </button>
-          {% endif%}
+          {% endif %}
 
           {% if data.canaccept %}
           <button class="button is-medium is-primary" type="button" onclick="window.location.href='/accept?tradeid={{ data.data.id }}'">
             <span>{{ trans("Accept") }}</span>
             <span class="icon"><i class="mdi mdi-checkbox-marked-circle-outline"></i></span>
           </button>
-          {% endif%}
+          {% endif %}
 
           {% if data.canreject %}
           <button class="button is-medium is-primary" type="button" onclick="window.location.href='/reject?tradeid={{ data.data.id }}'">
             <span>{{ trans("Reject") }}</span>
             <span class="icon"><i class="mdi mdi-checkbox-blank-circle-outline"></i></span>
           </button>
-          {% endif%}
+          {% endif %}
         </div>
       </div>
     </div>
