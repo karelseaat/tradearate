@@ -30,7 +30,7 @@ trades = dbsession.query(Trade).filter(Trade.accepted + datetime.timedelta(days=
 for trade in trades:
     trade.failure = datetime.datetime.now()
 
-    sender = "no-reply@{}".format(domain)
+    sender = "sixdots.soft@gmail.com"
 
     message_initiator = f"""\
         Subject: Trade a Rate, status change !
@@ -48,13 +48,13 @@ for trade in trades:
         The trade has failed !
     """
 
-    with smtplib.SMTP(Config.MAIL_SERVER, Config.MAIL_PORT) as server:
+    with smtplib.SMTP_SSL(Config.MAIL_SERVER, Config.MAIL_PORT) as server:
         server.login(Config.MAIL_USERNAME, Config.MAIL_PASSWORD)
-        server.sendmail("no-reply@{}".format(domain), trade.initiator.email, message_initiator)
+        server.sendmail("sixdots.soft@gmail.com", trade.initiator.email, message_initiator)
 
-    with smtplib.SMTP(Config.MAIL_SERVER, Config.MAIL_PORT) as server:
+    with smtplib.SMTP_SSL(Config.MAIL_SERVER, Config.MAIL_PORT) as server:
         server.login(Config.MAIL_USERNAME, Config.MAIL_PASSWORD)
-        server.sendmail("no-reply@{}".format(domain), trade.joiner.email, message_joiner)
+        server.sendmail("sixdots.soft@gmail.com", trade.joiner.email, message_joiner)
 
 dbsession.commit()
 dbsession.close()

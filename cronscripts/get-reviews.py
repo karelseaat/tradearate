@@ -49,9 +49,9 @@ def feedreviews(app, langs, numofrespercall):
                 count=count,
                 continuation_token=continuation_token
             )
-            # time.sleep(10)
 
             resultcount = len(result)
+
 
             for x in result:
                 if 'content' in x and 'at' in x and 'score' in x and 'userName' in x:

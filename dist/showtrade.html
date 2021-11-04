@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-{% from "macros.html" import build_card_header, build_defautl_field, build_review_score %}
+{% from "macros.html" import build_card_header, build_defautl_field, build_review_score, build_icon_field %}
 
 {% extends "base.html" %}
 {% block content %}
@@ -31,22 +31,10 @@
       <div class="card tile is-child">
         {{ build_card_header('Initiator status','mdi-android') }}
         <div class="card-content">
-            <label class="label">{{ trans("Initiator") }} </label>
-            <div class="control is-clearfix">
-              <div class="is-user-avatar image has-max-width is-aligned-center">
-                <img src="{{ data.data.initiator.picture }}" alt="{{ data.data.initiator.fullname }}">
-              </div>
-              <input type="text" readonly value="{{ data.data.initiator.fullname }}" class="input is-static">
-            </div>
+            {{ build_icon_field("Initiator", data.data.initiator.fullname, data.data.initiator.picture) }}
             {{ build_review_score("Initiator review score", data.data.initiator.get_score()) }}
 
-            <label class="label">{{ trans("Initiator App") }}</label>
-            <div class="control is-clearfix">
-              <div class="is-user-avatar image has-max-width is-aligned-center">
-                <img src="{{ data.data.initiatorapp.imageurl }}" alt="{{ data.data.initiatorapp.name }}">
-              </div>
-              <span><a href="{{ data.data.initiatorapp.get_url() }}">{{ data.data.initiatorapp.name }}</a></span>
-            </div>
+            {{ build_icon_field("Initiator App", data.data.initiatorapp.name, data.data.initiatorapp.imageurl, data.data.initiatorapp.get_url()) }}
             {{ build_defautl_field("Initiator app is payed", trans("Yes") if data.data.initiatorapp.paid else trans("No")) }}
             {% if data.data.joiner %}
 
@@ -66,21 +54,12 @@
         {{ build_card_header('Joiner status','mdi-android') }}
         <div class="card-content">
 
-            <label class="label">{{ trans("Joiner") }}</label>
-            <div class="control is-clearfix">
-              <div class="is-user-avatar image has-max-width is-aligned-center">
-                <img src="{{ data.data.joiner.picture }}" alt="{{ data.data.joiner.fullname }}">
-              </div>
-              <span>{{ data.data.joiner.fullname }} </span>
-            </div>
+            {{ build_icon_field("Joiner", data.data.joiner.fullname, data.data.joiner.picture) }}
+
             {{ build_review_score("Joiner review score", data.data.joiner.get_score()) }}
-            <label class="label">{{ trans("Joiner App") }}</label>
-            <div class="control is-clearfix">
-              <div class="is-user-avatar image has-max-width is-aligned-center">
-                <img src="{{ data.data.joinerapp.imageurl }}" alt="{{ data.data.joinerapp.name }}">
-              </div>
-              <span><a href="{{ data.data.joinerapp.get_url() }}">{{ data.data.joinerapp.name }}</a></span>
-            </div>
+
+            {{ build_icon_field("Joiner App", data.data.joinerapp.name, data.data.joinerapp.imageurl, data.data.joinerapp.get_url()) }}
+
             {{ build_defautl_field("Joiner app is payed", trans("Yes") if data.data.joinerapp.paid else trans("No")) }}
           </div>
         </div>

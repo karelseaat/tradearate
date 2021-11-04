@@ -232,20 +232,23 @@ bij sidenavigation.html zitten er ook meerdere in moet te vinden zijn ! (done)
 # Een custom ontworpen faficon maken ! (done)
 
 # The ultra dirty fuge phucker!
-# ik zie redelijk wat ':' in de vertaling staan, ff alle vertalingen hier op nakijken (todo)
-# alle ':' buiten de vertaling terugplaatsen, bij label velden dan natuurlijk! (todo)
-# de trade succeed email werkt nu goed met ssl, geld dit ook voor de trade fail ?, nope! (todo)
-# de trade succeed email ziet er niet echt top uit ff mooi maken, dit zal ook gelden voor de trade fail (todo)
-# ander icoontje in de side menu bar voor contact ! (todo)
+# ik zie redelijk wat ':' in de vertaling staan, ff alle vertalingen hier op nakijken (done)
+# alle ':' buiten de vertaling terugplaatsen, bij label velden dan natuurlijk! (done)
+# de trade succeed email werkt nu goed met ssl, geld dit ook voor de trade fail ?, nope! (done)
+# de trade succeed email ziet er niet echt top uit ff mooi maken, dit zal ook gelden voor de trade fail (done)
+# ander icoontje in de side menu bar voor contact ! (done)
 
 # Snel pak het slagkonijn !
 # In de app detail staat er nr of users, wat is dat ? (todo)
 # Bij overzicht van apps staat er de app naam en de app id, wellicht enkel naam van maken als link en of die payed is. (todo)
 # Bij trade overzicht staat er ook de start app, moet je ook op kunnen klikken! (todo)
-# Als trade gedaan is staat er nog altijd days left, dat moety ook niet (todo)
-# Wel hebben bij de trades wel de mogelijkheid om op namen van users te klikken om de stats van die user te zien, maar dit hebben we niet bij alle reviews, of bij de app reviews(todo)
+# Als trade gedaan is staat er nog altijd days left, dat moet ook niet (todo)
+# Bij de trades wel de mogelijkheid om op namen van users te klikken om de stats van die user te zien, maar dit hebben we niet bij alle reviews, of bij de app reviews(todo)
 
 
+# de score van een gebruiker kan op groen rood en blauw staan, rood is slecht en groen is goed, echter blauw is ook de kleur van een link, we hebben een andere indicator nodig !
+# Op de app detail page staan er wel gebruikers maar geen links naar de gebruiker detail paginas
+# De intro page moet zo worden aangepast dat het super duidelijk is wat de app doet, met diagrammen enzo !
 # Refactor stukken functionaliteid tot extra functies !
 # Bijna alles klopt behalve het domein dat wort gebruikt op de live site, wat gaan we hiermee doen ?, erg lastig, environment variablen in flask zijn lastig (w8 for later)
 # Nog eens kijken bij de imports naar het toevoegen van het path probleem, dat moet mooier kunnen ! via__init__.py maar dat moeten we ff goed onderzoeken !

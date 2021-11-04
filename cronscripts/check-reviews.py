@@ -1,4 +1,4 @@
-#!/usr/bin/python3
+#!/usr/bin/env python
 
 #the two lines bellow, hate it !
 import sys
@@ -14,6 +14,7 @@ from models import User, Trade, App, Review
 import google_play_scraper
 import time
 import smtplib
+from email.mime.text import MIMEText
 import logging
 import datetime
 logging.basicConfig(filename='check-reviews.log', level=logging.INFO)
@@ -40,52 +41,48 @@ for trade in trades:
 
     if trade.initiatorapp:
         for value in trade.initiatorapp.reviews:
-            if len(value.reviewtext) > value.minreviewlength:
-                initiatorreviews.append(value.username)
+            # if len(value.reviewtext) > value.minreviewlength:
+            initiatorreviews.append(value.username)
 
     if trade.joinerapp:
         for value in trade.joinerapp.reviews:
-            if len(value.reviewtext) > value.minreviewlength:
-                joinerreviews.append(value.username)
+            # if len(value.reviewtext) > value.minreviewlength:
+            joinerreviews.append(value.username)
 
-    if initiator in initiatorreviews:
+
+    if joiner in initiatorreviews:
         print("initiator has done review")
         trade.initiator_reviewed = True
 
-    if joiner in joinerreviews:
+    if initiator in joinerreviews:
         print("joiner has done review")
         trade.joiner_reviewed = True
 
 
-    if joiner in joinerreviews and initiator in initiatorreviews and trade.joiner_reviewed and trade.initiator_reviewed:
+    if trade.joiner_reviewed and trade.initiator_reviewed:
 
         trade.success = datetime.datetime.now()
 
-        sender = "no-reply@{}".format(domain)
+        sender = "sixdots.soft@gmail.com"
 
-        message_initiator = f"""\
-            Subject: Trade a Rate, status change !
-            To: {trade.initiator.email}
-            From: {sender}
+        message_initiator = MIMEText("<p>A <a href='{}/show?tradeid={}'>trade</a> you started on Trade A Rate has suceeded</p>".format(domain, trade.id), 'html')
+        message_initiator['From'] = sender
+        message_initiator['To'] = trade.initiator.email
+        message_initiator['Subject'] = "Trade A Rate, success !"
 
-            The trade is succesfull !
-        """
+        message_joiner = MIMEText("<p>A <a href='{}/show?tradeid={}'>trade</a> you joined on Trade A Rate has suceeded</p>".format(domain, trade.id), 'html')
+        message_joiner["From"] = sender
+        message_joiner["To"] = trade.joiner.email
+        message_joiner['Subject'] = "Trade A Rate, success !"
 
-        message_joiner = f"""\
-            Subject: Trade a Rate, status change !
-            To: {trade.joiner.email}
-            From: {sender}
-
-            The trade is succesfull !
-        """
 
         with smtplib.SMTP_SSL(Config.MAIL_SERVER, Config.MAIL_PORT) as server:
             server.login(Config.MAIL_USERNAME, Config.MAIL_PASSWORD)
-            server.sendmail("no-reply@{}".format(domain), trade.initiator.email, message_initiator)
+            server.sendmail("sixdots.soft@gmail.com", trade.initiator.email, message_initiator.as_string())
 
         with smtplib.SMTP_SSL(Config.MAIL_SERVER, Config.MAIL_PORT) as server:
             server.login(Config.MAIL_USERNAME, Config.MAIL_PASSWORD)
-            server.sendmail("no-reply@{}".format(domain), trade.joiner.email, message_joiner)
+            server.sendmail("sixdots.soft@gmail.com", trade.joiner.email, message_joiner.as_string())
 
 
     dbsession.add(trade)

@@ -230,7 +230,7 @@
     <hr>
     {{ build_defautl_field("Successfull trades", data.data.all_trade_successes()|length) }}
     <hr>
-    <label class="label"> {{ trans("Trade score:") }}</label>
+    <label class="label"> {{ trans("Trade score") }}:</label>
     {% if data.data.get_score() > 0 %}
     <p class="label has-text-primary"> {{ data.data.get_score()}} </p>
     {% elif data.data.get_score() == 0 %}
@@ -352,9 +352,24 @@
 </div>
 {% endmacro %}
 
+{% macro build_icon_field(label, name, imageurl, link=None) %}
+<label class="label">{{ trans(label) }}</label>
+<div class="control is-clearfix">
+  <div class="is-user-avatar image has-max-width is-aligned-center">
+    <img src="{{ imageurl }}" alt="{{ name }}">
+
+  </div>
+  {% if link %}
+    <span class="centerit"><a href="{{ link }}">{{ name }}</a></span>
+  {% else %}
+    <span class="centerit">{{ name }}</span>
+  {% endif %}
+</div>
+{% endmacro %}
+
 {% macro build_defautl_field(label, content) %}
 <div class="field">
-  <label class="label">{{ trans(label) }}</label>
+  <label class="label">{{ trans(label) }}:</label>
   <div class="control is-clearfix">
   <p>{{ content }}</p>
   </div>
@@ -362,7 +377,7 @@
 {% endmacro %}
 
 {% macro build_review_score(label, score) %}
-<label class="label">{{ trans(label) }}</label>
+<label class="label">{{ trans(label) }}:</label>
 <div class="control is-clearfix">
   {% if score > 0 %}
   <p class="label has-text-primary"> {{ score }} </p>
