@@ -22,8 +22,6 @@
 
           {{ build_defautl_field("Payed", trans("Yes") if data.data.paid else trans("No")) }}
 
-          {{ build_defautl_field("Nr of users", data.data.all_users()|count) }}
-
         </div>
       </div>
     </div>

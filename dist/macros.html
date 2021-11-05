@@ -79,24 +79,32 @@
   <tbody>
     {% for my_item in data.data %}
     <tr>
+      {% if my_item.userimageurl %}
       <td class="is-image-cell">
         <div class="image">
-          {% if my_item.app %}
           <img src="{{ my_item.userimageurl }}" class="is-rounded">
-          {% endif %}
         </div>
       </td>
-      <td data-label="Name">{{ my_item.username }}</td>
+      {% else %}
       <td class="is-image-cell">
         <div class="image">
-          {% if my_item.app %}
-          <img src="{{ my_item.app.imageurl }}" class="is-rounded">
-          {% endif %}
+          <img src="{{ my_item.user.picture }}" class="is-rounded">
         </div>
       </td>
-      {% if my_item.app %}
-      <td data-label="IdString">{{ my_item.app.name }}</td>
       {% endif %}
+
+      {% if my_item.username %}
+      <td data-label="Name">{{ my_item.username }}</td>
+      {% else %}
+      <td data-label="Name">{{ my_item.user.fullname }}</td>
+      {% endif %}
+
+      <td class="is-image-cell">
+        <div class="image">
+          <img src="{{ my_item.app.imageurl }}" class="is-rounded">
+        </div>
+      </td>
+      <td data-label="IdString">{{ my_item.app.name }}</td>
 
       <td title="{{ score }}">
         {{ build_rating(my_item.reviewrating) }}
@@ -142,7 +150,8 @@
           <img src="{{ my_item.initiatorapp.imageurl }}" class="is-rounded">
         </div>
       </td>
-      <td data-label="Company">{{ my_item.initiatorapp.name }}</td>
+
+      <td data-label="Name"><a href="{{ my_item.initiatorapp.get_url() }}">{{ my_item.initiatorapp.name }}</a></td>
       <td data-label="City">{{ my_item.status() }}</td>
       <td data-label="Daysleft">{{ my_item.trade_days_left() }}</td>
       <td data-label="Daysleft">{{ my_item.initiated }}</td>
@@ -180,8 +189,8 @@
     <tr>
       <th></th>
       <th>{{ trans("Name") }}</th>
-      <th>{{ trans("App id") }}</th>
       <th>{{ trans("Found Reviews") }}</th>
+      <th>{{ trans("Payed") }}</th>
       <th></th>
     </tr>
   </thead>
@@ -193,11 +202,11 @@
           <img src="{{ my_item.imageurl }}" class="is-rounded">
         </div>
       </td>
-      <td data-label="Name">{{ my_item.name }}</td>
-      <td data-label="IdString"><a href="{{ my_item.get_url() }}">{{ my_item.appidstring }}</a></td>
+      <td data-label="Name"><a href="{{ my_item.get_url() }}">{{ my_item.name }}</a></td>
       <td data-label="Reviews">
         <p>{{my_item.reviews|count}}</p>
       </td>
+      <td> {{ trans("Yes") if my_item.paid else trans("No") }} </td>
       <td class="is-actions-cell">
         <div class="buttons is-right">
           <button class="button is-small is-primary" type="button" onclick="window.location.href='/showapp?appid={{ my_item.id }}';">
@@ -353,7 +362,7 @@
 {% endmacro %}
 
 {% macro build_icon_field(label, name, imageurl, link=None) %}
-<label class="label">{{ trans(label) }}</label>
+<label class="label">{{ trans(label) }}:</label>
 <div class="control is-clearfix">
   <div class="is-user-avatar image has-max-width is-aligned-center">
     <img src="{{ imageurl }}" alt="{{ name }}">

@@ -56,6 +56,7 @@ def feedreviews(app, langs, numofrespercall):
             for x in result:
                 if 'content' in x and 'at' in x and 'score' in x and 'userName' in x:
                     try:
+                        auser = dbsession.query(User).filter(User.fullname==x['userName']).first()
                         aitem = dbsession.query(Review).filter(Review.google_id==x['reviewId']).first()
                         if not aitem:
                             aitem = Review()
@@ -65,8 +66,11 @@ def feedreviews(app, langs, numofrespercall):
                             aitem.locale = lang
                             aitem.app = app
                             aitem.google_id = x['reviewId']
-                            aitem.username = x['userName']
-                            aitem.userimageurl = x['userImage']
+                            if auser:
+                                aitem.user = auser
+                            else:
+                                aitem.username = x['userName']
+                                aitem.userimageurl = x['userImage']
                         dbsession.add(aitem)
 
                     except Exception as e:

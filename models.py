@@ -34,6 +34,8 @@ class User(DictSerializableMixin):
     locale = Column(String(3))
     googleid = Column(String(256), nullable=False)
 
+    reviews = relationship('Review', back_populates="user")
+
     def __init__(self, googleid):
         self.googleid = googleid
 
@@ -83,9 +85,11 @@ class User(DictSerializableMixin):
         """will give you all your pending trades"""
         return [x for x in set(self.initiatortrades + self.joinertrades) if not x.success and not x.failure]
 
-
     def all_apps(self):
         return [x.initiatorapp for x in self.initiatortrades] + [x.joinerapp for x in self.joinertrades]
+
+    def get_url(self):
+        return "./usertrades?userid={}".format(self.id)
 
 class Trade(DictSerializableMixin):
     __tablename__ = 'trades'
@@ -162,6 +166,9 @@ class Trade(DictSerializableMixin):
 
     def trade_days_left(self):
         """ will return the nr of days left for a trade, counted from the moment a trade was accepted"""
+        if self.success or self.failure:
+            return 0
+
         if self.accepted:
 
             timeleft = (
@@ -273,6 +280,9 @@ class Review(DictSerializableMixin):
     reviewappversion = Column(String(16), nullable=True)
     username = Column(String(64), nullable=True)
     userimageurl = Column(String(256))
+
+    user_id = Column(ForeignKey('users.id'), index=True)
+    user = relationship('User', back_populates="reviews")
 
     minreviewlength = 50
 
