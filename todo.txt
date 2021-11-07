@@ -245,16 +245,18 @@ bij sidenavigation.html zitten er ook meerdere in moet te vinden zijn ! (done)
 # Als trade gedaan is staat er nog altijd days left, dat moet ook niet (done)
 # Bij de trades wel de mogelijkheid om op namen van users te klikken om de stats van die user te zien, maar dit hebben we niet bij alle reviews, of bij de app reviews (done)
 
-een ander probleem is dat de push to bottom nu niet meer werkt, wellicht toch ff js voor maken om de footer naar de bodem te sturen !
-# neem het clearen van de db op in de playbook en maak een extra playbook aan om te deployen met alembic zodra dat gemaakt is !
+# megaturbo lulhannes
 # de ignore dir mag genegeerd worden !
-# Er komt een moment voor dat we dit gaan uitgeven dat we de db moeten gaan managen met alembic: https://github.com/sqlalchemy/alembic
-# nu dat een review gekoppeld kan zijn aan een user, moet er ook een cronscript gemaakt worden die al bestaande reviews die nog niet aan een gebruiker zij gekoppeld dat wel doen, deze hoeft slechts een keer per dag te draaien als het niet minder is !
 # moet er bij de app details onderaan ook niet de reviews komen te staan van die app.
 # ff de data-label nakijken wat ze doen en of we ze nog nodig hebben !
 # de score van een gebruiker kan op groen rood en blauw staan, rood is slecht en groen is goed, echter blauw is ook de kleur van een link, we hebben een andere indicator nodig !
-# Op de app detail page staan er wel gebruikers maar geen links naar de gebruiker detail paginas (done)
 # De intro page moet zo worden aangepast dat het super duidelijk is wat de app doet, met diagrammen enzo !
+
+een ander probleem is dat de push to bottom nu niet meer werkt, wellicht toch ff js voor maken om de footer naar de bodem te sturen !
+# neem het clearen van de db op in de playbook en maak een extra playbook aan om te deployen met alembic zodra dat gemaakt is !
+# Er komt een moment voor dat we dit gaan uitgeven dat we de db moeten gaan managen met alembic: https://github.com/sqlalchemy/alembic
+# nu dat een review gekoppeld kan zijn aan een user, moet er ook een cronscript gemaakt worden die al bestaande reviews die nog niet aan een gebruiker zij gekoppeld dat wel doen, deze hoeft slechts een keer per dag te draaien als het niet minder is !
+# Op de app detail page staan er wel gebruikers maar geen links naar de gebruiker detail paginas (done)
 # Refactor stukken functionaliteid tot extra functies !
 # Bijna alles klopt behalve het domein dat wort gebruikt op de live site, wat gaan we hiermee doen ?, erg lastig, environment variablen in flask zijn lastig (w8 for later)
 # Nog eens kijken bij de imports naar het toevoegen van het path probleem, dat moet mooier kunnen ! via__init__.py maar dat moeten we ff goed onderzoeken !
