@@ -140,7 +140,9 @@ def before_request_func():
             'language': current_user.locale,
             'email': current_user.email,
             'picture': current_user.picture,
-            'cancreate': current_user.can_create_trade()
+            'cancreate': current_user.can_create_trade(),
+            'score': current_user.get_score(),
+            'pending':  current_user.all_pending()
         }
 
 @app.route('/userprofile')
