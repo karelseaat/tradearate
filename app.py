@@ -11,7 +11,7 @@ from flask_login import (
     current_user,
     LoginManager
 )
-
+import time
 from flask_mail import Mail, Message
 from cerberus import Validator
 from config import make_session, oauthconfig, REVIEWLIMIT, recaptchasecret, recapchasitekey, domain
@@ -660,7 +660,8 @@ def delete():
     flash("trade removed !",'has-text-primary')
     app.session.close()
     app.pyn.close()
-    return redirect('/overviewtrades')
+    time.sleep(1)
+    return redirect('/overviewtrades', 303)
 
 @app.route("/join")
 @login_required

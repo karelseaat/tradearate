@@ -245,7 +245,9 @@ bij sidenavigation.html zitten er ook meerdere in moet te vinden zijn ! (done)
 # Als trade gedaan is staat er nog altijd days left, dat moet ook niet (done)
 # Bij de trades wel de mogelijkheid om op namen van users te klikken om de stats van die user te zien, maar dit hebben we niet bij alle reviews, of bij de app reviews (done)
 
-
+een ander probleem is dat de push to bottom nu niet meer werkt, wellicht toch ff js voor maken om de footer naar de bodem te sturen !
+# neem het clearen van de db op in de playbook en maak een extra playbook aan om te deployen met alembic zodra dat gemaakt is !
+# de ignore dir mag genegeerd worden !
 # Er komt een moment voor dat we dit gaan uitgeven dat we de db moeten gaan managen met alembic: https://github.com/sqlalchemy/alembic
 # nu dat een review gekoppeld kan zijn aan een user, moet er ook een cronscript gemaakt worden die al bestaande reviews die nog niet aan een gebruiker zij gekoppeld dat wel doen, deze hoeft slechts een keer per dag te draaien als het niet minder is !
 # moet er bij de app details onderaan ook niet de reviews komen te staan van die app.
