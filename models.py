@@ -99,13 +99,15 @@ class Trade(DictSerializableMixin):
     initiator = relationship(
         'User',
         backref='initiatortrades',
-        foreign_keys='Trade.initiator_id'
+        foreign_keys='Trade.initiator_id',
+        lazy='select'
     )
 
     joiner = relationship(
         'User',
         backref='joinertrades',
-        foreign_keys='Trade.joiner_id'
+        foreign_keys='Trade.joiner_id',
+        lazy='select'
     )
 
     initiatorapp_id = Column(ForeignKey('apps.id'), index=True)
@@ -114,13 +116,15 @@ class Trade(DictSerializableMixin):
     initiatorapp = relationship(
         'App',
         backref='initiatortrades',
-        foreign_keys='Trade.initiatorapp_id'
+        foreign_keys='Trade.initiatorapp_id',
+        lazy='select'
     )
 
     joinerapp = relationship(
         'App',
         backref='joinertrades',
-        foreign_keys='Trade.joinerapp_id'
+        foreign_keys='Trade.joinerapp_id',
+        lazy='select'
     )
 
     initiatorlang = Column(String(4), default="unk")
