@@ -649,7 +649,6 @@ def delete():
     app.session.query(Trade).filter(Trade.id==tradeid).delete()
     app.session.commit()
     flash("trade removed !",'has-text-primary')
-    app.session.refresh()
     app.session.close()
     app.pyn.close()
     return redirect('/overviewtrades')
