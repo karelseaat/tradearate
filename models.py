@@ -65,9 +65,7 @@ class User(DictSerializableMixin):
 
     def all_trade_fails(self):
         """will give you all the trades that you failed"""
-        joiners = [x for x in self.joinertrades if x.failure and x.joiner_reviewed ]
-        initiators = [x for x in self.initiatortrades  if x.failure and x.initiator_reviewed ]
-        return set(joiners + initiators)
+        return [x for x in set(self.initiatortrades + self.joinertrades) if x.failure]
 
     def all_trade_successes(self):
         """will give you all the trades that you you sucseeded"""
