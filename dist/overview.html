@@ -14,6 +14,9 @@
         <div class="notification">
           {{ build_pagination("overviewtrades", data) }}
           {{ data }}
+          {{ data.user.cancreate }}
+          {{ data.user.get_score() }}
+          {{ data.user.all_pending() }}
           {{ build_add_button(data, 'add', 'overview') }}
         </div>
       </div>
