@@ -515,6 +515,8 @@ def overviewtrades():
     app.data['pagename'] = 'My trades'
     app.data['data'] = pagination(Trade, 5)
 
+    app.data['sometest'] = current_user.all_pending()
+
     result = render_template('overview.html', data=app.data)
     app.session.close()
     app.pyn.close()
