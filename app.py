@@ -650,7 +650,7 @@ def delete():
 
     app.session.commit()
     flash("trade removed !",'has-text-primary')
-    # app.session.close()
+    app.session.close()
     app.pyn.close()
     return redirect('/overviewtrades')
 
