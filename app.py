@@ -516,6 +516,11 @@ def overviewtrades():
     app.data['data'] = pagination(Trade, 5)
 
     app.data['sometest'] = current_user.all_pending()
+    someid = current_user.id
+
+    moreuser = app.session.query(User).filter(User.id==someid).first()
+
+    app.data['farck'] = moreuser.all_pending()
 
     result = render_template('overview.html', data=app.data)
     app.session.close()
