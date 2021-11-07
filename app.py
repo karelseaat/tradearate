@@ -646,7 +646,8 @@ def delete():
     if not tradeid or not tradeid.isnumeric():
         flash('Should be a number', 'has-text-danger')
         return redirect('/overviewtrades')
-    app.session.query(Trade).filter(Trade.id==tradeid).delete()
+    atrade = app.session.query(Trade).filter(Trade.id==tradeid).first()
+    app.session.delete(atrade)
     app.session.commit()
     flash("trade removed !",'has-text-primary')
     app.session.close()
