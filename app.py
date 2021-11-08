@@ -512,7 +512,7 @@ def overviewreviews():
 @login_required
 def overviewtrades():
     """a page that will show you a overview for all trades"""
-    app.data['pagename'] = 'My trades'
+    app.data['pagename'] = 'All trades'
     app.data['data'] = pagination(Trade, 5)
 
     app.data['sometest'] = current_user.all_pending()

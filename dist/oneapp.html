@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-{% from "macros.html" import build_card_header, build_defautl_field, build_href_field %}
+{% from "macros.html" import build_card_header, build_defautl_field, build_href_field, build_review_table %}
 {% extends "base.html" %}
 
 {% block content %}
@@ -22,6 +22,19 @@
 
           {{ build_defautl_field("Payed", trans("Yes") if data.data.paid else trans("No")) }}
 
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section is-main-section">
+  <div class="card has-table">
+    {{ build_card_header('Reviews','mdi-star-half') }}
+    <div class="card-content">
+      <div class="b-table has-pagination">
+        <div class="table-wrapper has-mobile-cards">
+          {{ build_review_table(data.data.reviews) }}
         </div>
       </div>
     </div>

@@ -77,7 +77,7 @@
     </tr>
   </thead>
   <tbody>
-    {% for my_item in data.data %}
+    {% for my_item in data %}
     <tr>
       {% if my_item.userimageurl %}
       <td class="is-image-cell">
@@ -94,9 +94,9 @@
       {% endif %}
 
       {% if my_item.username %}
-      <td data-label="Name">{{ my_item.username }}</td>
+      <td>{{ my_item.username }}</td>
       {% else %}
-      <td data-label="Name">{{ my_item.user.fullname }}</td>
+      <td>{{ my_item.user.fullname }}</td>
       {% endif %}
 
       <td class="is-image-cell">
@@ -104,7 +104,7 @@
           <img src="{{ my_item.app.imageurl }}" class="is-rounded">
         </div>
       </td>
-      <td data-label="IdString">{{ my_item.app.name }}</td>
+      <td>{{ my_item.app.name }}</td>
 
       <td title="{{ score }}">
         {{ build_rating(my_item.reviewrating) }}
@@ -144,18 +144,18 @@
           <img src="{{ my_item.initiator.picture }}" class="is-rounded">
         </div>
       </td>
-      <td data-label="Name"><a href="./usertrades?userid={{ my_item.initiator.id }}">{{ my_item.initiator.fullname }}</a></td>
+      <td><a href="./usertrades?userid={{ my_item.initiator.id }}">{{ my_item.initiator.fullname }}</a></td>
       <td class="is-image-cell">
         <div class="image">
           <img src="{{ my_item.initiatorapp.imageurl }}" class="is-rounded">
         </div>
       </td>
 
-      <td data-label="Name"><a href="{{ my_item.initiatorapp.get_url() }}">{{ my_item.initiatorapp.name }}</a></td>
-      <td data-label="City">{{ my_item.status() }}</td>
-      <td data-label="Daysleft">{{ my_item.trade_days_left() }}</td>
-      <td data-label="Daysleft">{{ my_item.initiated }}</td>
-      <td data-label="Daysleft">{{ my_item.accepted }}</td>
+      <td><a href="{{ my_item.initiatorapp.get_url() }}">{{ my_item.initiatorapp.name }}</a></td>
+      <td>{{ my_item.status() }}</td>
+      <td>{{ my_item.trade_days_left() }}</td>
+      <td>{{ my_item.initiated }}</td>
+      <td>{{ my_item.accepted }}</td>
       <td class="is-actions-cell">
         <div class="buttons is-right">
           <button class="button is-small is-primary" type="button" onclick="window.location.href='/show?tradeid={{ my_item.id }}';">
@@ -202,8 +202,8 @@
           <img src="{{ my_item.imageurl }}" class="is-rounded">
         </div>
       </td>
-      <td data-label="Name"><a href="{{ my_item.get_url() }}">{{ my_item.name }}</a></td>
-      <td data-label="Reviews">
+      <td><a href="{{ my_item.get_url() }}">{{ my_item.name }}</a></td>
+      <td>
         <p>{{my_item.reviews|count}}</p>
       </td>
       <td> {{ trans("Yes") if my_item.paid else trans("No") }} </td>
@@ -239,14 +239,10 @@
     <hr>
     {{ build_defautl_field("Successfull trades", data.data.all_trade_successes()|length) }}
     <hr>
-    <label class="label"> {{ trans("Trade score") }}:</label>
-    {% if data.data.get_score() > 0 %}
-    <p class="label has-text-primary"> {{ data.data.get_score()}} </p>
-    {% elif data.data.get_score() == 0 %}
-    <p class="label has-text-info"> {{ data.data.get_score()}} </p>
-    {% else %}
-    <p class="label has-text-danger"> {{ data.data.get_score()}} </p>
-    {% endif %}
+
+
+    {{ build_review_score("Trade score", data.data.get_score()) }}
+
     <hr>
     {{ build_defautl_field("Pending trades", data.data.all_pending()|length) }}
     <hr>
@@ -391,7 +387,7 @@
   {% if score > 0 %}
   <p class="label has-text-primary"> {{ score }} </p>
   {% elif score == 0 %}
-  <p class="label has-text-info"> {{ score }} </p>
+  <p class="label has-text-warning"> {{ score }} </p>
   {% else %}
   <p class="label has-text-danger"> {{ score }} </p>
   {% endif %}
