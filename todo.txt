@@ -252,11 +252,20 @@ bij sidenavigation.html zitten er ook meerdere in moet te vinden zijn ! (done)
 # de score van een gebruiker kan op groen rood en blauw staan, rood is slecht en groen is goed, echter blauw is ook de kleur van een link, we hebben een andere indicator nodig ! (done)
 # De intro page moet zo worden aangepast dat het super duidelijk is wat de app doet, met diagrammen enzo !
 
+# mega fucking vette vage flip kip
+# plaatjes maken van iedere treetarate pagina en deze plaatjes in de google drive stoppen ! (done)
+# voorberijden van de programmer svg icons (done)
+# maken van de texten voor de intro page ! (1/2)
 plaatje maken van url in app store met de app id erin bij de url, deze mak in de join of add page met klein beetje uitleg ?
 een ander probleem is dat de push to bottom nu niet meer werkt, wellicht toch ff js voor maken om de footer naar de bodem te sturen !
+
+# mmmm lekker klontjes thee
+# De delete in de app moet ook wel van het delete type zijn en niet van get
 # neem het clearen van de db op in de playbook en maak een extra playbook aan om te deployen met alembic zodra dat gemaakt is !
-# Er komt een moment voor dat we dit gaan uitgeven dat we de db moeten gaan managen met alembic: https://github.com/sqlalchemy/alembic
+# Er komt een moment voor dat we dit gaan uitgeven dat we de db moeten gaan managen met alembic: https://github.com/sqlalchemy/alembic (fuck it we do it now !)
 # nu dat een review gekoppeld kan zijn aan een user, moet er ook een cronscript gemaakt worden die al bestaande reviews die nog niet aan een gebruiker zij gekoppeld dat wel doen, deze hoeft slechts een keer per dag te draaien als het niet minder is !
+
+
 # Op de app detail page staan er wel gebruikers maar geen links naar de gebruiker detail paginas (done)
 # Refactor stukken functionaliteid tot extra functies !
 # Bijna alles klopt behalve het domein dat wort gebruikt op de live site, wat gaan we hiermee doen ?, erg lastig, environment variablen in flask zijn lastig (w8 for later)
