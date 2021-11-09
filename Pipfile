@@ -19,6 +19,7 @@ lxml = "*"
 flask-mail = "*"
 cerberus = "*"
 locust = "*"
+flask-misaka = "*"
 
 [dev-packages]
 

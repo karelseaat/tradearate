@@ -20,6 +20,7 @@ from models import User, Trade, App, Review, Historic
 from lib.myownscraper import get_app
 from lib.translator import PyNalator
 import os
+from flask_misaka import Misaka
 
 valliappinit = Validator({
     'appid': {'required': True, 'type': 'string', 'regex': "^.*\..*\..*$"},
@@ -45,6 +46,7 @@ app = Flask(
     template_folder = "dist",
 )
 
+Misaka(app)
 
 login_manager = LoginManager()
 login_manager.setup_app(app)
@@ -451,7 +453,8 @@ def index():
 def mainpage():
     """This intro page will show the help for this webapp, perhaps an other name or url is needed ?"""
     app.data['pagename'] = 'Intro page'
-    result = render_template('mainpage.html', data=app.data)
+    text = "## Aap"
+    result = render_template('mainpage.html', data=app.data, mkd_text=text)
     app.session.close()
     app.pyn.close()
     return result

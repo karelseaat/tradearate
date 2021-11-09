@@ -27,9 +27,7 @@
 
 {% block content %}{% endblock %}
 
-{% block footer %}
-{% include "./partials/footer.html" %}
-{% endblock %}
+
 
 {% block lowerjs %}
 {% include "./partials/lowerjs.html" %}
@@ -38,6 +36,10 @@
 {% include "./partials/snackbar.html" %}
 <!-- The actual snackbar -->
 
+</div>
 
+{% block footer %}
+{% include "./partials/footer.html" %}
+{% endblock %}
 </body>
 </html>
