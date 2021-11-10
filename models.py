@@ -297,4 +297,4 @@ class Historic(DictSerializableMixin):
 
 class AlembicVersion(DictSerializableMixin):
     __tablename__ = 'alembic_version'
-    version_num = Column(String(256))
+    version_num = Column(String(32), primary_key=True)
