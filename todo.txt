@@ -260,12 +260,14 @@ bij sidenavigation.html zitten er ook meerdere in moet te vinden zijn ! (done)
 # een ander probleem is dat de push to bottom nu niet meer werkt, wellicht toch ff js voor maken om de footer naar de bodem te sturen !(done)
 
 # mmmm lekker klontjes thee
-# De delete in de app moet ook wel van het delete type zijn en niet van get
+# De delete in de app moet ook wel van het delete type zijn en niet van get <-- (done, not gonna do it since only ajax or post can do delete method)
 # neem het clearen van de db op in de playbook en maak een extra playbook aan om te deployen met alembic zodra dat gemaakt is !
 # Er komt een moment voor dat we dit gaan uitgeven dat we de db moeten gaan managen met alembic: https://github.com/sqlalchemy/alembic (fuck it we do it now !)
 # nu dat een review gekoppeld kan zijn aan een user, moet er ook een cronscript gemaakt worden die al bestaande reviews die nog niet aan een gebruiker zij gekoppeld dat wel doen, deze hoeft slechts een keer per dag te draaien als het niet minder is !
 # afmaken van de structuur voor de md frontpage !
 
+# als we kijken in de playbooks dan worden de eerste lijnen van de crontbs vervangen deze constructie mag ook voor de tools !
+# nadenken welke paginas wel in de cache mogen !
 # alle paginas langs de html validator halen !
 # wellicht kan ik voor de test ook een ansible maken om de reviews op te halen en de reviews te checken !?
 # Op de app detail page staan er wel gebruikers maar geen links naar de gebruiker detail paginas (done)
