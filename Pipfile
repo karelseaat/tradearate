@@ -20,6 +20,7 @@ flask-mail = "*"
 cerberus = "*"
 locust = "*"
 flask-misaka = "*"
+alembic = "*"
 
 [dev-packages]
 
