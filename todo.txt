@@ -267,6 +267,7 @@ bij sidenavigation.html zitten er ook meerdere in moet te vinden zijn ! (done)
 # afmaken van de structuur voor de md frontpage ! <--
 
 
+# een git commit hook maken voor de alembic autogenerate run en de pipenv freese > requeirements.txt
 # ff die nieuwe cronscript, link-reviews-to-users in de playbook stoppen !
 # faack dat payed ding lijkt toch weer op te spelen !, deze keer lijkt het wel in de scraper te zitten, in db staat het ook !
 Het main log werk is nogal veel, dat worden grote log files, dit ff aanpakken !
