@@ -254,6 +254,7 @@ class App(DictSerializableMixin):
     paid = Column(Boolean, default=False)
     imageurl = Column(String(256))
 
+
     def __init__(self, name, idstring):
         self.name = name
         self.appidstring = idstring
@@ -285,6 +286,7 @@ class Review(DictSerializableMixin):
 
     user_id = Column(ForeignKey('users.id'), index=True)
     user = relationship('User', back_populates="reviews")
+    added = Column(Date, default=datetime.datetime.utcnow)
 
     minreviewlength = 50
 

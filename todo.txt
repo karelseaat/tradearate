@@ -260,13 +260,19 @@ bij sidenavigation.html zitten er ook meerdere in moet te vinden zijn ! (done)
 # een ander probleem is dat de push to bottom nu niet meer werkt, wellicht toch ff js voor maken om de footer naar de bodem te sturen !(done)
 
 # mmmm lekker klontjes thee
-# De delete in de app moet ook wel van het delete type zijn en niet van get <-- (done, not gonna do it since only ajax or post can do delete method)
+# De delete in de app moet ook wel van het delete type zijn en niet van get (done, not gonna do it since only ajax or post can do delete method)
 # neem het clearen van de db op in de playbook en maak een extra playbook aan om te deployen met alembic zodra dat gemaakt is ! (done)
 # Er komt een moment voor dat we dit gaan uitgeven dat we de db moeten gaan managen met alembic: https://github.com/sqlalchemy/alembic (fuck it we do it now !)
-# nu dat een review gekoppeld kan zijn aan een user, moet er ook een cronscript gemaakt worden die al bestaande reviews die nog niet aan een gebruiker zij gekoppeld dat wel doen, deze hoeft slechts een keer per dag te draaien als het niet minder is !
-# afmaken van de structuur voor de md frontpage !
+# nu dat een review gekoppeld kan zijn aan een user, moet er ook een cronscript gemaakt worden die al bestaande reviews die nog niet aan een gebruiker zij gekoppeld dat wel doen, deze hoeft slechts een keer per dag te draaien als het niet minder is ! (done)
+# afmaken van de structuur voor de md frontpage ! <--
 
 
+# ff die nieuwe cronscript, link-reviews-to-users in de playbook stoppen !
+# faack dat payed ding lijkt toch weer op te spelen !, deze keer lijkt het wel in de scraper te zitten, in db staat het ook !
+Het main log werk is nogal veel, dat worden grote log files, dit ff aanpakken !
+Het loggin werk mag in een standaard directory worden gedaan
+# voor van de tools en of cron files maakt geen gebruik van if main constructie, wel ff doen !
+# er moet een soort van script komen dat je moet draaien voor iedere git push, kunnen we dat opnemen in een commit hook ?
 # de config voor de db voor de alembic moet natuurlijk uiteindelijk uit dezelfde config komen !
 # als we kijken in de playbooks dan worden de eerste lijnen van de crontbs vervangen deze constructie mag ook voor de tools !
 # nadenken welke paginas wel in de cache mogen !
