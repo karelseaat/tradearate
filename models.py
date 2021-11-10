@@ -294,7 +294,3 @@ class Historic(DictSerializableMixin):
     infotype = Column(Integer)
     date = Column(Date, default=datetime.datetime.utcnow)
     number = Column(Integer)
-
-class AlembicVersion(DictSerializableMixin):
-    __tablename__ = 'alembic_version'
-    version_num = Column(String(32), primary_key=True)
