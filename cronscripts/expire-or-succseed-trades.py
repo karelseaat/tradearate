@@ -19,43 +19,50 @@ from sqlalchemy import and_, or_, not_
 
 dirname = os.getcwd()
 logging.basicConfig(filename='{}/history-update.log'.format(dirname), level=logging.INFO)
-logging.info('Start of expire trade ' + datetime.datetime.now().strftime("%m/%d/%Y, %H:%M:%S"))
-
-dbsession = make_session()
-tradeobj = Trade()
-
-trades = dbsession.query(Trade).filter(Trade.accepted + datetime.timedelta(days=tradeobj.timetotrade) < datetime.datetime.now().date()).filter(or_(not_(Trade.initiator_reviewed), not_(Trade.joiner_reviewed))).all()
 
 
-for trade in trades:
-    trade.failure = datetime.datetime.now()
+def expire_or_succeed():
 
-    sender = "sixdots.soft@gmail.com"
+    dbsession = make_session()
+    tradeobj = Trade()
 
-    message_initiator = f"""\
-        Subject: Trade a Rate, status change !
-        To: {trade.initiator.email}
-        From: {sender}
+    trades = dbsession.query(Trade).filter(Trade.accepted + datetime.timedelta(days=tradeobj.timetotrade) < datetime.datetime.now().date()).filter(or_(not_(Trade.initiator_reviewed), not_(Trade.joiner_reviewed))).all()
 
-        The trade has failed !
-    """
 
-    message_joiner = f"""\
-        Subject: Trade a Rate, status change !
-        To: {trade.joiner.email}
-        From: {sender}
+    for trade in trades:
+        trade.failure = datetime.datetime.now()
 
-        The trade has failed !
-    """
+        sender = "sixdots.soft@gmail.com"
 
-    with smtplib.SMTP_SSL(Config.MAIL_SERVER, Config.MAIL_PORT) as server:
-        server.login(Config.MAIL_USERNAME, Config.MAIL_PASSWORD)
-        server.sendmail("sixdots.soft@gmail.com", trade.initiator.email, message_initiator)
+        message_initiator = f"""\
+            Subject: Trade a Rate, status change !
+            To: {trade.initiator.email}
+            From: {sender}
 
-    with smtplib.SMTP_SSL(Config.MAIL_SERVER, Config.MAIL_PORT) as server:
-        server.login(Config.MAIL_USERNAME, Config.MAIL_PASSWORD)
-        server.sendmail("sixdots.soft@gmail.com", trade.joiner.email, message_joiner)
+            The trade has failed !
+        """
 
-dbsession.commit()
-dbsession.close()
-logging.info('End of expire trade ' + datetime.datetime.now().strftime("%m/%d/%Y, %H:%M:%S"))
+        message_joiner = f"""\
+            Subject: Trade a Rate, status change !
+            To: {trade.joiner.email}
+            From: {sender}
+
+            The trade has failed !
+        """
+
+        with smtplib.SMTP_SSL(Config.MAIL_SERVER, Config.MAIL_PORT) as server:
+            server.login(Config.MAIL_USERNAME, Config.MAIL_PASSWORD)
+            server.sendmail("sixdots.soft@gmail.com", trade.initiator.email, message_initiator)
+
+        with smtplib.SMTP_SSL(Config.MAIL_SERVER, Config.MAIL_PORT) as server:
+            server.login(Config.MAIL_USERNAME, Config.MAIL_PASSWORD)
+            server.sendmail("sixdots.soft@gmail.com", trade.joiner.email, message_joiner)
+
+    dbsession.commit()
+    dbsession.close()
+
+
+if __name__ == "__main__":
+    logging.info('Start of expire trade ' + datetime.datetime.now().strftime("%m/%d/%Y, %H:%M:%S"))
+    expire_or_succeed()
+    logging.info('End of expire trade ' + datetime.datetime.now().strftime("%m/%d/%Y, %H:%M:%S"))

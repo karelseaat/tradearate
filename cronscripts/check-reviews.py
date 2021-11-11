@@ -19,75 +19,72 @@ import logging
 import datetime
 logging.basicConfig(filename='check-reviews.log', level=logging.INFO)
 
-logging.info('Start of check reviews' + datetime.datetime.now().strftime("%m/%d/%Y, %H:%M:%S"))
-
-dbsession = make_session()
-
-trades = dbsession.query(Trade).filter(Trade.accepted).filter(Trade.success==None).filter(Trade.failure==None).all()
-
-for trade in trades:
-
-    initiator = ""
-    joiner = ""
-
-    initiatorreviews = []
-    joinerreviews = []
-
-    if trade.initiator:
-        initiator = trade.initiator.fullname
-
-    if trade.joiner:
-        joiner = trade.joiner.fullname
-
-    if trade.initiatorapp:
-        for value in trade.initiatorapp.reviews:
-            # if len(value.reviewtext) > value.minreviewlength:
-            initiatorreviews.append(value.username)
-
-    if trade.joinerapp:
-        for value in trade.joinerapp.reviews:
-            # if len(value.reviewtext) > value.minreviewlength:
-            joinerreviews.append(value.username)
 
 
-    if joiner in initiatorreviews:
-        print("initiator has done review")
-        trade.initiator_reviewed = True
+def check_reviews():
+    dbsession = make_session()
+    trades = dbsession.query(Trade).filter(Trade.accepted).filter(Trade.success==None).filter(Trade.failure==None).all()
+    for trade in trades:
+        initiator = ""
+        joiner = ""
 
-    if initiator in joinerreviews:
-        print("joiner has done review")
-        trade.joiner_reviewed = True
+        initiatorreviews = []
+        joinerreviews = []
 
+        if trade.initiator:
+            initiator = trade.initiator.fullname
 
-    if trade.joiner_reviewed and trade.initiator_reviewed:
+        if trade.joiner:
+            joiner = trade.joiner.fullname
 
-        trade.success = datetime.datetime.now()
+        if trade.initiatorapp:
+            for value in trade.initiatorapp.reviews:
+                # if len(value.reviewtext) > value.minreviewlength:
+                initiatorreviews.append(value.username)
 
-        sender = "sixdots.soft@gmail.com"
-
-        message_initiator = MIMEText("<p>A <a href='{}/show?tradeid={}'>trade</a> you started on Trade A Rate has suceeded</p>".format(domain, trade.id), 'html')
-        message_initiator['From'] = sender
-        message_initiator['To'] = trade.initiator.email
-        message_initiator['Subject'] = "Trade A Rate, success !"
-
-        message_joiner = MIMEText("<p>A <a href='{}/show?tradeid={}'>trade</a> you joined on Trade A Rate has suceeded</p>".format(domain, trade.id), 'html')
-        message_joiner["From"] = sender
-        message_joiner["To"] = trade.joiner.email
-        message_joiner['Subject'] = "Trade A Rate, success !"
-
-
-        with smtplib.SMTP_SSL(Config.MAIL_SERVER, Config.MAIL_PORT) as server:
-            server.login(Config.MAIL_USERNAME, Config.MAIL_PASSWORD)
-            server.sendmail("sixdots.soft@gmail.com", trade.initiator.email, message_initiator.as_string())
-
-        with smtplib.SMTP_SSL(Config.MAIL_SERVER, Config.MAIL_PORT) as server:
-            server.login(Config.MAIL_USERNAME, Config.MAIL_PASSWORD)
-            server.sendmail("sixdots.soft@gmail.com", trade.joiner.email, message_joiner.as_string())
+        if trade.joinerapp:
+            for value in trade.joinerapp.reviews:
+                # if len(value.reviewtext) > value.minreviewlength:
+                joinerreviews.append(value.username)
 
 
-    dbsession.add(trade)
-    dbsession.commit()
+        if joiner in initiatorreviews:
+            print("initiator has done review")
+            trade.initiator_reviewed = True
 
-dbsession.close()
+        if initiator in joinerreviews:
+            print("joiner has done review")
+            trade.joiner_reviewed = True
 
-logging.info('End of check reviews' + datetime.datetime.now().strftime("%m/%d/%Y, %H:%M:%S"))
+        if trade.joiner_reviewed and trade.initiator_reviewed:
+            trade.success = datetime.datetime.now()
+            sender = "sixdots.soft@gmail.com"
+
+            message_initiator = MIMEText("<p>A <a href='{}/show?tradeid={}'>trade</a> you started on Trade A Rate has suceeded</p>".format(domain, trade.id), 'html')
+            message_initiator['From'] = sender
+            message_initiator['To'] = trade.initiator.email
+            message_initiator['Subject'] = "Trade A Rate, success !"
+
+            message_joiner = MIMEText("<p>A <a href='{}/show?tradeid={}'>trade</a> you joined on Trade A Rate has suceeded</p>".format(domain, trade.id), 'html')
+            message_joiner["From"] = sender
+            message_joiner["To"] = trade.joiner.email
+            message_joiner['Subject'] = "Trade A Rate, success !"
+
+            with smtplib.SMTP_SSL(Config.MAIL_SERVER, Config.MAIL_PORT) as server:
+                server.login(Config.MAIL_USERNAME, Config.MAIL_PASSWORD)
+                server.sendmail("sixdots.soft@gmail.com", trade.initiator.email, message_initiator.as_string())
+
+            with smtplib.SMTP_SSL(Config.MAIL_SERVER, Config.MAIL_PORT) as server:
+                server.login(Config.MAIL_USERNAME, Config.MAIL_PASSWORD)
+                server.sendmail("sixdots.soft@gmail.com", trade.joiner.email, message_joiner.as_string())
+
+        dbsession.add(trade)
+        dbsession.commit()
+    dbsession.close()
+
+
+
+if __name__ == "__main__":
+    logging.info('Start of check reviews' + datetime.datetime.now().strftime("%m/%d/%Y, %H:%M:%S"))
+    check_reviews()
+    logging.info('End of check reviews' + datetime.datetime.now().strftime("%m/%d/%Y, %H:%M:%S"))

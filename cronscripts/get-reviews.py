@@ -81,29 +81,31 @@ def feedreviews(app, langs, numofrespercall):
                 dbsession.add(app)
             dbsession.commit()
 
-            time.sleep(10)
+            time.sleep(5)
 
 
-logging.info('Start of get reviews' + datetime.datetime.now().strftime("%m/%d/%Y, %H:%M:%S"))
-dbsession = make_session()
+def get_reviews():
+    dbsession = make_session()
 
-allapps = []
+    allapps = []
+    trades = dbsession.query(Trade).filter(Trade.accepted).filter(Trade.success==None).filter(Trade.failure==None).all()
+
+    for value in trades:
+        for app in value.all_apps_in_trade():
+            allapps.append(app)
+
+    for value in allapps:
+        allusers = []
+        for auser in value.all_users():
+            allusers.append(auser)
+
+        listoflangs = list(set([x.locale for x in set(allusers) if x.locale]))
+        feedreviews(value, listoflangs, 100)
+
+    dbsession.close()
 
 
-trades = dbsession.query(Trade).filter(Trade.accepted).filter(Trade.success==None).filter(Trade.failure==None).all()
-
-for value in trades:
-    for app in value.all_apps_in_trade():
-        allapps.append(app)
-
-for value in allapps:
-    allusers = []
-    for auser in value.all_users():
-        allusers.append(auser)
-
-    listoflangs = list(set([x.locale for x in set(allusers) if x.locale]))
-    feedreviews(value, listoflangs, 100)
-
-dbsession.close()
-
-logging.info('End of get reviews' + datetime.datetime.now().strftime("%m/%d/%Y, %H:%M:%S"))
+if __name__ == "__main__":
+    logging.info('Start of get reviews' + datetime.datetime.now().strftime("%m/%d/%Y, %H:%M:%S"))
+    get_reviews()
+    logging.info('End of get reviews' + datetime.datetime.now().strftime("%m/%d/%Y, %H:%M:%S"))

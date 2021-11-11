@@ -58,46 +58,45 @@ def random_review(review):
     review.reviewrating = faker.random_int(0, 5)
     return review
 
-session.query(User).delete()
 
-session.commit()
-session.close()
+def fake_filler():
+    session = make_session()
 
+    faker = Faker()
 
-session = make_session()
-
-faker = Faker()
-
-for _ in range(100):
-    ahistoric = random_historic(Historic())
-    session.add(ahistoric)
-
-for _ in range(10):
-    atrade = random_trade(Trade())
-
-    atrade.initiator = random_user(User)
-
-
-    appa = App("test", "nogtest")
-    appb = App("niettest", "Klont")
+    for _ in range(100):
+        ahistoric = random_historic(Historic())
+        session.add(ahistoric)
 
     for _ in range(10):
+        atrade = random_trade(Trade())
 
-        reviewa = Review()
-        reviewb = Review()
+        atrade.initiator = random_user(User)
 
-        appa.reviews.append(random_review(reviewa))
 
-        appb.reviews.append(random_review(reviewb))
-        reviewa.user = atrade.initiator
-        reviewb.user = atrade.joiner
+        appa = App("test", "nogtest")
+        appb = App("niettest", "Klont")
 
-    atrade.initiatorapp = random_app(appa)
-    if bool(faker.random_int(0, 1)):
-        atrade.joinerapp = random_app(appb)
-        atrade.joiner = random_user(User)
+        for _ in range(10):
 
-    session.add(atrade)
+            reviewa = Review()
+            reviewb = Review()
 
-session.commit()
-session.close()
+            appa.reviews.append(random_review(reviewa))
+
+            appb.reviews.append(random_review(reviewb))
+            reviewa.user = atrade.initiator
+            reviewb.user = atrade.joiner
+
+        atrade.initiatorapp = random_app(appa)
+        if bool(faker.random_int(0, 1)):
+            atrade.joinerapp = random_app(appb)
+            atrade.joiner = random_user(User)
+
+        session.add(atrade)
+
+    session.commit()
+    session.close()
+
+if __name__ == "__main__":
+    fake_filler()

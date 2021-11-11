@@ -13,33 +13,37 @@ import datetime
 
 logging.basicConfig(filename='{}/history-update.log'.format(dirname), level=logging.INFO)
 
-logging.info('Start of history update ' + datetime.datetime.now().strftime("%m/%d/%Y, %H:%M:%S"))
 
-dbsession = make_session()
+def history_update():
 
-try:
-    tradenum = dbsession.query(Trade).count()
-    appnum = dbsession.query(App).count()
-    reviewnum = dbsession.query(Review).count()
-    logging.info("counts: {} {} {}".format(tradenum, appnum, reviewnum))
-except error:
-   logging.info("An error occured while counting objects: {}".format(error))
+    dbsession = make_session()
 
-try:
-    historyapp = Historic(infotype=0, number=appnum)
-    historytrade = Historic(infotype=1, number=tradenum)
-    historyreview = Historic(infotype=2, number=reviewnum)
-    logging.info("history objects made !")
-except error:
-   logging.info("An error occured where adding to history: {}".format(error))
+    try:
+        tradenum = dbsession.query(Trade).count()
+        appnum = dbsession.query(App).count()
+        reviewnum = dbsession.query(Review).count()
+        logging.info("counts: {} {} {}".format(tradenum, appnum, reviewnum))
+    except error:
+       logging.info("An error occured while counting objects: {}".format(error))
 
-try:
-    dbsession.add(historytrade)
-    dbsession.add(historyapp)
-    dbsession.add(historyreview)
-    dbsession.commit()
-    logging.info("All inserted into the db !")
-except error:
-   logging.info("An error occured while sending the whole shabang to the db: {}".format(error))
+    try:
+        historyapp = Historic(infotype=0, number=appnum)
+        historytrade = Historic(infotype=1, number=tradenum)
+        historyreview = Historic(infotype=2, number=reviewnum)
+        logging.info("history objects made !")
+    except error:
+       logging.info("An error occured where adding to history: {}".format(error))
 
-logging.info('End of history update ' + datetime.datetime.now().strftime("%m/%d/%Y, %H:%M:%S"))
+    try:
+        dbsession.add(historytrade)
+        dbsession.add(historyapp)
+        dbsession.add(historyreview)
+        dbsession.commit()
+        logging.info("All inserted into the db !")
+    except error:
+       logging.info("An error occured while sending the whole shabang to the db: {}".format(error))
+
+if __name__ == "__main__":
+    logging.info('Start of history update ' + datetime.datetime.now().strftime("%m/%d/%Y, %H:%M:%S"))
+    history_update()
+    logging.info('End of history update ' + datetime.datetime.now().strftime("%m/%d/%Y, %H:%M:%S"))
