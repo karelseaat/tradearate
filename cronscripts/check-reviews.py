@@ -40,13 +40,22 @@ def check_reviews():
         if trade.initiatorapp:
             for value in trade.initiatorapp.reviews:
                 # if len(value.reviewtext) > value.minreviewlength:
-                initiatorreviews.append(value.username)
+                if value.user:
+                    initiatorreviews.append(value.user.fullname)
+                else:
+                    initiatorreviews.append(value.username)
 
         if trade.joinerapp:
             for value in trade.joinerapp.reviews:
                 # if len(value.reviewtext) > value.minreviewlength:
-                joinerreviews.append(value.username)
+                if value.user:
+                    joinerreviews.append(value.user.fullname)
+                else:
+                    joinerreviews.append(value.username)
 
+
+        print(initiatorreviews, joiner)
+        print(joinerreviews, initiator)
 
         if joiner in initiatorreviews:
             print("initiator has done review")

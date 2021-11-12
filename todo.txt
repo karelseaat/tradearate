@@ -285,7 +285,7 @@ bij sidenavigation.html zitten er ook meerdere in moet te vinden zijn ! (done)
 # Het loggin werk mag in een standaard directory worden gedaan (done)
 # de config voor de db voor de alembic moet natuurlijk uiteindelijk uit dezelfde config komen !
 # alle paginas langs de html validator halen ! (done)
-# wellicht kan ik voor de test ook een ansible maken om de reviews op te halen en de reviews te checken !? <--
+# wellicht kan ik voor de test ook een ansible maken om de reviews op te halen en de reviews te checken !? (done)
 
 # moeten we bezig met server side caching ? (zou nog efficienter zijn)
 # er moet een test scriptje worden gemaakt datde standaard google schraper gebruikt om app data op te halen als vervanging voor mijn lib/myownscraper.py
