@@ -106,6 +106,7 @@ def load_user(userid):
     return app.session.query(User).filter(User.googleid == userid).first()
 
 @app.route('/process_help.svg', methods=('GET', 'HEAD'))
+@cache_for(hours=3)
 def circle_thin_custom_color():
 
     xml = render_template('circle.svg', color="#f00")
@@ -169,6 +170,7 @@ def userprofile():
 
 
 @app.route('/login')
+@dont_cache()
 def login():
     """login that will call google oauth to you can login with your gooogle account"""
     google = oauth.create_client('google')
@@ -179,6 +181,7 @@ def login():
     return result
 
 @app.route("/customlogin", methods = ['POST'])
+@dont_cache()
 def customlogin():
     """a custom login that will be used by the locust runner, for now it is a security risk"""
     if 'beest' in request.form and request.form.get('beest') == "Lollozotoeoobnenfmnbsf":
@@ -200,6 +203,7 @@ def customlogin():
     return "fail"
 
 @app.route('/logout')
+@dont_cache()
 @login_required
 def logout():
     """here you can logout , it is not used since you login via google oauth so as soon as you are on the site you are loggedin"""
@@ -209,6 +213,7 @@ def logout():
     return redirect('/')
 
 @app.route('/contact')
+@cache_for(hours=3)
 @login_required
 def contact():
     """Showin a contact form !"""
@@ -219,6 +224,7 @@ def contact():
     return result
 
 @app.route('/processcontact', methods = ['POST'])
+@dont_cache()
 @login_required
 def processcontact():
     vallcontact.validate(dict(request.form))
@@ -257,6 +263,7 @@ def processcontact():
     return redirect('/overviewtrades')
 
 @app.route('/authorize')
+@dont_cache()
 def authorize():
     """part of the google oauth login"""
     google_auth = oauth.create_client('google')
@@ -293,6 +300,7 @@ def authorize():
     return redirect(browsersession['redirect'])
 
 @app.route("/trades")
+@dont_cache()
 @login_required
 def trades():
     """an overview page of all trades"""
@@ -306,6 +314,7 @@ def trades():
 
 
 @app.route("/showapp")
+@dont_cache()
 @login_required
 def showapp():
     """detail page for one application"""
@@ -350,6 +359,7 @@ def usertrades():
     return result
 
 @app.route("/add")
+@dont_cache()
 @login_required
 def add():
     """this page will show a form to add a trade"""
@@ -375,6 +385,7 @@ def get_app_from_store(appid, country='us'):
     return appobj
 
 @app.route("/processadd", methods = ['POST'])
+@dont_cache()
 @login_required
 def processadd():
     """This will process the post of a form to add a trade"""
@@ -488,6 +499,7 @@ def overviewapps():
     return result
 
 @app.route('/showreview')
+@dont_cache()
 @login_required
 def showreview():
     """This will show the details about a review"""
@@ -525,6 +537,7 @@ def overviewreviews():
     return result
 
 @app.route('/overviewtrades')
+@dont_cache()
 @login_required
 def overviewtrades():
     """a page that will show you a overview for all trades"""
@@ -544,6 +557,7 @@ def overviewtrades():
     return result
 
 @app.route("/show")
+@dont_cache()
 @login_required
 def show():
     """detail page for a single trade"""
@@ -576,6 +590,7 @@ def show():
     return result
 
 @app.route("/reject")
+@dont_cache()
 @login_required
 def reject():
     tradeid = request.args.get('tradeid')
@@ -605,6 +620,7 @@ def reject():
     return result
 
 @app.route("/accept")
+@dont_cache()
 @login_required
 def accept():
     """here a initiator or a joiner of a trade can accept the trade, if both partys have accepted the trade is on so to call"""
@@ -666,6 +682,7 @@ def accept():
 
 
 @app.route("/delete")
+@dont_cache()
 @login_required
 def delete():
     """this function will let the initiator of the trade delete the trade"""
@@ -682,6 +699,7 @@ def delete():
     return redirect('/overviewtrades', 303)
 
 @app.route("/join")
+@dont_cache()
 @login_required
 def join():
     """here someone can join a trade by filling in a form with something to review, an app"""
@@ -700,6 +718,7 @@ def join():
     return result
 
 @app.route("/processjoin", methods = ['POST'])
+@dont_cache()
 @login_required
 def processjoin():
     """here we will process the join form post so you can join a trade"""
@@ -795,6 +814,7 @@ def processjoin():
     return redirect('/join')
 
 @app.route("/leave")
+@dont_cache()
 @login_required
 def leave():
     """here a trade joiner can leave a trade"""
