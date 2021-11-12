@@ -278,7 +278,7 @@ bij sidenavigation.html zitten er ook meerdere in moet te vinden zijn ! (done)
 # in de email die ik stuur mag nog wel verhaal komen met bijvoobeeld link naar de play app die gereviewed moet woorden. (done)
 # nadenken welke paginas wel in de cache mogen ! (done)
 # cron files logging glijktrekken (done)
-# Het main log werk is nogal veel, dat worden grote log files, dit ff aanpakken ! <--
+# Het main log werk is nogal veel, dat worden grote log files, dit ff aanpakken ! (done)
 
 # And then it all was still possible
 # een git commit hook maken voor de alembic autogenerate run en de pipenv freese > requeirements.txt
@@ -293,6 +293,7 @@ bij sidenavigation.html zitten er ook meerdere in moet te vinden zijn ! (done)
 # als we kijken in de playbooks dan worden de eerste lijnen van de crontbs vervangen deze constructie mag ook voor de tools ! (done)
 # De app.py nog eens door de linter halen !
 
+de index pagina en de / pagina moeten de juiste dingen laten zien en de juiste naam hebben, dit ff fixen ! (een help pagina en een textuele uitleg /keyword pagina die eventueel naar de help pagina linked, t plaatje)
 # checken of alle img tags een als element hebben en toevoegen !
 # alle cache staat nu op 3 uur hierin kan nog wat nuance worden aangebracht!
 # Ff de logs van de cron uitbrijden zodat er iets meer info in komt te staan !
