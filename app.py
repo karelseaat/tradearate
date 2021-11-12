@@ -263,7 +263,6 @@ def processcontact():
     return redirect('/overviewtrades')
 
 @app.route('/authorize')
-@dont_cache()
 def authorize():
     """part of the google oauth login"""
     google_auth = oauth.create_client('google')
@@ -337,7 +336,7 @@ def showapp():
     return result
 
 @app.route("/usertrades")
-@cache_for(hours=3)
+@dont_cache()
 @login_required
 def usertrades():
     app.data['pagename'] = 'User Trades'
@@ -521,7 +520,7 @@ def showreview():
     return result
 
 @app.route('/overviewreviews')
-@cache_for(hours=3)
+@dont_cache()
 @login_required
 def overviewreviews():
     """the overview page so you can see all the reviews done"""

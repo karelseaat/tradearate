@@ -21,7 +21,7 @@ import logging
 import datetime
 
 dirname=dirname+"/../logs"
-logging.basicConfig(filename='get-reviews.log', level=logging.INFO)
+logging.basicConfig(filename='{}/get-reviews.log'.format(dirname), level=logging.INFO)
 
 def serialise_token(token):
     if not token.token:

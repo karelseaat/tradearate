@@ -18,7 +18,7 @@ from email.mime.text import MIMEText
 import logging
 import datetime
 
-dirname = os.getcwd()
+dirname=dirname+"/../logs"
 logging.basicConfig(filename='{}/check-reviews.log'.format(dirname), level=logging.INFO)
 
 def check_reviews():
