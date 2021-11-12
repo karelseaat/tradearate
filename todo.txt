@@ -269,25 +269,30 @@ bij sidenavigation.html zitten er ook meerdere in moet te vinden zijn ! (done)
 # hoofd man, held in de wereld van lopende rompen
 # voor van de tools en of cron files maakt geen gebruik van if main constructie, wel ff doen ! (done)
 # faack dat payed ding lijkt toch weer op te spelen !, deze keer lijkt het wel in de scraper te zitten, in db staat het ook ! (done)
-# ff die nieuwe cronscript, link-reviews-to-users in de playbook stoppen ! <--
+# ff die nieuwe cronscript, link-reviews-to-users in de playbook stoppen ! (done)
 # die markdown mag er uit gezien we het toch in static html gaan omzetten, hebben we geen dynamische shite voor nodig ! (done)
-# afmaken van de structuur voor de md frontpage !
+# afmaken van de structuur voor de md frontpage ! (done)
 
-# we kunnen email sturen voor join een accept, een success en een fail, doen we dit allemaal ?
-# in de email die ik stuur mag nog wel verhaal komen met bijvoobeeld link naar de play app die gereviewed moet woorden
+# Kanker vette hamster, de meeste hamster van alle hamsters !
+# we kunnen email sturen voor join een accept, een success en een fail, doen we dit allemaal ? (alles behalve join, zou wel handig zijn) (done)
+# in de email die ik stuur mag nog wel verhaal komen met bijvoobeeld link naar de play app die gereviewed moet woorden. (done)
+# nadenken welke paginas wel in de cache mogen ! <--
+# cron files logging glijktrekken
+# Het main log werk is nogal veel, dat worden grote log files, dit ff aanpakken !
+
+# And then it all was still possible
 # een git commit hook maken voor de alembic autogenerate run en de pipenv freese > requeirements.txt
-
-Het main log werk is nogal veel, dat worden grote log files, dit ff aanpakken !
-Het loggin werk mag in een standaard directory worden gedaan
+# Het loggin werk mag in een standaard directory worden gedaan
+# de config voor de db voor de alembic moet natuurlijk uiteindelijk uit dezelfde config komen !
+# alle paginas langs de html validator halen !
+# wellicht kan ik voor de test ook een ansible maken om de reviews op te halen en de reviews te checken !?
 
 # er moet een test scriptje worden gemaakt datde standaard google schraper gebruikt om app data op te halen als vervanging voor mijn lib/myownscraper.py
 # er moet een soort van script komen dat je moet draaien voor iedere git push, kunnen we dat opnemen in een commit hook ?
-# de config voor de db voor de alembic moet natuurlijk uiteindelijk uit dezelfde config komen !
-# als we kijken in de playbooks dan worden de eerste lijnen van de crontbs vervangen deze constructie mag ook voor de tools !
-# nadenken welke paginas wel in de cache mogen !
-# alle paginas langs de html validator halen !
-# cron files logging glijktrekken
-# wellicht kan ik voor de test ook een ansible maken om de reviews op te halen en de reviews te checken !?
+# als we kijken in de playbooks dan worden de eerste lijnen van de crontbs vervangen deze constructie mag ook voor de tools ! (done)
+# De app.py nog eens door de linter halen !
+
+# kijken welke packages er uit de pipenv verwidert kunnen worden !
 # Op de app detail page staan er wel gebruikers maar geen links naar de gebruiker detail paginas (done)
 # Refactor stukken functionaliteid tot extra functies !
 # Bijna alles klopt behalve het domein dat wort gebruikt op de live site, wat gaan we hiermee doen ?, erg lastig, environment variablen in flask zijn lastig (w8 for later)

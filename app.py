@@ -2,7 +2,7 @@ import json
 from datetime import timedelta
 import datetime as dt
 import requests
-from flask import Flask, redirect, request, url_for, render_template, flash
+from flask import Flask, redirect, request, url_for, render_template, flash, Response
 from authlib.integrations.flask_client import OAuth
 from flask_login import (
     login_required,
@@ -20,6 +20,7 @@ from models import User, Trade, App, Review, Historic
 from lib.myownscraper import get_app
 from lib.translator import PyNalator
 import os
+from flask_caching import Cache
 
 valliappinit = Validator({
     'appid': {'required': True, 'type': 'string', 'regex': "^.*\..*\..*$"},
@@ -53,9 +54,17 @@ login_manager.setup_app(app)
 app.secret_key = 'random secret223'
 app.session = make_session()
 
-
 app.config.from_object("config.Config")
 
+
+cacheconfig = {
+    "CACHE_TYPE": "SimpleCache",  # Flask-Caching related configs
+    "CACHE_DEFAULT_TIMEOUT": 300
+}
+
+app.config.from_mapping(cacheconfig)
+
+cache = Cache(app)
 oauth = OAuth(app)
 oauth.register(**oauthconfig)
 
@@ -101,6 +110,13 @@ def pagination(db_object, itemnum):
 @login_manager.user_loader
 def load_user(userid):
     return app.session.query(User).filter(User.googleid == userid).first()
+
+@app.route('/process_help.svg', methods=('GET', 'HEAD'))
+def circle_thin_custom_color():
+
+    xml = render_template('circle.svg', color="#f00")
+
+    return Response(xml, mimetype='image/svg+xml')
 
 @app.before_request
 def before_request_func():
@@ -448,6 +464,7 @@ def index():
     return result
 
 @app.route('/')
+@cache.cached()
 def mainpage():
     """This intro page will show the help for this webapp, perhaps an other name or url is needed ?"""
     app.data['pagename'] = 'Intro page'
@@ -616,7 +633,8 @@ def accept():
                         <p>The trade has now been accepted !</p>
                         <p>The system will now start to look for your review.</p>
                         <p>Go to your <a href='{}/show?tradeid={}'>trade</a> to view the details and do a review of the counter app.</p>
-                    """.format(domain, thetrade.id),
+                        <p>Or go to the playstore directly <a href='{}'>directly</a> to do a download and review!</p>
+                    """.format(domain, thetrade.id, thetrade.initiatorapp.get_url()),
                     sender="sixdots.soft@gmail.com",
                     recipients=[thetrade.joiner.email]
                 )
@@ -630,7 +648,8 @@ def accept():
                         <p>The trade has now been accepted !</p>
                         <p>The system will now start to look for your review.</p>
                         <p>Go to your <a href='{}/show?tradeid={}'>trade</a> to view the details and do a review of the counter app.</p>
-                    """.format(domain, thetrade.id),
+                        <p>Or go to the playstore directly <a href='{}'>directly</a> to do a download and review!</p>
+                    """.format(domain, thetrade.id, thetrade.joinerapp.get_url()),
                     sender="sixdots.soft@gmail.com",
                     recipients=[thetrade.initiator.email]
                 )
@@ -739,6 +758,30 @@ def processjoin():
             app.pyn.close()
             return redirect('/overviewtrades')
 
+            msg = Message(
+                'One of your app trades has been joined!',
+                html= """
+                    <p>Go to your <a href='{}/show?tradeid={}'>trade</a> to view the details and decide if you want to accept the trade !</p>
+                """.format(domain, thetrade.id),
+                sender="sixdots.soft@gmail.com",
+                recipients=[thetrade.initiator.email]
+            )
+
+            mail = Mail(app)
+            mail.send(msg)
+
+            msg = Message(
+                'You have joined a app trade!',
+                html= """
+                    <p>Go to the <a href='{}/show?tradeid={}'>trade</a> to view the details and decide if you want to accept the trade !</p>
+                """.format(domain, thetrade.id),
+                sender="sixdots.soft@gmail.com",
+                recipients=[thetrade.joiner.email]
+            )
+
+            mail = Mail(app)
+            mail.send(msg)
+
         app.session.commit()
         tradeid = trade.id
         flash("joined the trade", 'has-text-primary')
@@ -783,9 +826,9 @@ def leave():
     app.pyn.close()
     return redirect('/overviewtrades')
 
-@app.after_request
-def set_response_headers(response):
-    response.headers['Cache-Control'] = 'no-cache, no-store, must-revalidate'
-    response.headers['Pragma'] = 'no-cache'
-    response.headers['Expires'] = '0'
-    return response
+# @app.after_request
+# def set_response_headers(response):
+#     # response.headers['Cache-Control'] = 'no-cache, no-store, must-revalidate'
+#     # response.headers['Pragma'] = 'no-cache'
+#     # response.headers['Expires'] = '0'
+#     return response

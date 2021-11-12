@@ -14,6 +14,7 @@ from models import Trade
 import logging
 import datetime
 import smtplib
+from email.mime.text import MIMEText
 
 from sqlalchemy import and_, or_, not_
 
@@ -34,29 +35,23 @@ def expire_or_succeed():
 
         sender = "sixdots.soft@gmail.com"
 
-        message_initiator = f"""\
-            Subject: Trade a Rate, status change !
-            To: {trade.initiator.email}
-            From: {sender}
+        message_initiator = MIMEText("<p>A <a href='{}/show?tradeid={}'>trade</a> you started on Trade A Rate has failed</p>".format(domain, trade.id), 'html')
+        message_initiator['From'] = sender
+        message_initiator['To'] = trade.initiator.email
+        message_initiator['Subject'] = "Trade A Rate, failure !"
 
-            The trade has failed !
-        """
-
-        message_joiner = f"""\
-            Subject: Trade a Rate, status change !
-            To: {trade.joiner.email}
-            From: {sender}
-
-            The trade has failed !
-        """
+        message_joiner = MIMEText("<p>A <a href='{}/show?tradeid={}'>trade</a> you joined on Trade A Rate has failed</p>".format(domain, trade.id), 'html')
+        message_joiner["From"] = sender
+        message_joiner["To"] = trade.joiner.email
+        message_joiner['Subject'] = "Trade A Rate, failure !"
 
         with smtplib.SMTP_SSL(Config.MAIL_SERVER, Config.MAIL_PORT) as server:
             server.login(Config.MAIL_USERNAME, Config.MAIL_PASSWORD)
-            server.sendmail("sixdots.soft@gmail.com", trade.initiator.email, message_initiator)
+            server.sendmail("sixdots.soft@gmail.com", trade.initiator.email, message_initiator.as_string())
 
         with smtplib.SMTP_SSL(Config.MAIL_SERVER, Config.MAIL_PORT) as server:
             server.login(Config.MAIL_USERNAME, Config.MAIL_PASSWORD)
-            server.sendmail("sixdots.soft@gmail.com", trade.joiner.email, message_joiner)
+            server.sendmail("sixdots.soft@gmail.com", trade.joiner.email, message_joiner.as_string())
 
     dbsession.commit()
     dbsession.close()
