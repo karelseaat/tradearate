@@ -21,6 +21,7 @@ cerberus = "*"
 locust = "*"
 flask-misaka = "*"
 alembic = "*"
+flask-cachecontrol = "*"
 
 [dev-packages]
 

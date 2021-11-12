@@ -4,13 +4,7 @@ import datetime as dt
 import requests
 from flask import Flask, redirect, request, url_for, render_template, flash, Response
 from authlib.integrations.flask_client import OAuth
-from flask_login import (
-    login_required,
-    login_user,
-    logout_user,
-    current_user,
-    LoginManager
-)
+from flask_login import (login_required, login_user, logout_user, current_user, LoginManager)
 import time
 from flask_mail import Mail, Message
 from cerberus import Validator
@@ -20,7 +14,12 @@ from models import User, Trade, App, Review, Historic
 from lib.myownscraper import get_app
 from lib.translator import PyNalator
 import os
-from flask_caching import Cache
+
+from flask_cachecontrol import (
+    FlaskCacheControl,
+    cache,
+    cache_for,
+    dont_cache)
 
 valliappinit = Validator({
     'appid': {'required': True, 'type': 'string', 'regex': "^.*\..*\..*$"},
@@ -57,14 +56,9 @@ app.session = make_session()
 app.config.from_object("config.Config")
 
 
-cacheconfig = {
-    "CACHE_TYPE": "SimpleCache",  # Flask-Caching related configs
-    "CACHE_DEFAULT_TIMEOUT": 300
-}
+flask_cache_control = FlaskCacheControl()
+flask_cache_control.init_app(app)
 
-app.config.from_mapping(cacheconfig)
-
-cache = Cache(app)
 oauth = OAuth(app)
 oauth.register(**oauthconfig)
 
@@ -162,6 +156,7 @@ def before_request_func():
         }
 
 @app.route('/userprofile')
+@cache_for(hours=3)
 @login_required
 def userprofile():
     app.data['pagename'] = 'User profile'
@@ -333,9 +328,10 @@ def showapp():
     return result
 
 @app.route("/usertrades")
+@cache_for(hours=3)
 @login_required
 def usertrades():
-    app.data['pagename'] = 'User profile'
+    app.data['pagename'] = 'User Trades'
     userid = request.args.get('userid')
     if not userid or not userid.isnumeric():
         flash('Should be a number', 'has-text-danger')
@@ -439,6 +435,7 @@ def processadd():
     return redirect('/add')
 
 @app.route('/index')
+@cache_for(hours=3)
 def index():
     """the index page, a bit of a shit name, it shows the dashboard with graphs"""
     app.data['pagename'] = 'Dashboard'
@@ -464,7 +461,7 @@ def index():
     return result
 
 @app.route('/')
-@cache.cached()
+@cache_for(hours=3)
 def mainpage():
     """This intro page will show the help for this webapp, perhaps an other name or url is needed ?"""
     app.data['pagename'] = 'Intro page'
@@ -474,6 +471,7 @@ def mainpage():
     return result
 
 @app.route('/overviewapps')
+@cache_for(hours=3)
 @login_required
 def overviewapps():
     """This will show all the apps in a overview page"""
@@ -511,6 +509,7 @@ def showreview():
     return result
 
 @app.route('/overviewreviews')
+@cache_for(hours=3)
 @login_required
 def overviewreviews():
     """the overview page so you can see all the reviews done"""
@@ -826,9 +825,9 @@ def leave():
     app.pyn.close()
     return redirect('/overviewtrades')
 
-# @app.after_request
-# def set_response_headers(response):
-#     # response.headers['Cache-Control'] = 'no-cache, no-store, must-revalidate'
-#     # response.headers['Pragma'] = 'no-cache'
-#     # response.headers['Expires'] = '0'
-#     return response
+@app.after_request
+def set_response_headers(response):
+    response.headers['Cache-Control'] = 'no-cache, no-store, must-revalidate'
+    response.headers['Pragma'] = 'no-cache'
+    response.headers['Expires'] = '0'
+    return response

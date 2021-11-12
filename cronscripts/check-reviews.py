@@ -17,9 +17,9 @@ import smtplib
 from email.mime.text import MIMEText
 import logging
 import datetime
-logging.basicConfig(filename='check-reviews.log', level=logging.INFO)
 
-
+dirname = os.getcwd()
+logging.basicConfig(filename='{}/check-reviews.log'.format(dirname), level=logging.INFO)
 
 def check_reviews():
     dbsession = make_session()

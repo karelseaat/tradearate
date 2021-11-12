@@ -9,6 +9,10 @@ sys.path.append(dirname + '/..')
 from config import make_session
 from models import User, Review
 import datetime
+import logging
+
+dirname=dirname+"/../logs"
+logging.basicConfig(filename='{}/link-reviews-to-users.log'.format(dirname), level=logging.INFO)
 
 def link_reviews_to_users():
     dbsession = make_session()
@@ -25,10 +29,11 @@ def link_reviews_to_users():
             tochange.userimageurl = ""
             tochange.user  = user
             dbsession.add(tochange)
-            print("found one !")
 
     dbsession.commit()
     dbsession.close()
 
 if __name__ == "__main__":
+    logging.info('Start of link reviews to users ' + datetime.datetime.now().strftime("%m/%d/%Y, %H:%M:%S"))
     link_reviews_to_users()
+    logging.info('End of link reviews to users ' + datetime.datetime.now().strftime("%m/%d/%Y, %H:%M:%S"))

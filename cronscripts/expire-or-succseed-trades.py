@@ -18,7 +18,7 @@ from email.mime.text import MIMEText
 
 from sqlalchemy import and_, or_, not_
 
-dirname = os.getcwd()
+dirname=dirname+"/../logs"
 logging.basicConfig(filename='{}/history-update.log'.format(dirname), level=logging.INFO)
 
 

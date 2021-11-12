@@ -19,6 +19,8 @@ import time
 from google_play_scraper.features.reviews import _ContinuationToken
 import logging
 import datetime
+
+dirname=dirname+"/../logs"
 logging.basicConfig(filename='get-reviews.log', level=logging.INFO)
 
 def serialise_token(token):
@@ -30,7 +32,7 @@ def deserialise_token(serialised):
     splitted = serialised.split(',')
     return _ContinuationToken(splitted[0], splitted[1], splitted[2], None, int(splitted[3]), None)
 
-def feedreviews(app, langs, numofrespercall):
+def feedreviews(app, langs, numofrespercall, dbsession):
     count = numofrespercall
     resultcount = numofrespercall
 
@@ -100,7 +102,7 @@ def get_reviews():
             allusers.append(auser)
 
         listoflangs = list(set([x.locale for x in set(allusers) if x.locale]))
-        feedreviews(value, listoflangs, 100)
+        feedreviews(value, listoflangs, 100, dbsession)
 
     dbsession.close()
 

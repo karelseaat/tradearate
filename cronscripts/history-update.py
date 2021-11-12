@@ -11,6 +11,7 @@ from models import Trade, App, Review, Historic
 import logging
 import datetime
 
+dirname=dirname+"/../logs"
 logging.basicConfig(filename='{}/history-update.log'.format(dirname), level=logging.INFO)
 
 
