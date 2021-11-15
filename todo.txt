@@ -283,9 +283,9 @@ bij sidenavigation.html zitten er ook meerdere in moet te vinden zijn ! (done)
 # als we kijken in de playbooks dan worden de eerste lijnen van de crontbs vervangen deze constructie mag ook voor de tools ! (done)
 
 # And then it all was still possible
-# een git commit hook maken voor de alembic autogenerate run en de pipenv freese > requeirements.txt (todo)
+# een git commit hook maken voor de alembic autogenerate run en de pipenv freese > requeirements.txt (todo) <--
 # Het loggin werk mag in een standaard directory worden gedaan (done)
-# Als we kijken naar https://bitbucket.org/akarelse/backend-part/src/master/ dan zien we dat er een filter sort ding bestaat daar, deze gebruiken ! (todo)
+# Als we kijken naar https://bitbucket.org/akarelse/backend-part/src/master/ dan zien we dat er een filter sort ding bestaat daar, deze gebruiken ! (todo) <--
 # alle paginas langs de html validator halen ! (done)
 # wellicht kan ik voor de test ook een ansible maken om de reviews op te halen en de reviews te checken !? (done)
 
