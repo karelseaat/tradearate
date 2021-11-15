@@ -290,7 +290,7 @@ bij sidenavigation.html zitten er ook meerdere in moet te vinden zijn ! (done)
 # wellicht kan ik voor de test ook een ansible maken om de reviews op te halen en de reviews te checken !? (done)
 
 # een zeecontaner vol siliconentieten !
-# de index pagina en de / pagina moeten de juiste dingen laten zien en de juiste naam hebben, dit ff fixen ! (een help pagina en een textuele uitleg /keyword pagina die eventueel naar de help pagina linked, t plaatje) (todo)
+# de index pagina en de / pagina moeten de juiste dingen laten zien en de juiste naam hebben, dit ff fixen   ! (een help pagina en een textuele uitleg /keyword pagina die eventueel naar de help pagina linked, t plaatje) (todo)
 # De app.py nog eens door de linter halen! (todo)
 # de config voor de db voor de alembic moet natuurlijk uiteindelijk uit dezelfde config komen! (todo)
 # checken of alle img tags een alt element hebben en toevoegen! (todo)
