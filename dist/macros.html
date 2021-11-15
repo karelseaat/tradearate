@@ -4,17 +4,17 @@
     <div class="card-content">
       <div class="level is-mobile">
         <div class="level-item">
-          <div class="is-widget-label"><h3 class="subtitle is-spaced">
-            {{ title }}
-          </h3>
+          <div class="is-widget-label">
+            <h3 class="subtitle is-spaced">
+              {{ title }}
+            </h3>
             <h1 class="title">
               {{ data[-1] }}
             </h1>
           </div>
         </div>
         <div class="level-item has-widget-icon">
-          <div class="is-widget-icon"><span class="icon {{ colorclass }} is-large"><i
-              class="mdi {{ iconclass }} mdi-48px"></i></span>
+          <div class="is-widget-icon"><span class="icon {{ colorclass }} is-large"><i class="mdi {{ iconclass }} mdi-48px"></i></span>
           </div>
         </div>
       </div>
@@ -29,11 +29,11 @@
     <div class="level-item">
       <div class="buttons has-addons">
         {% for page in data.total %}
-          {% if data.pagenum %}
-            <button type="button" class="button {{ 'is-active' if page == data.pagenum[0] }}" onclick="window.location.href='/{{ pagename }}?pagenum={{ page -1}}';">{{ page }}</button>
-          {% else %}
-            <button type="button" class="button {{ 'is-active' if page == 1 }}" onclick="window.location.href='/{{ pagename }}?pagenum={{ page -1}}';">{{ page }}</button>
-          {% endif %}
+        {% if data.pagenum %}
+        <button type="button" class="button {{ 'is-active' if page == data.pagenum[0] }}" onclick="window.location.href='/{{ pagename }}?pagenum={{ page -1}}';">{{ page }}</button>
+        {% else %}
+        <button type="button" class="button {{ 'is-active' if page == 1 }}" onclick="window.location.href='/{{ pagename }}?pagenum={{ page -1}}';">{{ page }}</button>
+        {% endif %}
         {% endfor %}
       </div>
     </div>
@@ -41,9 +41,9 @@
   <div class="level-right">
     <div class="level-item">
       {% if data.pagenum[1] %}
-        <small>{{ trans("Page") }} {{ data.pagenum[0] }} {{ trans("of") }} {{ data.pagenum[1] }}</small>
+      <small>{{ trans("Page") }} {{ data.pagenum[0] }} {{ trans("of") }} {{ data.pagenum[1] }}</small>
       {% else %}
-        <small>{{ trans("Page") }} 0 {{ trans("of") }} 0</small>
+      <small>{{ trans("Page") }} 0 {{ trans("of") }} 0</small>
       {% endif %}
     </div>
   </div>
@@ -169,28 +169,49 @@
 {% endmacro %}
 
 {% macro build_rating(score) %}
-  {% set newscore = (score)|int %}
-  {% set restscore = (5-newscore)|int %}
-  <span title="{{ score }}">
+{% set newscore = (score)|int %}
+{% set restscore = (5-newscore)|int %}
+<span title="{{ score }}">
   {% for n in range(newscore) %}
-  <span  class="mdi mdi-star"></span>
+  <span class="mdi mdi-star"></span>
   {% endfor %}
 
 
   {% for n in range(restscore) %}
-  <span  class="mdi mdi mdi-star-outline"></span>
+  <span class="mdi mdi mdi-star-outline"></span>
   {% endfor %}
-  </span>
+</span>
 {% endmacro %}
 
-{% macro build_app_table(data) %}
+{% macro build_app_table(data, sorts, cursort) %}
 <table class="table is-fullwidth is-striped is-hoverable is-fullwidth">
   <thead>
     <tr>
       <th></th>
-      <th>{{ trans("Name") }}</th>
+      <th>
+        <div class="th-wrap">
+
+          <span class="is-relative"> {{ trans("Name") }}
+            {% if cursort.name == 'asc' %}
+            <a class="icon sort-icon is-small" href="{{ url_for(request.endpoint) }}?name={{ sorts.name }}&payed={{ cursort.payed }}"><i class="mdi mdi-arrow-up"></i></a>
+            {% elif cursort.name == 'desc' %}
+            <a class="icon sort-icon is-small" href="{{ url_for(request.endpoint) }}?name={{ sorts.name }}&payed={{ cursort.payed }}"><i class="mdi mdi-arrow-down"></i></a>
+            {% else %}
+            <a class="icon sort-icon is-small" href="{{ url_for(request.endpoint) }}?name={{ sorts.name }}&payed={{ cursort.payed }}"><i class="mdi mdi-checkbox-blank-circle"></i></a>
+            {% endif %}
+          </span>
+        </div>
+      </th>
       <th>{{ trans("Found Reviews") }}</th>
-      <th>{{ trans("Payed") }}</th>
+      <th><span class="is-relative"> {{ trans("Payed") }}
+        {% if cursort.payed == 'asc' %}
+        <a class="icon sort-icon is-small" href="{{ url_for(request.endpoint) }}?payed={{ sorts.payed }}&name={{ cursort.name }}"><i class="mdi mdi-arrow-up"></i></a>
+        {% elif cursort.payed == 'desc' %}
+        <a class="icon sort-icon is-small" href="{{ url_for(request.endpoint) }}?payed={{ sorts.payed }}&name={{ cursort.name }}"><i class="mdi mdi-arrow-down"></i></a>
+        {% else %}
+        <a class="icon sort-icon is-small" href="{{ url_for(request.endpoint) }}?payed={{ sorts.payed }}&name={{ cursort.name }}"><i class="mdi mdi-checkbox-blank-circle"></i></a>
+        {% endif %}
+      </span></th>
       <th></th>
     </tr>
   </thead>
@@ -279,7 +300,7 @@
       <div class="field is-grouped">
         <div class="control">
           <button class="g-recaptcha button is-primary" data-sitekey="{{ recapcha }}" data-callback='onSubmit' data-action='submit'>
-              {{ trans("Submit") }}
+            {{ trans("Submit") }}
           </button>
         </div>
         <div class="control">
@@ -336,9 +357,9 @@
     <div class="field">
       <div class="control">
         {% if current_user.get_score() < 0 %}
-          <input class="input" type="text" name="appid" placeholder="{{ trans('Enter your app id') }}" disabled>
+        <input class="input" type="text" name="appid" placeholder="{{ trans('Enter your app id') }}" disabled>
         {% else %}
-          <input class="input" type="text" name="appid" placeholder="{{ trans('Enter your app id') }}">
+        <input class="input" type="text" name="appid" placeholder="{{ trans('Enter your app id') }}">
         {% endif %}
       </div>
     </div>
@@ -365,9 +386,9 @@
 
   </div>
   {% if link %}
-    <span class="centerit"><a href="{{ link }}">{{ name }}</a></span>
+  <span class="centerit"><a href="{{ link }}">{{ name }}</a></span>
   {% else %}
-    <span class="centerit">{{ name }}</span>
+  <span class="centerit">{{ name }}</span>
   {% endif %}
 </div>
 {% endmacro %}
@@ -376,7 +397,7 @@
 <div class="field">
   <label class="label">{{ trans(label) }}:</label>
   <div class="control is-clearfix">
-  <p>{{ content }}</p>
+    <p>{{ content }}</p>
   </div>
 </div>
 {% endmacro %}

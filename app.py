@@ -12,6 +12,7 @@ from config import make_session, oauthconfig, REVIEWLIMIT, recaptchasecret, reca
 from flask import session as browsersession
 from models import User, Trade, App, Review, Historic
 from lib.myownscraper import get_app
+from lib.filtersort import FilterSort
 from lib.translator import PyNalator
 import os
 
@@ -100,6 +101,19 @@ def pagination(db_object, itemnum):
     app.data['pagenum'] = pagenum+1, round_up(total/itemnum)
     data = app.session.query(db_object).limit(itemnum).offset(pagenum*itemnum).all()
     return data
+
+def nongetpagination(db_object, itemnum):
+    """it does the pagination for db results"""
+    pagenum = 0
+    data = None
+    if 'pagenum' in request.args and request.args.get('pagenum').isnumeric():
+        pagenum = int(request.args.get('pagenum'))
+
+    total = db_object.count()
+    app.data['total'] = list(range(1, round_up(total/itemnum)+1))
+    app.data['pagenum'] = pagenum+1, round_up(total/itemnum)
+    return db_object.limit(itemnum).offset(pagenum*itemnum)
+    # return data
 
 @login_manager.user_loader
 def load_user(userid):
@@ -487,15 +501,28 @@ def overviewapps():
     """This will show all the apps in a overview page"""
     app.data['pagename'] = 'All apps'
     try:
-        app.data['data'] = pagination(App, 5)
+        filtersort = FilterSort()
+        sortlist = filtersort.make_sort({'name': App.name, 'payed': App.paid})
+        app.data['sorts'] = filtersort.generate_next_sort(['name', 'payed'])
+        app.data['cursort'] = filtersort.generate_current_sort(['name', 'payed'])
+
+        apps = app.session.query(App)
+        for sort in sortlist:
+            apps = apps.order_by(sort())
+
+        apps = nongetpagination(apps, 5).all()
+
+        app.data['data'] = apps
 
     except Exception as exception:
+        print(str(exception))
         flash(str(exception), 'has-text-danger')
 
     result = render_template('overviewapps.html', data=app.data)
     app.session.close()
     app.pyn.close()
     return result
+    # return ""
 
 @app.route('/showreview')
 @dont_cache()

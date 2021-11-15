@@ -5,8 +5,10 @@ from sqlalchemy import Column, ForeignKey, String, Integer, Boolean, Date
 from sqlalchemy_utils import get_hybrid_properties
 
 
-Base = declarative_base()
+Base = declarative_base(name="Base")
 metadata = Base.metadata
+
+
 
 class DictSerializableMixin(Base):
     __abstract__ = True
@@ -287,6 +289,7 @@ class Review(DictSerializableMixin):
     user_id = Column(ForeignKey('users.id'), index=True)
     user = relationship('User', back_populates="reviews")
     added = Column(Date, default=datetime.datetime.utcnow)
+    # klont = Column(Date, default=datetime.datetime.utcnow)
 
     minreviewlength = 50
 

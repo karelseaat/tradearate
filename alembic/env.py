@@ -5,6 +5,7 @@ from sqlalchemy import pool
 
 from alembic import context
 from models import Base
+from models import User, Trade, App, Review, Historic
 
 
 # this is the Alembic Config object, which provides
