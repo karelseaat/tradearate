@@ -280,6 +280,8 @@ bij sidenavigation.html zitten er ook meerdere in moet te vinden zijn ! (done)
 # cron files logging glijktrekken (done)
 # Het main log werk is nogal veel, dat worden grote log files, dit ff aanpakken ! (done)
 
+# als we kijken in de playbooks dan worden de eerste lijnen van de crontbs vervangen deze constructie mag ook voor de tools ! (done)
+
 # And then it all was still possible
 # een git commit hook maken voor de alembic autogenerate run en de pipenv freese > requeirements.txt
 # Het loggin werk mag in een standaard directory worden gedaan (done)
@@ -287,16 +289,17 @@ bij sidenavigation.html zitten er ook meerdere in moet te vinden zijn ! (done)
 # alle paginas langs de html validator halen ! (done)
 # wellicht kan ik voor de test ook een ansible maken om de reviews op te halen en de reviews te checken !? (done)
 
-# moeten we bezig met server side caching ? (zou nog efficienter zijn)
-# er moet een test scriptje worden gemaakt datde standaard google schraper gebruikt om app data op te halen als vervanging voor mijn lib/myownscraper.py
-# er moet een soort van script komen dat je moet draaien voor iedere git push, kunnen we dat opnemen in een commit hook ?
-# als we kijken in de playbooks dan worden de eerste lijnen van de crontbs vervangen deze constructie mag ook voor de tools ! (done)
+# een zeecontaner vol siliconentieten !
+# de index pagina en de / pagina moeten de juiste dingen laten zien en de juiste naam hebben, dit ff fixen ! (een help pagina en een textuele uitleg /keyword pagina die eventueel naar de help pagina linked, t plaatje)
 # De app.py nog eens door de linter halen !
-
-de index pagina en de / pagina moeten de juiste dingen laten zien en de juiste naam hebben, dit ff fixen ! (een help pagina en een textuele uitleg /keyword pagina die eventueel naar de help pagina linked, t plaatje)
 # checken of alle img tags een als element hebben en toevoegen !
 # alle cache staat nu op 3 uur hierin kan nog wat nuance worden aangebracht!
 # Ff de logs van de cron uitbrijden zodat er iets meer info in komt te staan !
+
+# moeten we bezig met server side caching ? (zou nog efficienter zijn)
+# er moet een test scriptje worden gemaakt datde standaard google schraper gebruikt om app data op te halen als vervanging voor mijn lib/myownscraper.py
+
+# voor de intro page moet er ook een graph komen maar deze moet kleiner zijn dan de help page wellicht een max van 3 stappen ! (meer graphics !)
 # kijken welke packages er uit de pipenv verwidert kunnen worden !
 # Op de app detail page staan er wel gebruikers maar geen links naar de gebruiker detail paginas (done)
 # Refactor stukken functionaliteid tot extra functies !
