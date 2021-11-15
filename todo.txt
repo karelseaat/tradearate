@@ -285,13 +285,16 @@ bij sidenavigation.html zitten er ook meerdere in moet te vinden zijn ! (done)
 # And then it all was still possible
 # een git commit hook maken voor de alembic autogenerate run en de pipenv freese > requeirements.txt
 # Het loggin werk mag in een standaard directory worden gedaan (done)
-# de config voor de db voor de alembic moet natuurlijk uiteindelijk uit dezelfde config komen !
+# Als we kijken naar https://bitbucket.org/akarelse/backend-part/src/master/ dan zien we dat er een filter sort ding bestaat daar, deze gebruiken !
 # alle paginas langs de html validator halen ! (done)
 # wellicht kan ik voor de test ook een ansible maken om de reviews op te halen en de reviews te checken !? (done)
 
 # een zeecontaner vol siliconentieten !
 # de index pagina en de / pagina moeten de juiste dingen laten zien en de juiste naam hebben, dit ff fixen ! (een help pagina en een textuele uitleg /keyword pagina die eventueel naar de help pagina linked, t plaatje)
 # De app.py nog eens door de linter halen !
+# de config voor de db voor de alembic moet natuurlijk uiteindelijk uit dezelfde config komen !
+de index pagina en de / pagina moeten de juiste dingen laten zien en de juiste naam hebben, dit ff fixen ! (een help pagina en een textuele uitleg /keyword pagina die eventueel naar de help pagina linked, t plaatje)
+
 # checken of alle img tags een als element hebben en toevoegen !
 # alle cache staat nu op 3 uur hierin kan nog wat nuance worden aangebracht!
 # Ff de logs van de cron uitbrijden zodat er iets meer info in komt te staan !
