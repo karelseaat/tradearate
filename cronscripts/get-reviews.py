@@ -92,6 +92,8 @@ def get_reviews():
     allapps = []
     trades = dbsession.query(Trade).filter(Trade.accepted).filter(Trade.success==None).filter(Trade.failure==None).all()
 
+    logging.info('Getting reviews for {} trades.'.format(len(trades)))
+
     for value in trades:
         for app in value.all_apps_in_trade():
             allapps.append(app)

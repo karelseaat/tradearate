@@ -289,22 +289,30 @@ bij sidenavigation.html zitten er ook meerdere in moet te vinden zijn ! (done)
 # alle paginas langs de html validator halen ! (done)
 # wellicht kan ik voor de test ook een ansible maken om de reviews op te halen en de reviews te checken !? (done)
 
-# een zeecontaner vol siliconentieten !
-# de index pagina en de / pagina moeten de juiste dingen laten zien en de juiste naam hebben, dit ff fixen  ! (een help pagina en een textuele uitleg /keyword pagina die eventueel naar de help pagina linked, t plaatje) (todo)
-# De app.py nog eens door de linter halen! (todo)
-# de config voor de db voor de alembic moet natuurlijk uiteindelijk uit dezelfde config komen! (todo)
-# de sort toevoegen bij de trades !(todo)
-# Ff de logs van de cron uitbrijden zodat er iets meer info in komt te staan! (todo)
+# een zeecontaner vol siliconentieten!
+# de index pagina en de / pagina moeten de juiste dingen laten zien en de juiste naam hebben, dit ff fixen  ! (een help pagina en een textuele uitleg /keyword pagina die eventueel naar de help pagina linked, t plaatje) (done)
+# De app.py nog eens door de linter halen! (done)
+# de config voor de db voor de alembic moet natuurlijk uiteindelijk uit dezelfde config komen! (done)
+# de sort toevoegen bij de trades!(not done since it is all calculated fields, mmm)
+# Ff de logs van de cron uitbrijden zodat er iets meer info in komt te staan! (done)
 
-# checken of alle img tags een alt element hebben en toevoegen! (todo)
-# leren wat er te leran valt van : https://bitbucket.org/akarelse/backend-part/src/master/
-# alle cache staat nu op 3 uur hierin kan nog wat nuance worden aangebracht!
-# moeten we bezig met server side caching ? (zou nog efficienter zijn)
-# er moet een test scriptje worden gemaakt dat de standaard google schraper gebruikt om app data op te halen als vervanging voor mijn lib/myownscraper.py
-
-# voor de intro page moet er ook een graph komen maar deze moet kleiner zijn dan de help page wellicht een max van 3 stappen ! (meer graphics !)
-# kijken welke packages er uit de pipenv verwidert kunnen worden !
+# voor de intro page moet er ook een graph komen maar deze moet kleiner zijn dan de help page wellicht een max van 3 stappen ! (done)
 # Op de app detail page staan er wel gebruikers maar geen links naar de gebruiker detail paginas (done)
+
+# plehcs-dieren hard van binnen, slijmerig en zacht van buiten.
+# checken of alle img tags een alt element hebben en toevoegen! (todo)
+# leren wat er te leran valt van : https://bitbucket.org/akarelse/backend-part/src/master/ (todo)
+# alle cache staat nu op 3 uur hierin kan nog wat nuance worden aangebracht! (todo)
+# moeten we bezig met server side caching ? (zou nog efficienter zijn) (todo)
+# er moet een test scriptje worden gemaakt dat de standaard google schraper gebruikt om app data op te halen als vervanging voor mijn lib/myownscraper.py (todo)
+
+# Wat een eindeloos verhaal !
+# alle scripts doorlopen en korter maken van regels en testen met pylint (todo)
+# nog eens de docstrings doen voor de app.py (todo)
+# de svg vullen met vertalingen ! (todo)
+# kijken welke packages er uit de pipenv verwidert kunnen worden ! (todo)
+# bij de reviews staan er nu gewone namen mar deze kunnen worden aangepast naar links naar gebruikers (todo)
+
 # Refactor stukken functionaliteid tot extra functies !
 # Bijna alles klopt behalve het domein dat wort gebruikt op de live site, wat gaan we hiermee doen ?, erg lastig, environment variablen in flask zijn lastig (w8 for later)
 # Nog eens kijken bij de imports naar het toevoegen van het path probleem, dat moet mooier kunnen ! via__init__.py maar dat moeten we ff goed onderzoeken !

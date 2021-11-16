@@ -1,26 +1,22 @@
 import json
 from datetime import timedelta
 import datetime as dt
+import time
 import requests
-from flask import Flask, redirect, request, url_for, render_template, flash, Response
+from flask import Flask, redirect, request, url_for, render_template, flash, Response, session as browsersession
 from authlib.integrations.flask_client import OAuth
 from flask_login import (login_required, login_user, logout_user, current_user, LoginManager)
-import time
+
 from flask_mail import Mail, Message
 from cerberus import Validator
+
+from flask_cachecontrol import (FlaskCacheControl, cache_for, dont_cache)
 from config import make_session, oauthconfig, REVIEWLIMIT, recaptchasecret, recapchasitekey, domain
-from flask import session as browsersession
 from models import User, Trade, App, Review, Historic
 from lib.myownscraper import get_app
 from lib.filtersort import FilterSort
 from lib.translator import PyNalator
-import os
 
-from flask_cachecontrol import (
-    FlaskCacheControl,
-    cache,
-    cache_for,
-    dont_cache)
 
 valliappinit = Validator({
     'appid': {'required': True, 'type': 'string', 'regex': "^.*\..*\..*$"},
@@ -105,7 +101,7 @@ def pagination(db_object, itemnum):
 def nongetpagination(db_object, itemnum):
     """it does the pagination for db results"""
     pagenum = 0
-    data = None
+
     if 'pagenum' in request.args and request.args.get('pagenum').isnumeric():
         pagenum = int(request.args.get('pagenum'))
 
@@ -119,12 +115,16 @@ def nongetpagination(db_object, itemnum):
 def load_user(userid):
     return app.session.query(User).filter(User.googleid == userid).first()
 
+@app.route('/process_index.svg', methods=('GET', 'HEAD'))
+@cache_for(hours=3)
+def index_svg():
+    xml = render_template('indexsvg.svg', color="#f00")
+    return Response(xml, mimetype='image/svg+xml')
+
 @app.route('/process_help.svg', methods=('GET', 'HEAD'))
 @cache_for(hours=3)
-def circle_thin_custom_color():
-
+def help_svg():
     xml = render_template('circle.svg', color="#f00")
-
     return Response(xml, mimetype='image/svg+xml')
 
 @app.before_request
@@ -137,14 +137,14 @@ def before_request_func():
     app.jinja_env.globals.update(trans=app.pyn.trans)
 
     navigation = {
-        'dashboard': ('Dashboard', 'index'),
+        'dashboard': ('Dashboard', 'dashboard'),
         'alltrades': ('All trades', 'overviewtrades'),
         'allapps': ('All apps', 'overviewapps'),
         'allreviews': ('All reviews', 'overviewreviews'),
         'mytrades': ('My trades', 'trades'),
         'myreviews': ('All reviews', 'overviewreviews'),
         'profile': ('My profile', 'userprofile'),
-        'about': ('About', '/'),
+        'about': ('help', '/help'),
         'contact': ('Contact', 'contact')
     }
 
@@ -451,17 +451,16 @@ def processadd():
         app.pyn.close()
 
         return redirect('/show?tradeid={}'.format(tradeid))
-    else:
-        flash(str("chapcha trouble, more than reviews, or of the process doent exist"), 'has-text-danger')
 
+    flash(str("chapcha trouble, more than reviews, or of the process doent exist"), 'has-text-danger')
     app.session.close()
     app.pyn.close()
     return redirect('/add')
 
-@app.route('/index')
+@app.route('/dashboard')
 @cache_for(hours=3)
-def index():
-    """the index page, a bit of a shit name, it shows the dashboard with graphs"""
+def dashboard():
+    """the dashboard page, a bit of a shit name, it shows the dashboard with graphs"""
     app.data['pagename'] = 'Dashboard'
 
     nowdate = dt.datetime.now().date()
@@ -474,22 +473,33 @@ def index():
         .order_by(Historic.date)
         .all()
     )
-    app.data['apps'] = [ x.number for x in allstuff if 0 == x.infotype ]
-    app.data['trades'] = [ x.number for x in allstuff if 1 == x.infotype ]
-    app.data['reviews'] = [ x.number for x in allstuff if 2 == x.infotype ]
+    app.data['apps'] = [ x.number for x in allstuff if  x.infotype == 0]
+    app.data['trades'] = [ x.number for x in allstuff if x.infotype == 1]
+    app.data['reviews'] = [ x.number for x in allstuff if  x.infotype == 2]
     app.data['labels'] = json.dumps(sorted(list({ str(x.date) for x in allstuff})))
 
-    result =  render_template('index.html', data=app.data)
+    result =  render_template('dashboard.html', data=app.data)
     app.session.close()
     app.pyn.close()
     return result
 
 @app.route('/')
 @cache_for(hours=3)
-def mainpage():
+def index():
+
+    app.data['pagename'] = 'About'
+    result = render_template('index.html', data=app.data)
+    app.session.close()
+    app.pyn.close()
+    return result
+
+
+@app.route('/help')
+@cache_for(hours=3)
+def helppage():
     """This intro page will show the help for this webapp, perhaps an other name or url is needed ?"""
-    app.data['pagename'] = 'Intro page'
-    result = render_template('mainpage.html', data=app.data)
+    app.data['pagename'] = 'Help page'
+    result = render_template('helppage.html', data=app.data)
     app.session.close()
     app.pyn.close()
     return result
@@ -568,14 +578,11 @@ def overviewreviews():
 def overviewtrades():
     """a page that will show you a overview for all trades"""
     app.data['pagename'] = 'All trades'
-    app.data['data'] = pagination(Trade, 5)
 
-    app.data['sometest'] = current_user.all_pending()
-    someid = current_user.id
 
-    moreuser = app.session.query(User).filter(User.id==someid).first()
+    alltrades = app.session.query(Trade).filter(Trade.accepted is None).filter(Trade.success is None)
 
-    app.data['farck'] = moreuser.all_pending()
+    app.data['data'] = nongetpagination(alltrades, 5).all()
 
     result = render_template('overview.html', data=app.data)
     app.session.close()
@@ -802,29 +809,29 @@ def processjoin():
             app.pyn.close()
             return redirect('/overviewtrades')
 
-            msg = Message(
-                'One of your app trades has been joined!',
-                html= """
-                    <p>Go to your <a href='{}/show?tradeid={}'>trade</a> to view the details and decide if you want to accept the trade !</p>
-                """.format(domain, thetrade.id),
-                sender="sixdots.soft@gmail.com",
-                recipients=[thetrade.initiator.email]
-            )
+        msg = Message(
+            'One of your app trades has been joined!',
+            html= """
+                <p>Go to your <a href='{}/show?tradeid={}'>trade</a> to view the details and decide if you want to accept the trade !</p>
+            """.format(domain, trade.id),
+            sender="sixdots.soft@gmail.com",
+            recipients=[trade.initiator.email]
+        )
 
-            mail = Mail(app)
-            mail.send(msg)
+        mail = Mail(app)
+        mail.send(msg)
 
-            msg = Message(
-                'You have joined a app trade!',
-                html= """
-                    <p>Go to the <a href='{}/show?tradeid={}'>trade</a> to view the details and decide if you want to accept the trade !</p>
-                """.format(domain, thetrade.id),
-                sender="sixdots.soft@gmail.com",
-                recipients=[thetrade.joiner.email]
-            )
+        msg = Message(
+            'You have joined a app trade!',
+            html= """
+                <p>Go to the <a href='{}/show?tradeid={}'>trade</a> to view the details and decide if you want to accept the trade !</p>
+            """.format(domain, trade.id),
+            sender="sixdots.soft@gmail.com",
+            recipients=[trade.joiner.email]
+        )
 
-            mail = Mail(app)
-            mail.send(msg)
+        mail = Mail(app)
+        mail.send(msg)
 
         app.session.commit()
         tradeid = trade.id
@@ -832,9 +839,8 @@ def processjoin():
         app.session.close()
         app.pyn.close()
         return redirect('/show?tradeid={}'.format(tradeid))
-    else:
-        flash(str("chapcha trouble, more than reviews, or of the process doent exist"), 'has-text-danger')
 
+    flash(str("chapcha trouble, more than reviews, or of the process doent exist"), 'has-text-danger')
     app.session.close()
     app.pyn.close()
     return redirect('/join')

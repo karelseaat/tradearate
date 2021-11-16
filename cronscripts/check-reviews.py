@@ -54,8 +54,6 @@ def check_reviews():
                     joinerreviews.append(value.username)
 
 
-        print(initiatorreviews, joiner)
-        print(joinerreviews, initiator)
 
         if joiner in initiatorreviews:
             print("initiator has done review")
@@ -66,6 +64,9 @@ def check_reviews():
             trade.joiner_reviewed = True
 
         if trade.joiner_reviewed and trade.initiator_reviewed:
+
+            logging.info('Review success: {} <---> {}'.format(trade.joiner.email, trade.initiator.email))
+
             trade.success = datetime.datetime.now()
             sender = "sixdots.soft@gmail.com"
 

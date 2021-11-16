@@ -168,3 +168,8 @@ footer {
     padding-top: 32px;
     margin-top: -75px; */
 }
+
+.imgcenter {
+  margin: auto;
+  display: block;
+}

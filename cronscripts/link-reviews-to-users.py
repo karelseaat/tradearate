@@ -24,10 +24,12 @@ def link_reviews_to_users():
 
     for user in users:
         if user.fullname in reviewnames:
+
             tochange = reviewnames[user.fullname]
             tochange.username = ""
             tochange.userimageurl = ""
             tochange.user  = user
+            logging.info('Found user that was not linked to review, linking now: email <--> reviewid: {} <---> {}'.format(user.email, tochange.id))
             dbsession.add(tochange)
 
     dbsession.commit()

@@ -1,19 +1,22 @@
-{% from "macros.html" import build_badge, build_card_header, build_graph %}
-
 {% extends "base.html" %}
+
 {% block content %}
 
-<section class="section is-main-section">
-  <div class="tile is-ancestor">
-
-    {{ build_badge(data.apps, "Nr of apps", "has-text-primary", "mdi-android") }}
-    {{ build_badge(data.trades, "Nr of trades", "has-text-info", "mdi-twitter-retweet") }}
-    {{ build_badge(data.reviews, "Nr of reviews", "has-text-danger", "mdi-star-half") }}
-
+<div class="hero fullscreen">
+  <div class="hero-body u-center">
+    <div class="w-90" style="position: relative">
+      <div class="row">
+        <div class="frame fullwidth">
+          <div class="frame__body ">
+            <img class="imgcenter" src="process_index.svg" alt="trade a rate short explanation">
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
+</div>
 
-  {{ build_graph(data) }}
 
-</section>
+
 
 {% endblock %}

@@ -3,6 +3,7 @@ from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import relationship
 from sqlalchemy import Column, ForeignKey, String, Integer, Boolean, Date
 from sqlalchemy_utils import get_hybrid_properties
+from sqlalchemy.ext.hybrid import hybrid_property
 
 
 Base = declarative_base(name="Base")
@@ -154,7 +155,7 @@ class Trade(DictSerializableMixin):
         if initiatorlang:
             self.initiatorlang = initiatorlang
 
-
+    @hybrid_property
     def status(self):
         """will return the status of a trade"""
         if self.failure:

@@ -45,6 +45,8 @@ def expire_or_succeed():
         message_joiner["To"] = trade.joiner.email
         message_joiner['Subject'] = "Trade A Rate, failure !"
 
+        logging.info('Review failure: {} <---> {}'.format(trade.joiner.email, trade.initiator.email))
+
         with smtplib.SMTP_SSL(Config.MAIL_SERVER, Config.MAIL_PORT) as server:
             server.login(Config.MAIL_USERNAME, Config.MAIL_PASSWORD)
             server.sendmail("sixdots.soft@gmail.com", trade.initiator.email, message_initiator.as_string())

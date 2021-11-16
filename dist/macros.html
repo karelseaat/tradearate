@@ -121,7 +121,7 @@
 </table>
 {% endmacro %}
 
-{% macro build_table(data) %}
+{% macro build_table(data, sorts, cursort) %}
 <table class="table is-fullwidth is-striped is-hoverable is-fullwidth">
   <thead>
     <tr>
@@ -129,7 +129,9 @@
       <th>{{ trans("Start User") }}</th>
       <th></th>
       <th>{{ trans("Start App") }}</th>
-      <th>{{ trans("Status") }}</th>
+      <th>
+        <{{ trans("Status") }}
+      </th>
       <th>{{ trans("Days left") }}</th>
       <th>{{ trans("Created") }}</th>
       <th>{{ trans("Accepted") }}</th>
@@ -152,7 +154,7 @@
       </td>
 
       <td><a href="{{ my_item.initiatorapp.get_url() }}">{{ my_item.initiatorapp.name }}</a></td>
-      <td>{{ my_item.status() }}</td>
+      <td>{{ my_item.status }}</td>
       <td>{{ my_item.trade_days_left() }}</td>
       <td>{{ my_item.initiated }}</td>
       <td>{{ my_item.accepted }}</td>

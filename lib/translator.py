@@ -6,8 +6,8 @@
 # lezen van een parameter/variable die zegt van welke vertalings file er gebruikt moet worden
 # inlezen van de fertalings files in de vorm van toml ?
 
-import toml
 import os
+import toml
 
 class PyNalator:
 
@@ -20,19 +20,19 @@ class PyNalator:
     def __init__(self, localename=None, subdir="."):
 
         if localename:
-            if not os.path.exists("./{}/trans-{}.toml".format(subdir, localename)):
-                open("./{}/trans-{}.toml".format(subdir, localename), "x").close()
+            if not os.path.exists(f"./{subdir}/trans-{localename}.toml"):
+                open(f"./{subdir}/trans-{localename}.toml", "x", encoding="utf8").close()
 
-            self.transfile = open("./{}/trans-{}.toml".format(subdir, localename), "r+")
+            self.transfile = open(f"./{subdir}/trans-{localename}.toml", "r+", encoding="utf8")
 
             if self.transfile:
                 cont = self.transfile.read()
                 self.transcont =  toml.loads(cont, _dict=dict)
 
-        if not os.path.exists("./{}/trans-default.toml".format(subdir)):
-            open("./{}/trans-default.toml".format(subdir), "x").close()
+        if not os.path.exists(f"./{subdir}/trans-default.toml"):
+            open(f"./{subdir}/trans-default.toml", "x", encoding="utf8").close()
 
-        self.defaulttransfile = open("./{}/trans-default.toml".format(subdir), "r+")
+        self.defaulttransfile = open(f"./{subdir}/trans-default.toml", "r+", encoding="utf8")
 
         if self.defaulttransfile:
             cont = self.defaulttransfile.read()
@@ -42,9 +42,9 @@ class PyNalator:
 
         if word in self.transcont:
             return self.transcont[word]
-        else:
-            self.defaulttranscont.update({word: word})
-            return word
+
+        self.defaulttranscont.update({word: word})
+        return word
 
     def close(self):
         if self.transfile:

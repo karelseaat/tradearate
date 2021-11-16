@@ -6,7 +6,8 @@ from sqlalchemy import pool
 from alembic import context
 from models import Base
 from models import User, Trade, App, Review, Historic
-
+from config import CONNECTIONURI
+from sqlalchemy import create_engine
 
 # this is the Alembic Config object, which provides
 # access to the values within the .ini file in use.
@@ -40,6 +41,7 @@ def run_migrations_offline():
     script output.
 
     """
+    print("offline")
     url = config.get_main_option("sqlalchemy.url")
     context.configure(
         url=url,
@@ -59,11 +61,13 @@ def run_migrations_online():
     and associate a connection with the context.
 
     """
-    connectable = engine_from_config(
-        config.get_section(config.config_ini_section),
-        prefix="sqlalchemy.",
-        poolclass=pool.NullPool,
-    )
+    print("online")
+    # connectable = engine_from_config(
+    #     config.get_section(config.config_ini_section),
+    #     prefix="sqlalchemy.",
+    #     poolclass=pool.NullPool,
+    # )
+    connectable = create_engine(CONNECTIONURI)
 
     with connectable.connect() as connection:
         context.configure(
