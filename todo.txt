@@ -300,24 +300,36 @@ bij sidenavigation.html zitten er ook meerdere in moet te vinden zijn ! (done)
 # Op de app detail page staan er wel gebruikers maar geen links naar de gebruiker detail paginas (done)
 
 # plehcs-dieren hard van binnen, slijmerig en zacht van buiten.
-# checken of alle img tags een alt element hebben en toevoegen! (todo)
-# leren wat er te leran valt van : https://bitbucket.org/akarelse/backend-part/src/master/ (todo)
-# alle cache staat nu op 3 uur hierin kan nog wat nuance worden aangebracht! (todo)
-# moeten we bezig met server side caching ? (zou nog efficienter zijn) (todo)
-# er moet een test scriptje worden gemaakt dat de standaard google schraper gebruikt om app data op te halen als vervanging voor mijn lib/myownscraper.py (todo)
+# checken of alle img tags een alt element hebben en toevoegen! (done)
+# nog eens de docstrings doen voor de app.py (done)
+# alle cache staat nu op 3 uur hierin kan nog wat nuance worden aangebracht! (done)
+# moeten we bezig met server side caching ? (ja lijkt me leuk toch ff memcached installen !)
+# er moet een test scriptje worden gemaakt dat de standaard google schraper gebruikt om app data op te halen als vervanging voor mijn lib/myownscraper.py (done)
 
-# Wat een eindeloos verhaal !
+# bij de review details staan er geen links naar de app of de gebruiker, dit mag er ook in ! (done)
+# als je kijkt bij de reviews onder app details dan kun je niet klikken om de gebruikers !(done)
+# Wellicht het zo maken dat de tabellen nu wel gesorteerd kunnnen worden (done)
+
+# Wat een eindeloos verhaal!
+# Ik kan bij reviews nog niet klikken op een gebruiker (done)
+# Ik kan bij de review details geen plaatje zien van een gebruiker en geen naam zien van een gebruiker! (done)
+# de svg vullen met vertalingen! (todo) <--
+# mytrades is stuk (done)
+# bij de reviews staan er nu gewone namen mar deze kunnen worden aangepast naar links naar gebruikers (done)
+
+# gewoon bijvrotten !
 # alle scripts doorlopen en korter maken van regels en testen met pylint (todo)
-# nog eens de docstrings doen voor de app.py (todo)
-# de svg vullen met vertalingen ! (todo)
-# kijken welke packages er uit de pipenv verwidert kunnen worden ! (todo)
-# bij de reviews staan er nu gewone namen mar deze kunnen worden aangepast naar links naar gebruikers (todo)
+# de routes binnen flask hebben echt wel mogelijkheden voor parameters dus ff kijken (todo)
+# toevoegen van een status veld aan trade, om de joined, accepted, scusess en failure bij te houden en te sorten! (todo) <--
+# Wil ik bij images van users en apps de naam van de app en of user in de alt zetten ? (done)
+# Refactor stukken functionaliteid tot extra functies ! (todo)
 
-# Refactor stukken functionaliteid tot extra functies !
+De lettertypes in de svg moeten overeenkomen met de lettertypes in de rest van de site !
+# leren wat er te leran valt van : https://bitbucket.org/akarelse/backend-part/src/master/ (todo)
+# kijken welke packages er uit de pipenv verwidert kunnen worden ! (todo)
 # Bijna alles klopt behalve het domein dat wort gebruikt op de live site, wat gaan we hiermee doen ?, erg lastig, environment variablen in flask zijn lastig (w8 for later)
 # Nog eens kijken bij de imports naar het toevoegen van het path probleem, dat moet mooier kunnen ! via__init__.py maar dat moeten we ff goed onderzoeken !
 # We moeten er ook voor zorgen dat als er fouten op een form staan deze wellicht niet in de snackbar moeten komen te staan maar onder een form veld in rode letters !?
-# Wellicht het zo maken dat de tabellen nu wel gesorteerd kunnnen worden ?
 # Belangrijk in de toekomst: https://brizzo.net/tips/hide-recaptcha-v3-badge/
 # Dus het zou a handig zijn als gebruikers met elkaar kunnen comuniceren en b er is ruimte zat voor, doen ?
 # Zoom in dan krijg je te zien dat het linker menu verdwijnt maar het top menu in een hamburger menu wordt opgenomen, das niet toff ! (nog niet makkelijk om te fixen, menu toch maar pmdraaien of remodellen ?)

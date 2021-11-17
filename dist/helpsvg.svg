@@ -489,12 +489,12 @@
            y="-1144.8202"
            x="-181.10265"
            id="tspan2536"
-           sodipodi:role="line">This is the TradeARate web app.</tspan><tspan
+           sodipodi:role="line">{{ trans("This is the TradeARate web app.") }}</tspan><tspan
            id="tspan2540"
            style="stroke-width:0.26458332"
            y="-1130.5604"
            x="-181.10265"
-           sodipodi:role="line">But what does the app do ?</tspan></text>
+           sodipodi:role="line">{{ trans("But what does the app do ?.") }}</tspan></text>
     </g>
     <g
        id="g20563"
@@ -834,7 +834,7 @@
            y="-1067.386"
            x="-215.0797"
            id="tspan2608"
-           sodipodi:role="line">Well are you an Android app developer ?</tspan></text>
+           sodipodi:role="line">{{ trans("Well are you an Android app developer ?") }}</tspan></text>
     </g>
     <g
        id="g20786"
@@ -1325,7 +1325,7 @@
            y="-901.96735"
            x="-219.50684"
            id="tspan2612"
-           sodipodi:role="line">Sooo you want ratings for your app, right ?</tspan></text>
+           sodipodi:role="line">{{ trans("Sooo you want ratings for your app, right ?") }}</tspan></text>
     </g>
     <g
        id="g20980"
@@ -1813,7 +1813,7 @@
            y="-705.03882"
            x="-189.97546"
            id="tspan2715"
-           sodipodi:role="line">You could pay for your ratings !</tspan></text>
+           sodipodi:role="line">{{ trans("You could pay for your ratings!") }} </tspan></text>
     </g>
     <g
        id="g2904"
@@ -2255,7 +2255,7 @@
          id="tspan2814"
          x="-127.99323"
          y="-186.20694"
-         style="stroke-width:0.09144771">Or ... you trade ratings with other app developers !</tspan></text>
+         style="stroke-width:0.09144771">{{ trans("Or ... you trade ratings with other app developers !") }}</tspan></text>
     <g
        id="g19755"
        transform="matrix(0.34562918,0,0,0.34562918,-44.098899,-6.3466247)">
@@ -2669,7 +2669,7 @@
            y="-359.73337"
            x="-216.45445"
            id="tspan3161"
-           sodipodi:role="line">So what do you need to do for a review ?</tspan></text>
+           sodipodi:role="line">{{ trans("So what do you need to do for a review ?") }}</tspan></text>
     </g>
     <g
        id="g21068"
@@ -2692,7 +2692,7 @@
            y="-179.80057"
            x="-669.22864"
            id="tspan3284"
-           sodipodi:role="line">Add your trade with the &quot;Add&quot; button on the bottom of the &quot;All trades&quot; page !</tspan></text>
+           sodipodi:role="line">{{ trans("Add your trade with the &quot;Add&quot; button on the bottom of the &quot;All trades&quot; page !") }} </tspan></text>
     </g>
     <g
        id="g21124"
@@ -2707,7 +2707,7 @@
            y="11.606778"
            x="-601.39813"
            id="tspan3288"
-           sodipodi:role="line">Fill in your app id in the input field and click submit.</tspan></text>
+           sodipodi:role="line">{{ trans("Fill in your app id in the input field and click submit.") }} </tspan></text>
       <image
          width="153.23943"
          height="94.775238"
@@ -3138,12 +3138,12 @@
            y="203.30501"
            x="-462.16632"
            id="tspan3373"
-           sodipodi:role="line">When an other developer joins your trade, you will get an email </tspan><tspan
+           sodipodi:role="line">{{ trans("When an other developer joins your trade, you will get an email.") }}  </tspan><tspan
            id="tspan3377"
            style="text-align:center;text-anchor:middle;stroke-width:0.26458332"
            y="217.56474"
            x="-463.84839"
-           sodipodi:role="line">with the news that someone has joined your trade and a link to the trade.</tspan></text>
+           sodipodi:role="line">{{ trans("With the news that someone has joined your trade and a link to the trade.") }} </tspan></text>
     </g>
     <g
        id="g20208"
@@ -3158,12 +3158,12 @@
            y="535.99902"
            x="-107.36552"
            id="tspan3379"
-           sodipodi:role="line">If conditions of the trade seem reasonable to you,</tspan><tspan
+           sodipodi:role="line">{{ trans(" If conditions of the trade seem reasonable to you,") }}</tspan><tspan
            id="tspan3383"
            style="text-align:center;text-anchor:middle;stroke-width:0.26458332"
            y="550.25879"
            x="-107.36552"
-           sodipodi:role="line">you can click &quot;Accept&quot; on the bottom of the trade.</tspan></text>
+           sodipodi:role="line">{{ trans("you can click &quot;Accept&quot; on the bottom of the trade.") }} </tspan></text>
       <image
          width="204.97116"
          height="135.01224"
@@ -3186,12 +3186,12 @@
            y="757.36176"
            x="-107.72725"
            id="tspan3482"
-           sodipodi:role="line">If the other developer also accepted the trade the trade status will change to accepted and both developers can start to review.</tspan><tspan
+           sodipodi:role="line">{{ trans("If the other developer also accepted the trade the trade status will change to accepted and both developers can start to review.") }} </tspan><tspan
            id="tspan3486"
            style="text-align:center;text-anchor:middle;stroke-width:0.26458332"
            y="771.62152"
            x="-107.72723"
-           sodipodi:role="line">(you can also see that your starter trade points will allow you to have only one outstanding trade !)</tspan></text>
+           sodipodi:role="line">{{ trans("(you can also see that your starter trade points will allow you to have only one outstanding trade !)") }} </tspan></text>
       <image
          width="250.3242"
          height="128.49088"
@@ -3214,12 +3214,12 @@
            y="971.12659"
            x="-106.57745"
            id="tspan3601"
-           sodipodi:role="line">be sure to review the app of the other developer in the same browser that you use for Trade A Rate since the localization is important! </tspan><tspan
+           sodipodi:role="line">{{ trans("be sure to review the app of the other developer in the same browser that you use for Trade A Rate since the localization is important!") }}</tspan><tspan
            id="tspan3605"
            style="text-align:center;text-anchor:middle;stroke-width:0.26458332"
            y="985.38635"
            x="-108.25951"
-           sodipodi:role="line">(don’t forget that you have to install the other developers app)</tspan></text>
+           sodipodi:role="line">{{ trans("(don’t forget that you have to install the other developers app)") }}</tspan></text>
       <image
          width="257.46695"
          height="146.82574"
@@ -3242,22 +3242,22 @@
            y="1246.9525"
            x="-107.72725"
            id="tspan3672"
-           sodipodi:role="line">If both developers did the reviews of each others app the Trade A Rate system will detect those reviews in a maximum of nine hours.</tspan><tspan
+           sodipodi:role="line">{{ trans("If both developers did the reviews of each others app the Trade A Rate system will detect those reviews in a maximum of nine hours.") }}</tspan><tspan
            id="tspan3678"
            style="text-align:center;text-anchor:middle;stroke-width:0.26458332"
            y="1261.2123"
            x="-107.72725"
-           sodipodi:role="line">Both party's will be awarded a review point, when you collect 10 point you can do 2 reviews at the same time,</tspan><tspan
+           sodipodi:role="line">{{ trans("Both party's will be awarded a review point, when you collect 10 point you can do 2 reviews at the same time,") }}</tspan><tspan
            id="tspan3680"
            style="text-align:center;text-anchor:middle;stroke-width:0.26458332"
            y="1275.472"
            x="-107.72724"
-           sodipodi:role="line">when you collect 20 points you can do 3 reviews.</tspan><tspan
+           sodipodi:role="line">{{ trans("when you collect 20 points you can do 3 reviews.") }}</tspan><tspan
            id="tspan3676"
            style="text-align:center;text-anchor:middle;stroke-width:0.26458332"
            y="1289.7317"
            x="-107.72726"
-           sodipodi:role="line">Most important part you have earned a trade point and got a organic review !</tspan></text>
+           sodipodi:role="line">{{ trans("Most important part you have earned a trade point and got a organic review !") }}</tspan></text>
       <g
          inkscape:label="Layer 1"
          id="layer1-6"
@@ -3903,7 +3903,7 @@
            y="-191.93892"
            x="73.869629"
            id="tspan4357"
-           sodipodi:role="line">Or join a trade that someone else started by going to a trade detail (with status initiated).</tspan></text>
+           sodipodi:role="line">{{ trans("Or join a trade that someone else started by going to a trade detail (with status initiated).") }} </tspan></text>
     </g>
     <g
        id="g20114"
@@ -3926,7 +3926,7 @@
            y="0.36347491"
            x="157.51311"
            id="tspan4361"
-           sodipodi:role="line">And join that trade on the bottom of the trade detail page.</tspan></text>
+           sodipodi:role="line">{{ trans(" And join that trade on the bottom of the trade detail page.") }}</tspan></text>
     </g>
     <g
        id="g20109"
@@ -3941,7 +3941,7 @@
            y="186.08333"
            x="175.08051"
            id="tspan3288-0"
-           sodipodi:role="line">Fill in your app id in the input field and click submit.</tspan></text>
+           sodipodi:role="line">{{ trans("Fill in your app id in the input field and click submit.") }} </tspan></text>
       <image
          width="153.23943"
          height="94.775238"
@@ -4372,12 +4372,12 @@
            y="345.54364"
            x="312.80853"
            id="tspan4668"
-           sodipodi:role="line">You will now get an email that you joined someones trade,</tspan><tspan
+           sodipodi:role="line">{{ trans("You will now get an email that you joined someones trade,") }}</tspan><tspan
            id="tspan4672"
            style="text-align:center;text-anchor:middle;stroke-width:0.26458332"
            y="359.80338"
            x="312.80853"
-           sodipodi:role="line">In this email you will find a link to the trade you are in.</tspan></text>
+           sodipodi:role="line">{{ trans("In this email you will find a link to the trade you are in.") }}</tspan></text>
     </g>
     <g
        id="use19204"

@@ -22,6 +22,7 @@ locust = "*"
 flask-misaka = "*"
 alembic = "*"
 flask-cachecontrol = "*"
+cachetools = "*"
 
 [dev-packages]
 

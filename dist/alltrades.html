@@ -1,4 +1,4 @@
-{% from "macros.html" import build_add_button, build_table, build_card_header, build_app_table %}
+{% from "macros.html" import build_add_button, build_table, build_card_header, build_app_table, build_simple_app_table %}
 
 {% extends "base.html" %}
 {% block content %}
@@ -44,7 +44,7 @@
     <div class="card-content">
       <div class="b-table has-pagination">
         <div class="table-wrapper has-mobile-cards">
-          {{ build_app_table(data.data.all_apps()) }}
+          {{ build_simple_app_table(data.data.all_apps()) }}
         </div>
         <div class="notification">
           <div class="level">

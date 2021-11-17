@@ -1,4 +1,4 @@
-{% from "macros.html" import build_card_header, build_rating, build_defautl_field %}
+{% from "macros.html" import build_card_header, build_rating, build_defautl_field, build_href_field %}
 
 {% extends "base.html" %}
 {% block content %}
@@ -12,7 +12,7 @@
           <div class="is-user-avatar image has-max-width is-aligned-center">
             <img src="" alt="">
           </div>
-          {{ build_defautl_field("App name", data.data.app.name) }}
+          {{ build_href_field("App name", data.data.app.name, data.data.app.get_url()) }}
           <hr>
           {{ build_defautl_field("Review time", data.data.reviewtime) }}
           {{ build_defautl_field("Review text", data.data.reviewtext) }}
@@ -23,13 +23,24 @@
             </div>
             <hr>
             <label class="label">{{ trans("Reviewer") }}:</label>
+            {% if data.data.user %}
             <div class="control is-clearfix">
               <div class="is-user-avatar image has-max-width is-aligned-center">
-                <img src="{{ data.data }}" alt="{{ data.data.username }}">
+                <img src="{{ data.data.user.picture }}" alt="user image">
+              </div>
+              <label class="label">{{ trans("Name") }}:</label>
+              <p><a href='/usertrades?userid={{ data.data.user.id }}'>{{ data.data.user.fullname }}</a></p>
+            </div>
+            {% else %}
+            <div class="control is-clearfix">
+              <div class="is-user-avatar image has-max-width is-aligned-center">
+                <img src="{{ data.data.userimageurl }}" alt="user image">
               </div>
               <label class="label">{{ trans("Name") }}:</label>
               <p>{{ data.data.username }}</p>
             </div>
+            {% endif %}
+
           </div>
         </div>
       </div>

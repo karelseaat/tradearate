@@ -13,7 +13,7 @@ from cerberus import Validator
 from flask_cachecontrol import (FlaskCacheControl, cache_for, dont_cache)
 from config import make_session, oauthconfig, REVIEWLIMIT, recaptchasecret, recapchasitekey, domain
 from models import User, Trade, App, Review, Historic
-from lib.myownscraper import get_app
+from lib.myownscraper import get_app, get_app_alt
 from lib.filtersort import FilterSort
 from lib.translator import PyNalator
 
@@ -61,6 +61,7 @@ oauth.register(**oauthconfig)
 
 @app.errorhandler(401)
 def unauthorized(_):
+    """the error handler for unauthorised"""
     browsersession['redirect'] = request.path
     return redirect('/login')
 
@@ -109,26 +110,29 @@ def nongetpagination(db_object, itemnum):
     app.data['total'] = list(range(1, round_up(total/itemnum)+1))
     app.data['pagenum'] = pagenum+1, round_up(total/itemnum)
     return db_object.limit(itemnum).offset(pagenum*itemnum)
-    # return data
 
 @login_manager.user_loader
 def load_user(userid):
+    """we need this for authentication"""
     return app.session.query(User).filter(User.googleid == userid).first()
 
 @app.route('/process_index.svg', methods=('GET', 'HEAD'))
-@cache_for(hours=3)
+@cache_for(hours=12)
 def index_svg():
+    """a dynamic svg fancy hu"""
     xml = render_template('indexsvg.svg', color="#f00")
     return Response(xml, mimetype='image/svg+xml')
 
 @app.route('/process_help.svg', methods=('GET', 'HEAD'))
-@cache_for(hours=3)
+@cache_for(hours=12)
 def help_svg():
-    xml = render_template('circle.svg', color="#f00")
+    """another dynamic svg for the help page"""
+    xml = render_template('helpsvg.svg', color="#f00")
     return Response(xml, mimetype='image/svg+xml')
 
 @app.before_request
 def before_request_func():
+    """do this before any request"""
     if isinstance(current_user, User) and current_user.locale:
         app.pyn = PyNalator(localename=current_user.locale, subdir="translations")
     else:
@@ -171,9 +175,10 @@ def before_request_func():
         }
 
 @app.route('/userprofile')
-@cache_for(hours=3)
+@cache_for(hours=12)
 @login_required
 def userprofile():
+    """ this will show a users profile"""
     app.data['pagename'] = 'User profile'
     app.data['data'] = current_user
     app.data['userscore'] = current_user.get_score()
@@ -227,7 +232,7 @@ def logout():
     return redirect('/')
 
 @app.route('/contact')
-@cache_for(hours=3)
+@cache_for(hours=12)
 @login_required
 def contact():
     """Showin a contact form !"""
@@ -241,6 +246,7 @@ def contact():
 @dont_cache()
 @login_required
 def processcontact():
+    """this will prcess a contact form"""
     vallcontact.validate(dict(request.form))
 
     message = request.form.get('message')
@@ -263,9 +269,9 @@ def processcontact():
     mail = Mail(app)
 
     msg = Message(
-        "Trade a rate contact form !, {}".format(subject),
+        f"Trade a rate contact form !, {subject}",
         sender = 'sixdots.soft@gmail.com',
-        body="name: {}\nemail: {}\nmessage: {}".format(current_user.fullname, current_user.email, message),
+        body= f"name: {current_user.fullname}\nemail: {current_user.email}\nmessage: {message}",
         recipients=['sixdots.soft@gmail.com']
     )
 
@@ -353,6 +359,7 @@ def showapp():
 @dont_cache()
 @login_required
 def usertrades():
+    """this will show all trades of the current user"""
     app.data['pagename'] = 'User Trades'
     userid = request.args.get('userid')
     if not userid or not userid.isnumeric():
@@ -372,7 +379,7 @@ def usertrades():
     return result
 
 @app.route("/add")
-@dont_cache()
+@cache_for(hours=12)
 @login_required
 def add():
     """this page will show a form to add a trade"""
@@ -392,7 +399,7 @@ def get_app_from_store(appid, country='us'):
     """this method / function can be removed and get_app can be called directly"""
     appobj = None
     try:
-        appobj = get_app(appid, country=country)
+        appobj = get_app_alt(appid, country=country)
     except Exception as exception:
         flash(str(exception), 'has-text-danger')
     return appobj
@@ -431,12 +438,12 @@ def processadd():
         app.pyn.close()
         return redirect('/add')
 
-    if appobj and int(appobj['rating']) <= REVIEWLIMIT and is_human(captcha_response):
+    if appobj and int(appobj['ratings']) <= REVIEWLIMIT and is_human(captcha_response):
         appmodel = app.session.query(App).filter(App.appidstring==appid).first()
         if not appmodel:
             appmodel = App(appobj['title'], appid)
         appmodel.imageurl = appobj['icon']
-        appmodel.paid = appobj['price'] > 0
+        appmodel.paid = not appobj['free']
         trade = Trade(current_user, appmodel, current_user.locale)
         app.session.add(trade)
         app.session.commit()
@@ -458,7 +465,7 @@ def processadd():
     return redirect('/add')
 
 @app.route('/dashboard')
-@cache_for(hours=3)
+@cache_for(hours=6)
 def dashboard():
     """the dashboard page, a bit of a shit name, it shows the dashboard with graphs"""
     app.data['pagename'] = 'Dashboard'
@@ -484,7 +491,7 @@ def dashboard():
     return result
 
 @app.route('/')
-@cache_for(hours=3)
+@cache_for(hours=12)
 def index():
 
     app.data['pagename'] = 'About'
@@ -495,7 +502,7 @@ def index():
 
 
 @app.route('/help')
-@cache_for(hours=3)
+@cache_for(hours=12)
 def helppage():
     """This intro page will show the help for this webapp, perhaps an other name or url is needed ?"""
     app.data['pagename'] = 'Help page'
@@ -532,7 +539,6 @@ def overviewapps():
     app.session.close()
     app.pyn.close()
     return result
-    # return ""
 
 @app.route('/showreview')
 @dont_cache()
@@ -557,7 +563,7 @@ def showreview():
     return result
 
 @app.route('/overviewreviews')
-@dont_cache()
+@cache_for(hours=6)
 @login_required
 def overviewreviews():
     """the overview page so you can see all the reviews done"""
@@ -677,12 +683,12 @@ def accept():
             if thetrade.accepted:
                 msg = Message(
                     'One of your app trades has been accepted',
-                    html= """
+                    html= f"""
                         <p>The trade has now been accepted !</p>
                         <p>The system will now start to look for your review.</p>
-                        <p>Go to your <a href='{}/show?tradeid={}'>trade</a> to view the details and do a review of the counter app.</p>
-                        <p>Or go to the playstore directly <a href='{}'>directly</a> to do a download and review!</p>
-                    """.format(domain, thetrade.id, thetrade.initiatorapp.get_url()),
+                        <p>Go to your <a href='{domain}/show?tradeid={thetrade.id}'>trade</a> to view the details and do a review of the counter app.</p>
+                        <p>Or go to the playstore directly <a href='{thetrade.initiatorapp.get_url()}'>directly</a> to do a download and review!</p>
+                    """,
                     sender="sixdots.soft@gmail.com",
                     recipients=[thetrade.joiner.email]
                 )
@@ -692,12 +698,12 @@ def accept():
 
                 msg = Message(
                     'One of your app trades has been accepted',
-                    html= """
+                    html= f"""
                         <p>The trade has now been accepted !</p>
                         <p>The system will now start to look for your review.</p>
-                        <p>Go to your <a href='{}/show?tradeid={}'>trade</a> to view the details and do a review of the counter app.</p>
-                        <p>Or go to the playstore directly <a href='{}'>directly</a> to do a download and review!</p>
-                    """.format(domain, thetrade.id, thetrade.joinerapp.get_url()),
+                        <p>Go to your <a href='{domain}/show?tradeid={thetrade.id}'>trade</a> to view the details and do a review of the counter app.</p>
+                        <p>Or go to the playstore directly <a href='{thetrade.joinerapp.get_url()}'>directly</a> to do a download and review!</p>
+                    """,
                     sender="sixdots.soft@gmail.com",
                     recipients=[thetrade.initiator.email]
                 )
@@ -732,6 +738,7 @@ def delete():
     return redirect('/overviewtrades', 303)
 
 @app.route("/join")
+@cache_for(hours=12)
 @dont_cache()
 @login_required
 def join():
@@ -784,11 +791,12 @@ def processjoin():
 
     appobjjoiner = get_app_from_store(appid, country=current_user.locale)
 
-    if appobjjoiner and int(appobjjoiner['rating']) <= REVIEWLIMIT and is_human(captcha_response):
+    if appobjjoiner and int(appobjjoiner['ratings']) <= REVIEWLIMIT and is_human(captcha_response):
         joinerappmodel = app.session.query(App).filter(App.appidstring==appid).first()
         if not joinerappmodel:
             joinerappmodel = App(appobjjoiner['title'], appid)
             joinerappmodel.imageurl = appobjjoiner['icon']
+            joinerappmodel.paid = not appobjjoiner['free']
         trade = app.session.query(Trade).get(int(tradeid))
 
         if not trade.can_join(current_user.id):
@@ -811,9 +819,9 @@ def processjoin():
 
         msg = Message(
             'One of your app trades has been joined!',
-            html= """
-                <p>Go to your <a href='{}/show?tradeid={}'>trade</a> to view the details and decide if you want to accept the trade !</p>
-            """.format(domain, trade.id),
+            html= f"""
+                <p>Go to your <a href='{domain}/show?tradeid={trade.id}'>trade</a> to view the details and decide if you want to accept the trade !</p>
+            """,
             sender="sixdots.soft@gmail.com",
             recipients=[trade.initiator.email]
         )
@@ -823,9 +831,9 @@ def processjoin():
 
         msg = Message(
             'You have joined a app trade!',
-            html= """
-                <p>Go to the <a href='{}/show?tradeid={}'>trade</a> to view the details and decide if you want to accept the trade !</p>
-            """.format(domain, trade.id),
+            html= f"""
+                <p>Go to the <a href='{domain}/show?tradeid={trade.id}'>trade</a> to view the details and decide if you want to accept the trade !</p>
+            """,
             sender="sixdots.soft@gmail.com",
             recipients=[trade.joiner.email]
         )
