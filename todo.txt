@@ -306,6 +306,7 @@ bij sidenavigation.html zitten er ook meerdere in moet te vinden zijn ! (done)
 # moeten we bezig met server side caching ? (ja lijkt me leuk toch ff memcached installen !)
 # er moet een test scriptje worden gemaakt dat de standaard google schraper gebruikt om app data op te halen als vervanging voor mijn lib/myownscraper.py (done)
 
+
 # bij de review details staan er geen links naar de app of de gebruiker, dit mag er ook in ! (done)
 # als je kijkt bij de reviews onder app details dan kun je niet klikken om de gebruikers !(done)
 # Wellicht het zo maken dat de tabellen nu wel gesorteerd kunnnen worden (done)
