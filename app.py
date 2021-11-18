@@ -177,6 +177,7 @@ def before_request_func():
     }
 
     app.data = {
+        'domain': domain,
         'pagename': 'Unknown',
         'user': None,
         'navigation': navigation,
@@ -365,8 +366,8 @@ def trades():
 def showapp(appid):
     """detail page for one application"""
     app.data['pagename'] = 'App details'
-    if not appid or not appid.isnumeric():
-        flash('Should be a number', 'has-text-danger')
+    if not appid.isnumeric():
+        flash('Should be a number 55', 'has-text-danger')
         return redirect('/overviewtrades')
 
     appobj = app.session.query(App).filter(App.id==appid).first()
@@ -387,8 +388,8 @@ def showapp(appid):
 def usertrades(userid):
     """this will show all trades of the current user"""
     app.data['pagename'] = 'User Trades'
-    # userid = request.args.get('userid')
-    if not userid or not userid.isnumeric():
+
+    if not userid.isnumeric():
         flash('Should be a number', 'has-text-danger')
         return redirect('/overviewtrades')
 
@@ -573,7 +574,7 @@ def showreview(reviewid):
     """This will show the details about a review"""
     app.data['pagename'] = 'Reviews ?'
 
-    if not reviewid or not reviewid.isnumeric():
+    if not reviewid.isnumeric():
         flash('Should be a number', 'has-text-danger')
         return redirect('/overviewtrades')
 
@@ -638,7 +639,7 @@ def show(tradeid):
     """detail page for a single trade"""
     app.data['pagename'] = 'Trade details'
 
-    if not tradeid or not tradeid.isnumeric():
+    if not tradeid.isnumeric():
         flash('Should be a number', 'has-text-danger')
         return redirect('/overviewtrades')
 
@@ -667,7 +668,7 @@ def show(tradeid):
 @dont_cache()
 @login_required
 def reject(tradeid):
-    if not tradeid or not tradeid.isnumeric():
+    if not tradeid.isnumeric():
         flash('Should be a number', 'has-text-danger')
         return redirect('/overviewtrades')
 
@@ -701,7 +702,7 @@ def accept(tradeid):
     if both partys have accepted the trade is on so to call
     """
 
-    if not tradeid or not tradeid.isnumeric():
+    if not tradeid.isnumeric():
         flash('Should be a number', 'has-text-danger')
         return redirect('/overviewtrades')
 
@@ -762,7 +763,7 @@ def accept(tradeid):
 @login_required
 def delete(tradeid):
     """this function will let the initiator of the trade delete the trade"""
-    if not tradeid or not tradeid.isnumeric():
+    if not tradeid.isnumeric():
         flash('Should be a number', 'has-text-danger')
         return redirect('/overviewtrades')
     app.session.query(Trade).filter(Trade.id==tradeid).delete()
@@ -801,7 +802,7 @@ def processjoin():
 
     tradeid = request.form.get('tradeid')
 
-    if not tradeid or not tradeid.isnumeric():
+    if not tradeid.isnumeric():
         flash('Should be a number', 'has-text-danger')
         app.session.close()
         app.pyn.close()
@@ -894,7 +895,7 @@ def processjoin():
 @login_required
 def leave(tradeid):
     """here a trade joiner can leave a trade"""
-    if not tradeid or not tradeid.isnumeric():
+    if not tradeid.isnumeric():
         flash('Should be a number', 'has-text-danger')
         return redirect('/overviewtrades')
 

@@ -36,12 +36,12 @@ def expire_or_succeed():
 
         sender = "sixdots.soft@gmail.com"
 
-        message_initiator = MIMEText("<p>A <a href='{}/show?tradeid={}'>trade</a> you started on Trade A Rate has failed</p>".format(domain, trade.id), 'html')
+        message_initiator = MIMEText("<p>A <a href='{}/show/{}'>trade</a> you started on Trade A Rate has failed</p>".format(domain, trade.id), 'html')
         message_initiator['From'] = sender
         message_initiator['To'] = trade.initiator.email
         message_initiator['Subject'] = "Trade A Rate, failure !"
 
-        message_joiner = MIMEText("<p>A <a href='{}/show?tradeid={}'>trade</a> you joined on Trade A Rate has failed</p>".format(domain, trade.id), 'html')
+        message_joiner = MIMEText("<p>A <a href='{}/show/{}'>trade</a> you joined on Trade A Rate has failed</p>".format(domain, trade.id), 'html')
         message_joiner["From"] = sender
         message_joiner["To"] = trade.joiner.email
         message_joiner['Subject'] = "Trade A Rate, failure !"
