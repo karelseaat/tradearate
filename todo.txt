@@ -326,11 +326,13 @@ bij sidenavigation.html zitten er ook meerdere in moet te vinden zijn ! (done)
 # De lettertypes in de svg moeten overeenkomen met de lettertypes in de rest van de site ! (done)
 
 # Lekker zaai admin stuff
-# Refactor stukken functionaliteid tot extra functies ! (ff kijken of er in de main app 2 of 3 te vinden vallen, niet te veel) (todo)
+# terug schakelen naar mijn eigen scraper want die is stabieler !
 # Locust file bijwerken en testen !
 # kijken welke packages er uit de pipenv verwidert kunnen worden ! (todo)
 # verder bezig met gemini, de plaatjes maker
-De alembic werkt nog niet best ff checken !
+# De alembic werkt nog niet best ff checken !
+
+# Refactor stukken functionaliteid tot extra functies ! (ff kijken of er in de main app 2 of 3 te vinden vallen, niet te veel) (todo)
 
 # moet er ook iets komen om te kijken of vertalingen nog relevant zijn, lijkt me wel handig !
 # leren wat er te leran valt van : https://bitbucket.org/akarelse/backend-part/src/master/ (todo)
