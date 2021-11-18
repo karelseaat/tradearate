@@ -165,15 +165,15 @@ def before_request_func():
     app.jinja_env.globals.update(trans=app.pyn.trans)
 
     navigation = {
-        'dashboard': ('Dashboard', 'dashboard'),
-        'alltrades': ('All trades', 'overviewtrades'),
-        'allapps': ('All apps', 'overviewapps'),
-        'allreviews': ('All reviews', 'overviewreviews'),
-        'mytrades': ('My trades', 'trades'),
-        'myreviews': ('All reviews', 'overviewreviews'),
-        'profile': ('My profile', 'userprofile'),
+        'dashboard': ('Dashboard', '/dashboard'),
+        'alltrades': ('All trades', '/overviewtrades'),
+        'allapps': ('All apps', '/overviewapps'),
+        'allreviews': ('All reviews', '/overviewreviews'),
+        'mytrades': ('My trades', '/trades'),
+        'myreviews': ('All reviews', '/overviewreviews'),
+        'profile': ('My profile', '/userprofile'),
         'about': ('help', '/help'),
-        'contact': ('Contact', 'contact')
+        'contact': ('Contact', '/contact')
     }
 
     app.data = {
@@ -367,7 +367,7 @@ def showapp(appid):
     """detail page for one application"""
     app.data['pagename'] = 'App details'
     if not appid.isnumeric():
-        flash('Should be a number 55', 'has-text-danger')
+        flash('Should be a number', 'has-text-danger')
         return redirect('/overviewtrades')
 
     appobj = app.session.query(App).filter(App.id==appid).first()
@@ -621,7 +621,7 @@ def overviewtrades():
         app.
         session.
         query(Trade).
-        filter(Trade.accepted == None).
+        filter(Trade.failure == None).
         filter(Trade.success == None)
     )
 

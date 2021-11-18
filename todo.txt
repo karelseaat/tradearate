@@ -332,6 +332,7 @@ bij sidenavigation.html zitten er ook meerdere in moet te vinden zijn ! (done)
 # verder bezig met gemini, de plaatjes maker
 De alembic werkt nog niet best ff checken !
 
+# moet er ook iets komen om te kijken of vertalingen nog relevant zijn, lijkt me wel handig !
 # leren wat er te leran valt van : https://bitbucket.org/akarelse/backend-part/src/master/ (todo)
 # Bijna alles klopt behalve het domein dat wort gebruikt op de live site, wat gaan we hiermee doen ?, erg lastig, environment variablen in flask zijn lastig (w8 for later)
 # Nog eens kijken bij de imports naar het toevoegen van het path probleem, dat moet mooier kunnen ! via__init__.py maar dat moeten we ff goed onderzoeken !
