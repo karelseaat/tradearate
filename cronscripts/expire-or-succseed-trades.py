@@ -27,7 +27,7 @@ def expire_or_succeed():
     dbsession = make_session()
     tradeobj = Trade()
 
-    trades = dbsession.query(Trade).filter(Trade.accepted + datetime.timedelta(days=tradeobj.timetotrade) < datetime.datetime.now().date()).filter(or_(not_(Trade.initiator_reviewed), not_(Trade.joiner_reviewed))).all()
+    trades = dbsession.query(Trade).filter(Trade.accepted + datetime.timedelta(days=tradeobj.timetotrade) > datetime.datetime.now().date()).filter(Trade.tradestatus == 2).all()
 
 
     for trade in trades:
