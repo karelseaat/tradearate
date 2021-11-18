@@ -144,6 +144,7 @@ class Trade(DictSerializableMixin):
     success = Column(Date, nullable=True)
     failure = Column(Date, nullable=True)
     joined = Column(Date, nullable=True)
+    tradestatus = Column(Integer, default=0)
 
     timetotrade = 6
 
@@ -158,16 +159,18 @@ class Trade(DictSerializableMixin):
     @hybrid_property
     def status(self):
         """will return the status of a trade"""
-        if self.failure:
-            return "failure"
-        elif self.success:
-            return "success"
-        elif self.accepted:
-            return "accepted"
-        elif self.joined:
-            return "joined"
-        else:
-            return "initiated"
+        # if self.failure:
+        #     return "failure"
+        # elif self.success:
+        #     return "success"
+        # elif self.accepted:
+        #     return "accepted"
+        # elif self.joined:
+        #     return "joined"
+        # else:
+        #     return "initiated"
+        statuslist = ["initiated", "joined", "accepted", "success", "failure"]
+        return statuslist[self.tradestatus]
 
     def trade_days_left(self):
         """ will return the nr of days left for a trade, counted from the moment a trade was accepted"""
@@ -224,8 +227,10 @@ class Trade(DictSerializableMixin):
         """will reject a trade, this trade, perhaps this can be done better, why need userid ?"""
         if self.initiator_accepted and self.initiator.googleid == usergoogleid:
             self.initiator_accepted = False
+            self.tradestatus = 1
         if self.joiner_accepted and self.joiner.googleid == usergoogleid:
             self.joiner_accepted = False
+            self.tradestatus = 1
 
     def accept_user(self, usergoogleid):
         """will accept a trade, this trade, perhaps this can be done better, why need userid ?"""
@@ -236,6 +241,7 @@ class Trade(DictSerializableMixin):
 
         if self.initiator_accepted and self.joiner_accepted:
             self.accepted = datetime.datetime.now().date()
+            self.tradestatus = 2
 
     def all_apps_in_trade(self):
         """ get all apps in a trade, that are at most two appps"""

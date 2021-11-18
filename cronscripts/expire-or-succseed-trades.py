@@ -32,6 +32,7 @@ def expire_or_succeed():
 
     for trade in trades:
         trade.failure = datetime.datetime.now()
+        trade.tradestatus = 4
 
         sender = "sixdots.soft@gmail.com"
 

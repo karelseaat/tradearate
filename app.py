@@ -413,7 +413,7 @@ def processadd():
 
     if valliappinit.errors:
         for key, val in valliappinit.errors.items():
-            flash(key + ": " + val, 'has-text-danger')
+            flash(f"{key}: {val}", 'has-text-danger')
         return redirect('/add')
 
     appid = request.form.get('appid')
@@ -432,7 +432,7 @@ def processadd():
         app.pyn.close()
         return redirect('/showtrade')
 
-    if 'rating' not in appobj or not appobj['rating']:
+    if 'ratings' not in appobj or not appobj['ratings']:
         flash("at the moment there is minor trouble with google playstore, try angain later !", 'has-text-danger')
         app.session.close()
         app.pyn.close()
@@ -586,7 +586,7 @@ def overviewtrades():
     app.data['pagename'] = 'All trades'
 
 
-    alltrades = app.session.query(Trade).filter(Trade.accepted is None).filter(Trade.success is None)
+    alltrades = app.session.query(Trade).filter(Trade.accepted == None).filter(Trade.success == None)
 
     app.data['data'] = nongetpagination(alltrades, 5).all()
 
@@ -809,6 +809,7 @@ def processjoin():
         trade.joinerapp = joinerappmodel
         trade.joinerlang = current_user.locale
         trade.joined = dt.datetime.now()
+        trade.tradestatus = 1
         app.session.add(trade)
 
         if trade.joinerapp == trade.initiatorapp:
@@ -868,6 +869,7 @@ def leave():
             thetrade.joiner = None
             thetrade.joined = None
             thetrade.joinerapp = None
+            thetrade.tradestatus = 0
             thetrade.joiner_accepted = False
             thetrade.joiner_accepted = False
             thetrade.initiator_accepted = False

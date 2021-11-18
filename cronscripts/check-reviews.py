@@ -68,6 +68,7 @@ def check_reviews():
             logging.info('Review success: {} <---> {}'.format(trade.joiner.email, trade.initiator.email))
 
             trade.success = datetime.datetime.now()
+            trade.tradestatus = 3
             sender = "sixdots.soft@gmail.com"
 
             message_initiator = MIMEText("<p>A <a href='{}/show?tradeid={}'>trade</a> you started on Trade A Rate has suceeded</p>".format(domain, trade.id), 'html')

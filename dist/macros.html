@@ -82,13 +82,13 @@
       {% if my_item.userimageurl %}
       <td class="is-image-cell">
         <div class="image">
-          <img src="{{ my_item.userimageurl }}" class="is-rounded" alt="user image">
+          <img src="{{ my_item.userimageurl }}" class="is-rounded" alt="{{ my_item.username }}">
         </div>
       </td>
       {% else %}
       <td class="is-image-cell">
         <div class="image">
-          <img src="{{ my_item.user.picture }}" class="is-rounded" alt="user image">
+          <img src="{{ my_item.user.picture }}" class="is-rounded" alt="{{ my_item.user.fullname }}">
         </div>
       </td>
       {% endif %}
@@ -101,7 +101,7 @@
 
       <td class="is-image-cell">
         <div class="image">
-          <img src="{{ my_item.app.imageurl }}" class="is-rounded" alt="app image">
+          <img src="{{ my_item.app.imageurl }}" class="is-rounded" alt="{{ my_item.app.name }}">
         </div>
       </td>
       <td>{{ my_item.app.name }}</td>
@@ -143,13 +143,13 @@
     <tr>
       <td class="is-image-cell">
         <div class="image">
-          <img src="{{ my_item.initiator.picture }}" class="is-rounded" alt="user image">
+          <img src="{{ my_item.initiator.picture }}" class="is-rounded" alt="{{ my_item.initiator.fullname }}">
         </div>
       </td>
       <td><a href="./usertrades?userid={{ my_item.initiator.id }}">{{ my_item.initiator.fullname }}</a></td>
       <td class="is-image-cell">
         <div class="image">
-          <img src="{{ my_item.initiatorapp.imageurl }}" class="is-rounded" alt="app image">
+          <img src="{{ my_item.initiatorapp.imageurl }}" class="is-rounded" alt="{{ my_item.initiatorapp.name }}">
         </div>
       </td>
 
@@ -203,7 +203,7 @@
     <tr>
       <td class="is-image-cell">
         <div class="image">
-          <img src="{{ my_item.imageurl }}" class="is-rounded" alt="app image">
+          <img src="{{ my_item.imageurl }}" class="is-rounded" alt="{{ my_item.name }}">
         </div>
       </td>
       <td><a href="{{ my_item.get_url() }}">{{ my_item.name }}</a></td>
@@ -260,7 +260,7 @@
     <tr>
       <td class="is-image-cell">
         <div class="image">
-          <img src="{{ my_item.imageurl }}" class="is-rounded" alt="app image">
+          <img src="{{ my_item.imageurl }}" class="is-rounded" alt="{{ my_item.name }}">
         </div>
       </td>
       <td><a href="{{ my_item.get_url() }}">{{ my_item.name }}</a></td>
@@ -286,7 +286,7 @@
   {{ build_card_header("Profile", "mdi-account") }}
   <div class="card-content">
     <div class="is-user-avatar image has-max-width is-aligned-center">
-      <img src="{{ data.data.picture }}" alt="user image">
+      <img src="{{ data.data.picture }}" alt="{{ data.data.fullname }}">
     </div>
     {{ build_defautl_field("Name", data.data.fullname) }}
     {{ build_defautl_field("E-mail", data.data.email) }}
@@ -422,7 +422,7 @@
 <label class="label">{{ trans(label) }}:</label>
 <div class="control is-clearfix">
   <div class="is-user-avatar image has-max-width is-aligned-center">
-    <img src="{{ imageurl }}" alt="user image">
+    <img src="{{ imageurl }}" alt="{{ name }}">
 
   </div>
   {% if link %}

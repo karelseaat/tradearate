@@ -26,7 +26,7 @@
             {% if data.data.user %}
             <div class="control is-clearfix">
               <div class="is-user-avatar image has-max-width is-aligned-center">
-                <img src="{{ data.data.user.picture }}" alt="user image">
+                <img src="{{ data.data.user.picture }}" alt="{{ data.data.user.fullname }}">
               </div>
               <label class="label">{{ trans("Name") }}:</label>
               <p><a href='/usertrades?userid={{ data.data.user.id }}'>{{ data.data.user.fullname }}</a></p>
@@ -34,7 +34,7 @@
             {% else %}
             <div class="control is-clearfix">
               <div class="is-user-avatar image has-max-width is-aligned-center">
-                <img src="{{ data.data.userimageurl }}" alt="user image">
+                <img src="{{ data.data.user.picture }}" alt="{{ data.data.user.fullname }}">
               </div>
               <label class="label">{{ trans("Name") }}:</label>
               <p>{{ data.data.username }}</p>
