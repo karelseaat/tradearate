@@ -314,20 +314,25 @@ bij sidenavigation.html zitten er ook meerdere in moet te vinden zijn ! (done)
 # Wat een eindeloos verhaal!
 # Ik kan bij reviews nog niet klikken op een gebruiker (done)
 # Ik kan bij de review details geen plaatje zien van een gebruiker en geen naam zien van een gebruiker! (done)
-# de svg vullen met vertalingen! (todo) <--
+# de svg vullen met vertalingen! (done)
 # mytrades is stuk (done)
 # bij de reviews staan er nu gewone namen mar deze kunnen worden aangepast naar links naar gebruikers (done)
 
 # gewoon bijvrotten !
-# alle scripts doorlopen en korter maken van regels en testen met pylint (todo)
-# de routes binnen flask hebben echt wel mogelijkheden voor parameters dus ff kijken (todo)
-# toevoegen van een status veld aan trade, om de joined, accepted, scusess en failure bij te houden en te sorten! (todo) <--
+# alle scripts doorlopen en korter maken van regels en testen met pylint (done)
+# de routes binnen flask hebben echt wel mogelijkheden voor parameters dus ff kijken (done)
+# toevoegen van een status veld aan trade, om de joined, accepted, scusess en failure bij te houden en te sorten! (done)
 # Wil ik bij images van users en apps de naam van de app en of user in de alt zetten ? (done)
-# Refactor stukken functionaliteid tot extra functies ! (todo)
+# De lettertypes in de svg moeten overeenkomen met de lettertypes in de rest van de site ! (done)
 
-De lettertypes in de svg moeten overeenkomen met de lettertypes in de rest van de site !
-# leren wat er te leran valt van : https://bitbucket.org/akarelse/backend-part/src/master/ (todo)
+# Lekker zaai admin stuff
+# Refactor stukken functionaliteid tot extra functies ! (ff kijken of er in de main app 2 of 3 te vinden vallen, niet te veel) (todo)
+# Locust file bijwerken en testen !
 # kijken welke packages er uit de pipenv verwidert kunnen worden ! (todo)
+# verder bezig met gemini, de plaatjes maker
+De alembic werkt nog niet best ff checken !
+
+# leren wat er te leran valt van : https://bitbucket.org/akarelse/backend-part/src/master/ (todo)
 # Bijna alles klopt behalve het domein dat wort gebruikt op de live site, wat gaan we hiermee doen ?, erg lastig, environment variablen in flask zijn lastig (w8 for later)
 # Nog eens kijken bij de imports naar het toevoegen van het path probleem, dat moet mooier kunnen ! via__init__.py maar dat moeten we ff goed onderzoeken !
 # We moeten er ook voor zorgen dat als er fouten op een form staan deze wellicht niet in de snackbar moeten komen te staan maar onder een form veld in rode letters !?

@@ -74,35 +74,35 @@
 
         <div class="card-content">
           {% if data.candelete %}
-          <button class="button is-medium is-danger" type="button" onclick="window.location.href='/delete?tradeid={{ data.data.id }}'">
+          <button class="button is-medium is-danger" type="button" onclick="window.location.href='/delete/{{ data.data.id }}'">
             <span>{{ trans("Delete") }}</span>
             <span class="icon"><i class="mdi mdi-delete-forever"></i></span>
           </button>
           {% endif %}
 
           {% if data.canjoin %}
-          <button class="button is-medium is-primary" type="button" onclick="window.location.href='/join?tradeid={{ data.data.id }}'">
+          <button class="button is-medium is-primary" type="button" onclick="window.location.href='/join/{{ data.data.id }}'">
             <span>{{ trans("Join") }}</span>
             <span class="icon"><i class="mdi mdi-location-enter"></i></span>
           </button>
           {% endif %}
 
           {% if data.canleave %}
-          <button class="button is-medium is-danger" type="button" onclick="window.location.href='/leave?tradeid={{ data.data.id }}'">
+          <button class="button is-medium is-danger" type="button" onclick="window.location.href='/leave/{{ data.data.id }}'">
             <span>{{ trans("Leave") }}</span>
             <span class="icon"><i class="mdi mdi-location-exit"></i></span>
           </button>
           {% endif %}
 
           {% if data.canaccept %}
-          <button class="button is-medium is-primary" type="button" onclick="window.location.href='/accept?tradeid={{ data.data.id }}'">
+          <button class="button is-medium is-primary" type="button" onclick="window.location.href='/accept/{{ data.data.id }}'">
             <span>{{ trans("Accept") }}</span>
             <span class="icon"><i class="mdi mdi-checkbox-marked-circle-outline"></i></span>
           </button>
           {% endif %}
 
           {% if data.canreject %}
-          <button class="button is-medium is-primary" type="button" onclick="window.location.href='/reject?tradeid={{ data.data.id }}'">
+          <button class="button is-medium is-primary" type="button" onclick="window.location.href='/reject/{{ data.data.id }}'">
             <span>{{ trans("Reject") }}</span>
             <span class="icon"><i class="mdi mdi-checkbox-blank-circle-outline"></i></span>
           </button>

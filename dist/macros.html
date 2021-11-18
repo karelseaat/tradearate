@@ -96,7 +96,7 @@
       {% if my_item.username %}
       <td>{{ my_item.username }}</td>
       {% else %}
-      <td><a href="/usertrades?userid={{  my_item.user.id }}">{{ my_item.user.fullname }}</a></td>
+      <td><a href="/usertrades/{{  my_item.user.id }}">{{ my_item.user.fullname }}</a></td>
       {% endif %}
 
       <td class="is-image-cell">
@@ -111,7 +111,7 @@
       </td>
       <td class="is-actions-cell">
         <div class="buttons is-right">
-          <button class="button is-small is-primary" type="button" onclick="window.location.href='/showreview?reviewid={{ my_item.id }}';">
+          <button class="button is-small is-primary" type="button" onclick="window.location.href='/showreview/{{ my_item.id }}';">
             <span class="icon"><i class="mdi mdi-eye"></i></span>
           </button>
       </td>
@@ -146,7 +146,7 @@
           <img src="{{ my_item.initiator.picture }}" class="is-rounded" alt="{{ my_item.initiator.fullname }}">
         </div>
       </td>
-      <td><a href="./usertrades?userid={{ my_item.initiator.id }}">{{ my_item.initiator.fullname }}</a></td>
+      <td><a href="./usertrades/{{ my_item.initiator.id }}">{{ my_item.initiator.fullname }}</a></td>
       <td class="is-image-cell">
         <div class="image">
           <img src="{{ my_item.initiatorapp.imageurl }}" class="is-rounded" alt="{{ my_item.initiatorapp.name }}">
@@ -213,7 +213,7 @@
       <td> {{ trans("Yes") if my_item.paid else trans("No") }} </td>
       <td class="is-actions-cell">
         <div class="buttons is-right">
-          <button class="button is-small is-primary" type="button" onclick="window.location.href='/showapp?appid={{ my_item.id }}';">
+          <button class="button is-small is-primary" type="button" onclick="window.location.href='/showapp/{{ my_item.id }}';">
             <span class="icon"><i class="mdi mdi-eye"></i></span>
           </button>
       </td>
@@ -270,7 +270,7 @@
       <td> {{ trans("Yes") if my_item.paid else trans("No") }} </td>
       <td class="is-actions-cell">
         <div class="buttons is-right">
-          <button class="button is-small is-primary" type="button" onclick="window.location.href='/showapp?appid={{ my_item.id }}';">
+          <button class="button is-small is-primary" type="button" onclick="window.location.href='/showapp/{{ my_item.id }}';">
             <span class="icon"><i class="mdi mdi-eye"></i></span>
           </button>
       </td>

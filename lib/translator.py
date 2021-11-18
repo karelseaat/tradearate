@@ -39,7 +39,7 @@ class PyNalator:
             self.defaulttranscont =  toml.loads(cont, _dict=dict)
 
     def trans(self, word):
-
+        """translate a strting if possible if not add to default translate"""
         if word in self.transcont:
             return self.transcont[word]
 
@@ -47,6 +47,7 @@ class PyNalator:
         return word
 
     def close(self):
+        """write all new translations and after that close all files used, it is the end of a translation cycle"""
         if self.transfile:
             self.transfile.seek(0, 0)
             self.transfile.write(toml.dumps(self.transcont))

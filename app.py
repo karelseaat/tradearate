@@ -3,20 +3,42 @@ from datetime import timedelta
 import datetime as dt
 import time
 import requests
-from flask import Flask, redirect, request, url_for, render_template, flash, Response, session as browsersession
+from flask import (
+    Flask,
+    redirect,
+    request,
+    url_for,
+    render_template,
+    flash, Response,
+    session as browsersession
+)
+
 from authlib.integrations.flask_client import OAuth
-from flask_login import (login_required, login_user, logout_user, current_user, LoginManager)
+from flask_login import (
+    login_required,
+    login_user,
+    logout_user,
+    current_user,
+    LoginManager
+)
 
 from flask_mail import Mail, Message
 from cerberus import Validator
 
 from flask_cachecontrol import (FlaskCacheControl, cache_for, dont_cache)
-from config import make_session, oauthconfig, REVIEWLIMIT, recaptchasecret, recapchasitekey, domain
+from config import (
+    make_session,
+    oauthconfig,
+    REVIEWLIMIT,
+    recaptchasecret,
+    recapchasitekey,
+    domain
+)
+
 from models import User, Trade, App, Review, Historic
 from lib.myownscraper import get_app, get_app_alt
 from lib.filtersort import FilterSort
 from lib.translator import PyNalator
-
 
 valliappinit = Validator({
     'appid': {'required': True, 'type': 'string', 'regex': "^.*\..*\..*$"},
@@ -42,16 +64,13 @@ app = Flask(
     template_folder = "dist",
 )
 
-
 login_manager = LoginManager()
 login_manager.setup_app(app)
-
 
 app.secret_key = 'random secret223'
 app.session = make_session()
 
 app.config.from_object("config.Config")
-
 
 flask_cache_control = FlaskCacheControl()
 flask_cache_control.init_app(app)
@@ -89,15 +108,20 @@ def round_up(num):
 def pagination(db_object, itemnum):
     """it does the pagination for db results"""
     pagenum = 0
-    data = None
     if 'pagenum' in request.args and request.args.get('pagenum').isnumeric():
         pagenum = int(request.args.get('pagenum'))
 
     total = app.session.query(db_object).count()
     app.data['total'] = list(range(1, round_up(total/itemnum)+1))
     app.data['pagenum'] = pagenum+1, round_up(total/itemnum)
-    data = app.session.query(db_object).limit(itemnum).offset(pagenum*itemnum).all()
-    return data
+    return (
+        app.
+        session.
+        query(db_object).
+        limit(itemnum).
+        offset(pagenum*itemnum).
+        all()
+    )
 
 def nongetpagination(db_object, itemnum):
     """it does the pagination for db results"""
@@ -225,7 +249,10 @@ def customlogin():
 @dont_cache()
 @login_required
 def logout():
-    """here you can logout , it is not used since you login via google oauth so as soon as you are on the site you are loggedin"""
+    """
+        here you can logout, it is not used since you login via google oauth.
+        So as soon as you are on the site you are loggedin
+    """
     logout_user()
     app.session.close()
     app.pyn.close()
@@ -332,13 +359,12 @@ def trades():
     return result
 
 
-@app.route("/showapp")
+@app.route("/showapp/<appid>")
 @dont_cache()
 @login_required
-def showapp():
+def showapp(appid):
     """detail page for one application"""
     app.data['pagename'] = 'App details'
-    appid = request.args.get('appid')
     if not appid or not appid.isnumeric():
         flash('Should be a number', 'has-text-danger')
         return redirect('/overviewtrades')
@@ -355,13 +381,13 @@ def showapp():
     app.pyn.close()
     return result
 
-@app.route("/usertrades")
+@app.route("/usertrades/<userid>")
 @dont_cache()
 @login_required
-def usertrades():
+def usertrades(userid):
     """this will show all trades of the current user"""
     app.data['pagename'] = 'User Trades'
-    userid = request.args.get('userid')
+    # userid = request.args.get('userid')
     if not userid or not userid.isnumeric():
         flash('Should be a number', 'has-text-danger')
         return redirect('/overviewtrades')
@@ -457,7 +483,7 @@ def processadd():
         app.session.close()
         app.pyn.close()
 
-        return redirect('/show?tradeid={}'.format(tradeid))
+        return redirect(f'/show/{tradeid}')
 
     flash(str("chapcha trouble, more than reviews, or of the process doent exist"), 'has-text-danger')
     app.session.close()
@@ -540,13 +566,17 @@ def overviewapps():
     app.pyn.close()
     return result
 
-@app.route('/showreview')
+@app.route('/showreview/<reviewid>')
 @dont_cache()
 @login_required
-def showreview():
+def showreview(reviewid):
     """This will show the details about a review"""
     app.data['pagename'] = 'Reviews ?'
-    reviewid = request.args.get('reviewid')
+
+    if not reviewid or not reviewid.isnumeric():
+        flash('Should be a number', 'has-text-danger')
+        return redirect('/overviewtrades')
+
     try:
         review = app.session.query(Review).get(reviewid)
         if not review:
@@ -586,7 +616,13 @@ def overviewtrades():
     app.data['pagename'] = 'All trades'
 
 
-    alltrades = app.session.query(Trade).filter(Trade.accepted == None).filter(Trade.success == None)
+    alltrades = (
+        app.
+        session.
+        query(Trade).
+        filter(Trade.accepted == None).
+        filter(Trade.success == None)
+    )
 
     app.data['data'] = nongetpagination(alltrades, 5).all()
 
@@ -595,13 +631,12 @@ def overviewtrades():
     app.pyn.close()
     return result
 
-@app.route("/show")
+@app.route("/show/<tradeid>")
 @dont_cache()
 @login_required
-def show():
+def show(tradeid):
     """detail page for a single trade"""
     app.data['pagename'] = 'Trade details'
-    tradeid = request.args.get('tradeid')
 
     if not tradeid or not tradeid.isnumeric():
         flash('Should be a number', 'has-text-danger')
@@ -628,11 +663,10 @@ def show():
     app.pyn.close()
     return result
 
-@app.route("/reject")
+@app.route("/reject/<tradeid>")
 @dont_cache()
 @login_required
-def reject():
-    tradeid = request.args.get('tradeid')
+def reject(tradeid):
     if not tradeid or not tradeid.isnumeric():
         flash('Should be a number', 'has-text-danger')
         return redirect('/overviewtrades')
@@ -653,17 +687,20 @@ def reject():
     except Exception as exception:
         app.session.rollback()
         flash(str(exception), 'has-text-danger')
-    result = redirect('/show?tradeid=' + tradeid)
+    result = redirect('/show/' + tradeid)
     app.session.close()
     app.pyn.close()
     return result
 
-@app.route("/accept")
+@app.route("/accept/<tradeid>")
 @dont_cache()
 @login_required
-def accept():
-    """here a initiator or a joiner of a trade can accept the trade, if both partys have accepted the trade is on so to call"""
-    tradeid = request.args.get('tradeid')
+def accept(tradeid):
+    """
+    here a initiator or a joiner of a trade can accept the trade,
+    if both partys have accepted the trade is on so to call
+    """
+
     if not tradeid or not tradeid.isnumeric():
         flash('Should be a number', 'has-text-danger')
         return redirect('/overviewtrades')
@@ -686,7 +723,7 @@ def accept():
                     html= f"""
                         <p>The trade has now been accepted !</p>
                         <p>The system will now start to look for your review.</p>
-                        <p>Go to your <a href='{domain}/show?tradeid={thetrade.id}'>trade</a> to view the details and do a review of the counter app.</p>
+                        <p>Go to your <a href='{domain}/show/{thetrade.id}'>trade</a> to view the details and do a review of the counter app.</p>
                         <p>Or go to the playstore directly <a href='{thetrade.initiatorapp.get_url()}'>directly</a> to do a download and review!</p>
                     """,
                     sender="sixdots.soft@gmail.com",
@@ -701,7 +738,7 @@ def accept():
                     html= f"""
                         <p>The trade has now been accepted !</p>
                         <p>The system will now start to look for your review.</p>
-                        <p>Go to your <a href='{domain}/show?tradeid={thetrade.id}'>trade</a> to view the details and do a review of the counter app.</p>
+                        <p>Go to your <a href='{domain}/show/{thetrade.id}'>trade</a> to view the details and do a review of the counter app.</p>
                         <p>Or go to the playstore directly <a href='{thetrade.joinerapp.get_url()}'>directly</a> to do a download and review!</p>
                     """,
                     sender="sixdots.soft@gmail.com",
@@ -717,15 +754,14 @@ def accept():
 
     app.session.close()
     app.pyn.close()
-    return redirect('/show?tradeid=' + tradeid)
+    return redirect('/show/' + tradeid)
 
 
-@app.route("/delete")
+@app.route("/delete/<tradeid>")
 @dont_cache()
 @login_required
-def delete():
+def delete(tradeid):
     """this function will let the initiator of the trade delete the trade"""
-    tradeid = request.args.get('tradeid')
     if not tradeid or not tradeid.isnumeric():
         flash('Should be a number', 'has-text-danger')
         return redirect('/overviewtrades')
@@ -737,14 +773,13 @@ def delete():
     time.sleep(1)
     return redirect('/overviewtrades', 303)
 
-@app.route("/join")
+@app.route("/join/<tradeid>")
 @cache_for(hours=12)
 @dont_cache()
 @login_required
-def join():
+def join(tradeid):
     """here someone can join a trade by filling in a form with something to review, an app"""
     app.data['pagename'] = 'Join Trade'
-    tradeid = request.args.get('tradeid')
     if not tradeid or not tradeid.isnumeric():
         flash('Should be a number', 'has-text-danger')
         return redirect('/overviewtrades')
@@ -778,7 +813,7 @@ def processjoin():
             flash(key + ": " + val[0], 'has-text-danger')
         app.session.close()
         app.pyn.close()
-        return redirect('/join?tradeid={}'.format(tradeid))
+        return redirect(f'/join/{tradeid}')
 
     if current_user.get_score() < 0:
         flash("your trade score is not height enough to join a trade!", 'has-text-danger')
@@ -821,7 +856,7 @@ def processjoin():
         msg = Message(
             'One of your app trades has been joined!',
             html= f"""
-                <p>Go to your <a href='{domain}/show?tradeid={trade.id}'>trade</a> to view the details and decide if you want to accept the trade !</p>
+                <p>Go to your <a href='{domain}/show/{trade.id}'>trade</a> to view the details and decide if you want to accept the trade !</p>
             """,
             sender="sixdots.soft@gmail.com",
             recipients=[trade.initiator.email]
@@ -833,7 +868,7 @@ def processjoin():
         msg = Message(
             'You have joined a app trade!',
             html= f"""
-                <p>Go to the <a href='{domain}/show?tradeid={trade.id}'>trade</a> to view the details and decide if you want to accept the trade !</p>
+                <p>Go to the <a href='{domain}/show/{trade.id}'>trade</a> to view the details and decide if you want to accept the trade !</p>
             """,
             sender="sixdots.soft@gmail.com",
             recipients=[trade.joiner.email]
@@ -847,22 +882,22 @@ def processjoin():
         flash("joined the trade", 'has-text-primary')
         app.session.close()
         app.pyn.close()
-        return redirect('/show?tradeid={}'.format(tradeid))
+        return redirect(f'/show/{tradeid}')
 
     flash(str("chapcha trouble, more than reviews, or of the process doent exist"), 'has-text-danger')
     app.session.close()
     app.pyn.close()
     return redirect('/join')
 
-@app.route("/leave")
+@app.route("/leave/<tradeid>")
 @dont_cache()
 @login_required
-def leave():
+def leave(tradeid):
     """here a trade joiner can leave a trade"""
-    tradeid = request.args.get('tradeid')
     if not tradeid or not tradeid.isnumeric():
         flash('Should be a number', 'has-text-danger')
         return redirect('/overviewtrades')
+
     thetrade = app.session.query(Trade).get(int(tradeid))
     try:
         if thetrade and thetrade.can_leave(current_user.googleid):

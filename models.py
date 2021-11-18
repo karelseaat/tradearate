@@ -10,7 +10,6 @@ Base = declarative_base(name="Base")
 metadata = Base.metadata
 
 
-
 class DictSerializableMixin(Base):
     __abstract__ = True
 
@@ -29,6 +28,7 @@ class DictSerializableMixin(Base):
                 setattr(self, key, val)
 
 class User(DictSerializableMixin):
+    """Users with names emails google ids etc"""
     __tablename__ = 'users'
     id = Column(Integer, primary_key=True)
     fullname = Column(String(64))
@@ -87,12 +87,15 @@ class User(DictSerializableMixin):
         return [x for x in set(self.initiatortrades + self.joinertrades) if not x.success and not x.failure]
 
     def all_apps(self):
+        """will get all apps in a trade to a max of two to a min of one or zero"""
         return [x.initiatorapp for x in self.initiatortrades] + [x.joinerapp for x in self.joinertrades]
 
     def get_url(self):
-        return "./usertrades?userid={}".format(self.id)
+        """get the url for a trade, bit of a strange function?"""
+        return f"./usertrades/{self.id}"
 
 class Trade(DictSerializableMixin):
+    """App trades ith apps users, reviews etc"""
     __tablename__ = 'trades'
     id = Column(Integer, primary_key=True)
 
@@ -159,16 +162,6 @@ class Trade(DictSerializableMixin):
     @hybrid_property
     def status(self):
         """will return the status of a trade"""
-        # if self.failure:
-        #     return "failure"
-        # elif self.success:
-        #     return "success"
-        # elif self.accepted:
-        #     return "accepted"
-        # elif self.joined:
-        #     return "joined"
-        # else:
-        #     return "initiated"
         statuslist = ["initiated", "joined", "accepted", "success", "failure"]
         return statuslist[self.tradestatus]
 
@@ -254,6 +247,7 @@ class Trade(DictSerializableMixin):
         return [x for x in allusers if x]
 
 class App(DictSerializableMixin):
+    """google android apps, with users, reviews, the url to play store etc"""
     __tablename__ = 'apps'
     id = Column(Integer, primary_key=True)
     name = Column(String(64), nullable=False)
@@ -269,17 +263,21 @@ class App(DictSerializableMixin):
         self.appidstring = idstring
 
     def get_url(self):
+        """this will get the url for an app back to the apps playstore"""
         return "https://play.google.com/store/apps/details?id=" + self.appidstring
 
     def all_trades(self):
+        """get all trades that are linked to this app the joined trades and the started trades"""
         return  self.initiatortrades + self.joinertrades
 
     def all_users(self):
+        """get all users that are linked to this app, all trade initiators and all the trade joiners"""
         prelist = [x.initiator for x in self.all_trades()] + [x.joiner for x in self.all_trades()]
         return [x for x in prelist if x]
 
 
 class Review(DictSerializableMixin):
+    """an app review with ratings, text a user, and app, noice"""
     __tablename__ = 'reviews'
     id = Column(Integer, primary_key=True)
     google_id = Column(String(128), nullable=True)
@@ -296,11 +294,11 @@ class Review(DictSerializableMixin):
     user_id = Column(ForeignKey('users.id'), index=True)
     user = relationship('User', back_populates="reviews")
     added = Column(Date, default=datetime.datetime.utcnow)
-    # klont = Column(Date, default=datetime.datetime.utcnow)
 
     minreviewlength = 50
 
 class Historic(DictSerializableMixin):
+    """a table to store historic numbers, nr of trades done, apps, reviews, etc"""
     __tablename__ = 'historic'
     id = Column(Integer, primary_key=True)
     infotype = Column(Integer)
