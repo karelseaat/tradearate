@@ -326,12 +326,13 @@ bij sidenavigation.html zitten er ook meerdere in moet te vinden zijn ! (done)
 # De lettertypes in de svg moeten overeenkomen met de lettertypes in de rest van de site ! (done)
 
 # Lekker zaai admin stuff
-# terug schakelen naar mijn eigen scraper want die is stabieler !
-# Locust file bijwerken en testen !
-# kijken welke packages er uit de pipenv verwidert kunnen worden ! (todo)
-# verder bezig met gemini, de plaatjes maker
-# De alembic werkt nog niet best ff checken !
+# terug schakelen naar mijn eigen scraper want die is stabieler! (todo)
+# Locust file bijwerken en testen! (todo)
+# kijken welke packages er uit de pipenv verwidert kunnen worden! (todo)
+# verder bezig met gemini, de plaatjes maker (1/2)
+# De alembic werkt nog niet best ff checken! (todo)
 
+# grappig en vreemd genoeg, een review heeft een link, dus een review kan ook teruglinken naar de store, ff checken !
 # Refactor stukken functionaliteid tot extra functies ! (ff kijken of er in de main app 2 of 3 te vinden vallen, niet te veel) (todo)
 # meer redirects moeten worden gedaan via 303 redirect
 # moet er ook iets komen om te kijken of vertalingen nog relevant zijn, lijkt me wel handig !
