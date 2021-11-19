@@ -332,10 +332,15 @@ bij sidenavigation.html zitten er ook meerdere in moet te vinden zijn ! (done)
 # verder bezig met gemini, de plaatjes maker (1/2) <--
 # De alembic werkt nog niet best ff checken! (done werkt gewoon)
 
-
+# Kronkel kramp
 # grappig en vreemd genoeg, een review heeft een link, dus een review kan ook teruglinken naar de store, ff checken !
-# Refactor stukken functionaliteid tot extra functies ! (ff kijken of er in de main app 2 of 3 te vinden vallen, niet te veel) (todo)
 # meer redirects moeten worden gedaan via 303 redirect
+# svg heeft vreemde tekens in de vertalingen zitten, bijfixen
+# een duidelijke waarschuwing toevoegen dat
+# ff de ehmhme app id mogelijk verbeteren door ook app url toe te laten ?
+
+# Refactor stukken functionaliteid tot extra functies ! (ff kijken of er in de main app 2 of 3 te vinden vallen, niet te veel) (todo)
+
 # moet er ook iets komen om te kijken of vertalingen nog relevant zijn, lijkt me wel handig !
 # leren wat er te leran valt van : https://bitbucket.org/akarelse/backend-part/src/master/ (todo)
 # Bijna alles klopt behalve het domein dat wort gebruikt op de live site, wat gaan we hiermee doen ?, erg lastig, environment variablen in flask zijn lastig (w8 for later)
