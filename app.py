@@ -426,7 +426,7 @@ def get_app_from_store(appid, country='us'):
     """this method / function can be removed and get_app can be called directly"""
     appobj = None
     try:
-        appobj = get_app_alt(appid, country=country)
+        appobj = get_app(appid, country=country)
     except Exception as exception:
         flash(str(exception), 'has-text-danger')
     return appobj
@@ -459,11 +459,11 @@ def processadd():
         app.pyn.close()
         return redirect('/showtrade')
 
-    if 'ratings' not in appobj or not appobj['ratings']:
-        flash("at the moment there is minor trouble with google playstore, try angain later !", 'has-text-danger')
-        app.session.close()
-        app.pyn.close()
-        return redirect('/add')
+    # if 'ratings' not in appobj or not appobj['ratings']:
+    #     flash("at the moment there is minor trouble with google playstore, try angain later !", 'has-text-danger')
+    #     app.session.close()
+    #     app.pyn.close()
+    #     return redirect('/add')
 
     if appobj and int(appobj['ratings']) <= REVIEWLIMIT and is_human(captcha_response):
         appmodel = app.session.query(App).filter(App.appidstring==appid).first()
@@ -827,11 +827,11 @@ def processjoin():
 
     appobjjoiner = get_app_from_store(appid, country=current_user.locale)
 
-    if 'ratings' not in appobjjoiner or not appobjjoiner['ratings']:
-        flash("at the moment there is minor trouble with google playstore, try angain later !", 'has-text-danger')
-        app.session.close()
-        app.pyn.close()
-        return redirect('/join')
+    # if 'ratings' not in appobjjoiner or not appobjjoiner['ratings']:
+    #     flash("at the moment there is minor trouble with google playstore, try angain later !", 'has-text-danger')
+    #     app.session.close()
+    #     app.pyn.close()
+    #     return redirect('/join')
 
     if appobjjoiner and int(appobjjoiner['ratings']) <= REVIEWLIMIT and is_human(captcha_response):
         joinerappmodel = app.session.query(App).filter(App.appidstring==appid).first()

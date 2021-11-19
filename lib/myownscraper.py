@@ -5,6 +5,7 @@ import json
 import time
 from bs4 import BeautifulSoup
 import requests
+import pprint
 
 from google_play_scraper import app
 
@@ -18,10 +19,14 @@ def get_app(appid, country='us'):
     requesturl = f"{PLAYSTOREURL}/store/apps/details?id={appid}&hl={country}"
     result = requests.get(requesturl)
     soup = BeautifulSoup(result.text, features="lxml")
-    leltext = soup.find("script", {"type" : re.compile('.*')}).text
+    leltext = soup.find("script", {"type" : "application/ld+json"}).text
+
     temp = json.loads(leltext)
-    results['price'] = int(-(-float(temp['offers'][0]['price']) // 1))
-    results['rating'] = temp['aggregateRating']['ratingCount']
+    results['free'] = not int(-(-float(temp['offers'][0]['price']) // 1))
+    if 'aggregateRating' in temp:
+        results['ratings'] = temp['aggregateRating']['ratingCount']
+    else:
+        results['ratings'] = 0
     results['title'] = temp['name']
     results['icon'] = temp['image']
     return results
