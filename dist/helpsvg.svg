@@ -2255,7 +2255,7 @@
          id="tspan2814"
          x="-127.99323"
          y="-186.20694"
-         style="stroke-width:0.09144771">{{ trans("Or ... you trade ratings with other app developers !") }}</tspan></text>
+         style="stroke-width:0.09144771">{{ trans("Or ... you trade ratings with other app developers!") }}</tspan></text>
     <g
        id="g19755"
        transform="matrix(0.34562918,0,0,0.34562918,-44.098899,-6.3466247)">
@@ -2692,7 +2692,7 @@
            y="-179.80057"
            x="-669.22864"
            id="tspan3284"
-           sodipodi:role="line">{{ trans("Add your trade with the &quot;Add&quot; button on the bottom of the &quot;All trades&quot; page !") }} </tspan></text>
+           sodipodi:role="line">{{ trans("Add your trade with the 'Add' button on the bottom of the 'All trades' page!") }} </tspan></text>
     </g>
     <g
        id="g21124"
@@ -3158,12 +3158,12 @@
            y="535.99902"
            x="-107.36552"
            id="tspan3379"
-           sodipodi:role="line">{{ trans(" If conditions of the trade seem reasonable to you,") }}</tspan><tspan
+           sodipodi:role="line">{{ trans("If conditions of the trade seem reasonable to you.") }}</tspan><tspan
            id="tspan3383"
            style="text-align:center;text-anchor:middle;stroke-width:0.26458332"
            y="550.25879"
            x="-107.36552"
-           sodipodi:role="line">{{ trans("you can click &quot;Accept&quot; on the bottom of the trade.") }} </tspan></text>
+           sodipodi:role="line">{{ trans("You can click 'Accept' on the bottom of the trade.") }} </tspan></text>
       <image
          width="204.97116"
          height="135.01224"
@@ -3191,7 +3191,7 @@
            style="text-align:center;text-anchor:middle;stroke-width:0.26458332"
            y="771.62152"
            x="-107.72723"
-           sodipodi:role="line">{{ trans("(you can also see that your starter trade points will allow you to have only one outstanding trade !)") }} </tspan></text>
+           sodipodi:role="line">{{ trans("(You can also see that your starter trade points will allow you to have only one outstanding trade !)") }} </tspan></text>
       <image
          width="250.3242"
          height="128.49088"
@@ -3209,12 +3209,30 @@
          y="971.12659"
          x="-108.25951"
          style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:10.58333302px;line-height:1.25;font-family: 'Nunito', sans-serif;text-align:center;letter-spacing:0px;word-spacing:0px;text-anchor:middle;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.26458332"
-         xml:space="preserve"><tspan
+         xml:space="preserve">
+         <tspan
+           style="text-align:center;text-anchor:middle;stroke-width:0.26458332"
+           y="971.12659"
+           x="-296.57745"
+           id="tspan3601"
+           sodipodi:role="line">{{ trans("Be sure to review the app of the other developer in") }}</tspan>
+
+         <tspan
+           font-style="italic"
+           font-weight="bold"
            style="text-align:center;text-anchor:middle;stroke-width:0.26458332"
            y="971.12659"
            x="-106.57745"
+           id="tspan39001"
+           sodipodi:role="line">{{ trans("the same browser") }}</tspan>
+
+         <tspan
+           style="text-align:center;text-anchor:middle;stroke-width:0.26458332"
+           y="971.12659"
+           x="120.57745"
            id="tspan3601"
-           sodipodi:role="line">{{ trans("be sure to review the app of the other developer in the same browser that you use for Trade A Rate since the localization is important!") }}</tspan><tspan
+           sodipodi:role="line">{{ trans("that you use for Trade A Rate since the localization is important!") }}</tspan>
+          <tspan
            id="tspan3605"
            style="text-align:center;text-anchor:middle;stroke-width:0.26458332"
            y="985.38635"
@@ -3247,7 +3265,7 @@
            style="text-align:center;text-anchor:middle;stroke-width:0.26458332"
            y="1261.2123"
            x="-107.72725"
-           sodipodi:role="line">{{ trans("Both party's will be awarded a review point, when you collect 10 point you can do 2 reviews at the same time,") }}</tspan><tspan
+           sodipodi:role="line">{{ trans("Both party's will be awarded a review point, when you collect 10 point you can do 2 reviews at the same time.") }}</tspan><tspan
            id="tspan3680"
            style="text-align:center;text-anchor:middle;stroke-width:0.26458332"
            y="1275.472"
@@ -3257,7 +3275,7 @@
            style="text-align:center;text-anchor:middle;stroke-width:0.26458332"
            y="1289.7317"
            x="-107.72726"
-           sodipodi:role="line">{{ trans("Most important part you have earned a trade point and got a organic review !") }}</tspan></text>
+           sodipodi:role="line">{{ trans("Most important part you have earned a trade point and got a organic review!") }}</tspan></text>
       <g
          inkscape:label="Layer 1"
          id="layer1-6"
@@ -3926,7 +3944,7 @@
            y="0.36347491"
            x="157.51311"
            id="tspan4361"
-           sodipodi:role="line">{{ trans(" And join that trade on the bottom of the trade detail page.") }}</tspan></text>
+           sodipodi:role="line">{{ trans("And join that trade on the bottom of the trade detail page.") }}</tspan></text>
     </g>
     <g
        id="g20109"
@@ -4372,7 +4390,7 @@
            y="345.54364"
            x="312.80853"
            id="tspan4668"
-           sodipodi:role="line">{{ trans("You will now get an email that you joined someones trade,") }}</tspan><tspan
+           sodipodi:role="line">{{ trans("You will now get an email that you joined someones trade.") }}</tspan><tspan
            id="tspan4672"
            style="text-align:center;text-anchor:middle;stroke-width:0.26458332"
            y="359.80338"

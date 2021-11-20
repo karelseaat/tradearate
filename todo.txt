@@ -333,11 +333,11 @@ bij sidenavigation.html zitten er ook meerdere in moet te vinden zijn ! (done)
 # De alembic werkt nog niet best ff checken! (done werkt gewoon)
 
 # Kronkel kramp
-# grappig en vreemd genoeg, een review heeft een link, dus een review kan ook teruglinken naar de store, ff checken !
-# meer redirects moeten worden gedaan via 303 redirect
-# svg heeft vreemde tekens in de vertalingen zitten, bijfixen
-# een duidelijke waarschuwing toevoegen dat
-# ff de ehmhme app id mogelijk verbeteren door ook app url toe te laten ?
+# grappig en vreemd genoeg, een review heeft een link, dus een review kan ook teruglinken naar de store, ff checken ! (todo) <-- (is leuk maar linkt eigenlijk naar de app en de reviewid meh)
+# meer redirects moeten worden gedaan via 303 redirect (done)
+# svg heeft vreemde tekens in de vertalingen zitten, bijfixen (done)
+# een duidelijke waarschuwing toevoegen dat je de review moet doen vanaf je computer via de browser en niet via de telefoon (done)
+# plaatje maken van een voorbeeld met de url en de app id in de playstore (todo)
 
 # Refactor stukken functionaliteid tot extra functies ! (ff kijken of er in de main app 2 of 3 te vinden vallen, niet te veel) (todo)
 

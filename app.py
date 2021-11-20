@@ -688,7 +688,7 @@ def reject(tradeid):
     except Exception as exception:
         app.session.rollback()
         flash(str(exception), 'has-text-danger')
-    result = redirect('/show/' + tradeid)
+    result = redirect('/show/' + tradeid, 303)
     app.session.close()
     app.pyn.close()
     return result
@@ -755,7 +755,7 @@ def accept(tradeid):
 
     app.session.close()
     app.pyn.close()
-    return redirect('/show/' + tradeid)
+    return redirect('/show/' + tradeid, 303)
 
 
 @app.route("/delete/<tradeid>")
@@ -806,7 +806,7 @@ def processjoin():
         flash('Should be a number', 'has-text-danger')
         app.session.close()
         app.pyn.close()
-        return redirect('/')
+        return redirect('/', 303)
 
 
     if alliappjoin.errors:
@@ -858,7 +858,7 @@ def processjoin():
             flash("cant join with same app as initiator app !", 'has-text-danger')
             app.session.close()
             app.pyn.close()
-            return redirect('/overviewtrades')
+            return redirect('/overviewtrades', 303)
 
         msg = Message(
             'One of your app trades has been joined!',
@@ -889,7 +889,7 @@ def processjoin():
         flash("joined the trade", 'has-text-primary')
         app.session.close()
         app.pyn.close()
-        return redirect(f'/show/{tradeid}')
+        return redirect(f'/show/{tradeid}', 303)
 
     flash(str("chapcha trouble, more than reviews, or of the process doent exist"), 'has-text-danger')
     app.session.close()
@@ -927,7 +927,7 @@ def leave(tradeid):
 
     app.session.close()
     app.pyn.close()
-    return redirect('/overviewtrades')
+    return redirect('/overviewtrades', 303)
 
 @app.after_request
 def set_response_headers(response):
