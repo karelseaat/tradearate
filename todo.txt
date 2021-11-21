@@ -332,7 +332,14 @@ bij sidenavigation.html zitten er ook meerdere in moet te vinden zijn ! (done)
 # verder bezig met gemini, de plaatjes maker (1/2) <--
 # De alembic werkt nog niet best ff checken! (done werkt gewoon)
 
-# Big boy 
+# Kronkel kramp
+# grappig en vreemd genoeg, een review heeft een link, dus een review kan ook teruglinken naar de store, ff checken ! (todo) <-- (is leuk maar linkt eigenlijk naar de app en de reviewid meh)
+# meer redirects moeten worden gedaan via 303 redirect (done)
+# svg heeft vreemde tekens in de vertalingen zitten, bijfixen (done)
+# een duidelijke waarschuwing toevoegen dat je de review moet doen vanaf je computer via de browser en niet via de telefoon (done)
+# plaatje maken van een voorbeeld met de url en de app id in de playstore (todo)
+
+# Big boy
 # ff de add bar uitcommenten zodat we kunnen starten met minder weerstand!
 # De translator geeft big foutmeldingen !
 # Als je een app joint die niet meer bestaat te grote/grove foutmelding !
@@ -341,9 +348,8 @@ bij sidenavigation.html zitten er ook meerdere in moet te vinden zijn ! (done)
 # De text van de index svg mag kleiner, de titel van de index svg mag de naam zijn !
 # haal de special chars uit de svg vertalingen
 
-# grappig en vreemd genoeg, een review heeft een link, dus een review kan ook teruglinken naar de store, ff checken !
 # Refactor stukken functionaliteid tot extra functies ! (ff kijken of er in de main app 2 of 3 te vinden vallen, niet te veel) (todo)
-# meer redirects moeten worden gedaan via 303 redirect
+
 # moet er ook iets komen om te kijken of vertalingen nog relevant zijn, lijkt me wel handig !
 # leren wat er te leran valt van : https://bitbucket.org/akarelse/backend-part/src/master/ (todo)
 # Bijna alles klopt behalve het domein dat wort gebruikt op de live site, wat gaan we hiermee doen ?, erg lastig, environment variablen in flask zijn lastig (w8 for later)
