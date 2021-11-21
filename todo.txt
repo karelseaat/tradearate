@@ -332,6 +332,14 @@ bij sidenavigation.html zitten er ook meerdere in moet te vinden zijn ! (done)
 # verder bezig met gemini, de plaatjes maker (1/2) <--
 # De alembic werkt nog niet best ff checken! (done werkt gewoon)
 
+# Big boy 
+# ff de add bar uitcommenten zodat we kunnen starten met minder weerstand!
+# De translator geeft big foutmeldingen !
+# Als je een app joint die niet meer bestaat te grote/grove foutmelding !
+# Het index svg plaatje mag zonder text, wellicht de text eronde inv van gewone html !
+# het logo van trade a rate maag een terug link zijn naar de index !
+# De text van de index svg mag kleiner, de titel van de index svg mag de naam zijn !
+# haal de special chars uit de svg vertalingen
 
 # grappig en vreemd genoeg, een review heeft een link, dus een review kan ook teruglinken naar de store, ff checken !
 # Refactor stukken functionaliteid tot extra functies ! (ff kijken of er in de main app 2 of 3 te vinden vallen, niet te veel) (todo)
