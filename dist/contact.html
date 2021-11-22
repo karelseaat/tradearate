@@ -12,12 +12,12 @@
 
         <div class="field is-horizontal">
           <div class="field-label is-normal">
-            <label class="label">{{ trans("Subject") }}</label>
+            <label class="label">{{ trans("Subject", self) }}</label>
           </div>
           <div class="field-body">
             <div class="field">
               <div class="control">
-                  <input class="input" type="text" name="subject" placeholder="{{ trans('Enter subject') }}">
+                  <input class="input" type="text" name="subject" placeholder="{{ trans('Enter subject', self) }}">
               </div>
             </div>
           </div>
@@ -25,12 +25,12 @@
         <hr>
         <div class="field is-horizontal">
           <div class="field-label is-normal">
-            <label class="label">{{ trans("Message") }}</label>
+            <label class="label">{{ trans("Message", self) }}</label>
           </div>
           <div class="field-body">
             <div class="field">
               <div class="control">
-                <textarea class="textarea" name="message" placeholder="{{ trans('Enter message') }}" rows="6"></textarea>
+                <textarea class="textarea" name="message" placeholder="{{ trans('Enter message', self) }}" rows="6"></textarea>
               </div>
             </div>
           </div>

@@ -145,6 +145,7 @@ def load_user(userid):
 def index_svg():
     """a dynamic svg fancy hu"""
     xml = render_template('indexsvg.svg', color="#f00")
+    app.pyn.close()
     return Response(xml, mimetype='image/svg+xml')
 
 @app.route('/process_help.svg', methods=('GET', 'HEAD'))
@@ -152,6 +153,7 @@ def index_svg():
 def help_svg():
     """another dynamic svg for the help page"""
     xml = render_template('helpsvg.svg', color="#f00")
+    app.pyn.close()
     return Response(xml, mimetype='image/svg+xml')
 
 @app.before_request
@@ -343,7 +345,6 @@ def authorize():
             login_user(newuser)
 
     app.session.close()
-    # app.pyn.close()
     return redirect(browsersession['redirect'])
 
 @app.route("/trades")
@@ -521,7 +522,7 @@ def dashboard():
 @cache_for(hours=12)
 def index():
 
-    app.data['pagename'] = 'About'
+    app.data['pagename'] = 'Trade A Rate'
     result = render_template('index.html', data=app.data)
     app.session.close()
     app.pyn.close()
@@ -827,11 +828,6 @@ def processjoin():
 
     appobjjoiner = get_app_from_store(appid, country=current_user.locale)
 
-    # if 'ratings' not in appobjjoiner or not appobjjoiner['ratings']:
-    #     flash("at the moment there is minor trouble with google playstore, try angain later !", 'has-text-danger')
-    #     app.session.close()
-    #     app.pyn.close()
-    #     return redirect('/join')
 
     if appobjjoiner and int(appobjjoiner['ratings']) <= REVIEWLIMIT and is_human(captcha_response):
         joinerappmodel = app.session.query(App).filter(App.appidstring==appid).first()
@@ -840,6 +836,12 @@ def processjoin():
             joinerappmodel.imageurl = appobjjoiner['icon']
             joinerappmodel.paid = not appobjjoiner['free']
         trade = app.session.query(Trade).get(int(tradeid))
+
+        if not trade:
+            flash("Trade no longer exists !", 'has-text-danger')
+            app.session.close()
+            app.pyn.close()
+            return redirect('/overviewtrades')
 
         if not trade.can_join(current_user.id):
             flash("trade is already joind you sly dog !", 'has-text-danger')

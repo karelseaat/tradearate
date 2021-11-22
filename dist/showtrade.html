@@ -35,7 +35,7 @@
             {{ build_review_score("Initiator review score", data.data.initiator.get_score()) }}
 
             {{ build_icon_field("Initiator App", data.data.initiatorapp.name, data.data.initiatorapp.imageurl, data.data.initiatorapp.get_url()) }}
-            {{ build_defautl_field("Initiator app is payed", trans("Yes") if data.data.initiatorapp.paid else trans("No")) }}
+            {{ build_defautl_field("Initiator app is payed", trans("Yes", self) if data.data.initiatorapp.paid else trans("No", self)) }}
             {% if data.data.joiner %}
 
             {% endif %}
@@ -59,7 +59,7 @@
 
             {{ build_icon_field("Joiner App", data.data.joinerapp.name, data.data.joinerapp.imageurl, data.data.joinerapp.get_url()) }}
 
-            {{ build_defautl_field("Joiner app is payed", trans("Yes") if data.data.joinerapp.paid else trans("No")) }}
+            {{ build_defautl_field("Joiner app is payed", trans("Yes", self) if data.data.joinerapp.paid else trans("No", self)) }}
           </div>
         </div>
       </div>
@@ -75,35 +75,35 @@
         <div class="card-content">
           {% if data.candelete %}
           <button class="button is-medium is-danger" type="button" onclick="window.location.href='/delete/{{ data.data.id }}'">
-            <span>{{ trans("Delete") }}</span>
+            <span>{{ trans("Delete", self) }}</span>
             <span class="icon"><i class="mdi mdi-delete-forever"></i></span>
           </button>
           {% endif %}
 
           {% if data.canjoin %}
           <button class="button is-medium is-primary" type="button" onclick="window.location.href='/join/{{ data.data.id }}'">
-            <span>{{ trans("Join") }}</span>
+            <span>{{ trans("Join", self) }}</span>
             <span class="icon"><i class="mdi mdi-location-enter"></i></span>
           </button>
           {% endif %}
 
           {% if data.canleave %}
           <button class="button is-medium is-danger" type="button" onclick="window.location.href='/leave/{{ data.data.id }}'">
-            <span>{{ trans("Leave") }}</span>
+            <span>{{ trans("Leave", self) }}</span>
             <span class="icon"><i class="mdi mdi-location-exit"></i></span>
           </button>
           {% endif %}
 
           {% if data.canaccept %}
           <button class="button is-medium is-primary" type="button" onclick="window.location.href='/accept/{{ data.data.id }}'">
-            <span>{{ trans("Accept") }}</span>
+            <span>{{ trans("Accept", self) }}</span>
             <span class="icon"><i class="mdi mdi-checkbox-marked-circle-outline"></i></span>
           </button>
           {% endif %}
 
           {% if data.canreject %}
           <button class="button is-medium is-primary" type="button" onclick="window.location.href='/reject/{{ data.data.id }}'">
-            <span>{{ trans("Reject") }}</span>
+            <span>{{ trans("Reject", self) }}</span>
             <span class="icon"><i class="mdi mdi-checkbox-blank-circle-outline"></i></span>
           </button>
           {% endif %}

@@ -146,6 +146,9 @@ footer {
   padding-top: 10px;
 }
 
+.somebigger {
+  font-size: 20px;
+}
 
 html, body {
     margin: 0;

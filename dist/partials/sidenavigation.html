@@ -1,18 +1,20 @@
 {% from "macros.html" import build_menu_li %}
 
 <aside class="aside is-placed-left is-expanded">
+<a href="/">
   <div class="aside-tools">
     <div class="aside-tools-label">
       <span>Trade<b>A</b>Rate</span>
     </div>
     <img src="/assets/img/tradearate.svg" width="75" class="logo">
   </div>
+  </a>
   <div class="menu is-menu-main">
-    <p class="menu-label">{{ trans("Main page") }}</p>
+    <p class="menu-label">{{ trans("Main page", self) }}</p>
     <ul class="menu-list">
       {{ build_menu_li(data.navigation.dashboard[0] ,data.navigation.dashboard[1], "mdi-laptop", data.currentnavigation == data.navigation.dashboard[1]) }}
     </ul>
-    <p class="menu-label">{{ trans("All") }}</p>
+    <p class="menu-label">{{ trans("All", self) }}</p>
     <ul class="menu-list">
 
       {{ build_menu_li(data.navigation.alltrades[0] ,data.navigation.alltrades[1], "mdi-twitter-retweet", data.currentnavigation == data.navigation.alltrades[1]) }}
@@ -21,11 +23,11 @@
 
       {{ build_menu_li(data.navigation.allreviews[0] ,data.navigation.allreviews[1], "mdi-star-half", data.currentnavigation == data.navigation.allreviews[1]) }}
     </ul>
-    <p class="menu-label">{{ trans("My") }}</p>
+    <p class="menu-label">{{ trans("My", self) }}</p>
     <ul class="menu-list">
       {{ build_menu_li(data.navigation.mytrades[0] ,data.navigation.mytrades[1], "mdi-twitter-retweet", data.currentnavigation == data.navigation.mytrades[1]) }}
     </ul>
-    <p class="menu-label">{{ trans("Contact") }}</p>
+    <p class="menu-label">{{ trans("Contact", self) }}</p>
     <ul class="menu-list">
         {{ build_menu_li(data.navigation.contact[0] ,data.navigation.contact[1], "mdi-message", data.currentnavigation == data.navigation.contact[1]) }}
     </ul>

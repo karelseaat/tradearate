@@ -8,6 +8,7 @@
 
 import os
 import toml
+import zlib
 
 class PyNalator:
 
@@ -38,16 +39,20 @@ class PyNalator:
             cont = self.defaulttransfile.read()
             self.defaulttranscont =  toml.loads(cont, _dict=dict)
 
-    def trans(self, word):
+    def trans(self, word, location):
         """translate a strting if possible if not add to default translate"""
-        if word in self.transcont:
-            return self.transcont[word]
 
-        self.defaulttranscont.update({word: word})
+        hash = zlib.adler32(word.encode('ascii'))
+        if hash in self.transcont:
+            return self.transcont[hash][0]
+
+        self.defaulttranscont.update({str(hash): (word, location._TemplateReference__context.name)})
+
         return word
 
     def close(self):
         """write all new translations and after that close all files used, it is the end of a translation cycle"""
+
         if self.transfile:
             self.transfile.seek(0, 0)
             self.transfile.write(toml.dumps(self.transcont))
@@ -60,11 +65,11 @@ class PyNalator:
 
 
 if __name__ == "__main__":
-    pyn = PyNalator("nl")
-    print(pyn.trans("test"))
-    print(pyn.trans("aap"))
-    print(pyn.trans("faaaack"))
-    print(pyn.trans("nog test"))
-    pyn.trans("iets")
+    pyn = PyNalator("nl", subdir="../translations")
+    print(pyn.trans("test", "test"))
+    print(pyn.trans("aap", "test"))
+    print(pyn.trans("faaaack", "test"))
+    print(pyn.trans("nog test", "test"))
+    pyn.trans("iets", "test")
 
     pyn.close()

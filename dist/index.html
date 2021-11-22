@@ -1,13 +1,16 @@
 {% extends "base.html" %}
 
 {% block content %}
-
 <div class="hero fullscreen">
   <div class="hero-body u-center">
     <div class="w-90" style="position: relative">
       <div class="row">
         <div class="frame fullwidth">
           <div class="frame__body ">
+            <p class="centerit somebigger">{{ trans("You want reviews for your android app?", self) }}</p>
+            <p class="centerit somebigger">{{ trans("But you dont want to pay for reviews?", self) }}</p>
+            <p class="centerit somebigger">{{ trans("Wy not trade reviews with other android developers!", self) }}</p>
+            <br>
             <img class="imgcenter" src="process_index.svg" alt="trade a rate short explanation">
           </div>
         </div>
@@ -15,8 +18,4 @@
     </div>
   </div>
 </div>
-
-
-
-
 {% endblock %}

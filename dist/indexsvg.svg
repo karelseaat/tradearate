@@ -9,9 +9,9 @@
    xmlns="http://www.w3.org/2000/svg"
    xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
    xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
-   width="249.11mm"
-   height="215.41774mm"
-   viewBox="0 0 249.11 215.41774"
+   width="205.28969mm"
+   height="150.11414mm"
+   viewBox="0 0 205.28969 150.11414"
    version="1.1"
    id="svg18547"
    inkscape:version="0.92.5 (2060ec1f9f, 2020-04-08)"
@@ -25,9 +25,9 @@
      borderopacity="1.0"
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
-     inkscape:zoom="0.98994949"
-     inkscape:cx="437.11489"
-     inkscape:cy="699.46368"
+     inkscape:zoom="0.175"
+     inkscape:cx="-736.92144"
+     inkscape:cy="-332.83249"
      inkscape:document-units="mm"
      inkscape:current-layer="layer1"
      showgrid="false"
@@ -56,7 +56,7 @@
      inkscape:label="Layer 1"
      inkscape:groupmode="layer"
      id="layer1"
-     transform="translate(172.91783,-40.907249)">
+     transform="translate(151.00768,-106.21085)">
     <g
        id="g18294"
        transform="matrix(0.35277777,0,0,-0.35277777,-884.58679,318.53037)">
@@ -1183,38 +1183,5 @@
         </g>
       </g>
     </g>
-    <text
-       xml:space="preserve"
-       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:14.11111069px;line-height:1.25;font-family: 'Nunito', sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.26458332"
-       x="-141.94048"
-       y="48.675415"
-       id="text14378"><tspan
-         sodipodi:role="line"
-         id="tspan14376"
-         x="-141.94048"
-         y="48.675415"
-         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:10.58333302px;font-family:'Source Sans Pro';-inkscape-font-specification:'Source Sans Pro';stroke-width:0.26458332">{{ trans("You want reviews for your android app?") }}</tspan></text>
-    <text
-       xml:space="preserve"
-       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:10.58333302px;line-height:1.25;font-family: 'Nunito', sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.26458332"
-       x="-138.35275"
-       y="69.003181"
-       id="text14382"><tspan
-         sodipodi:role="line"
-         id="tspan14380"
-         x="-138.35275"
-         y="69.003181"
-         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:10.58333302px;font-family:'Source Sans Pro';-inkscape-font-specification:'Source Sans Pro';stroke-width:0.26458332">{{ trans("But you dont want to pay for reviews?") }}</tspan></text>
-    <text
-       xml:space="preserve"
-       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:10.58333302px;line-height:1.25;font-family: 'Nunito', sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.26458332"
-       x="-173.02367"
-       y="90.768776"
-       id="text14382-4"><tspan
-         sodipodi:role="line"
-         id="tspan14380-5"
-         x="-173.02367"
-         y="90.768776"
-         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:10.58333302px;font-family:'Source Sans Pro';-inkscape-font-specification:'Source Sans Pro';stroke-width:0.26458332">{{ trans("Wy not trade reviews with other android developers!") }}</tspan></text>
   </g>
 </svg>

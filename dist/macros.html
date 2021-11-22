@@ -6,7 +6,7 @@
         <div class="level-item">
           <div class="is-widget-label">
             <h3 class="subtitle is-spaced">
-              {{ title }}
+              {{ trans(title, self) }}
             </h3>
             <h1 class="title">
               {{ data[-1] }}
@@ -41,9 +41,9 @@
   <div class="level-right">
     <div class="level-item">
       {% if data.pagenum[1] %}
-      <small>{{ trans("Page") }} {{ data.pagenum[0] }} {{ trans("of") }} {{ data.pagenum[1] }}</small>
+      <small>{{ trans("Page", self) }} {{ data.pagenum[0] }} {{ trans("of", self) }} {{ data.pagenum[1] }}</small>
       {% else %}
-      <small>{{ trans("Page") }} 0 {{ trans("of") }} 0</small>
+      <small>{{ trans("Page", self) }} 0 {{ trans("of", self) }} 0</small>
       {% endif %}
     </div>
   </div>
@@ -53,12 +53,12 @@
 {% macro build_add_button(data, navigate ,redirectto) %}
 {% if data.user.cancreate %}
 <button class="button is-medium is-primary" type="button" onclick="window.location.href='/{{ navigate }}?redirectto=/{{ redirectto }}'">
-  <span>{{ trans("Add") }}</span>
+  <span>{{ trans("Add", self) }}</span>
   <span class="icon"><i class="mdi mdi-folder-plus"></i></span>
 </button>
 {% else %}
 <button class="button is-medium is-primary" disabled type="button">
-  <span>{{ trans("Add") }}</span>
+  <span>{{ trans("Add", self) }}</span>
   <span class="icon"><i class="mdi mdi-folder-plus"></i></span>
 </button>
 {% endif %}
@@ -69,10 +69,10 @@
   <thead>
     <tr>
       <th></th>
-      <th>{{ trans("User name") }}</th>
+      <th>{{ trans("User name", self) }}</th>
       <th></th>
-      <th>{{ trans("App name") }}</th>
-      <th>{{ trans("Review rating") }}</th>
+      <th>{{ trans("App name", self) }}</th>
+      <th>{{ trans("Review rating", self) }}</th>
       <th></th>
     </tr>
   </thead>
@@ -126,15 +126,15 @@
   <thead>
     <tr>
       <th></th>
-      <th>{{ trans("Start User") }}</th>
+      <th>{{ trans("Start User", self) }}</th>
       <th></th>
-      <th>{{ trans("Start App") }}</th>
+      <th>{{ trans("Start App", self) }}</th>
       <th>
-        <{{ trans("Status") }}
+        <{{ trans("Status", self) }}
       </th>
-      <th>{{ trans("Days left") }}</th>
-      <th>{{ trans("Created") }}</th>
-      <th>{{ trans("Accepted") }}</th>
+      <th>{{ trans("Days left", self) }}</th>
+      <th>{{ trans("Created", self) }}</th>
+      <th>{{ trans("Accepted", self) }}</th>
       <th></th>
     </tr>
   </thead>
@@ -191,10 +191,10 @@
     <tr>
       <th></th>
       <th>
-      {{ trans("Name") }}
+      {{ trans("Name", self) }}
       </th>
-      <th>{{ trans("Found Reviews") }}</th>
-      <th>{{ trans("Payed") }}</th>
+      <th>{{ trans("Found Reviews", self) }}</th>
+      <th>{{ trans("Payed", self) }}</th>
       <th></th>
     </tr>
   </thead>
@@ -210,7 +210,7 @@
       <td>
         <p>{{my_item.reviews|count}}</p>
       </td>
-      <td> {{ trans("Yes") if my_item.paid else trans("No") }} </td>
+      <td> {{ trans("Yes", self) if my_item.paid else trans("No", self) }} </td>
       <td class="is-actions-cell">
         <div class="buttons is-right">
           <button class="button is-small is-primary" type="button" onclick="window.location.href='/showapp/{{ my_item.id }}';">
@@ -231,7 +231,7 @@
       <th>
         <div class="th-wrap">
 
-          <span class="is-relative"> {{ trans("Name") }}
+          <span class="is-relative"> {{ trans("Name", self) }}
             {% if cursort.name == 'asc' %}
             <a class="icon sort-icon is-small" href="{{ url_for(request.endpoint) }}?name={{ sorts.name }}&payed={{ cursort.payed }}"><i class="mdi mdi-arrow-up"></i></a>
             {% elif cursort.name == 'desc' %}
@@ -242,8 +242,8 @@
           </span>
         </div>
       </th>
-      <th>{{ trans("Found Reviews") }}</th>
-      <th><span class="is-relative"> {{ trans("Payed") }}
+      <th>{{ trans("Found Reviews", self) }}</th>
+      <th><span class="is-relative"> {{ trans("Payed", self) }}
         {% if cursort.payed == 'asc' %}
         <a class="icon sort-icon is-small" href="{{ url_for(request.endpoint) }}?payed={{ sorts.payed }}&name={{ cursort.name }}"><i class="mdi mdi-arrow-up"></i></a>
         {% elif cursort.payed == 'desc' %}
@@ -267,7 +267,7 @@
       <td>
         <p>{{my_item.reviews|count}}</p>
       </td>
-      <td> {{ trans("Yes") if my_item.paid else trans("No") }} </td>
+      <td> {{ trans("Yes", self) if my_item.paid else trans("No", self) }} </td>
       <td class="is-actions-cell">
         <div class="buttons is-right">
           <button class="button is-small is-primary" type="button" onclick="window.location.href='/showapp/{{ my_item.id }}';">
@@ -311,24 +311,6 @@
 </div>
 {% endmacro %}
 
-<!-- {% macro build_form_submit(recapcha) %}
-<div class="field-body">
-  <div class="field">
-    <div class="field is-grouped">
-      <div class="control">
-        <button class="g-recaptcha button is-primary" data-sitekey="{{ recapcha }}" data-callback='onSubmit' data-action='submit'>
-            {{ trans("Submit") }}
-        </button>
-      </div>
-      <div class="control">
-        <button type="button" class="button is-primary is-outlined" onclick="resetform()">
-          <span>{{ trans("Reset") }}</span>
-        </button>
-      </div>
-    </div>
-  </div>
-</div>
-{% endmacro %} -->
 
 {% macro build_form_submit(recapcha) %}
 <div class="field is-horizontal">
@@ -340,12 +322,12 @@
       <div class="field is-grouped">
         <div class="control">
           <button class="g-recaptcha button is-primary" data-sitekey="{{ recapcha }}" data-callback='onSubmit' data-action='submit'>
-            {{ trans("Submit") }}
+            {{ trans("Submit", self) }}
           </button>
         </div>
         <div class="control">
           <button type="button" class="button is-primary is-outlined" onclick="resetform()">
-            <span>{{ trans("Reset") }}</span>
+            <span>{{ trans("Reset", self) }}</span>
           </button>
         </div>
       </div>
@@ -391,15 +373,15 @@
 {% macro build_app_add_join(current_user) %}
 <div class="field is-horizontal">
   <div class="field-label is-normal">
-    <label class="label">{{ trans("The app id you want reviewed") }}</label>
+    <label class="label">{{ trans("The app id you want reviewed", self) }}</label>
   </div>
   <div class="field-body">
     <div class="field">
       <div class="control">
         {% if current_user.get_score() < 0 %}
-        <input class="input" type="text" name="appid" placeholder="{{ trans('Enter your app id') }}" disabled>
+        <input class="input" type="text" name="appid" placeholder="{{ trans('Enter your app id', self) }}" disabled>
         {% else %}
-        <input class="input" type="text" name="appid" placeholder="{{ trans('Enter your app id') }}">
+        <input class="input" type="text" name="appid" placeholder="{{ trans('Enter your app id', self) }}">
         {% endif %}
       </div>
     </div>
@@ -409,7 +391,7 @@
 
 {% macro build_href_field(label, content, href) %}
 <div class="field">
-  <label class="label">{{ trans(label) }}</label>
+  <label class="label">{{ trans(label, self) }}</label>
   <div class="control is-clearfix">
     <a href="{{ href }}">
       <p>{{ content }}</p>
@@ -419,7 +401,7 @@
 {% endmacro %}
 
 {% macro build_icon_field(label, name, imageurl, link=None) %}
-<label class="label">{{ trans(label) }}:</label>
+<label class="label">{{ trans(label, self) }}:</label>
 <div class="control is-clearfix">
   <div class="is-user-avatar image has-max-width is-aligned-center">
     <img src="{{ imageurl }}" alt="{{ name }}">
@@ -435,7 +417,7 @@
 
 {% macro build_defautl_field(label, content) %}
 <div class="field">
-  <label class="label">{{ trans(label) }}:</label>
+  <label class="label">{{ trans(label, self) }}:</label>
   <div class="control is-clearfix">
     <p>{{ content }}</p>
   </div>
@@ -443,7 +425,7 @@
 {% endmacro %}
 
 {% macro build_review_score(label, score) %}
-<label class="label">{{ trans(label) }}:</label>
+<label class="label">{{ trans(label, self) }}:</label>
 <div class="control is-clearfix">
   {% if score > 0 %}
   <p class="label has-text-primary"> {{ score }} </p>
@@ -459,7 +441,7 @@
 <li>
   <a href="{{ href }}" class="{{'is-active' if active}}  has-icon">
     <span class="icon"><i class="mdi {{ icon }} mdi-24px"></i></span>
-    <span class="menu-item-label">{{ trans(name) }}</span>
+    <span class="menu-item-label">{{ trans(name, self) }}</span>
   </a>
 </li>
 {% endmacro %}

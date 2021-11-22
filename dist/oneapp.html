@@ -19,7 +19,7 @@
 
           {{ build_defautl_field("Nr of trades", data.data.all_trades()|count) }}
 
-          {{ build_defautl_field("Payed", trans("Yes") if data.data.paid else trans("No")) }}
+          {{ build_defautl_field("Payed", trans("Yes", self) if data.data.paid else trans("No", self)) }}
 
         </div>
       </div>

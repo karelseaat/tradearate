@@ -17,18 +17,18 @@
           {{ build_defautl_field("Review time", data.data.reviewtime) }}
           {{ build_defautl_field("Review text", data.data.reviewtext) }}
           <div class="field">
-            <label class="label">{{ trans("Review Score") }}:</label>
+            <label class="label">{{ trans("Review Score", self) }}:</label>
             <div class="control is-clearfix">
               <p>{{ build_rating(data.data.reviewrating) }}</p>
             </div>
             <hr>
-            <label class="label">{{ trans("Reviewer") }}:</label>
+            <label class="label">{{ trans("Reviewer", self) }}:</label>
             {% if data.data.user %}
             <div class="control is-clearfix">
               <div class="is-user-avatar image has-max-width is-aligned-center">
                 <img src="{{ data.data.user.picture }}" alt="{{ data.data.user.fullname }}">
               </div>
-              <label class="label">{{ trans("Name") }}:</label>
+              <label class="label">{{ trans("Name", self) }}:</label>
               <p><a href='/usertrades/{{ data.data.user.id }}'>{{ data.data.user.fullname }}</a></p>
             </div>
             {% else %}
@@ -36,7 +36,7 @@
               <div class="is-user-avatar image has-max-width is-aligned-center">
                 <img src="{{ data.data.user.picture }}" alt="{{ data.data.user.fullname }}">
               </div>
-              <label class="label">{{ trans("Name") }}:</label>
+              <label class="label">{{ trans("Name", self) }}:</label>
               <p>{{ data.data.username }}</p>
             </div>
             {% endif %}
