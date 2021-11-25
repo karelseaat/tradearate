@@ -50,6 +50,9 @@ class PyNalator:
 
         return word
 
+    def show(self):
+        print(self.defaulttranscont)
+
     def close(self):
         """write all new translations and after that close all files used, it is the end of a translation cycle"""
 

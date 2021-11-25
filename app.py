@@ -560,11 +560,11 @@ def overviewapps():
         app.data['data'] = apps
 
     except Exception as exception:
-        print(str(exception))
         flash(str(exception), 'has-text-danger')
 
     result = render_template('overviewapps.html', data=app.data)
     app.session.close()
+    # app.pyn.show()
     app.pyn.close()
     return result
 

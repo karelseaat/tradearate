@@ -349,6 +349,7 @@ bij sidenavigation.html zitten er ook meerdere in moet te vinden zijn ! (done)
 # haal de special chars uit de svg vertalingen (done)
 # moet er ook iets komen om te kijken of vertalingen nog relevant zijn, lijkt me wel handig ! (done, pagina indicator)
 
+# Kijken of de vertalingen ook op iedere pagina gegenereerd worden !
 # wellicht willen gebruiks een optie hebben om ervoor te zorgen dat hun email niet publiek is ?
 # Refactor stukken functionaliteid tot extra functies ! (ff kijken of er in de main app 2 of 3 te vinden vallen, niet te veel) (todo)
 # leren wat er te leran valt van : https://bitbucket.org/akarelse/backend-part/src/master/ (todo)

@@ -194,7 +194,7 @@
       {{ trans("Name", self) }}
       </th>
       <th>{{ trans("Found Reviews", self) }}</th>
-      <th>{{ trans("Payed", self) }}</th>
+      <th>{{ trans("Paid", self) }}</th>
       <th></th>
     </tr>
   </thead>
@@ -243,7 +243,7 @@
         </div>
       </th>
       <th>{{ trans("Found Reviews", self) }}</th>
-      <th><span class="is-relative"> {{ trans("Payed", self) }}
+      <th><span class="is-relative"> {{ trans("Paid", self) }}
         {% if cursort.payed == 'asc' %}
         <a class="icon sort-icon is-small" href="{{ url_for(request.endpoint) }}?payed={{ sorts.payed }}&name={{ cursort.name }}"><i class="mdi mdi-arrow-up"></i></a>
         {% elif cursort.payed == 'desc' %}
