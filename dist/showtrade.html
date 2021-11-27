@@ -35,7 +35,7 @@
             {{ build_review_score("Initiator review score", data.data.initiator.get_score()) }}
 
             {{ build_icon_field("Initiator App", data.data.initiatorapp.name, data.data.initiatorapp.imageurl, data.data.initiatorapp.get_url()) }}
-            {{ build_defautl_field("Initiator app is payed", trans("Yes", self) if data.data.initiatorapp.paid else trans("No", self)) }}
+            {{ build_defautl_field("Initiator app is paid", trans("Yes", self) if data.data.initiatorapp.paid else trans("No", self)) }}
             {% if data.data.joiner %}
 
             {% endif %}
@@ -59,7 +59,7 @@
 
             {{ build_icon_field("Joiner App", data.data.joinerapp.name, data.data.joinerapp.imageurl, data.data.joinerapp.get_url()) }}
 
-            {{ build_defautl_field("Joiner app is payed", trans("Yes", self) if data.data.joinerapp.paid else trans("No", self)) }}
+            {{ build_defautl_field("Joiner app is paid", trans("Yes", self) if data.data.joinerapp.paid else trans("No", self)) }}
           </div>
         </div>
       </div>

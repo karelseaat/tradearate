@@ -283,7 +283,7 @@ def processcontact():
     subject = request.form.get('subject')
 
     if not message:
-        flash("no message ?!", 'has-text-danger')
+        flash("no message?!", 'has-text-danger')
         app.session.close()
         app.pyn.close()
         return redirect('/')

@@ -9,8 +9,10 @@
     <div class="card-content">
       <form method="post" action="/processjoin" id="demo-form">
         <input type="hidden" name="tradeid" value="{{ tradeid }}">
+        <section class="addblock">
+        <img src="/assets/img/playstore-app-id.png">
+        </section>
         <hr>
-
         {{ build_app_add_join(current_user) }}
         <hr>
         {{ build_form_submit(data.recapchasitekey) }}

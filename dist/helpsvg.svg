@@ -494,7 +494,7 @@
            style="stroke-width:0.26458332"
            y="-1130.5604"
            x="-181.10265"
-           sodipodi:role="line">{{ trans("But what does the app do ?.", self) }}</tspan></text>
+           sodipodi:role="line">{{ trans("But what does the app do?.", self) }}</tspan></text>
     </g>
     <g
        id="g20563"
@@ -834,7 +834,7 @@
            y="-1067.386"
            x="-215.0797"
            id="tspan2608"
-           sodipodi:role="line">{{ trans("Well are you an Android app developer ?", self) }}</tspan></text>
+           sodipodi:role="line">{{ trans("Well are you an Android app developer?", self) }}</tspan></text>
     </g>
     <g
        id="g20786"
@@ -1325,7 +1325,7 @@
            y="-901.96735"
            x="-219.50684"
            id="tspan2612"
-           sodipodi:role="line">{{ trans("Sooo you want ratings for your app, right ?", self) }}</tspan></text>
+           sodipodi:role="line">{{ trans("Sooo you want ratings for your app, right?", self) }}</tspan></text>
     </g>
     <g
        id="g20980"
@@ -2255,7 +2255,7 @@
          id="tspan2814"
          x="-127.99323"
          y="-186.20694"
-         style="stroke-width:0.09144771">{{ trans("Or ... you trade ratings with other app developers!", self) }}</tspan></text>
+         style="stroke-width:0.09144771">{{ trans("Or ... you trade ratings with other app developer's!", self) }}</tspan></text>
     <g
        id="g19755"
        transform="matrix(0.34562918,0,0,0.34562918,-44.098899,-6.3466247)">
@@ -2669,7 +2669,7 @@
            y="-359.73337"
            x="-216.45445"
            id="tspan3161"
-           sodipodi:role="line">{{ trans("So what do you need to do for a review ?", self) }}</tspan></text>
+           sodipodi:role="line">{{ trans("So what do you need to do for a review?", self) }}</tspan></text>
     </g>
     <g
        id="g21068"
@@ -3186,7 +3186,7 @@
            y="757.36176"
            x="-107.72725"
            id="tspan3482"
-           sodipodi:role="line">{{ trans("If the other developer also accepted the trade the trade status will change to accepted and both developers can start to review.", self) }} </tspan><tspan
+           sodipodi:role="line">{{ trans("If the other developer also accepted the trade the trade status will change to accepted and both developer's can start to review.", self) }} </tspan><tspan
            id="tspan3486"
            style="text-align:center;text-anchor:middle;stroke-width:0.26458332"
            y="771.62152"
@@ -3237,7 +3237,7 @@
            style="text-align:center;text-anchor:middle;stroke-width:0.26458332"
            y="985.38635"
            x="-108.25951"
-           sodipodi:role="line">{{ trans("dont forget that you have to install the other developers app", self) }}</tspan></text>
+           sodipodi:role="line">{{ trans("dont forget that you have to install the other developer's app", self) }}</tspan></text>
       <image
          width="257.46695"
          height="146.82574"
@@ -3260,12 +3260,12 @@
            y="1246.9525"
            x="-107.72725"
            id="tspan3672"
-           sodipodi:role="line">{{ trans("If both developers did the reviews of each others app the Trade A Rate system will detect those reviews in a maximum of nine hours.", self) }}</tspan><tspan
+           sodipodi:role="line">{{ trans("If both developer's did the reviews of each others app the Trade A Rate system will detect those reviews in a maximum of nine hours.", self) }}</tspan><tspan
            id="tspan3678"
            style="text-align:center;text-anchor:middle;stroke-width:0.26458332"
            y="1261.2123"
            x="-107.72725"
-           sodipodi:role="line">{{ trans("Both party's will be awarded a review point, when you collect 10 point you can do 2 reviews at the same time.", self) }}</tspan><tspan
+           sodipodi:role="line">{{ trans("Both partys will be awarded a review point, when you collect 10 point you can do 2 reviews at the same time.", self) }}</tspan><tspan
            id="tspan3680"
            style="text-align:center;text-anchor:middle;stroke-width:0.26458332"
            y="1275.472"
