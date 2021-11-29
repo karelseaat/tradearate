@@ -36,8 +36,10 @@ class User(DictSerializableMixin):
     email = Column(String(256))
     locale = Column(String(3))
     googleid = Column(String(256), nullable=False)
-
+    bonus_score = Column(Integer, default=20)
     reviews = relationship('Review', back_populates="user")
+
+    scorepertrade = 10
 
     def __init__(self, googleid):
         self.googleid = googleid
@@ -59,12 +61,12 @@ class User(DictSerializableMixin):
         return False
 
     def can_create_trade(self):
-        """if your score is height enough you can, chine eat your heart out"""
-        return (self.get_score() - len(self.all_pending()) * 10) >= 0
+        """if your score is height enough you can, China eat your heart out"""
+        return (self.get_score() - len(self.all_pending()) * self.scorepertrade) >= 0
 
     def can_join_trade(self):
-        """if your score is height enough you can, chine eat your heart out"""
-        return (self.get_score() - len(self.all_pending()) * 10)  >= 0
+        """if your score is height enough you can, China eat your heart out"""
+        return (self.get_score() - len(self.all_pending()) * self.scorepertrade)  >= 0
 
     def all_trade_fails(self):
         """will give you all the trades that you failed"""
@@ -74,12 +76,17 @@ class User(DictSerializableMixin):
         """will give you all the trades that you you sucseeded"""
         return [x for x in set(self.initiatortrades + self.joinertrades) if x.success]
 
+    def trade_credit(self):
+        return int((self.get_score() - len(self.all_pending())) / self.scorepertrade)
+
     def get_score(self):
         """will calculate you trade score based on you sucseeded and failed trades"""
         return (
+            self.bonus_score
+            +
             len(self.all_trade_successes())
             -
-            (len(self.all_trade_fails())*10)
+            (len(self.all_trade_fails()) * self.scorepertrade)
         )
 
     def all_pending(self):

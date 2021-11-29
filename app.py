@@ -190,6 +190,7 @@ def before_request_func():
 
     app.data['currentnavigation'] = request.full_path[1:-1]
 
+
     if current_user.is_authenticated:
         app.data['user'] = {
             'fullname': current_user.fullname,
@@ -198,6 +199,7 @@ def before_request_func():
             'picture': current_user.picture,
             'cancreate': current_user.can_create_trade(),
             'score': current_user.get_score(),
+            'trade_credit': current_user.trade_credit(),
             'pending':  current_user.all_pending()
         }
 

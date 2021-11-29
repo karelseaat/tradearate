@@ -36,8 +36,15 @@ class PyNalator:
         self.defaulttransfile = open(f"./{subdir}/trans-default.toml", "r+", encoding="utf8")
 
         if self.defaulttransfile:
-            cont = self.defaulttransfile.read()
-            self.defaulttranscont =  toml.loads(cont, _dict=dict)
+
+            try:
+                cont = self.defaulttransfile.read()
+                self.defaulttranscont = toml.loads(cont, _dict=dict)
+            except Exception as exception:
+                self.defaulttransfile.close()
+                os.remove(f"./{subdir}/trans-default.toml")
+                self.defaulttransfile = None
+
 
     def trans(self, word, location):
         """translate a strting if possible if not add to default translate"""
@@ -69,10 +76,4 @@ class PyNalator:
 
 if __name__ == "__main__":
     pyn = PyNalator("nl", subdir="../translations")
-    print(pyn.trans("test", "test"))
-    print(pyn.trans("aap", "test"))
-    print(pyn.trans("faaaack", "test"))
-    print(pyn.trans("nog test", "test"))
-    pyn.trans("iets", "test")
-
     pyn.close()

@@ -24,6 +24,9 @@
         </div>
       </div>
       {% endif %}
+      <div class="navbar-item has-divider">
+        <span class="">{{ trans("Trade credit", self) }}: {{  data.user.trade_credit }}</span>
+      </div>
       <a href="{{ data.navigation.about[1] }}" title="About" class="navbar-item has-divider is-desktop-icon-only">
         <span class="icon"><i class="mdi mdi-help-circle-outline"></i></span>
         <span>{{ data.navigation.about[0] }}</span>
