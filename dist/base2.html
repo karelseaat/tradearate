@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en" class="has-aside-left has-aside-mobile-transition has-navbar-fixed-top has-aside-expanded">
+
+{% block head %}
+{% include "./partials/head.html" %}
+{% endblock %}
+
+<body onLoad="myFunction()">
+<div id="app">
+
+{% block topnavigation %}
+{% include "./partials/topnavigation.html" %}
+{% endblock %}
+
+{% block sidenavigation %}
+{% include "./partials/sidenavigation.html" %}
+{% endblock %}
+
+
+{% block addblock %}
+{% include "./partials/addblock.html" %}
+{% endblock %}
+
+{% block pagetitle %}
+{% include "./partials/pagetitle.html" %}
+{% endblock %}
+
+{% block content %}{% endblock %}
+
+
+
+{% block lowerjs %}
+{% include "./partials/lowerjs2.html" %}
+{% endblock %}
+
+{% include "./partials/snackbar.html" %}
+<!-- The actual snackbar -->
+
+</div>
+
+{% block footer %}
+{% include "./partials/footer.html" %}
+{% endblock %}
+</body>
+</html>

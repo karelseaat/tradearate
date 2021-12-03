@@ -45,6 +45,21 @@ def random_app(app):
     app.appidstring = faker.name()
     return app
 
+def random_searchkeys(searchkey):
+    faker = Faker()
+    searchkey.searchsentence = faker.name().lower()
+    for _ in range(10):
+        name = faker.name()
+        appidstring = faker.name()
+        for _ in range(10):
+            rankapp = Rankapp()
+            rankapp.name = name
+            rankapp.appidstring = appidstring
+            rankapp.ranktime = faker.date_between(start_date='-1y', end_date='today')
+            rankapp.rank = faker.random_int(1, 600)
+            searchkey.rankapps.append(rankapp)
+    return searchkey
+
 def random_historic(historic):
     faker= Faker()
     historic.date = faker.date_between(start_date='-1y', end_date='today')
@@ -61,8 +76,11 @@ def random_review(review):
 
 def fake_filler():
     session = make_session()
-
     faker = Faker()
+
+    for _ in range(10):
+        searchkey = random_searchkeys(Searchkey())
+        session.add(searchkey)
 
     for _ in range(100):
         ahistoric = random_historic(Historic())

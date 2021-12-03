@@ -1,7 +1,7 @@
 import datetime
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import relationship
-from sqlalchemy import Column, ForeignKey, String, Integer, Boolean, Date
+from sqlalchemy import Table, Column, ForeignKey, String, Integer, Boolean, Date
 from sqlalchemy_utils import get_hybrid_properties
 from sqlalchemy.ext.hybrid import hybrid_property
 
@@ -38,6 +38,7 @@ class User(DictSerializableMixin):
     googleid = Column(String(256), nullable=False)
     bonus_score = Column(Integer, default=20)
     reviews = relationship('Review', back_populates="user")
+    searchkeys = relationship('Searchkey', back_populates="user")
 
     scorepertrade = 10
 
@@ -99,7 +100,7 @@ class User(DictSerializableMixin):
 
     def get_url(self):
         """get the url for a trade, bit of a strange function?"""
-        return f"./usertrades/{self.id}"
+        return f"/usertrades/{self.id}"
 
 class Trade(DictSerializableMixin):
     """App trades ith apps users, reviews etc"""
@@ -253,6 +254,37 @@ class Trade(DictSerializableMixin):
         allusers = [self.initiator, self.joiner]
         return [x for x in allusers if x]
 
+association_table = Table('association', Base.metadata,
+    Column('rankingapp_id', ForeignKey('rankingapp.id'), primary_key=True),
+    Column('searchkey_id', ForeignKey('searchkey.id'), primary_key=True)
+)
+
+class Rankapp(DictSerializableMixin):
+    __tablename__ = 'rankingapp'
+    id = Column(Integer, primary_key=True)
+    name = Column(String(64), nullable=False)
+    appidstring = Column(String(64), nullable=False)
+    imageurl = Column(String(256))
+    rank = Column(Integer)
+    ranktime = Column(Date, default=datetime.datetime.utcnow)
+    searchkeys = relationship(
+        "Searchkey",
+        secondary=association_table,
+        back_populates="rankapps"
+    )
+
+class Searchkey(DictSerializableMixin):
+    __tablename__ = 'searchkey'
+    id = Column(Integer, primary_key=True)
+    searchsentence = Column(String(256), nullable=False)
+    user_id = Column(ForeignKey('users.id'), index=True)
+    user = relationship('User', back_populates="searchkeys")
+    rankapps = relationship(
+        "Rankapp",
+        secondary=association_table,
+        back_populates="searchkeys"
+    )
+
 class App(DictSerializableMixin):
     """google android apps, with users, reviews, the url to play store etc"""
     __tablename__ = 'apps'
@@ -263,7 +295,6 @@ class App(DictSerializableMixin):
     reviews = relationship('Review', back_populates="app")
     paid = Column(Boolean, default=False)
     imageurl = Column(String(256))
-
 
     def __init__(self, name, idstring):
         self.name = name

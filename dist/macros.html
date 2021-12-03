@@ -345,6 +345,51 @@
 </header>
 {% endmacro %}
 
+{% macro build_store_graph(data) %}
+<div class="card">
+  {{ build_card_header("Klont", 'mdi-finance') }}
+  <div class="card-content">
+    <div class="chart-area">
+      <div style="height: 100%;">
+        <div class="chartjs-size-monitor">
+          <div class="chartjs-size-monitor-expand">
+            <div></div>
+          </div>
+          <div class="chartjs-size-monitor-shrink">
+            <div></div>
+          </div>
+        </div>
+        <canvas id="big-line-chart" width="2992" height="1000" class="chartjs-render-monitor" style="display: block; height: 400px; width: 1197px;"></canvas>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="is-hidden" id="apps">
+  [
+  {% for key, my_item in data.data.items()%}
+  {
+    "fill": false,
+    "borderWidth": 2,
+    "borderColor": "{{ my_item[0] }}",
+    "pointBackgroundColor": "{{ my_item[0] }}",
+    "pointBorderColor": "{{ my_item[0] }}",
+    "borderDash": [],
+    "borderDashOffset": 0.0,
+    "label": "{{ key }}",
+    "data": {{ my_item[1] }},
+    "pointBorderWidth": 1,
+    "pointHoverRadius": 7,
+    "pointHoverBorderWidth": 2,
+    "pointRadius": 7
+  }
+    {% if not loop.last %}
+    ,
+    {% endif %}
+  {% endfor %}
+  ]
+</div>
+{% endmacro %}
+
 {% macro build_graph(data) %}
 <div class="card">
   {{ build_card_header('  Usage stats', 'mdi-finance') }}

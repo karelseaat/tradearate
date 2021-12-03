@@ -22,8 +22,10 @@ var ctx = document.getElementById('big-line-chart').getContext('2d');
 new Chart(ctx, {
   type: 'line',
   data: {
+    // labels: ['aap', 'noot', 'mies'],
     datasets: [
       {
+      label: 'LOL',
       fill: false,
       borderColor: chartColors["default"].primary,
       borderWidth: 2,
@@ -38,6 +40,7 @@ new Chart(ctx, {
       pointRadius: 4,
       data: JSON.parse(document.getElementById('apps-num-data').innerHTML)
     }, {
+      label: 'KLONT',
       fill: false,
       borderColor: chartColors["default"].info,
       borderWidth: 2,
@@ -53,6 +56,7 @@ new Chart(ctx, {
       data: JSON.parse(document.getElementById('trades-num-data').innerHTML)
     },
      {
+     label: 'HYPER',
       fill: false,
       borderColor: chartColors["default"].danger,
       borderWidth: 2,

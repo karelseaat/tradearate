@@ -35,7 +35,8 @@ from config import (
     domain
 )
 
-from models import User, Trade, App, Review, Historic
+from models import User, Trade, App, Review, Historic, Searchkey, Rankapp, association_table
+from sqlalchemy import func
 from lib.myownscraper import get_app, get_app_alt
 from lib.filtersort import FilterSort
 from lib.translator import PyNalator
@@ -932,6 +933,51 @@ def leave(tradeid):
     app.session.close()
     app.pyn.close()
     return redirect('/overviewtrades', 303)
+
+def convertToColor (s):
+    # https://pypi.org/project/colour/
+    value = str(s.encode().hex()[-6:])
+    red = value[0:2]
+    green = value[2:4]
+    blue = value[4:6]
+
+
+@app.route("/rankapp/<searchkey>")
+@dont_cache()
+@login_required
+def rankapp(searchkey):
+    """ dit gaat veel dingen doen, het laten zien van de grafieken, ook displayen van de zoek bar het gaat ook een zoekterm opslaan als je een nieuwe invoert"""
+
+    searchkey = searchkey.strip().lower()
+
+    results = app.session.query( Rankapp.name, func.group_concat(Rankapp.rank, '-')).join((Searchkey, Rankapp.searchkeys)).filter(Searchkey.searchsentence == searchkey).group_by(Rankapp.name)
+
+
+    results = {x[0]: (convertToColor(x[0]),[int(x) for x in x[1].split("-")]) for x in results}
+
+
+    if not results:
+        search = Searchkey()
+        search.searchsentence = searchkey
+        search.user = current_user
+        app.session.add(search)
+        app.session.commit()
+    else:
+        # print(results.rankapps)
+        app.data['data'] = results
+    result = render_template('rankapp.html', data=app.data)
+    app.session.close()
+    app.pyn.close()
+    return result
+#
+# @app.route("/rankappsuggest/<searchkey>")
+# @dont_cache()
+# @login_required
+# def rankappsuggest(searchkey):
+#     result = render_template('rankapp.html')
+#     app.session.close()
+#     app.pyn.close()
+#     return result
 
 @app.after_request
 def set_response_headers(response):
