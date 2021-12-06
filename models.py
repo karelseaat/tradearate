@@ -78,10 +78,12 @@ class User(DictSerializableMixin):
         return [x for x in set(self.initiatortrades + self.joinertrades) if x.success]
 
     def trade_credit(self):
-        return int((self.get_score() - len(self.all_pending())) / self.scorepertrade)
+        # print(self.get_score(), len(self.all_pending()) * 10, self.scorepertrade)
+        return int(((self.get_score() - len(self.all_pending()) * 10) + 10) / self.scorepertrade)
 
     def get_score(self):
         """will calculate you trade score based on you sucseeded and failed trades"""
+        # print(self.bonus_score, len(self.all_trade_successes()), (len(self.all_trade_fails()) * self.scorepertrade))
         return (
             self.bonus_score
             +
