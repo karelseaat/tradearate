@@ -20,13 +20,23 @@
             <span class="icon"><i class="mdi mdi-account"></i></span>
             <span>{{ data.navigation.profile[0] }}</span>
           </a>
-
+          <a href="/logout" class="navbar-item">
+            <span class="icon"><i class="mdi mdi-logout"></i></span>
+            <span>Logout</span>
+          </a>
         </div>
       </div>
-      {% endif %}
       <div class="navbar-item has-divider">
         <span class="">{{ trans("Trade credit", self) }}: {{  data.user.trade_credit }}</span>
       </div>
+      {% else %}
+      <div class="navbar-item has-divider">
+        <a href="{{ data.navigation.alltrades[1] }}" class="navbar-item">
+          <span class="icon"><i class="mdi mdi-login"></i></span>
+          <span>Login</span>
+        </a>
+      </div>
+      {% endif %}
       <a href="{{ data.navigation.about[1] }}" title="About" class="navbar-item has-divider is-desktop-icon-only">
         <span class="icon"><i class="mdi mdi-help-circle-outline"></i></span>
         <span>{{ data.navigation.about[0] }}</span>
