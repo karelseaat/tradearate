@@ -2255,7 +2255,7 @@
          id="tspan2814"
          x="-127.99323"
          y="-186.20694"
-         style="stroke-width:0.09144771">{{ trans("Or ... you trade ratings with other app developer's!", self) }}</tspan></text>
+         style="stroke-width:0.09144771">{{ trans("Or ... you trade ratings with other app developers!", self) }}</tspan></text>
     <g
        id="g19755"
        transform="matrix(0.34562918,0,0,0.34562918,-44.098899,-6.3466247)">
