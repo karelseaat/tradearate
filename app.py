@@ -42,6 +42,7 @@ from lib.filtersort import FilterSort
 from lib.translator import PyNalator
 
 import logging
+import os
 
 dirname = "/".join(os.path.realpath(__file__).split('/')[:-1])
 dirname=dirname+"/../logs"
