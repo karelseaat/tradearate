@@ -703,6 +703,8 @@ def reject(tradeid):
         app.session.rollback()
         flash(str(exception), 'has-text-danger')
     result = redirect('/show/' + tradeid, 303)
+
+    logging.info('Date: {}'.format("rejecting !"))
     app.session.close()
     app.pyn.close()
     return result
@@ -767,6 +769,7 @@ def accept(tradeid):
         app.session.rollback()
         flash(str(exception),'has-text-danger')
 
+    logging.info('Date: {}'.format("accepting !"))
     app.session.close()
     app.pyn.close()
     return redirect('/show/' + tradeid, 303)
