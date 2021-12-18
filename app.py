@@ -45,7 +45,7 @@ import logging
 import os
 
 dirname = "/".join(os.path.realpath(__file__).split('/')[:-1])
-dirname=dirname+"/../logs"
+dirname=dirname+"/logs"
 logging.basicConfig(filename='{}/apptest.log'.format(dirname), level=logging.INFO)
 
 valliappinit = Validator({
