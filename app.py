@@ -43,6 +43,7 @@ from lib.translator import PyNalator
 
 import logging
 
+dirname = "/".join(os.path.realpath(__file__).split('/')[:-1])
 dirname=dirname+"/../logs"
 logging.basicConfig(filename='{}/apptest.log'.format(dirname), level=logging.INFO)
 
