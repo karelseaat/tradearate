@@ -697,8 +697,9 @@ def reject(tradeid):
 
         if thetrade.can_reject(current_user.googleid):
             thetrade.reject_user(current_user.googleid)
-            logging.info('Date: {} {}'.format("rejecting !", app.session.dirty))
+            logging.info('Date: {} {}'.format("rejecting dirty !", app.session.dirty))
             app.session.commit()
+            logging.info('Date: {} {}'.format("rejecting clean !", app.session.dirty))
             flash("rejected the trade", 'has-text-danger')
     except Exception as exception:
         app.session.rollback()
@@ -733,8 +734,9 @@ def accept(tradeid):
 
         if thetrade.can_accept(current_user.googleid):
             thetrade.accept_user(current_user.googleid)
-            logging.info('Date: {} {}'.format("accepting !", app.session.dirty))
-            app.session.commit()
+            # logging.info('Date: {} {}'.format("accepting dirty !", app.session.dirty))
+
+            # logging.info('Date: {} {}'.format("accepting clean !", app.session.dirt))
             if thetrade.accepted:
                 msg = Message(
                     'One of your app trades has been accepted',
@@ -766,6 +768,7 @@ def accept(tradeid):
                 mail.send(msg)
 
             flash("accepted the trade",'has-text-primary')
+            app.session.commit()
     except Exception as exception:
         app.session.rollback()
         flash(str(exception),'has-text-danger')
