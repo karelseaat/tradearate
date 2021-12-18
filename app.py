@@ -698,8 +698,9 @@ def reject(tradeid):
         if thetrade.can_reject(current_user.googleid):
             thetrade.reject_user(current_user.googleid)
             # logging.info('Date: {} {}'.format("rejecting dirty !", app.session.dirty))
-            app.session.add(thetrade)
+            # app.session.add(thetrade)
             app.session.commit()
+            app.session.expire(thetrade)
             # logging.info('Date: {} {}'.format("rejecting clean !", app.session.dirty))
             flash("rejected the trade", 'has-text-danger')
     except Exception as exception:
@@ -708,6 +709,7 @@ def reject(tradeid):
     result = redirect('/show/' + tradeid, 303)
 
     app.session.close()
+    app.session.remove()
     app.pyn.close()
     return result
 
@@ -769,13 +771,15 @@ def accept(tradeid):
                 mail.send(msg)
 
             flash("accepted the trade",'has-text-primary')
-            app.session.add(thetrade)
+            # app.session.add(thetrade)
             app.session.commit()
+            app.session.expire(thetrade)
     except Exception as exception:
         app.session.rollback()
         flash(str(exception),'has-text-danger')
 
     app.session.close()
+    app.session.remove()
     app.pyn.close()
     return redirect('/show/' + tradeid, 303)
 
