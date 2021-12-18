@@ -709,7 +709,6 @@ def reject(tradeid):
     result = redirect('/show/' + tradeid, 303)
 
     app.session.close()
-    app.session.remove()
     app.pyn.close()
     return result
 
@@ -779,7 +778,7 @@ def accept(tradeid):
         flash(str(exception),'has-text-danger')
 
     app.session.close()
-    app.session.remove()
+
     app.pyn.close()
     return redirect('/show/' + tradeid, 303)
 
