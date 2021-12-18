@@ -697,9 +697,9 @@ def reject(tradeid):
 
         if thetrade.can_reject(current_user.googleid):
             thetrade.reject_user(current_user.googleid)
-            logging.info('Date: {} {}'.format("rejecting dirty !", app.session.dirty))
+            # logging.info('Date: {} {}'.format("rejecting dirty !", app.session.dirty))
             app.session.commit()
-            logging.info('Date: {} {}'.format("rejecting clean !", app.session.dirty))
+            # logging.info('Date: {} {}'.format("rejecting clean !", app.session.dirty))
             flash("rejected the trade", 'has-text-danger')
     except Exception as exception:
         app.session.rollback()
