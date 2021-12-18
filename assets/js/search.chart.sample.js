@@ -24,8 +24,7 @@ var ctx = document.getElementById('big-line-chart').getContext('2d');
 new Chart(ctx, {
   type: 'line',
   data: {
-    // labels: ['aap', 'noot', 'mies'],
-    // datasets: [],
+
     datasets: JSON.parse(document.getElementById('apps').innerHTML)
   },
   options: {

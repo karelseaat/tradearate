@@ -934,7 +934,7 @@ def leave(tradeid):
     app.pyn.close()
     return redirect('/overviewtrades', 303)
 
-def convertToColor (s):
+def convertToColor(s):
     # https://pypi.org/project/colour/
     value = str(s.encode().hex()[-6:])
     red = value[0:2]
@@ -949,12 +949,8 @@ def rankapp(searchkey):
     """ dit gaat veel dingen doen, het laten zien van de grafieken, ook displayen van de zoek bar het gaat ook een zoekterm opslaan als je een nieuwe invoert"""
 
     searchkey = searchkey.strip().lower()
-
     results = app.session.query( Rankapp.name, func.group_concat(Rankapp.rank, '-')).join((Searchkey, Rankapp.searchkeys)).filter(Searchkey.searchsentence == searchkey).group_by(Rankapp.name)
-
-
     results = {x[0]: (convertToColor(x[0]),[int(x) for x in x[1].split("-")]) for x in results}
-
 
     if not results:
         search = Searchkey()
@@ -981,7 +977,7 @@ def rankapp(searchkey):
 
 @app.after_request
 def set_response_headers(response):
-    response.headers['Cache-Control'] = 'no-cache, no-store, must-revalidate'
-    response.headers['Pragma'] = 'no-cache'
-    response.headers['Expires'] = '0'
+    # response.headers['Cache-Control'] = 'no-cache, no-store, must-revalidate'
+    # response.headers['Pragma'] = 'no-cache'
+    # response.headers['Expires'] = '0'
     return response
