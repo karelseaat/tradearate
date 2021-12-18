@@ -41,6 +41,11 @@ from lib.myownscraper import get_app, get_app_alt
 from lib.filtersort import FilterSort
 from lib.translator import PyNalator
 
+import logging
+
+dirname=dirname+"/../logs"
+logging.basicConfig(filename='{}/apptest.log'.format(dirname), level=logging.INFO)
+
 valliappinit = Validator({
     'appid': {'required': True, 'type': 'string', 'regex': "^.*\..*\..*$"},
     'g-recaptcha-response': {'required': True}
@@ -660,6 +665,9 @@ def show(tradeid):
         app.data['canreject'] = thetrade.can_reject(googleid)
         app.data['candelete'] = thetrade.can_delete(googleid)
         app.data['canleave'] = thetrade.can_leave(googleid)
+
+        logging.info('Date: {}'.format(app.data))
+
     except Exception as exception:
         flash(str(exception), 'has-text-danger')
 
