@@ -4,25 +4,7 @@ verify_ssl = true
 name = "pypi"
 
 [packages]
-flask = "*"
 sqlalchemy = "*"
-sqlalchemy-utils = "*"
-authlib = "*"
-psutil = "*"
-requests = "*"
-faker = "*"
-google-play-scraper = "*"
-flask-login = "*"
-pylint = "*"
-bs4 = "*"
-lxml = "*"
-flask-mail = "*"
-cerberus = "*"
-locust = "*"
-flask-misaka = "*"
-alembic = "*"
-flask-cachecontrol = "*"
-cachetools = "*"
 
 [dev-packages]
 

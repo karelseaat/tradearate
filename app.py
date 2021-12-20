@@ -149,7 +149,7 @@ def load_user(userid):
     return app.session.query(User).filter(User.googleid == userid).first()
 
 @app.route('/process_index.svg', methods=('GET', 'HEAD'))
-@cache_for(hours=12)
+# @cache_for(hours=12)
 def index_svg():
     """a dynamic svg fancy hu"""
     xml = render_template('indexsvg.svg', color="#f00")
@@ -157,7 +157,7 @@ def index_svg():
     return Response(xml, mimetype='image/svg+xml')
 
 @app.route('/process_help.svg', methods=('GET', 'HEAD'))
-@cache_for(hours=12)
+# @cache_for(hours=12)
 def help_svg():
     """another dynamic svg for the help page"""
     xml = render_template('helpsvg.svg', color="#f00")
@@ -212,7 +212,7 @@ def before_request_func():
         }
 
 @app.route('/userprofile')
-@cache_for(hours=12)
+# @cache_for(hours=12)
 @login_required
 def userprofile():
     """ this will show a users profile"""
@@ -226,7 +226,7 @@ def userprofile():
 
 
 @app.route('/login')
-@dont_cache()
+# @dont_cache()
 def login():
     """login that will call google oauth to you can login with your gooogle account"""
     google = oauth.create_client('google')
@@ -237,7 +237,7 @@ def login():
     return result
 
 @app.route("/customlogin", methods = ['POST'])
-@dont_cache()
+# @dont_cache()
 def customlogin():
     """a custom login that will be used by the locust runner, for now it is a security risk"""
     if 'beest' in request.form and request.form.get('beest') == "Lollozotoeoobnenfmnbsf":
@@ -259,7 +259,7 @@ def customlogin():
     return "fail"
 
 @app.route('/logout')
-@dont_cache()
+# @dont_cache()
 @login_required
 def logout():
     """
@@ -272,7 +272,7 @@ def logout():
     return redirect('/')
 
 @app.route('/contact')
-@cache_for(hours=12)
+# @cache_for(hours=12)
 @login_required
 def contact():
     """Showin a contact form !"""
@@ -283,7 +283,7 @@ def contact():
     return result
 
 @app.route('/processcontact', methods = ['POST'])
-@dont_cache()
+# @dont_cache()
 @login_required
 def processcontact():
     """this will prcess a contact form"""
@@ -358,7 +358,7 @@ def authorize():
     return redirect(browsersession['redirect'])
 
 @app.route("/trades")
-@dont_cache()
+# @dont_cache()
 @login_required
 def trades():
     """an overview page of all trades"""
@@ -372,7 +372,7 @@ def trades():
 
 
 @app.route("/showapp/<appid>")
-@dont_cache()
+# @dont_cache()
 @login_required
 def showapp(appid):
     """detail page for one application"""
@@ -394,7 +394,7 @@ def showapp(appid):
     return result
 
 @app.route("/usertrades/<userid>")
-@dont_cache()
+# @dont_cache()
 @login_required
 def usertrades(userid):
     """this will show all trades of the current user"""
@@ -417,7 +417,7 @@ def usertrades(userid):
     return result
 
 @app.route("/add")
-@cache_for(hours=12)
+# @cache_for(hours=12)
 @login_required
 def add():
     """this page will show a form to add a trade"""
@@ -443,7 +443,7 @@ def get_app_from_store(appid, country='us'):
     return appobj
 
 @app.route("/processadd", methods = ['POST'])
-@dont_cache()
+# @dont_cache()
 @login_required
 def processadd():
     """This will process the post of a form to add a trade"""
@@ -503,7 +503,7 @@ def processadd():
     return redirect('/add')
 
 @app.route('/dashboard')
-@cache_for(hours=6)
+# @cache_for(hours=6)
 def dashboard():
     """the dashboard page, a bit of a shit name, it shows the dashboard with graphs"""
     app.data['pagename'] = 'Dashboard'
@@ -529,7 +529,7 @@ def dashboard():
     return result
 
 @app.route('/')
-@cache_for(hours=12)
+# @cache_for(hours=12)
 def index():
 
     app.data['pagename'] = 'Trade A Rate'
@@ -540,7 +540,7 @@ def index():
 
 
 @app.route('/help')
-@cache_for(hours=12)
+# @cache_for(hours=12)
 def helppage():
     """This intro page will show the help for this webapp, perhaps an other name or url is needed ?"""
     app.data['pagename'] = 'Help page'
@@ -550,7 +550,7 @@ def helppage():
     return result
 
 @app.route('/overviewapps')
-@cache_for(hours=3)
+# @cache_for(hours=3)
 @login_required
 def overviewapps():
     """This will show all the apps in a overview page"""
@@ -579,7 +579,7 @@ def overviewapps():
     return result
 
 @app.route('/showreview/<reviewid>')
-@dont_cache()
+# @dont_cache()
 @login_required
 def showreview(reviewid):
     """This will show the details about a review"""
@@ -605,7 +605,7 @@ def showreview(reviewid):
     return result
 
 @app.route('/overviewreviews')
-@cache_for(hours=6)
+# @cache_for(hours=6)
 @login_required
 def overviewreviews():
     """the overview page so you can see all the reviews done"""
@@ -621,7 +621,7 @@ def overviewreviews():
     return result
 
 @app.route('/overviewtrades')
-@dont_cache()
+# @dont_cache()
 @login_required
 def overviewtrades():
     """a page that will show you a overview for all trades"""
@@ -644,7 +644,7 @@ def overviewtrades():
     return result
 
 @app.route("/show/<tradeid>")
-@dont_cache()
+# @dont_cache()
 @login_required
 def show(tradeid):
     """detail page for a single trade"""
@@ -679,7 +679,7 @@ def show(tradeid):
     return result
 
 @app.route("/reject/<tradeid>")
-@dont_cache()
+# @dont_cache()
 @login_required
 def reject(tradeid):
     if not tradeid.isnumeric():
@@ -697,11 +697,7 @@ def reject(tradeid):
 
         if thetrade.can_reject(current_user.googleid):
             thetrade.reject_user(current_user.googleid)
-            # logging.info('Date: {} {}'.format("rejecting dirty !", app.session.dirty))
-            # app.session.add(thetrade)
             app.session.commit()
-            app.session.expire(thetrade)
-            # logging.info('Date: {} {}'.format("rejecting clean !", app.session.dirty))
             flash("rejected the trade", 'has-text-danger')
     except Exception as exception:
         app.session.rollback()
@@ -713,7 +709,7 @@ def reject(tradeid):
     return result
 
 @app.route("/accept/<tradeid>")
-@dont_cache()
+# @dont_cache()
 @login_required
 def accept(tradeid):
     """
@@ -736,9 +732,7 @@ def accept(tradeid):
 
         if thetrade.can_accept(current_user.googleid):
             thetrade.accept_user(current_user.googleid)
-            # logging.info('Date: {} {}'.format("accepting dirty !", app.session.dirty))
 
-            # logging.info('Date: {} {}'.format("accepting clean !", app.session.dirt))
             if thetrade.accepted:
                 msg = Message(
                     'One of your app trades has been accepted',
@@ -770,9 +764,7 @@ def accept(tradeid):
                 mail.send(msg)
 
             flash("accepted the trade",'has-text-primary')
-            # app.session.add(thetrade)
             app.session.commit()
-            app.session.expire(thetrade)
     except Exception as exception:
         app.session.rollback()
         flash(str(exception),'has-text-danger')
@@ -784,7 +776,7 @@ def accept(tradeid):
 
 
 @app.route("/delete/<tradeid>")
-@dont_cache()
+# @dont_cache()
 @login_required
 def delete(tradeid):
     """this function will let the initiator of the trade delete the trade"""
@@ -800,8 +792,8 @@ def delete(tradeid):
     return redirect('/overviewtrades', 303)
 
 @app.route("/join/<tradeid>")
-@cache_for(hours=12)
-@dont_cache()
+# @cache_for(hours=12)
+# @dont_cache()
 @login_required
 def join(tradeid):
     """here someone can join a trade by filling in a form with something to review, an app"""
@@ -819,7 +811,7 @@ def join(tradeid):
     return result
 
 @app.route("/processjoin", methods = ['POST'])
-@dont_cache()
+# @dont_cache()
 @login_required
 def processjoin():
     """here we will process the join form post so you can join a trade"""
@@ -923,7 +915,7 @@ def processjoin():
     return redirect('/join')
 
 @app.route("/leave/<tradeid>")
-@dont_cache()
+# @dont_cache()
 @login_required
 def leave(tradeid):
     """here a trade joiner can leave a trade"""
@@ -954,51 +946,3 @@ def leave(tradeid):
     app.session.close()
     app.pyn.close()
     return redirect('/overviewtrades', 303)
-
-def convertToColor(s):
-    # https://pypi.org/project/colour/
-    value = str(s.encode().hex()[-6:])
-    red = value[0:2]
-    green = value[2:4]
-    blue = value[4:6]
-
-
-@app.route("/rankapp/<searchkey>")
-@dont_cache()
-@login_required
-def rankapp(searchkey):
-    """ dit gaat veel dingen doen, het laten zien van de grafieken, ook displayen van de zoek bar het gaat ook een zoekterm opslaan als je een nieuwe invoert"""
-
-    searchkey = searchkey.strip().lower()
-    results = app.session.query( Rankapp.name, func.group_concat(Rankapp.rank, '-')).join((Searchkey, Rankapp.searchkeys)).filter(Searchkey.searchsentence == searchkey).group_by(Rankapp.name)
-    results = {x[0]: (convertToColor(x[0]),[int(x) for x in x[1].split("-")]) for x in results}
-
-    if not results:
-        search = Searchkey()
-        search.searchsentence = searchkey
-        search.user = current_user
-        app.session.add(search)
-        app.session.commit()
-    else:
-        # print(results.rankapps)
-        app.data['data'] = results
-    result = render_template('rankapp.html', data=app.data)
-    app.session.close()
-    app.pyn.close()
-    return result
-#
-# @app.route("/rankappsuggest/<searchkey>")
-# @dont_cache()
-# @login_required
-# def rankappsuggest(searchkey):
-#     result = render_template('rankapp.html')
-#     app.session.close()
-#     app.pyn.close()
-#     return result
-
-@app.after_request
-def set_response_headers(response):
-    # response.headers['Cache-Control'] = 'no-cache, no-store, must-revalidate'
-    # response.headers['Pragma'] = 'no-cache'
-    # response.headers['Expires'] = '0'
-    return response
