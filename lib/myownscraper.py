@@ -17,8 +17,11 @@ def get_app(appid, country='us'):
     """My own version to get app info from the playstore page, just a scraper"""
     results = {'rating':None, 'title':None, 'icon':None, 'price':None, 'klont':'Turbo Turbo !'}
     requesturl = f"{PLAYSTOREURL}/store/apps/details?id={appid}&hl={country}"
+    print("ook")
     result = requests.get(requesturl)
-    soup = BeautifulSoup(result.text, features="lxml")
+    print("mmmm")
+    soup = BeautifulSoup(result.text)
+    print(124123423)
     leltext = soup.find("script", {"type" : "application/ld+json"}).text
 
     temp = json.loads(leltext)

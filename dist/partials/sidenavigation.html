@@ -14,6 +14,7 @@
     <ul class="menu-list">
       {{ build_menu_li(data.navigation.dashboard[0] ,data.navigation.dashboard[1], "mdi-laptop", data.currentnavigation == data.navigation.dashboard[1]) }}
     </ul>
+    {% if data.user %}
     <p class="menu-label">{{ trans("All", self) }}</p>
     <ul class="menu-list">
 
@@ -22,11 +23,18 @@
       {{ build_menu_li(data.navigation.allapps[0] ,data.navigation.allapps[1], "mdi-android", data.currentnavigation == data.navigation.allapps[1]) }}
 
       {{ build_menu_li(data.navigation.allreviews[0] ,data.navigation.allreviews[1], "mdi-star-half", data.currentnavigation == data.navigation.allreviews[1]) }}
+
     </ul>
+    {% endif %}
+
+    {% if data.user %}
     <p class="menu-label">{{ trans("My", self) }}</p>
     <ul class="menu-list">
+
       {{ build_menu_li(data.navigation.mytrades[0] ,data.navigation.mytrades[1], "mdi-twitter-retweet", data.currentnavigation == data.navigation.mytrades[1]) }}
+
     </ul>
+    {% endif %}
     <p class="menu-label">{{ trans("Contact", self) }}</p>
     <ul class="menu-list">
         {{ build_menu_li(data.navigation.contact[0] ,data.navigation.contact[1], "mdi-message", data.currentnavigation == data.navigation.contact[1]) }}

@@ -5,6 +5,19 @@ name = "pypi"
 
 [packages]
 sqlalchemy = "*"
+flask = "*"
+requests = "*"
+flask-login = "*"
+flask-mail = "*"
+cerberus = "*"
+flask-cachecontrol = "*"
+sqlalchemy-utils = "*"
+bs4 = "*"
+google-play-scraper = "*"
+toml = "*"
+html5lib = "*"
+lxml = "==4.6.0"
+cssselect = "*"
 
 [dev-packages]
 

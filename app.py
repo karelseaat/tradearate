@@ -273,7 +273,6 @@ def logout():
 
 @app.route('/contact')
 @cache_for(hours=12)
-@login_required
 def contact():
     """Showin a contact form !"""
     app.data['pagename'] = 'Contact'

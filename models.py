@@ -288,7 +288,7 @@ class Searchkey(DictSerializableMixin):
     )
 
 class App(DictSerializableMixin):
-    """google android apps, with users, reviews, the url to play store etc"""
+    """google Android apps, with users, reviews, the url to play store etc"""
     __tablename__ = 'apps'
     id = Column(Integer, primary_key=True)
     name = Column(String(64), nullable=False)
