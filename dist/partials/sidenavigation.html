@@ -39,5 +39,10 @@
     <ul class="menu-list">
         {{ build_menu_li(data.navigation.contact[0] ,data.navigation.contact[1], "mdi-message", data.currentnavigation == data.navigation.contact[1]) }}
     </ul>
+
+    <p class="menu-label">{{ trans("Help", self) }}</p>
+    <ul class="menu-list">
+        {{ build_menu_li(data.navigation.about[0] ,data.navigation.about[1], "mdi-help-circle-outline", data.currentnavigation == data.navigation.about[1]) }}
+    </ul>
   </div>
 </aside>
