@@ -18,6 +18,8 @@ toml = "*"
 html5lib = "*"
 lxml = "==4.6.0"
 cssselect = "*"
+setuptools = "*"
+authlib = "*"
 
 [dev-packages]
 
