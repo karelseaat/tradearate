@@ -78,10 +78,24 @@
             <span>{{ trans("Delete", self) }}</span>
             <span class="icon"><i class="mdi mdi-delete-forever"></i></span>
           </button>
+          {% elif not data.join %}
+
+          {% else %}
+          <button class="button is-medium is-danger" type="button" disabled>
+            <span>{{ trans("Delete", self) }}</span>
+            <span class="icon"><i class="mdi mdi-delete-forever"></i></span>
+          </button>
           {% endif %}
 
           {% if data.canjoin %}
           <button class="button is-medium is-primary" type="button" onclick="window.location.href='/join/{{ data.data.id }}'">
+            <span>{{ trans("Join", self) }}</span>
+            <span class="icon"><i class="mdi mdi-location-enter"></i></span>
+          </button>
+          {% elif data.candelete or data.canleave or not data.can_reject %}
+
+          {% else %}
+          <button class="button is-medium is-primary" type="button" disabled>
             <span>{{ trans("Join", self) }}</span>
             <span class="icon"><i class="mdi mdi-location-enter"></i></span>
           </button>
@@ -92,6 +106,13 @@
             <span>{{ trans("Leave", self) }}</span>
             <span class="icon"><i class="mdi mdi-location-exit"></i></span>
           </button>
+          {% elif data.candelete or not data.can_reject %}
+
+          {% else %}
+          <button class="button is-medium is-danger" type="button" disabled>
+            <span>{{ trans("Leave", self) }}</span>
+            <span class="icon"><i class="mdi mdi-location-exit"></i></span>
+          </button>
           {% endif %}
 
           {% if data.canaccept %}
@@ -99,10 +120,24 @@
             <span>{{ trans("Accept", self) }}</span>
             <span class="icon"><i class="mdi mdi-checkbox-marked-circle-outline"></i></span>
           </button>
+          {% elif data.canjoin %}
+
+          {% else %}
+          <button class="button is-medium is-primary" type="button" disabled>
+            <span>{{ trans("Accept", self) }}</span>
+            <span class="icon"><i class="mdi mdi-checkbox-marked-circle-outline"></i></span>
+          </button>
           {% endif %}
 
           {% if data.canreject %}
           <button class="button is-medium is-primary" type="button" onclick="window.location.href='/reject/{{ data.data.id }}'">
+            <span>{{ trans("Reject", self) }}</span>
+            <span class="icon"><i class="mdi mdi-checkbox-blank-circle-outline"></i></span>
+          </button>
+          {% elif data.canjoin %}
+
+          {% else %}
+          <button class="button is-medium is-primary" type="button" disabled>
             <span>{{ trans("Reject", self) }}</span>
             <span class="icon"><i class="mdi mdi-checkbox-blank-circle-outline"></i></span>
           </button>

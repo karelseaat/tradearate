@@ -354,22 +354,27 @@ bij sidenavigation.html zitten er ook meerdere in moet te vinden zijn ! (done)
 # als je niet ingelogt bent alle woorden over credit niet laten zien. (done)
 # een login knop als je niet ingelogt bent! (done)
 # Android overal met hoofdletter! (done)
-# add keywords in gedeelte waar google ook bij mag, index pagina <--
+# add keywords in gedeelte waar google ook bij mag, index pagina (done)
 # sta het toe dat users op het dashboard page mogen zonder in te loggen ! (done)
 
 # nagedachten
-# het moet duidelijk zijn dat je een trade ook moet joinen voordat alles ok is. (grijze knoppen)
-# de help svg mag ook een alt text krijgen zodat google er meer mee kan !
+# het moet duidelijk zijn dat je een trade ook moet joinen voordat alles ok is. (grijze knoppen) (done)
+# de help svg mag ook een alt text krijgen zodat google er meer mee kan ! <--
 # je kunt enkel inloggen via de login knop (done)
 # je moet bij de help kunnen zonder ingelogt te zijn (done)
 # je moet bij de contact kunnen zonder ingelogt te zijn ! (done)
 
 # meer om te doen
 # je kunt eindeloos veel punten krijgen door een trade die je al gedaan hebt nog een keer te doen ? (zelfde users, zelfde apps = waarschuwing ?)
-# er moet de mogelijkheid zijn je zccount te verwijderen of te disabelen !
+# er moet de mogelijkheid zijn je account te verwijderen of te disabelen !
 # integrate de search ranking ?
+
 # in het linker menu mag er ook een link naar de help pagina
 # als je een verkeerde join doet, app met te veel users dan komt er vreemd gedrag uit !
+
+# in het linker menu mag er ook een link naar de help pagina (done)
+
+
 
 
 # de limiet voor aantal tades mag er uit ! of een stuk of 5.
