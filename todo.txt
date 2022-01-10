@@ -369,7 +369,7 @@ bij sidenavigation.html zitten er ook meerdere in moet te vinden zijn ! (done)
 # er moet de mogelijkheid zijn je zccount te verwijderen of te disabelen !
 # integrate de search ranking ?
 # in het linker menu mag er ook een link naar de help pagina
-
+# als je een verkeerde join doet, app met te veel users dan komt er vreemd gedrag uit !
 
 
 # de limiet voor aantal tades mag er uit ! of een stuk of 5.
