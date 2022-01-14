@@ -25,7 +25,7 @@ new Chart(ctx, {
     // labels: ['aap', 'noot', 'mies'],
     datasets: [
       {
-      label: 'LOL',
+      label: 'Nr of apps',
       fill: false,
       borderColor: chartColors["default"].primary,
       borderWidth: 2,
@@ -40,7 +40,7 @@ new Chart(ctx, {
       pointRadius: 4,
       data: JSON.parse(document.getElementById('apps-num-data').innerHTML)
     }, {
-      label: 'KLONT',
+      label: 'Nr of trades',
       fill: false,
       borderColor: chartColors["default"].info,
       borderWidth: 2,
@@ -56,7 +56,7 @@ new Chart(ctx, {
       data: JSON.parse(document.getElementById('trades-num-data').innerHTML)
     },
      {
-     label: 'HYPER',
+     label: 'Nr of reviews',
       fill: false,
       borderColor: chartColors["default"].danger,
       borderWidth: 2,

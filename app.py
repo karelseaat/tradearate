@@ -907,10 +907,10 @@ def processjoin():
         app.pyn.close()
         return redirect(f'/show/{tradeid}', 303)
 
-    flash(str("chapcha trouble, more than reviews, or of the process doent exist"), 'has-text-danger')
+    flash(str(f"chapcha trouble, more than {REVIEWLIMIT} reviews, or of the process doent exist"), 'has-text-danger')
     app.session.close()
     app.pyn.close()
-    return redirect('/join')
+    return redirect(f"/join/{tradeid}")
 
 @app.route("/leave/<tradeid>")
 @dont_cache()
