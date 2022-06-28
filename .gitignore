@@ -2,3 +2,4 @@
 *.log
 __pychache__/
 *.toml
+*.sh
