@@ -75,7 +75,7 @@ app = Flask(
 login_manager = LoginManager()
 login_manager.setup_app(app)
 
-app.secret_key = 'random secret223'
+app.secret_key = os.getenv("SECRETKEY")
 app.session = make_session()
 
 app.config.from_object("config.Config")
@@ -240,7 +240,7 @@ def login():
 @dont_cache()
 def customlogin():
     """a custom login that will be used by the locust runner, for now it is a security risk"""
-    if 'beest' in request.form and request.form.get('beest') == "Lollozotoeoobnenfmnbsf":
+    if 'beest' in request.form and request.form.get('beest') == os.getenv("SECRETPASS"):
         customuser = app.session.query(User).filter(User.googleid == 666).first()
 
         if not customuser:
