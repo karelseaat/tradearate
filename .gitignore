@@ -2,3 +2,5 @@
 *.log
 __pychache__/
 *.toml
+*.sh
+*.sqlite

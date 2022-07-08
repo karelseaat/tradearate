@@ -10,10 +10,10 @@ domain = "trade.six-dots.app"
 
 oauthconfig = {
     'name':'google',
-    'client_id':'73190520700-quq0eklkk131ulbukpcokav1khtrupo6.apps.googleusercontent.com',
-    'client_secret':'PcA-dpVsAsqAzIcliLwhxZ7B',
+    'client_id':os.getenv("CLIENTID"),
+    'client_secret':os.getenv("CLIENTSECRET"),
     'access_token_url':'https://accounts.google.com/o/oauth2/token',
-    'access_token_params':None,
+    'access_token_params': None,
     'authorize_url':'https://accounts.google.com/o/oauth2/auth',
     'authorize_param':None,
     'api_base_url':'https://www.googleapis.com/oauth2/v1/',
@@ -23,8 +23,8 @@ oauthconfig = {
 
 CONNECTIONURI = "sqlite:////{}/treetareet.sqlite".format(os.path.dirname(__file__))
 
-recaptchasecret = "6Ld8rjMcAAAAAPDQI6igBibm24JIwHABlL5uw2RX"
-recapchasitekey = "6Ld8rjMcAAAAAFbplPzzBMF-iZsXfvmxUG5Q5cZB"
+recaptchasecret = os.getenv("RECAPCHASECRET")
+recapchasitekey = os.getenv("RECAPCHASITEKEY")
 
 def make_session():
     engine = create_engine(CONNECTIONURI, echo=False, connect_args={'check_same_thread': False})
@@ -36,8 +36,8 @@ def make_session():
 class Config():
     MAIL_SERVER='smtp.gmail.com'
     MAIL_PORT=465
-    MAIL_USERNAME='sixdots.soft@gmail.com'
-    MAIL_PASSWORD='oqmhnpocsnigsvrx'
+    MAIL_USERNAME=os.getenv("MAILUSERNAME")
+    MAIL_PASSWORD=os.getenv("MAILPASSWORD")
     MAIL_USE_TLS=False
     MAIL_USE_SSL=True
 
