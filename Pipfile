@@ -20,6 +20,7 @@ lxml = "==4.6.0"
 cssselect = "*"
 setuptools = "*"
 authlib = "*"
+pylint = "*"
 
 [dev-packages]
 
