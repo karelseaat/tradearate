@@ -4,7 +4,6 @@ from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker, scoped_session
 from models import Base
 
-
 REVIEWLIMIT = 1000
 
 DOMAIN = "trade.six-dots.app"
@@ -34,7 +33,7 @@ def make_session():
     return dbsession()
 
 
-class Config(object):
+class Config():
     MAIL_SERVER='smtp.gmail.com'
     MAIL_PORT=465
     MAIL_USERNAME=os.getenv("MAILUSERNAME")

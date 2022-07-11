@@ -34,8 +34,9 @@ def get_app(appid, country='us'):
 def get_app_alt(appid, country='us'):
     """The propper way to get an app with a official ? api"""
     temp = app(appid, country)
-    iets = {k:v for (k,v) in temp.items() if k in ['title', 'free', 'ratings', 'icon']}
-    return {**iets, **{"klont": 'Turbo Turbo'}}
+    return temp.items()
+    # iets = {k:v for (k,v) in temp.items() if k in ['title', 'free', 'ratings', 'icon']}
+    # return iets
 
 if __name__ == "__main__":
     print(time.time())

@@ -471,6 +471,7 @@ def processadd():
         return redirect('/showtrade')
 
 
+
     if appobj and int(appobj['ratings']) <= REVIEWLIMIT and is_human(captcha_response):
         appmodel = app.session.query(App).filter(App.appidstring==appid).first()
         if not appmodel:
@@ -512,14 +513,19 @@ def dashboard():
         app
         .session
         .query(Historic)
-        .filter(Historic.date >= nowdate + timedelta(days=-30) ,Historic.date <= nowdate)
+        .filter(
+            Historic.date >= nowdate + timedelta(days=-30)
+            ,Historic.date <= nowdate
+        )
         .order_by(Historic.date)
         .all()
     )
     app.data['apps'] = [ x.number for x in allstuff if  x.infotype == 0]
     app.data['trades'] = [ x.number for x in allstuff if x.infotype == 1]
     app.data['reviews'] = [ x.number for x in allstuff if  x.infotype == 2]
-    app.data['labels'] = json.dumps(sorted(list({ str(x.date) for x in allstuff})))
+    app.data['labels'] = json.dumps(
+        sorted(list({ str(x.date) for x in allstuff}))
+    )
 
     result =  render_template('dashboard.html', data=app.data)
     app.session.close()
@@ -556,22 +562,19 @@ def helppage():
 def overviewapps():
     """This will show all the apps in a overview page"""
     app.data['pagename'] = 'All apps'
-    try:
-        filtersort = FilterSort()
-        sortlist = filtersort.make_sort({'name': App.name, 'payed': App.paid})
-        app.data['sorts'] = filtersort.generate_next_sort(['name', 'payed'])
-        app.data['cursort'] = filtersort.generate_current_sort(['name', 'payed'])
 
-        apps = app.session.query(App)
-        for sort in sortlist:
-            apps = apps.order_by(sort())
+    filtersort = FilterSort()
+    sortlist = filtersort.make_sort({'name': App.name, 'payed': App.paid})
+    app.data['sorts'] = filtersort.generate_next_sort(['name', 'payed'])
+    app.data['cursort'] = filtersort.generate_current_sort(['name', 'payed'])
 
-        apps = nongetpagination(apps, 5).all()
+    apps = app.session.query(App)
+    for sort in sortlist:
+        apps = apps.order_by(sort())
 
-        app.data['data'] = apps
+    apps = nongetpagination(apps, 5).all()
 
-    except Exception as exception:
-        flash(str(exception), 'has-text-danger')
+    app.data['data'] = apps
 
     result = render_template('overviewapps.html', data=app.data)
     app.session.close()
@@ -590,16 +593,15 @@ def showreview(reviewid):
         flash('Should be a number', 'has-text-danger')
         return redirect('/overviewtrades')
 
-    try:
-        review = app.session.query(Review).get(reviewid)
-        if not review:
-            app.session.close()
-            app.pyn.close()
-            flash('review not found', 'has-text-danger')
-            return redirect('/overviewtrades')
-        app.data['data'] = review
-    except Exception as exception:
-        flash(str(exception), 'has-text-danger')
+
+    review = app.session.query(Review).get(reviewid)
+    if not review:
+        app.session.close()
+        app.pyn.close()
+        flash('review not found', 'has-text-danger')
+        return redirect('/overviewtrades')
+    app.data['data'] = review
+
     result = render_template('showreview.html', data=app.data)
     app.session.close()
     app.pyn.close()
@@ -611,11 +613,9 @@ def showreview(reviewid):
 def overviewreviews():
     """the overview page so you can see all the reviews done"""
     app.data['pagename'] = 'All reviews'
-    try:
 
-        app.data['data'] = pagination(Review, 50)
-    except Exception as exception:
-        flash(str(exception), 'has-text-danger')
+    app.data['data'] = pagination(Review, 50)
+
     result = render_template('overviewreviews.html', data=app.data)
     app.session.close()
     app.pyn.close()
@@ -633,8 +633,8 @@ def overviewtrades():
         app.
         session.
         query(Trade).
-        filter(Trade.failure == None).
-        filter(Trade.success == None)
+        filter(Trade.failure is None).
+        filter(Trade.success is None)
     )
 
     app.data['data'] = nongetpagination(alltrades, 5).all()
@@ -656,23 +656,23 @@ def show(tradeid):
         return redirect('/overviewtrades')
 
     googleid = current_user.googleid
-    try:
-        thetrade = app.session.query(Trade).get(tradeid)
-        if not thetrade:
-            flash('No trade found', 'has-text-danger')
-            return redirect('/overviewtrades')
 
-        app.data['data'] = thetrade
-        app.data['canaccept'] = thetrade.can_accept(googleid)
-        app.data['canjoin'] = thetrade.can_join(googleid) and current_user.can_join_trade()
-        app.data['canreject'] = thetrade.can_reject(googleid)
-        app.data['candelete'] = thetrade.can_delete(googleid)
-        app.data['canleave'] = thetrade.can_leave(googleid)
+    thetrade = app.session.query(Trade).get(tradeid)
+    if not thetrade:
+        flash('No trade found', 'has-text-danger')
+        return redirect('/overviewtrades')
 
-        logging.info(f'Date: {app.data}')
+    app.data['data'] = thetrade
+    app.data['canaccept'] = thetrade.can_accept(googleid)
+    app.data['canjoin'] = (
+        thetrade.can_join(googleid) and current_user.can_join_trade()
+    )
+    app.data['canreject'] = thetrade.can_reject(googleid)
+    app.data['candelete'] = thetrade.can_delete(googleid)
+    app.data['canleave'] = thetrade.can_leave(googleid)
 
-    except Exception as exception:
-        flash(str(exception), 'has-text-danger')
+    logging.info(f'Date: {app.data}')
+
 
     result = render_template('showtrade.html', data=app.data)
     app.session.close()
@@ -688,22 +688,19 @@ def reject(tradeid):
         flash('Should be a number', 'has-text-danger')
         return redirect('/overviewtrades')
 
-    try:
-        thetrade = app.session.query(Trade).get(int(tradeid))
+    thetrade = app.session.query(Trade).get(int(tradeid))
 
-        if not thetrade:
-            app.session.close()
-            app.pyn.close()
-            flash('review not found', 'has-text-danger')
-            return redirect('/overviewtrades')
+    if not thetrade:
+        app.session.close()
+        app.pyn.close()
+        flash('review not found', 'has-text-danger')
+        return redirect('/overviewtrades')
 
-        if thetrade.can_reject(current_user.googleid):
-            thetrade.reject_user(current_user.googleid)
-            app.session.commit()
-            flash("rejected the trade", 'has-text-danger')
-    except Exception as exception:
-        app.session.rollback()
-        flash(str(exception), 'has-text-danger')
+    if thetrade.can_reject(current_user.googleid):
+        thetrade.reject_user(current_user.googleid)
+        app.session.commit()
+        flash("rejected the trade", 'has-text-danger')
+
     result = redirect('/show/' + tradeid, 303)
 
     app.session.close()
@@ -723,53 +720,50 @@ def accept(tradeid):
         flash('Should be a number', 'has-text-danger')
         return redirect('/overviewtrades')
 
-    try:
-        thetrade = app.session.query(Trade).get(int(tradeid))
+    thetrade = app.session.query(Trade).get(int(tradeid))
 
-        if not thetrade:
-            app.session.close()
-            app.pyn.close()
-            flash('trade not found', 'has-text-danger')
-            return redirect('/overviewtrades')
+    if not thetrade:
+        app.session.close()
+        app.pyn.close()
+        flash('trade not found', 'has-text-danger')
+        return redirect('/overviewtrades')
 
-        if thetrade.can_accept(current_user.googleid):
-            thetrade.accept_user(current_user.googleid)
+    if thetrade.can_accept(current_user.googleid):
+        thetrade.accept_user(current_user.googleid)
 
-            if thetrade.accepted:
-                msg = Message(
-                    'One of your app trades has been accepted',
-                    html= f"""
-                        <p>The trade has now been accepted !</p>
-                        <p>The system will now start to look for your review.</p>
-                        <p>Go to your <a href='{DOMAIN}/show/{thetrade.id}'>trade</a> to view the details and do a review of the counter app.</p>
-                        <p>Or go to the playstore directly <a href='{thetrade.initiatorapp.get_url()}'>directly</a> to do a download and review!</p>
-                    """,
-                    sender="sixdots.soft@gmail.com",
-                    recipients=[thetrade.joiner.email]
-                )
+        if thetrade.accepted:
+            msg = Message(
+                'One of your app trades has been accepted',
+                html= f"""
+                    <p>The trade has now been accepted !</p>
+                    <p>The system will now start to look for your review.</p>
+                    <p>Go to your <a href='{domain}/show/{thetrade.id}'>trade</a> to view the details and do a review of the counter app.</p>
+                    <p>Or go to the playstore directly <a href='{thetrade.initiatorapp.get_url()}'>directly</a> to do a download and review!</p>
+                """,
+                sender="sixdots.soft@gmail.com",
+                recipients=[thetrade.joiner.email]
+            )
 
-                mail = Mail(app)
-                mail.send(msg)
+            mail = Mail(app)
+            mail.send(msg)
 
-                msg = Message(
-                    'One of your app trades has been accepted',
-                    html= f"""
-                        <p>The trade has now been accepted !</p>
-                        <p>The system will now start to look for your review.</p>
-                        <p>Go to your <a href='{DOMAIN}/show/{thetrade.id}'>trade</a> to view the details and do a review of the counter app.</p>
-                        <p>Or go to the playstore directly <a href='{thetrade.joinerapp.get_url()}'>directly</a> to do a download and review!</p>
-                    """,
-                    sender="sixdots.soft@gmail.com",
-                    recipients=[thetrade.initiator.email]
-                )
-                mail = Mail(app)
-                mail.send(msg)
+            msg = Message(
+                'One of your app trades has been accepted',
+                html= f"""
+                    <p>The trade has now been accepted !</p>
+                    <p>The system will now start to look for your review.</p>
+                    <p>Go to your <a href='{domain}/show/{thetrade.id}'>trade</a> to view the details and do a review of the counter app.</p>
+                    <p>Or go to the playstore directly <a href='{thetrade.joinerapp.get_url()}'>directly</a> to do a download and review!</p>
+                """,
+                sender="sixdots.soft@gmail.com",
+                recipients=[thetrade.initiator.email]
+            )
+            mail = Mail(app)
+            mail.send(msg)
 
-            flash("accepted the trade",'has-text-primary')
-            app.session.commit()
-    except Exception as exception:
-        app.session.rollback()
-        flash(str(exception),'has-text-danger')
+        flash("accepted the trade",'has-text-primary')
+        app.session.commit()
+
 
     app.session.close()
 
@@ -798,18 +792,19 @@ def delete(tradeid):
 @login_required
 def join(tradeid):
     """here someone can join a trade by filling in a form with something to review, an app"""
+    toreturn = ""
     app.data['pagename'] = 'Join Trade'
     if not tradeid or not tradeid.isnumeric():
         flash('Should be a number', 'has-text-danger')
-        return redirect('/overviewtrades')
+        toreturn = redirect('/overviewtrades')
 
     if current_user.get_score() < 0:
         flash("your trade score is not height enough to join a trade!", 'has-text-danger')
 
-    result = render_template('join.html', tradeid=tradeid, data=app.data)
+    toreturn = render_template('join.html', tradeid=tradeid, data=app.data)
     app.session.close()
     app.pyn.close()
-    return result
+    return toreturn
 
 @app.route("/processjoin", methods = ['POST'])
 @dont_cache()
@@ -928,27 +923,23 @@ def leave(tradeid):
         return redirect('/overviewtrades')
 
     thetrade = app.session.query(Trade).get(int(tradeid))
-    try:
-        if thetrade and thetrade.can_leave(current_user.googleid):
-            thetrade.joiner = None
-            thetrade.joined = None
-            thetrade.joinerapp = None
-            thetrade.tradestatus = 0
-            thetrade.joiner_accepted = False
-            thetrade.joiner_accepted = False
-            thetrade.initiator_accepted = False
-            app.session.commit()
-            flash("left the trade", 'has-text-primary')
-        else:
-            flash(
-                "cant leave since trade does not exist or trade has to be concluded",
-                'has-text-danger'
-            )
-            app.session.close()
-            app.pyn.close()
-            return redirect('/overviewtrades')
-    except Exception as exception:
-        flash(str(exception), 'has-text-danger')
+
+    if thetrade and thetrade.can_leave(current_user.googleid):
+        thetrade.joiner = None
+        thetrade.joined = None
+        thetrade.joinerapp = None
+        thetrade.tradestatus = 0
+        thetrade.joiner_accepted = False
+        thetrade.joiner_accepted = False
+        thetrade.initiator_accepted = False
+        app.session.commit()
+        flash("left the trade", 'has-text-primary')
+    else:
+        flash("cant leave since trade does not exist or trade has to be concluded", 'has-text-danger')
+        app.session.close()
+        app.pyn.close()
+        return redirect('/overviewtrades')
+
 
     app.session.close()
     app.pyn.close()

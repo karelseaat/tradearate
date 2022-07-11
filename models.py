@@ -65,30 +65,47 @@ class User(DictSerializableMixin):
     def can_create_trade(self):
         """if your score is height enough you can, China eat your heart out"""
         return (
-            self.get_score() - len(self.all_pending()) * self.scorepertrade
-        ) >= 0
+            self.get_score()
+            -
+            len(self.all_pending()
+        ) * self.scorepertrade) >= 0
 
     def can_join_trade(self):
         """if your score is height enough you can, China eat your heart out"""
         return (
-            self.get_score() - len(self.all_pending()) * self.scorepertrade
-        )  >= 0
+            self.get_score()
+            -
+            len(self.all_pending()
+        ) * self.scorepertrade)  >= 0
 
     def all_trade_fails(self):
         """will give you all the trades that you failed"""
-        return [x for x in set(self.initiatortrades + self.joinertrades) if x.failure]
+        return [x for x in set(
+            self.initiatortrades
+            +
+            self.joinertrades
+        ) if x.failure]
 
     def all_trade_successes(self):
         """will give you all the trades that you you sucseeded"""
-        return [x for x in set(self.initiatortrades + self.joinertrades) if x.success]
+        return [x for x in set(
+            self.initiatortrades
+            +
+            self.joinertrades
+        ) if x.success]
 
     def trade_credit(self):
-        return int(
-            ((self.get_score() - len(self.all_pending()
-        ) * 10) + 10) / self.scorepertrade)
+        return int(((
+            self.get_score()
+            -
+            len(self.all_pending())
+            *
+            10
+        ) + 10) / self.scorepertrade)
 
     def get_score(self):
-        """will calculate you trade score based on you sucseeded and failed trades"""
+        """will calculate you trade score
+        based on you sucseeded and failed trades"""
         return (
             self.bonus_score
             +
@@ -99,13 +116,15 @@ class User(DictSerializableMixin):
 
     def all_pending(self):
         """will give you all your pending trades"""
-        return [
-            x for x in set(self.initiatortrades + self.joinertrades)
-            if not x.success and not x.failure
-        ]
+        return [x for x in set(
+            self.initiatortrades
+            +
+            self.joinertrades
+        ) if not x.success and not x.failure]
 
     def all_apps(self):
-        """will get all apps in a trade to a max of two to a min of one or zero"""
+        """will get all apps in a trade
+         to a max of two to a min of one or zero"""
         return (
             [x.initiatorapp for x in self.initiatortrades]
             +
@@ -188,7 +207,8 @@ class Trade(DictSerializableMixin):
         return statuslist[self.tradestatus]
 
     def trade_days_left(self):
-        """ will return the nr of days left for a trade, counted from the moment a trade was accepted"""
+        """ will return the nr of days left for a trade,
+        counted from the moment a trade was accepted"""
         if self.success or self.failure:
             return 0
 
@@ -238,15 +258,32 @@ class Trade(DictSerializableMixin):
 
     def can_accept(self, usergoogleid):
         """will give you a true if you can accept a trade"""
-        return (self.joiner and self.initiator) and ((self.joiner.googleid is usergoogleid and not self.joiner_accepted) or (self.initiator.googleid is usergoogleid and not self.initiator_accepted and not self.accepted))
+        return (
+            (self.joiner and self.initiator)
+            and
+            (
+                (self.joiner.googleid is usergoogleid and not self.joiner_accepted)
+                or
+                (
+                    self.initiator.googleid is usergoogleid
+                    and not
+                    self.initiator_accepted and not self.accepted
+                )
+            )
+        )
 
     def can_delete(self, usergoogleid):
         """will return true if a initiator of a trade can delete that trade"""
-        return (self.initiator and self.initiator.googleid == usergoogleid) and not self.accepted
+        return (
+            self.initiator and self.initiator.googleid == usergoogleid
+        ) and not self.accepted
 
     def can_leave(self, usergoogleid):
         """will return true if a joiner of a trade can leave the trade"""
-        return (self.joiner and self.joiner.googleid == usergoogleid) and not self.accepted
+        return (
+            (self.joiner and self.joiner.googleid == usergoogleid)
+            and not self.accepted
+        )
 
     def reject_user(self, usergoogleid):
         """will reject a trade, this trade, perhaps this can be done better, why need userid ?"""
@@ -331,11 +368,13 @@ class App(DictSerializableMixin):
         return "https://play.google.com/store/apps/details?id=" + self.appidstring
 
     def all_trades(self):
-        """get all trades that are linked to this app the joined trades and the started trades"""
+        """get all trades that are linked
+        to this app the joined trades and the started trades"""
         return  self.initiatortrades + self.joinertrades
 
     def all_users(self):
-        """get all users that are linked to this app, all trade initiators and all the trade joiners"""
+        """get all users that are linked to this app,
+        all trade initiators and all the trade joiners"""
         prelist = [x.initiator for x in self.all_trades()] + [x.joiner for x in self.all_trades()]
         return [x for x in prelist if x]
 
