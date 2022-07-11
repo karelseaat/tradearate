@@ -2,6 +2,10 @@ import json
 from datetime import timedelta
 import datetime as dt
 import time
+
+import logging
+import os
+
 import requests
 from flask import (
     Flask,
@@ -32,30 +36,27 @@ from config import (
     REVIEWLIMIT,
     recaptchasecret,
     recapchasitekey,
-    domain
+    DOMAIN
 )
 
-from models import User, Trade, App, Review, Historic, Searchkey, Rankapp, association_table
-from sqlalchemy import func
-from lib.myownscraper import get_app, get_app_alt
+from models import User, Trade, App, Review, Historic
+from lib.myownscraper import get_app
 from lib.filtersort import FilterSort
 from lib.translator import PyNalator
 
-import logging
-import os
 
-dirname = "/".join(os.path.realpath(__file__).split('/')[:-1])
-dirname=dirname+"/logs"
-logging.basicConfig(filename='{}/apptest.log'.format(dirname), level=logging.INFO)
+
+DIRNAME="/".join(os.path.realpath(__file__).split('/')[:-1])+"/logs"
+logging.basicConfig(filename=f'{DIRNAME}/apptest.log', level=logging.INFO)
 
 valliappinit = Validator({
-    'appid': {'required': True, 'type': 'string', 'regex': "^.*\..*\..*$"},
+    'appid': {'required': True, 'type': 'string', 'regex': r"^.*\..*\..*$"},
     'g-recaptcha-response': {'required': True}
 })
 
 alliappjoin = Validator({
     'tradeid':{'required': True, 'type': 'string'},
-    'appid': {'required': True, 'type': 'string', 'regex': "^.*\..*\..*$"},
+    'appid': {'required': True, 'type': 'string', 'regex': r"^.*\..*\..*$"},
     'g-recaptcha-response': {'required': True}
 })
 
@@ -187,7 +188,7 @@ def before_request_func():
     }
 
     app.data = {
-        'domain': domain,
+        'DOMAIN': DOMAIN,
         'pagename': 'Unknown',
         'user': None,
         'navigation': navigation,
@@ -469,11 +470,6 @@ def processadd():
         app.pyn.close()
         return redirect('/showtrade')
 
-    # if 'ratings' not in appobj or not appobj['ratings']:
-    #     flash("at the moment there is minor trouble with google playstore, try angain later !", 'has-text-danger')
-    #     app.session.close()
-    #     app.pyn.close()
-    #     return redirect('/add')
 
     if appobj and int(appobj['ratings']) <= REVIEWLIMIT and is_human(captcha_response):
         appmodel = app.session.query(App).filter(App.appidstring==appid).first()
@@ -496,7 +492,10 @@ def processadd():
 
         return redirect(f'/show/{tradeid}')
 
-    flash(str("chapcha trouble, more than reviews, or of the process doent exist"), 'has-text-danger')
+    flash(
+        "chapcha trouble, more than reviews, or of the process doent exist",
+        'has-text-danger'
+    )
     app.session.close()
     app.pyn.close()
     return redirect('/add')
@@ -541,7 +540,10 @@ def index():
 @app.route('/help')
 @cache_for(hours=12)
 def helppage():
-    """This intro page will show the help for this webapp, perhaps an other name or url is needed ?"""
+    """
+        This intro page will show the help for this webapp,
+        perhaps an other name or url is needed ?
+    """
     app.data['pagename'] = 'Help page'
     result = render_template('helppage.html', data=app.data)
     app.session.close()
@@ -667,7 +669,7 @@ def show(tradeid):
         app.data['candelete'] = thetrade.can_delete(googleid)
         app.data['canleave'] = thetrade.can_leave(googleid)
 
-        logging.info('Date: {}'.format(app.data))
+        logging.info(f'Date: {app.data}')
 
     except Exception as exception:
         flash(str(exception), 'has-text-danger')
@@ -681,6 +683,7 @@ def show(tradeid):
 @dont_cache()
 @login_required
 def reject(tradeid):
+    """reject a trade"""
     if not tradeid.isnumeric():
         flash('Should be a number', 'has-text-danger')
         return redirect('/overviewtrades')
@@ -738,7 +741,7 @@ def accept(tradeid):
                     html= f"""
                         <p>The trade has now been accepted !</p>
                         <p>The system will now start to look for your review.</p>
-                        <p>Go to your <a href='{domain}/show/{thetrade.id}'>trade</a> to view the details and do a review of the counter app.</p>
+                        <p>Go to your <a href='{DOMAIN}/show/{thetrade.id}'>trade</a> to view the details and do a review of the counter app.</p>
                         <p>Or go to the playstore directly <a href='{thetrade.initiatorapp.get_url()}'>directly</a> to do a download and review!</p>
                     """,
                     sender="sixdots.soft@gmail.com",
@@ -753,7 +756,7 @@ def accept(tradeid):
                     html= f"""
                         <p>The trade has now been accepted !</p>
                         <p>The system will now start to look for your review.</p>
-                        <p>Go to your <a href='{domain}/show/{thetrade.id}'>trade</a> to view the details and do a review of the counter app.</p>
+                        <p>Go to your <a href='{DOMAIN}/show/{thetrade.id}'>trade</a> to view the details and do a review of the counter app.</p>
                         <p>Or go to the playstore directly <a href='{thetrade.joinerapp.get_url()}'>directly</a> to do a download and review!</p>
                     """,
                     sender="sixdots.soft@gmail.com",
@@ -879,7 +882,7 @@ def processjoin():
         msg = Message(
             'One of your app trades has been joined!',
             html= f"""
-                <p>Go to your <a href='{domain}/show/{trade.id}'>trade</a> to view the details and decide if you want to accept the trade !</p>
+                <p>Go to your <a href='{DOMAIN}/show/{trade.id}'>trade</a> to view the details and decide if you want to accept the trade !</p>
             """,
             sender="sixdots.soft@gmail.com",
             recipients=[trade.initiator.email]
@@ -891,7 +894,7 @@ def processjoin():
         msg = Message(
             'You have joined a app trade!',
             html= f"""
-                <p>Go to the <a href='{domain}/show/{trade.id}'>trade</a> to view the details and decide if you want to accept the trade !</p>
+                <p>Go to the <a href='{DOMAIN}/show/{trade.id}'>trade</a> to view the details and decide if you want to accept the trade !</p>
             """,
             sender="sixdots.soft@gmail.com",
             recipients=[trade.joiner.email]
@@ -907,7 +910,10 @@ def processjoin():
         app.pyn.close()
         return redirect(f'/show/{tradeid}', 303)
 
-    flash(str(f"chapcha trouble, more than {REVIEWLIMIT} reviews, or of the process doent exist"), 'has-text-danger')
+    flash(
+        f"chapcha trouble, more than {REVIEWLIMIT} reviews, or of the process doent exist",
+        'has-text-danger'
+    )
     app.session.close()
     app.pyn.close()
     return redirect(f"/join/{tradeid}")
@@ -934,7 +940,10 @@ def leave(tradeid):
             app.session.commit()
             flash("left the trade", 'has-text-primary')
         else:
-            flash("cant leave since trade does not exist or trade has to be concluded", 'has-text-danger')
+            flash(
+                "cant leave since trade does not exist or trade has to be concluded",
+                'has-text-danger'
+            )
             app.session.close()
             app.pyn.close()
             return redirect('/overviewtrades')

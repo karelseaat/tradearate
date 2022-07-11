@@ -1,11 +1,10 @@
 #!/usr/bin/env python
 
-import re
 import json
 import time
 from bs4 import BeautifulSoup
 import requests
-import pprint
+
 
 from google_play_scraper import app
 
@@ -17,11 +16,8 @@ def get_app(appid, country='us'):
     """My own version to get app info from the playstore page, just a scraper"""
     results = {'rating':None, 'title':None, 'icon':None, 'price':None, 'klont':'Turbo Turbo !'}
     requesturl = f"{PLAYSTOREURL}/store/apps/details?id={appid}&hl={country}"
-    print("ook")
     result = requests.get(requesturl)
-    print("mmmm")
     soup = BeautifulSoup(result.text)
-    print(124123423)
     leltext = soup.find("script", {"type" : "application/ld+json"}).text
 
     temp = json.loads(leltext)

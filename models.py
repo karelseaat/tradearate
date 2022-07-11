@@ -11,6 +11,7 @@ metadata = Base.metadata
 
 
 class DictSerializableMixin(Base):
+    """ a class that will provide a few handy tools and is used as a parent"""
     __abstract__ = True
 
     def _asdict(self):
@@ -63,11 +64,15 @@ class User(DictSerializableMixin):
 
     def can_create_trade(self):
         """if your score is height enough you can, China eat your heart out"""
-        return (self.get_score() - len(self.all_pending()) * self.scorepertrade) >= 0
+        return (
+            self.get_score() - len(self.all_pending()) * self.scorepertrade
+        ) >= 0
 
     def can_join_trade(self):
         """if your score is height enough you can, China eat your heart out"""
-        return (self.get_score() - len(self.all_pending()) * self.scorepertrade)  >= 0
+        return (
+            self.get_score() - len(self.all_pending()) * self.scorepertrade
+        )  >= 0
 
     def all_trade_fails(self):
         """will give you all the trades that you failed"""
@@ -78,12 +83,12 @@ class User(DictSerializableMixin):
         return [x for x in set(self.initiatortrades + self.joinertrades) if x.success]
 
     def trade_credit(self):
-        # print(self.get_score(), len(self.all_pending()) * 10, self.scorepertrade)
-        return int(((self.get_score() - len(self.all_pending()) * 10) + 10) / self.scorepertrade)
+        return int(
+            ((self.get_score() - len(self.all_pending()
+        ) * 10) + 10) / self.scorepertrade)
 
     def get_score(self):
         """will calculate you trade score based on you sucseeded and failed trades"""
-        # print(self.bonus_score, len(self.all_trade_successes()), (len(self.all_trade_fails()) * self.scorepertrade))
         return (
             self.bonus_score
             +
@@ -94,11 +99,18 @@ class User(DictSerializableMixin):
 
     def all_pending(self):
         """will give you all your pending trades"""
-        return [x for x in set(self.initiatortrades + self.joinertrades) if not x.success and not x.failure]
+        return [
+            x for x in set(self.initiatortrades + self.joinertrades)
+            if not x.success and not x.failure
+        ]
 
     def all_apps(self):
         """will get all apps in a trade to a max of two to a min of one or zero"""
-        return [x.initiatorapp for x in self.initiatortrades] + [x.joinerapp for x in self.joinertrades]
+        return (
+            [x.initiatorapp for x in self.initiatortrades]
+            +
+            [x.joinerapp for x in self.joinertrades]
+        )
 
     def get_url(self):
         """get the url for a trade, bit of a strange function?"""
@@ -208,9 +220,19 @@ class Trade(DictSerializableMixin):
 
     def can_reject(self, usergoogleid):
         """will give a true if you can reject a trade"""
-        if self.joiner and self.joiner.googleid is usergoogleid and self.joiner_accepted and not self.accepted:
+        if (
+            self.joiner and
+            self.joiner.googleid is usergoogleid and
+            self.joiner_accepted and not
+            self.accepted
+        ):
             return True
-        elif self.initiator and self.initiator.googleid is usergoogleid and self.initiator_accepted and not self.accepted:
+        if (
+            self.initiator and
+            self.initiator.googleid is usergoogleid and
+            self.initiator_accepted and not
+            self.accepted
+        ):
             return True
         return False
 
@@ -262,6 +284,7 @@ association_table = Table('association', Base.metadata,
 )
 
 class Rankapp(DictSerializableMixin):
+    """an sqlalchemy model for the rank of an app"""
     __tablename__ = 'rankingapp'
     id = Column(Integer, primary_key=True)
     name = Column(String(64), nullable=False)
@@ -276,6 +299,7 @@ class Rankapp(DictSerializableMixin):
     )
 
 class Searchkey(DictSerializableMixin):
+    """an sqlalchemy model for searchkeys"""
     __tablename__ = 'searchkey'
     id = Column(Integer, primary_key=True)
     searchsentence = Column(String(256), nullable=False)

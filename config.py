@@ -1,12 +1,13 @@
 
+import os
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker, scoped_session
 from models import Base
-import os
+
 
 REVIEWLIMIT = 1000
 
-domain = "trade.six-dots.app"
+DOMAIN = "trade.six-dots.app"
 
 oauthconfig = {
     'name':'google',
