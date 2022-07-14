@@ -2,8 +2,10 @@ import json
 from datetime import timedelta
 import datetime as dt
 import time
-import os
+
 import logging
+import os
+
 import requests
 from flask import (
     Flask,
@@ -34,7 +36,7 @@ from config import (
     REVIEWLIMIT,
     recaptchasecret,
     recapchasitekey,
-    domain
+    DOMAIN
 )
 
 from models import User, Trade, App, Review, Historic
@@ -43,9 +45,9 @@ from lib.filtersort import FilterSort
 from lib.translator import PyNalator
 
 
-DIR_NAME = "/".join(os.path.realpath(__file__).split('/')[:-1])
-DIR_NAME=DIR_NAME+"/logs"
-logging.basicConfig(filename=f'{DIR_NAME}/apptest.log', level=logging.INFO)
+
+DIRNAME="/".join(os.path.realpath(__file__).split('/')[:-1])+"/logs"
+logging.basicConfig(filename=f'{DIRNAME}/apptest.log', level=logging.INFO)
 
 valliappinit = Validator({
     'appid': {'required': True, 'type': 'string', 'regex': r"^.*\..*\..*$"},
@@ -186,7 +188,7 @@ def before_request_func():
     }
 
     app.data = {
-        'domain': domain,
+        'DOMAIN': DOMAIN,
         'pagename': 'Unknown',
         'user': None,
         'navigation': navigation,
@@ -491,7 +493,10 @@ def processadd():
 
         return redirect(f'/show/{tradeid}')
 
-    flash(str("chapcha trouble, more than reviews, or of the process doent exist"), 'has-text-danger')
+    flash(
+        "chapcha trouble, more than reviews, or of the process doent exist",
+        'has-text-danger'
+    )
     app.session.close()
     app.pyn.close()
     return redirect('/add')
@@ -541,7 +546,10 @@ def index():
 @app.route('/help')
 @cache_for(hours=12)
 def helppage():
-    """This intro page will show the help for this webapp, perhaps an other name or url is needed ?"""
+    """
+        This intro page will show the help for this webapp,
+        perhaps an other name or url is needed ?
+    """
     app.data['pagename'] = 'Help page'
     result = render_template('helppage.html', data=app.data)
     app.session.close()
@@ -675,6 +683,7 @@ def show(tradeid):
 @dont_cache()
 @login_required
 def reject(tradeid):
+    """reject a trade"""
     if not tradeid.isnumeric():
         flash('Should be a number', 'has-text-danger')
         return redirect('/overviewtrades')
@@ -868,7 +877,7 @@ def processjoin():
         msg = Message(
             'One of your app trades has been joined!',
             html= f"""
-                <p>Go to your <a href='{domain}/show/{trade.id}'>trade</a> to view the details and decide if you want to accept the trade !</p>
+                <p>Go to your <a href='{DOMAIN}/show/{trade.id}'>trade</a> to view the details and decide if you want to accept the trade !</p>
             """,
             sender="sixdots.soft@gmail.com",
             recipients=[trade.initiator.email]
@@ -880,7 +889,7 @@ def processjoin():
         msg = Message(
             'You have joined a app trade!',
             html= f"""
-                <p>Go to the <a href='{domain}/show/{trade.id}'>trade</a> to view the details and decide if you want to accept the trade !</p>
+                <p>Go to the <a href='{DOMAIN}/show/{trade.id}'>trade</a> to view the details and decide if you want to accept the trade !</p>
             """,
             sender="sixdots.soft@gmail.com",
             recipients=[trade.joiner.email]
@@ -896,7 +905,10 @@ def processjoin():
         app.pyn.close()
         return redirect(f'/show/{tradeid}', 303)
 
-    flash(str(f"chapcha trouble, more than {REVIEWLIMIT} reviews, or of the process doent exist"), 'has-text-danger')
+    flash(
+        f"chapcha trouble, more than {REVIEWLIMIT} reviews, or of the process doent exist",
+        'has-text-danger'
+    )
     app.session.close()
     app.pyn.close()
     return redirect(f"/join/{tradeid}")

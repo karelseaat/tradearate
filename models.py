@@ -11,6 +11,7 @@ metadata = Base.metadata
 
 
 class DictSerializableMixin(Base):
+    """ a class that will provide a few handy tools and is used as a parent"""
     __abstract__ = True
 
     def _asdict(self):
@@ -240,23 +241,16 @@ class Trade(DictSerializableMixin):
     def can_reject(self, usergoogleid):
         """will give a true if you can reject a trade"""
         if (
-            self.joiner
-            and
-            self.joiner.googleid is usergoogleid
-            and
-            self.joiner_accepted
-            and not
+            self.joiner and
+            self.joiner.googleid is usergoogleid and
+            self.joiner_accepted and not
             self.accepted
         ):
             return True
-
         if (
-            self.initiator
-            and
-            self.initiator.googleid is usergoogleid
-            and
-            self.initiator_accepted
-            and not
+            self.initiator and
+            self.initiator.googleid is usergoogleid and
+            self.initiator_accepted and not
             self.accepted
         ):
             return True
@@ -327,6 +321,7 @@ association_table = Table('association', Base.metadata,
 )
 
 class Rankapp(DictSerializableMixin):
+    """an sqlalchemy model for the rank of an app"""
     __tablename__ = 'rankingapp'
     id = Column(Integer, primary_key=True)
     name = Column(String(64), nullable=False)
@@ -341,6 +336,7 @@ class Rankapp(DictSerializableMixin):
     )
 
 class Searchkey(DictSerializableMixin):
+    """an sqlalchemy model for searchkeys"""
     __tablename__ = 'searchkey'
     id = Column(Integer, primary_key=True)
     searchsentence = Column(String(256), nullable=False)

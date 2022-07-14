@@ -6,7 +6,7 @@ from models import Base
 
 REVIEWLIMIT = 1000
 
-domain = "trade.six-dots.app"
+DOMAIN = "trade.six-dots.app"
 
 oauthconfig = {
     'name':'google',

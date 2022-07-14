@@ -2,15 +2,17 @@
 
 #Wat moet het doen
 #1 een kortnamige functie beschikbaar stellen om te gebruiken in de template
-# toevoegen van een vertaling in de default als de vertaling aangeroepen in de vertaal functie nog niet bestaat.
+# toevoegen van een vertaling in de default als de vertaling aangeroepen
+#in de vertaal functie nog niet bestaat.
 # lezen van een parameter/variable die zegt van welke vertalings file er gebruikt moet worden
 # inlezen van de fertalings files in de vorm van toml ?
 
 import os
-import toml
 import zlib
+import toml
 
 class PyNalator:
+    """register translations, saves them and enables you to add more translations"""
 
     transfile = None
     defaulttransfile = None
@@ -49,19 +51,25 @@ class PyNalator:
     def trans(self, word, location):
         """translate a strting if possible if not add to default translate"""
 
-        hash = zlib.adler32(word.encode('ascii'))
-        if hash in self.transcont:
-            return self.transcont[hash][0]
+        wordhash = zlib.adler32(word.encode('ascii'))
+        if wordhash in self.transcont:
+            return self.transcont[wordhash][0]
 
-        self.defaulttranscont.update({str(hash): (word, location._TemplateReference__context.name)})
+        self.defaulttranscont.update(
+            {str(wordhash): (word, location._TemplateReference__context.name)}
+        )
 
         return word
 
     def show(self):
+        """show the content of the default translations"""
         print(self.defaulttranscont)
 
     def close(self):
-        """write all new translations and after that close all files used, it is the end of a translation cycle"""
+        """
+        write all new translations and after that close all files used,
+        it is the end of a translation cycle
+        """
 
         if self.transfile:
             self.transfile.seek(0, 0)
